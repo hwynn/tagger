@@ -6,7 +6,10 @@ import ByteString
 
 
 detailedData = pyexiv2.ImageMetadata('/home/hwynn/Pictures/CatInBox2.jpg')
+
 print(detailedData.read()) #works
+print("test1")
+print(detailedData.exif_keys)
 #print("Exif.Image.XPKeywords") #works
 #print(type(detailedData['Exif.Image.XPKeywords'])) #works
 #print(detailedData['Exif.Image.XPKeywords']) #works
@@ -36,8 +39,10 @@ detailedData[key] = pyexiv2.ExifTag(key, value)
 
 #detailedData['Exif.Image.XPComment'] = pyexiv2.ExifTag('Exif.Image.XPComment', value)
 detailedData.write()
-
-
+keywords = detailedData['Exif.Image.XPKeywords'];
+value = ByteString.removeExifTag(keywords,'cute')
+detailedData[key] = pyexiv2.ExifTag(key, value)
+detailedData.write()
 
 #newKeywords = ByteString.freshExifTags(keywords,'cute')
 
