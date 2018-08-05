@@ -50,10 +50,28 @@ detailedData.write()
 
 #detailedData['Exif.Image.XPKeywords'] = newKeywords;
 #detailedData.write()
+detailedData = pyexiv2.ImageMetadata('/home/hwynn/Pictures/CatInBox2.jpg')
+detailedData.read()
+keywords = detailedData['Exif.Image.XPKeywords'];
+key = 'Exif.Image.XPKeywords'
+value = ByteString.freshExifTags(keywords,'cute')
+
+def addExifTag(keywords, p_tag):
+    """takes an ExifTag object and a string with a tag.
+    Returns a new ExifTag object with the new tag added to it."""
+    f_bustedTagString = pyexiv2.utils.undefined_to_string(keywords.value)
+    #print("freshExifTags. file has these tags:", stringHexTrim(f_bl))
+    if p_tag in ByteString.stringHexTrim(f_bustedTagString):
+        print("This file already has the tag \"", p_tag ,"\"", sep='')
+        value = keywords.value
+        #or we could just exit the function here
+    f_newTagString = ByteString.stringHexify(p_tag) + ";\x00" + f_bustedTagString
+    #print("freshExifTags. file will now have these tags:", stringHexTrim(f_newTagString))
+    value = pyexiv2.utils.string_to_undefined(f_newTagString)
 
 
-
-
+detailedData[key] = pyexiv2.ExifTag(key, value)
+detailedData.write()
 #print("\x00") #prints rectangel
 print()
 #pyexiv2.utils.string_to_undefined((keywords.value))

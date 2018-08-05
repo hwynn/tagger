@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import pyexiv2
+import ByteString
 
 # ------edit title metadata
 def hasAnyTitle(p_filename):
@@ -122,14 +123,21 @@ def hasAnyTags(p_filename):
     # print("this file has no tag data")
     return False
 
-def hasTags(p_filename, x):
+def hasTags(p_filename, p_tag):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
         raise Exception(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
-    return
+    f_metaData = pyexiv2.ImageMetadata(p_filename)
+    f_metaData.read()
+    f_keywords = f_metaData['Exif.Image.XPKeywords'];
+    f_bustedTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+    if p_tag in ByteString.stringHexTrim(f_bustedTagString):
+        #print("This file already has the tag \"", p_tag ,"\"", sep='')
+        return True
+    return False
 
 def getTags(p_filename):
     if len(p_filename) < 5:
@@ -149,13 +157,38 @@ def setTags(p_filename, x):
     # TODO
     return
 
-def addTag(p_filename, x):
+def addTag(p_filename, p_tag):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
         raise Exception(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
+
+    f_metaData = pyexiv2.ImageMetadata(p_filename)
+    f_metaData.read()
+    f_keywords = f_metaData['Exif.Image.XPKeywords'];
+    key = 'Exif.Image.XPKeywords'
+    f_bustedTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+    # print("freshExifTags. file has these tags:", stringHexTrim(f_bl))
+    if p_tag in ByteString.stringHexTrim(f_bustedTagString):
+        print("This file already has the tag \"", p_tag, "\"", sep='')
+        return
+        # or we could just exit the function here
+    f_newTagString = ByteString.stringHexify(p_tag) + ";\x00" + f_bustedTagString
+    # print("freshExifTags. file will now have these tags:", stringHexTrim(f_newTagString))
+    value = pyexiv2.utils.string_to_undefined(f_newTagString)
+    f_metaData[key] = pyexiv2.ExifTag(key, value)
+    f_metaData.write()
+    return
+    
+    
+    
+    
+    
+    
+    
+    
     return
 
 def removeTag(p_filename):
