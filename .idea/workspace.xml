@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ByteString.py" beforeDir="false" afterPath="$PROJECT_DIR$/ByteString.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CatInBox1.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/CatInBox2.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/JumpingFrog.jpg" beforeDir="false" />
@@ -25,14 +24,14 @@
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.22" value="1" />
-          <entry key="project.open.time.23" value="1" />
+          <entry key="project.open.time.23" value="2" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.26" value="1" />
-          <entry key="project.open.time.28" value="2" />
+          <entry key="project.open.time.28" value="3" />
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.30" value="1" />
           <entry key="project.open.time.38" value="1" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -48,14 +47,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="4103" />
-          <entry key="txt" value="108" />
+          <entry key="py" value="6401" />
+          <entry key="txt" value="233" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="108" />
-          <entry key="Python" value="4102" />
+          <entry key="PLAIN_TEXT" value="233" />
+          <entry key="Python" value="6400" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
@@ -66,7 +65,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/checkMeta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
+            <state relative-caret-position="840">
               <caret line="58" column="23" selection-start-line="58" selection-start-column="15" selection-end-line="58" selection-end-column="23" />
               <folding>
                 <element signature="e#46#61#0" expanded="true" />
@@ -77,18 +76,14 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ByteString.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="25" column="17" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="17" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TestingWget.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+            <state relative-caret-position="135">
+              <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="57" />
               <folding>
                 <element signature="e#23#34#0" expanded="true" />
               </folding>
@@ -99,11 +94,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="131" column="36" selection-start-line="131" selection-start-column="23" selection-end-line="131" selection-end-column="36" />
+            <state relative-caret-position="353">
+              <caret line="350" column="8" lean-forward="true" selection-start-line="350" selection-start-column="8" selection-end-line="350" selection-end-column="8" />
               <folding>
-                <element signature="e#23#37#0" expanded="true" />
-                <marker date="1533608677927" expanded="true" signature="17855:18203" ph="..." />
+                <marker date="1533678901191" expanded="false" signature="21799:22147" ph="..." />
               </folding>
             </state>
           </provider>
@@ -112,12 +106,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestingManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="95" column="72" selection-start-line="95" selection-start-column="72" selection-end-line="95" selection-end-column="72" />
+            <state relative-caret-position="211">
+              <caret line="254" lean-forward="true" selection-start-line="254" selection-end-line="254" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
-                <marker date="1533608734182" expanded="true" signature="1406:1407" ph="..." />
-                <marker date="1533608734182" expanded="true" signature="2827:2829" ph="..." />
+                <element signature="e#2113#2362#0" />
+                <element signature="e#2394#2599#0" />
+                <element signature="e#2610#2857#0" />
+                <element signature="e#2882#3114#0" />
+                <element signature="e#3137#3379#0" />
+                <element signature="e#3405#3651#0" />
+                <element signature="e#3712#4156#0" />
+                <element signature="e#4214#4706#0" />
+                <element signature="e#4763#5884#0" />
+                <element signature="e#5942#6592#0" />
+                <element signature="e#6655#7525#0" />
+                <element signature="e#7584#8454#0" />
+                <element signature="e#8489#9073#0" />
+                <marker date="1533680725580" expanded="true" signature="3744:4863" ph="..." />
+                <marker date="1533680725580" expanded="true" signature="9653:9693" ph="..." />
               </folding>
             </state>
           </provider>
@@ -134,16 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>hexTrim</find>
-      <find>:</find>
-      <find>modular</find>
-      <find>furry</find>
-      <find>detachable head</find>
-      <find>(x)</find>
-      <find>hasAny</find>
-      <find>\n\n\n</find>
-      <find>ByteString</find>
-      <find>print</find>
       <find>toList</find>
       <find>2List</find>
       <find>keywords</find>
@@ -160,6 +157,20 @@
       <find>listHexTrim</find>
       <find>stringHexTrim</find>
       <find>busted</find>
+      <find>ByteString</find>
+      <find>ByteString.</find>
+      <find>f_metadata.read()</find>
+      <find>outpath</find>
+      <find>pictureTags</find>
+      <find>googlePictures</find>
+      <find>picID</find>
+      <find>insert</find>
+      <find>FAILED</find>
+      <find>f_newTag</find>
+      <find>PASSED</find>
+      <find>g_pictureTags</find>
+      <find>tagSetTest</find>
+      <find>g_pictureHasTags</find>
     </findStrings>
     <replaceStrings>
       <replace>cat</replace>
@@ -173,7 +184,12 @@
       <replace>Title</replace>
       <replace>\n\n</replace>
       <replace>f_keywords</replace>
+      <replace>g_outpath</replace>
       <replace>dirty</replace>
+      <replace>g_pictureTags</replace>
+      <replace>g_</replace>
+      <replace>g_googlePictures</replace>
+      <replace>f_removeThisTag</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -377,19 +393,26 @@
       <option name="project" value="LOCAL" />
       <updated>1533427550944</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="new functions for extracting and decoding tag metadata strings">
+      <created>1533608895646</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1533608895646</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1533" height="771" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11523179" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.11523179" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49403974" visible="true" weight="0.31669268" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32917318" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49403974" weight="0.31669268" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -416,7 +439,7 @@
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5059603" side_tool="true" visible="true" weight="0.31669268" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5059603" side_tool="true" weight="0.31669268" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -426,8 +449,10 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Created a testingManager and I can now download pictures freshly for testing then delete them." />
-    <option name="LAST_COMMIT_MESSAGE" value="Created a testingManager and I can now download pictures freshly for testing then delete them." />
+    <MESSAGE value="new functions for extracting and decoding tag metadata strings" />
+    <option name="LAST_COMMIT_MESSAGE" value="new functions for extracting and decoding tag metadata strings" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/ByteString2.py">
@@ -462,9 +487,16 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils.py" />
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-2066100795/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="476" lean-forward="true" selection-start-line="476" selection-end-line="476" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/checkMeta.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
+        <state relative-caret-position="840">
           <caret line="58" column="23" selection-start-line="58" selection-start-column="15" selection-end-line="58" selection-end-column="23" />
           <folding>
             <element signature="e#46#61#0" expanded="true" />
@@ -473,23 +505,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ByteString.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="25" column="17" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-2066100795/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="476" lean-forward="true" selection-start-line="476" selection-end-line="476" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/TestingWget.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        <state relative-caret-position="135">
+          <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="57" />
           <folding>
             <element signature="e#23#34#0" expanded="true" />
           </folding>
@@ -498,23 +519,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="131" column="36" selection-start-line="131" selection-start-column="23" selection-end-line="131" selection-end-column="36" />
+        <state relative-caret-position="353">
+          <caret line="350" column="8" lean-forward="true" selection-start-line="350" selection-start-column="8" selection-end-line="350" selection-end-column="8" />
           <folding>
-            <element signature="e#23#37#0" expanded="true" />
-            <marker date="1533608677927" expanded="true" signature="17855:18203" ph="..." />
+            <marker date="1533678901191" expanded="false" signature="21799:22147" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TestingManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="95" column="72" selection-start-line="95" selection-start-column="72" selection-end-line="95" selection-end-column="72" />
+        <state relative-caret-position="211">
+          <caret line="254" lean-forward="true" selection-start-line="254" selection-end-line="254" />
           <folding>
             <element signature="e#23#32#0" expanded="true" />
-            <marker date="1533608734182" expanded="true" signature="1406:1407" ph="..." />
-            <marker date="1533608734182" expanded="true" signature="2827:2829" ph="..." />
+            <element signature="e#2113#2362#0" />
+            <element signature="e#2394#2599#0" />
+            <element signature="e#2610#2857#0" />
+            <element signature="e#2882#3114#0" />
+            <element signature="e#3137#3379#0" />
+            <element signature="e#3405#3651#0" />
+            <element signature="e#3712#4156#0" />
+            <element signature="e#4214#4706#0" />
+            <element signature="e#4763#5884#0" />
+            <element signature="e#5942#6592#0" />
+            <element signature="e#6655#7525#0" />
+            <element signature="e#7584#8454#0" />
+            <element signature="e#8489#9073#0" />
+            <marker date="1533680725580" expanded="true" signature="3744:4863" ph="..." />
+            <marker date="1533680725580" expanded="true" signature="9653:9693" ph="..." />
           </folding>
         </state>
       </provider>
