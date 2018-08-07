@@ -64,6 +64,11 @@ g_googlePictures = {'squirrel': '1ZHDchSv9RMxJmdVeepJvvOtTx4T4am3U',
                     "titanmeme": "1kRybASv2UVde5wMitn_j1i4x3LklIh6s"}
 
 
+
+
+#===========================================================================
+#----------------------Tag Metadata Test functions--------------------------
+#===========================================================================
 g_pictureTags = {'squirrel': ['squirrel'],
                  'cat': [],
                  'boxcat': ['cat', 'animals', 'cat in a box'],
@@ -247,15 +252,18 @@ def useageCheck(p_filename):
     return
 
 
-# g_picID = g_googlePictures["boxcat"]
-# g_filename = getGoogleDrivePicture(g_picID, g_outpath)
-# print(g_filename)
-# useageCheck(g_filename)
-# os.remove(g_filename)
 
+
+
+
+#===========================================================================
+#-----Tag Metadata Tests. Successful for CatInBox.jpg-----------------------
+#===========================================================================
+"""
 hasAnyTagsTest("boxcat")
 hasTagsTest("boxcat")
 tagGetTest("boxcat")  # test passed
 tagSetTest("boxcat", ["mammal", "feline"])
 tagAddTest("boxcat")
 tagRemoveTest("boxcat")
+"""
