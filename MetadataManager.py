@@ -1,11 +1,126 @@
 #!/usr/bin/env python3
 import pyexiv2
 
+#-------These are the exceptions that can be thrown
+#reasons we might throw an error:
+# 1. File not found
+# this should already exist as FileNotFoundError
+
+# 2. Unrecognized filetype (or no filetype)
+class UnknownFiletypeError(ValueError): pass
+
+# 3. Unsupported filetype
+class UnsupportedFiletypeError(ValueError): pass
+
+# 4. Support not yet implemented
+# This exception will occur in cases of acceptable use
+# but the functionality is not yet complete.
+class OutOfRangeError(NotImplementedError): pass
+
+# 5. File does not have this data.
+# Used when we want to remove metadata but none is present.
+class MetadataMissingError(ValueError): pass
+
+
+#-------string cleaning utility functions
+def listHexTrim(p_rawList):
+    # Takes a freshly translated string list and
+    # trims the '\x00' ends off all the strings
+    print("listHexTrim(", p_rawList, ")")
+    return [x.replace('\x00', '') for x in p_rawList]
+def dirtyStr2cleanStr(p_bustedTags):
+    f_tags = ""
+    for y in [x.replace('\x00', '') for x in p_bustedTags]:
+        if y != '':
+            f_tags += y
+    return f_tags
+def stringHexify(p_newtag):
+    f_bustedTag = ""
+    for x in p_newtag:
+        f_bustedTag += x
+        f_bustedTag += '\x00'
+    return f_bustedTag
+def dirtyStr2cleanList(p_dirtyTagStr):
+    # Takes a semicolon-delimited list of tags
+    # represented by a dirty (\x00 filled) string.
+    # This function returns a list of tags
+    # represented by clean strings
+    f_dirtyTagList = p_dirtyTagStr.split(';')
+    # print("dirtyStr2cleanList(): f_dirtyTagList", f_dirtyTagList)
+    f_cleanTagList = [dirtyStr2cleanStr(x) for x in f_dirtyTagList]
+    # print("dirtyStr2cleanList(): f_cleanTagList", f_cleanTagList)
+    return f_cleanTagList
+def cleanList2dirtyStr(p_cleanTagList):
+    # Takes a list of tags
+    # represented by clean strings.
+    # This function returns a semicolon-delimited list of tags
+    # represented by a dirty (\x00 filled) string.
+    f_dirtyTagList = [stringHexify(x) for x in p_cleanTagList]
+    # print("cleanList2dirtyStr(): f_dirtyTagList", f_dirtyTagList)
+    f_dirtyTagString = ";\x00".join(f_dirtyTagList) + "\x00\x00"
+    # print("cleanList2dirtyStr(): f_dirtyTagString", f_dirtyTagString)
+    return f_dirtyTagString
+#-------stashing utility functions
+"""Note: 'stashing' is a term I ade up
+which refers to storing several types of 
+metadata into a single large string.
+This should let us store a variety of
+metadata in file types that only have 
+a few metadata tags"""
+def containsStash(p_filename):
+    # checks if we have added a stash string
+    # at all. Returns bool
+    # TODO
+    return
+def getStashIndex(p_filename):
+    # assuming containsStash() is true
+    # returns a list of the metadata
+    # similar to: metadata.exif_keys
+    # TODO
+    return
+def searchStashIndex(p_filename, p_key):
+    # assuming containsStash() is true
+    # this function checks whether or not
+    # a type of metadata is present in
+    # the stash index and the stash string
+    #returns bool
+    return
+def addItemToStashIndex(p_filename, p_key):
+    # assuming searchStashIndex() returns false
+    # this function adds a new kind of metadata
+    # to the stash string. Only certain values of p_key
+    # are allowed to keep metadata consistent across filetypes
+    # this also adds a blank metadata entry to the stash string
+    # TODO
+    return
+def removeItemFromStashIndex(p_filename, p_key):
+    # assuming searchStashIndex() returns true
+    # this function removes a type of metadata
+    # from the stash string and the stash index
+    # TODO
+    return
+def setStashData(p_filename, p_key, p_value):
+    # assuming searchStashIndex() returns true
+    # this function stores data of a given type
+    # into the appropriate place in the stash string
+    # note: this will completely rewrite a type of stash data
+    # there is no addStashData function. That must be done
+    # by the individual metadata functions
+    # TODO
+    return
+def getStashData(p_filename, p_key):
+    # assuming searchStashIndex() returns true
+    # this function returns the value of the given
+    # metadata type as a string.
+    # the individual metadata functions
+    # are responsible for parsing this string
+    # TODO
+    return
 # ------edit title metadata
 def containsTitle(p_filename):
-	"""This will tell us if the file
-	has any title metadata.
-	Returns bool"""
+    # This will tell us if the file
+    # has any title metadata.
+    # Returns bool
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
@@ -19,8 +134,6 @@ def containsTitle(p_filename):
         return True
     # print("this file has no title data")
     return False
-
-
 def getTitle(p_filename):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -29,8 +142,6 @@ def getTitle(p_filename):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def setTitle(p_filename, y):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -39,8 +150,6 @@ def setTitle(p_filename, y):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def searchTitle(p_filename, y):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -49,8 +158,6 @@ def searchTitle(p_filename, y):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def removeTitle(p_filename):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -59,122 +166,148 @@ def removeTitle(p_filename):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 # ------edit artist metadata
-def containsArtist(p_filename):
-	"""This will tell us if the file
-	has any artist metadata.
-	Returns bool"""
+def containsArtists(p_filename):
+	# This will tell us if the file
+	# has any artist metadata.
+	# Returns bool
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
         raise Exception(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
-    f_metadata = pyexiv2.ImageMetadata(p_filename)
-    f_metadata.read()
-    # TODO add png support
-    if ((p_filename[-4:] == '.jpg') and ('Exif.Image.Artist' in f_metadata.exif_keys)):
-        # print("this file already has artist data")
-        return True
-    # print("this file has no artist data")
+    if (p_filename[-4:] == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        if ('Exif.Image.XPAuthor' in f_metadata.exif_keys):
+            # print("this file already has artist data")
+            return True
+        # print("this file has no artist data")
+        return False
+    else:
+        # TODO add png and gif support
+        return False
     return False
-
-
-def getArtist(p_filename):
+def getArtists(p_filename):
+    # returns list of artists
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
         raise Exception(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
-    # TODO
-    return
-
-
-def setArtist(p_filename, y):
+    if (p_filename[-4:] == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsArtists(p_filename):
+            return []
+        f_keywords = f_metadata['Exif.Image.XPAuthor']
+        f_dirtyArtistString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        # print("getArtists() f_dirtyArtistString\t\t", f_dirtyArtistString)
+        f_cleanArtistList = dirtyStr2cleanList(f_dirtyArtistString)
+        # print("getArtists() f_cleanArtistList\t\t", f_cleanArtistList)
+        return f_cleanArtistList
+    else:
+        # TODO add png and gif support
+        # TODO error check: does this file have artist data?
+        return []
+    return []
+def setArtists(p_filename, p_cleanArtistList):
+    # Instead of appending a new artist to the list of artists already present
+    # This function replaces all artists with the list of artists provided as p_cleanArtistList.
+    # Use this function with caution. Because.. you know. It wipes your artists.
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
         raise Exception(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
-    # TODO
-    return
-
-
-def searchArtist(p_filename, y):
+    if (p_filename[-4:] == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_key = 'Exif.Image.XPAuthor'
+        # print(f_metadata.exif_keys)
+        f_dirtyArtistString = cleanList2dirtyStr(p_cleanArtistList)
+        # print("setArtists() f_dirtyArtistString\t\t", f_dirtyArtistString)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString)
+        f_metadata[f_key] = pyexiv2.ExifArtist(f_key, f_value)
+        f_metadata.write()
+        return True
+    else:
+        # TODO add png and gif support
+        return True
+def searchArtists(p_filename, p_artist):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
         raise Exception(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
-    # TODO
-    return
-
-
-def removeArtist(p_filename, y):
+    if (p_filename[-4:] == '.jpg'):
+        f_metaData = pyexiv2.ImageMetadata(p_filename)
+        f_metaData.read()
+        if not containsArtists(p_filename):
+            return False
+        f_keywords = f_metaData['Exif.Image.XPAuthor']
+        f_bustedArtistString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        # Note: the conditions for finding an artist are very relaxed.
+        # We're only searching for a substring.
+        # so if an artist entry is "composer: Sarah Sharp"
+        # searches for: "composer", "Sarah Sharp", "Sarah", "sharp", and "Sar"
+        # will all return true.
+        # Perhaps a strictSearchArtists() function is needed
+        f_found = False
+        for i_artist in dirtyStr2cleanList(f_bustedArtistString):
+            if p_artist.lower in i_artist.lower:
+                f_found = True
+                break
+        return f_found
+    else:
+        # TODO add png and gif support
+        # TODO error check: does this file have artist data?
+        return False
+    return False
+def removeArtist(p_filename, p_artist):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
         raise Exception(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
-    # TODO
-    return
-
-
+    if (p_filename[-4:] == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsArtists(p_filename):
+            raise Exception(
+                'The file \'{}\' does not contain any artist data \n This operation cannot be performed'.format(
+                    p_filename))
+        f_keywords = f_metadata['Exif.Image.XPAuthor']
+        f_key = 'Exif.Image.XPAuthor'
+        f_dirtyArtistString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        print("removeArtist() f_dirtyArtistString\t\t", f_dirtyArtistString)
+        f_cleanArtistList = dirtyStr2cleanList(f_dirtyArtistString)
+        print("removeArtist() f_cleanArtistList\t\t", f_cleanArtistList)
+        # Note: unlike in searchArtist(), removeArtist() requires the full exact
+        # artist entry in the list to allow the removal to proceed
+        if p_artist not in f_cleanArtistList:
+            raise Exception(
+                'The file \'{}\' does not contain the artist \'{}\' \n This operation cannot be performed'.format(
+                    p_filename, p_artist))
+        f_cleanArtistList.remove(p_artist)
+        f_dirtyArtistString2 = cleanList2dirtyStr(f_cleanArtistList)
+        print("removeArtist() f_dirtyArtistString2\t\t", f_dirtyArtistString2)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
+        f_metadata[f_key] = pyexiv2.ExifArtist(f_key, f_value)
+        f_metadata.write()
+        return True
+    else:
+        # TODO add png and gif support
+        # TODO error check: does this file have artist data?
+        return True
+    return False
 # -----edit tag metadata
-
-
-def listHexTrim(p_rawList):
-    """Takes a freshly translated string list and
-    trims the '\x00' ends off all the strings"""
-    print("listHexTrim(", p_rawList, ")")
-    return [x.replace('\x00', '') for x in p_rawList]
-
-
-def stringHexTrim(p_bustedTags):
-    f_tags = ""
-    for y in [x.replace('\x00', '') for x in p_bustedTags]:
-        if y != '':
-            f_tags += y
-    return f_tags
-
-
-def stringHexify(p_newtag):
-    f_bustedTag = ""
-    for x in p_newtag:
-        f_bustedTag += x
-        f_bustedTag += '\x00'
-    return f_bustedTag
-
-
-def dirtyStr2cleanList(p_dirtyTagStr):
-    """Takes a semicolon-delimited list of tags
-    represented by a dirty (\x00 filled) string.
-    This function returns a list of tags
-    represented by clean strings"""
-    f_dirtyTagList = p_dirtyTagStr.split(';')
-    # print("dirtyStr2cleanList(): f_dirtyTagList", f_dirtyTagList)
-    f_cleanTagList = [stringHexTrim(x) for x in f_dirtyTagList]
-    # print("dirtyStr2cleanList(): f_cleanTagList", f_cleanTagList)
-    return f_cleanTagList
-
-
-def cleanList2dirtyStr(p_cleanTagList):
-    """Takes a list of tags
-    represented by clean strings.
-    This function returns a semicolon-delimited list of tags
-    represented by a dirty (\x00 filled) string."""
-    f_dirtyTagList = [stringHexify(x) for x in p_cleanTagList]
-    # print("cleanList2dirtyStr(): f_dirtyTagList", f_dirtyTagList)
-    f_dirtyTagString = ";\x00".join(f_dirtyTagList) + "\x00\x00"
-    # print("cleanList2dirtyStr(): f_dirtyTagString", f_dirtyTagString)
-    return f_dirtyTagString
-
-
 def containsTags(p_filename):
-	"""This will tell us if the file
-	has any tag metadata.
-	Returns bool"""
+	# This will tell us if the file
+	# has any tag metadata.
+	# Returns bool
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
@@ -192,8 +325,6 @@ def containsTags(p_filename):
         # TODO add png and gif support
         return False
     return False
-
-
 def getTags(p_filename):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -217,12 +348,10 @@ def getTags(p_filename):
         # TODO error check: does this file have tag data?
         return []
     return []
-
-
 def setTags(p_filename, p_cleanTagList):
-    """Instead of appending a new tag to the list of tags already present
-    This function replaces all tags with the list of tags provided as p_cleanTagList.
-    Use this function with caution. Because.. you know. It wipes your tags."""
+    # Instead of appending a new tag to the list of tags already present
+    # This function replaces all tags with the list of tags provided as p_cleanTagList.
+    # Use this function with caution. Because.. you know. It wipes your tags.
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
@@ -242,8 +371,6 @@ def setTags(p_filename, p_cleanTagList):
     else:
         # TODO add png and gif support
         return True
-
-
 def searchTags(p_filename, p_tag):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -257,8 +384,9 @@ def searchTags(p_filename, p_tag):
             return False
         f_keywords = f_metaData['Exif.Image.XPKeywords']
         f_bustedTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        if p_tag in stringHexTrim(f_bustedTagString):
-            # print("This file already has the tag \"", p_tag ,"\"", sep='')
+        # Note: these are strict searches. They are case sensative
+        # non case sensative searches may require longer execution time
+        if p_tag in dirtyStr2cleanList(f_bustedTagString):
             return True
         return False
     else:
@@ -266,8 +394,6 @@ def searchTags(p_filename, p_tag):
         # TODO error check: does this file have tag data?
         return False
     return False
-
-
 def addTag(p_filename, p_tag):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -306,8 +432,6 @@ def addTag(p_filename, p_tag):
         # TODO error check: does this file have tag data?
         return True
     return False
-
-
 def removeTag(p_filename, p_tag):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -344,14 +468,11 @@ def removeTag(p_filename, p_tag):
         # TODO error check: does this file have tag data?
         return True
     return False
-
-
 # -------edit description metadata
-
 def containsDescr(p_filename):
-	"""This will tell us if the file
-	has any description metadata.
-	Returns bool"""
+	# This will tell us if the file
+	# has any description metadata.
+	# Returns bool
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
@@ -365,8 +486,6 @@ def containsDescr(p_filename):
         return True
     # print("this file has no description data")
     return False
-
-
 def getDescr(p_filename):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -375,8 +494,6 @@ def getDescr(p_filename):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def setDescr(p_filename, x):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -385,8 +502,6 @@ def setDescr(p_filename, x):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-	
-
 def searchDescr(p_filename, x):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -395,8 +510,6 @@ def searchDescr(p_filename, x):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def addDescr(p_filename, x):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -405,8 +518,6 @@ def addDescr(p_filename, x):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def removeDescr(p_filename):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -415,14 +526,11 @@ def removeDescr(p_filename):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 # ------edit rating metadata
-
 def containsRating(p_filename):
-	"""This will tell us if the file
-	has any rating metadata.
-	Returns bool"""
+	# This will tell us if the file
+	# has any rating metadata.
+	# Returns bool
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
@@ -436,8 +544,6 @@ def containsRating(p_filename):
         return True
     # print("this file has no rating data")
     return False
-
-
 def getRating(p_filename):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -446,8 +552,6 @@ def getRating(p_filename):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def setRating(p_filename, x):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -456,8 +560,6 @@ def setRating(p_filename, x):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def searchRating(p_filename, x):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -466,15 +568,11 @@ def searchRating(p_filename, x):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
-
 # ------edit metadata that can store source url
-
 def containsSrc(p_filename):
-	"""This will tell us if the file
-	has any source url metadata.
-	Returns bool"""
+	# This will tell us if the file
+	# has any source url metadata.
+	# Returns bool
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png':
@@ -488,8 +586,6 @@ def containsSrc(p_filename):
         return True
     # print("this file has no history/source data")
     return False
-
-
 def getSrc(p_filename):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -498,8 +594,6 @@ def getSrc(p_filename):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def addSrc(p_filename, x):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -508,8 +602,6 @@ def addSrc(p_filename, x):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def searchSrc(p_filename, x):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -518,15 +610,11 @@ def searchSrc(p_filename, x):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
-
 # -------edit orginal date
-
 def containsOrgDate(p_filename):
-	"""This will tell us if the file
-	has any original date metadata.
-	Returns bool"""
+	# This will tell us if the file
+	# has any original date metadata.
+	# Returns bool
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     # TODO add png support
@@ -535,8 +623,6 @@ def containsOrgDate(p_filename):
         return True
     # print("this file has no original date data")
     return False
-
-
 def getOrgDate(p_filename):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -545,8 +631,6 @@ def getOrgDate(p_filename):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def setOrgDate(p_filename, x):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
@@ -555,8 +639,6 @@ def setOrgDate(p_filename, x):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png'.format(p_filename))
     # TODO
     return
-
-
 def searchOrgDate(p_filename, x):
     if len(p_filename) < 5:
         raise Exception('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
