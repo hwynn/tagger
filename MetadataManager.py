@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 import pyexiv2
+import os
+from pathlib import PurePosixPath
+from pathlib import PureWindowsPath
 
 #-------These are the exceptions that can be thrown
 #reasons we might throw an error:
@@ -32,12 +35,25 @@ class DuplicateDataError(ValueError):
     or something similar to a list and the list already has that item"""
     pass
 
+#both of these are used for setRating
+class OutOfRangeError(ValueError): pass
+class NotIntegerError(ValueError): pass
+
+def getExtension(p_filepathname):
+    #this lets us extract file extensions
+    #regardless of operating system
+    if os.name == 'nt':
+        #this filepath is from windows
+        return PureWindowsPath(p_filepathname).suffix
+    #assume posix otherwise
+    return PurePosixPath(p_filepathname).suffix
+
 def filecheck(p_filename):
     #this function checks the type of the file, and raises an exception
     #if the filetype is not recognized
     if len(p_filename) < 5:
         raise UnknownFiletypeError('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
-    if p_filename[-4:] != '.jpg' and p_filename[-4:] != '.png' and p_filename[-4:] != '.gif':
+    if getExtension(p_filename) != '.jpg' and getExtension(p_filename) != '.png' and getExtension(p_filename) != '.gif':
         raise UnsupportedFiletypeError(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_filename))
     return
@@ -47,7 +63,7 @@ def earlySupportCheck(p_filename):
     # it will raise an exception if this type of file should be supported
     # but that support has not yet been implemented
     # Used for png and gif
-    if p_filename[-4:] == '.png' or p_filename[-4:] == '.gif':
+    if getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
         raise SupportNotImplementedError('Sorry. This operation not ready to support .png or .gif files yet.')
     return
 
@@ -56,11 +72,9 @@ def alpha1SupportCheck(p_filename):
     # it will raise an exception if this type of file should be supported
     # but that support has not yet been implemented
     # Used for png and gif
-    if p_filename[-4:] == '.jpg' or p_filename[-4:] == '.png' or p_filename[-4:] == '.gif':
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
         raise SupportNotImplementedError('Sorry. This operation is not ready for anything.')
     return
-
-
 
 #-------string cleaning utility functions
 def listHexTrim(p_rawList):
@@ -74,7 +88,7 @@ def dirtyStr2cleanStr(p_bustedTags):
         if y != '':
             f_tags += y
     return f_tags
-def stringHexify(p_newtag):
+def cleanStr2dirtyStr(p_newtag):
     f_bustedTag = ""
     for x in p_newtag:
         f_bustedTag += x
@@ -95,13 +109,13 @@ def cleanList2dirtyStr(p_cleanTagList):
     # represented by clean strings.
     # This function returns a semicolon-delimited list of tags
     # represented by a dirty (\x00 filled) string.
-    f_dirtyTagList = [stringHexify(x) for x in p_cleanTagList]
+    f_dirtyTagList = [cleanStr2dirtyStr(x) for x in p_cleanTagList]
     # print("cleanList2dirtyStr(): f_dirtyTagList", f_dirtyTagList)
     f_dirtyTagString = ";\x00".join(f_dirtyTagList) + "\x00\x00"
     # print("cleanList2dirtyStr(): f_dirtyTagString", f_dirtyTagString)
     return f_dirtyTagString
 #-------stashing utility functions
-"""Note: 'stashing' is a term I ade up
+"""Note: 'stashing' is a term I made up
 which refers to storing several types of 
 metadata into a single large string.
 This should let us store a variety of
@@ -167,30 +181,89 @@ def containsTitle(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     # TODO add png support
-    if ((p_filename[-4:] == '.jpg') and ('Exif.Image.XPTitle' in f_metadata.exif_keys)):
+    earlySupportCheck(p_filename)
+    if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.XPTitle' in f_metadata.exif_keys)):
         # print("this file already has title data")
         return True
     # print("this file has no title data")
     return False
 def getTitle(p_filename):
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
-def setTitle(p_filename, y):
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsTitle(p_filename):
+            return ""
+        f_keywords = f_metadata['Exif.Image.XPTitle']
+        f_dirtyTitleString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        #print("dirty Title:", f_dirtyTitleString)
+        f_cleanTitle = dirtyStr2cleanStr(f_dirtyTitleString)
+        #print("clean Title:", f_cleanTitle)
+        return f_cleanTitle
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have Title data?
+        return ""
+    return ""
+def setTitle(p_filename, p_setTitleToThis):
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
+    if (getExtension(p_filename) == '.jpg'):
+        f_key = 'Exif.Image.XPTitle'
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_dirtyString = cleanStr2dirtyStr(p_setTitleToThis)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyString)
+        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+        f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        return
     return
-def searchTitle(p_filename, y):
+def searchTitle(p_filename, p_searchForThis):
     filecheck(p_filename)
-    # TODO
-    return
-def removeTitle(p_filename):
-	#considering renaming the function wipeTitle(p_filename)
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsTitle(p_filename):
+            return False
+        f_keywords = f_metadata['Exif.Image.XPTitle']
+        f_dirtyTitleString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        f_cleanTitle = dirtyStr2cleanStr(f_dirtyTitleString)
+        #Note: Title does not need to be entire search term to return true
+        if p_searchForThis in f_cleanTitle:
+            return True
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have Title data?
+        return False
+    return False
+def wipeTitle(p_filename):
+    # considering renaming the function wipeTitle(p_filename)
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
+    if (getExtension(p_filename) == '.jpg'):
+        f_key = 'Exif.Image.XPTitle'
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        if not containsTitle(p_filename):
+            raise MetadataMissingError("there is no description to remove")
+        f_dirtyString = cleanStr2dirtyStr(" ")
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyString)
+        # we set the value to (almost) nothing before removing the key just in case the values stick around
+        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+        f_metadata.write()
+        f_metadata.__delitem__(f_key)
+        f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        return
     return
 # ------edit artist metadata
 def containsArtists(p_filename):
@@ -198,7 +271,7 @@ def containsArtists(p_filename):
 	# has any artist metadata.
 	# Returns bool
     filecheck(p_filename)
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         if ('Exif.Image.XPAuthor' in f_metadata.exif_keys):
@@ -213,7 +286,7 @@ def containsArtists(p_filename):
 def getArtists(p_filename):
     # returns list of artists
     filecheck(p_filename)
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -236,7 +309,7 @@ def setArtists(p_filename, p_cleanArtistList):
     # This function replaces all artists with the list of artists provided as p_cleanArtistList.
     # Use this function with caution. Because.. you know. It wipes your artists.
     filecheck(p_filename)
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         f_key = 'Exif.Image.XPAuthor'
@@ -254,7 +327,7 @@ def setArtists(p_filename, p_cleanArtistList):
 def searchArtists(p_filename, p_artist):
     filecheck(p_filename)
 
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metaData = pyexiv2.ImageMetadata(p_filename)
         f_metaData.read()
         if not containsArtists(p_filename):
@@ -284,7 +357,7 @@ def addArtist(p_filename, p_artist):
 	
 def removeArtist(p_filename, p_artist):
     filecheck(p_filename)
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -323,7 +396,7 @@ def containsTags(p_filename):
 	# has any tag metadata.
 	# Returns bool
     filecheck(p_filename)
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         if ('Exif.Image.XPKeywords' in f_metadata.exif_keys):
@@ -337,7 +410,7 @@ def containsTags(p_filename):
     return False
 def getTags(p_filename):
     filecheck(p_filename)
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -360,7 +433,7 @@ def setTags(p_filename, p_cleanTagList):
     # This function replaces all tags with the list of tags provided as p_cleanTagList.
     # Use this function with caution. Because.. you know. It wipes your tags.
     filecheck(p_filename)
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         f_key = 'Exif.Image.XPKeywords'
@@ -377,7 +450,7 @@ def setTags(p_filename, p_cleanTagList):
         return True
 def searchTags(p_filename, p_tag):
     filecheck(p_filename)
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metaData = pyexiv2.ImageMetadata(p_filename)
         f_metaData.read()
         if not containsTags(p_filename):
@@ -388,7 +461,6 @@ def searchTags(p_filename, p_tag):
         # non case sensative searches may require longer execution time
         if p_tag in dirtyStr2cleanList(f_bustedTagString):
             return True
-        return False
     else:
         # TODO add png and gif support
         # TODO error check: does this file have tag data?
@@ -396,7 +468,7 @@ def searchTags(p_filename, p_tag):
     return False
 def addTag(p_filename, p_tag):
     filecheck(p_filename)
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -431,7 +503,7 @@ def addTag(p_filename, p_tag):
     return False
 def removeTag(p_filename, p_tag):
     filecheck(p_filename)
-    if (p_filename[-4:] == '.jpg'):
+    if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -471,40 +543,111 @@ def containsDescr(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     # TODO add png support
-    if ((p_filename[-4:] == '.jpg') and ('Exif.Image.XPComment' in f_metadata.exif_keys)):
+    if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.XPComment' in f_metadata.exif_keys)):
         # print("this file already has description data")
         return True
     # print("this file has no description data")
     return False
 def getDescr(p_filename):
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
-def setDescr(p_filename, x):
-    filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
-def searchDescr(p_filename, x):
-    filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
-def addDescr(p_filename, x):
-    filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsDescr(p_filename):
+            return ""
+        f_keywords = f_metadata['Exif.Image.XPComment']
+        f_dirtyDescrString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        #print("dirty Descr:", f_dirtyDescrString)
+        f_cleanDescr = dirtyStr2cleanStr(f_dirtyDescrString)
+        #print("clean Descr:", f_cleanDescr)
+        return f_cleanDescr
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have Descr data?
+        return ""
+    return ""
 
-def removeDescr(p_filename):
-	# Is this going to remove the whole description? I guess it will
-	# Searching such a string would be too much work for a simple function like this
-    # I'm considering the name wipeDescr(p_filename) since removal is
-	# used to take specific pieces out of a metadata item
+
+    return
+def setDescr(p_filename, p_setDescrToThis):
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
+    if (getExtension(p_filename) == '.jpg'):
+        f_key = 'Exif.Image.XPComment'
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_dirtyString = cleanStr2dirtyStr(p_setDescrToThis)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyString)
+        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+        f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        return
+    return
+def searchDescr(p_filename, p_searchForThis):
+    filecheck(p_filename)
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsDescr(p_filename):
+            return False
+        f_keywords = f_metadata['Exif.Image.XPComment']
+        f_dirtyDescrString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        f_cleanDescr = dirtyStr2cleanStr(f_dirtyDescrString)
+        if p_searchForThis in f_cleanDescr:
+            return True
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have Descr data?
+        return False
+    return False
+def addDescr(p_filename, p_addThisToDescr):
+    filecheck(p_filename)
+    if (getExtension(p_filename) == '.jpg'):
+        f_key = 'Exif.Image.XPComment'
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_cleanDescr = ""
+        if containsDescr(p_filename):
+            f_keywords = f_metadata['Exif.Image.XPComment']
+            f_dirtyDescrString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+            f_cleanDescr = dirtyStr2cleanStr(f_dirtyDescrString)
+        f_setDescrToThis = f_cleanDescr + p_addThisToDescr
+        f_dirtyString = cleanStr2dirtyStr(f_setDescrToThis)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyString)
+        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+        f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        return
+    return
+def wipeDescr(p_filename):
+    filecheck(p_filename)
+    if (getExtension(p_filename) == '.jpg'):
+        f_key = 'Exif.Image.XPComment'
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        if not containsDescr(p_filename):
+            raise MetadataMissingError("there is no description to remove")
+        f_dirtyString = cleanStr2dirtyStr(" ")
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyString)
+        # we set the value to (almost) nothing before removing the key just in case the values stick around
+        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+        f_metadata.write()
+        f_metadata.__delitem__(f_key)
+        f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        return
     return
 
 # ------edit rating metadata
@@ -516,27 +659,67 @@ def containsRating(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     # TODO add png support
-    if ((p_filename[-4:] == '.jpg') and ('Exif.Image.Rating' in f_metadata.exif_keys)):
+    if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.Rating' in f_metadata.exif_keys)):
         # print("this file already has rating data")
         return True
     # print("this file has no rating data")
     return False
 def getRating(p_filename):
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
-def setRating(p_filename, x):
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsRating(p_filename):
+            return -1
+        f_keywords = f_metadata['Exif.Image.Rating']
+        #print("getRating() Rating\t\t", f_keywords.value)
+        f_rating = f_keywords.value
+        return f_rating
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have rating data?
+        return -1
+    return -1
+def setRating(p_filename, p_setRatingToThis):
+    if not (1 < p_setRatingToThis < 5):
+        raise OutOfRangeError('number out of range (must be 1..5)')
+    if not isinstance(p_setRatingToThis, int):
+        raise NotIntegerError('non-integers can not be used')
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
+    if (getExtension(p_filename) == '.jpg'):
+        f_key = 'Exif.Image.Rating'
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+
+        f_value = p_setRatingToThis
+        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+        f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        return
     return
-def searchRating(p_filename, x):
+def searchRating(p_filename, p_searchForThisRating):
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
-#def removeRating(p_filename):
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        if not containsRating(p_filename):
+            return False
+        f_keywords = f_metadata['Exif.Image.Rating']
+        f_rating = f_keywords.value
+        if f_rating == p_searchForThisRating:
+            return True
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have rating data?
+        return False
+    return False
+#TODO def wipeRating(p_filename):
 # ------edit metadata that can store source url
 def containsSrc(p_filename):
 	# This will tell us if the file
@@ -546,7 +729,7 @@ def containsSrc(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     # TODO add png support
-    if ((p_filename[-4:] == '.jpg') and ('Exif.Image.ImageHistory' in f_metadata.exif_keys)):
+    if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.ImageHistory' in f_metadata.exif_keys)):
         # print("this file already has history/source data")
         return True
     # print("this file has no history/source data")
@@ -574,7 +757,7 @@ def containsOrgDate(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     # TODO add png support
-    if ((p_filename[-4:] == '.jpg') and ('Exif.Image.DateTimeOriginal' in f_metadata.exif_keys)):
+    if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.DateTimeOriginal' in f_metadata.exif_keys)):
         # print("this file already has original date data")
         return True
     # print("this file has no original date data")
@@ -594,4 +777,3 @@ def searchOrgDate(p_filename, x):
     alpha1SupportCheck(p_filename)
     # TODO
     return
-

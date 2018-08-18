@@ -23,6 +23,8 @@ def download_file_from_google_drive(id, destination):
         response = session.get(URL, params=params, stream=True)
 
     save_response_content(response, destination)
+    session.close()
+
 def get_confirm_token(response):
     for key, value in response.cookies.items():
         if key.startswith('download_warning'):
@@ -522,7 +524,21 @@ def tagUseageCheck(p_filename):
 
 #containsTagsTest("boxcat")
 #getTagsTest("boxcat")  # test passed
-setTagsTest("boxcat", ["mammal", "feline"])
+#setTagsTest("boxcat", ["mammal", "feline"])
 #searchTagsTest("boxcat")
 #addTagTest("boxcat")
 #removeTagTest("boxcat")
+
+
+#testing library function that can give extension
+def testExtensionParse2():
+    f_filename = ""
+    for i_key, i_value in g_googlePics2.items():
+        print("i_key:", i_key, "i_value:", i_value)
+        f_filename = getGoogleDrivePicture(i_value, g_outpath)
+        print("filename:", f_filename)
+        print("extension:", MetadataManager.getExtension(f_filename))
+        os.remove(f_filename)
+
+#testExtensionParse2()
+

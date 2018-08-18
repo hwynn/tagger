@@ -39,7 +39,7 @@ class fileChecks(unittest.TestCase):
         self.assertRaises(FileNotFoundError, MetadataManager.getTitle, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setTitle, "Missing.jpg", "sampleTitle")
         self.assertRaises(FileNotFoundError, MetadataManager.searchTitle, "Missing.jpg", "sampleTitle")
-        self.assertRaises(FileNotFoundError, MetadataManager.removeTitle, "Missing.jpg")
+        self.assertRaises(FileNotFoundError, MetadataManager.wipeTitle, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.containsArtists, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setArtists, "Missing.jpg", ["thing1", "thing2"])
         self.assertRaises(FileNotFoundError, MetadataManager.searchArtists, "Missing.jpg", "sampleArtist")
@@ -55,7 +55,7 @@ class fileChecks(unittest.TestCase):
         self.assertRaises(FileNotFoundError, MetadataManager.setDescr, "Missing.jpg", "sample of a file's\n description")
         self.assertRaises(FileNotFoundError, MetadataManager.searchDescr, "Missing.jpg", "line from a description")
         self.assertRaises(FileNotFoundError, MetadataManager.addDescr, "Missing.jpg", "\nnew line for a description")
-        self.assertRaises(FileNotFoundError, MetadataManager.removeDescr, "Missing.jpg")
+        self.assertRaises(FileNotFoundError, MetadataManager.wipeDescr, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.containsRating, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.getRating, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setRating, "Missing.jpg", 3)
@@ -71,9 +71,7 @@ class fileChecks(unittest.TestCase):
 
 
 
-#test for rating. must be int
-#number must be between 1 and 5
-#two similar tests for searchRating
+
 
 
 

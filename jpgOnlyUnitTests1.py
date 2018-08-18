@@ -1,59 +1,15 @@
 import unittest
 import MetadataManager
+import TestingManager
 import os
-import wget
-import requests
 
-g_outpath = '/home/hwynn/Pictures'
-# several functions below found from: https://stackoverflow.com/a/39225272
-def download_file_from_google_drive(id, destination):
-    """downloads files from google drive.
-    Found from https://stackoverflow.com/a/39225272"""
-    URL = "https://docs.google.com/uc?export=download"
-
-    session = requests.Session()
-
-    response = session.get(URL, params={'id': id}, stream=True)
-    token = get_confirm_token(response)
-
-    if token:
-        params = {'id': id, 'confirm': token}
-        response = session.get(URL, params=params, stream=True)
-
-    save_response_content(response, destination)
-    session.close()
-
-def get_confirm_token(response):
-    for key, value in response.cookies.items():
-        if key.startswith('download_warning'):
-            return value
-
-    return None
-def save_response_content(response, destination):
-    CHUNK_SIZE = 32768
-
-    with open(destination, "wb") as f:
-        for chunk in response.iter_content(CHUNK_SIZE):
-            if chunk:  # filter out keep-alive new chunks
-                f.write(chunk)
-def getGoogleDrivePicture(p_picID, p_outpath):
-    """if __name__ == "__main__":
-        file_id = 'TAKE ID FROM SHAREABLE LINK'
-        destination = 'DESTINATION FILE ON YOUR DISK'
-        download_file_from_google_drive(file_id, destination)"""
-    f_downloadURL = 'https://drive.google.com/uc?authuser=0&id=' + p_picID + '&export=download'
-    f_filename = wget.download(f_downloadURL, p_outpath)
-    download_file_from_google_drive(p_picID, f_filename)
-    return f_filename
-# I made everything from this point on
-
+g_outpath = TestingManager.g_outpath
 g_fileList = ["fixingComputer.jpg",
               "catScreamPizza.jpg",
               "rippledotzero.jpg",
               "Missing.jpg",
               "Toaster.pdf",
               "Makefile"]
-
 g_files = {
     'fixingComputer.jpg': '1pFEbWruySWWgNCShKP8qn8dJ9w7kXNKk',
     'catScreamPizza.jpg': '1eED3AINVizIQV44DXxj91-s2Qa9EWsAX',
@@ -64,9 +20,8 @@ g_files = {
            }
 
 def downloadGooglePicture(p_file):
-    f_downloadedFileName = getGoogleDrivePicture(g_files[p_file], g_outpath)
+    f_downloadedFileName = TestingManager.getGoogleDrivePicture(g_files[p_file], g_outpath)
     return f_downloadedFileName
-
 def removeAllFiles():
     f_file = ''
     for item in g_fileList:
@@ -74,7 +29,6 @@ def removeAllFiles():
         if os.path.exists(f_file):
             os.remove(f_file)
     return
-
 class ErrorCheck_FileAlteringTests(unittest.TestCase):
     def test_fileNotFound(self):
         removeAllFiles()
@@ -103,8 +57,6 @@ class ErrorCheck_FileAlteringTests(unittest.TestCase):
         f_filename = downloadGooglePicture("catScreamPizza.jpg")
         self.assertRaises(MetadataManager.NoSuchItemError, MetadataManager.removeTag, f_filename, "bird")
         os.remove(f_filename)
-
-
 class ErrorCheck_DelicateTests(unittest.TestCase):
     def test_fileNotFound(self):
         removeAllFiles()
@@ -112,7 +64,7 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(FileNotFoundError, MetadataManager.getTitle, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setTitle, "Missing.jpg", "sampleTitle")
         self.assertRaises(FileNotFoundError, MetadataManager.searchTitle, "Missing.jpg", "sampleTitle")
-        self.assertRaises(FileNotFoundError, MetadataManager.removeTitle, "Missing.jpg")
+        self.assertRaises(FileNotFoundError, MetadataManager.wipeTitle, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.getArtists, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setArtists, "Missing.jpg", ["thing1", "thing2"])
         self.assertRaises(FileNotFoundError, MetadataManager.searchArtists, "Missing.jpg", "sampleArtist")
@@ -129,7 +81,7 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(FileNotFoundError, MetadataManager.setDescr, "Missing.jpg", "sample of a file's\n description")
         self.assertRaises(FileNotFoundError, MetadataManager.searchDescr, "Missing.jpg", "line from a description")
         self.assertRaises(FileNotFoundError, MetadataManager.addDescr, "Missing.jpg", "\nnew line for a description")
-        self.assertRaises(FileNotFoundError, MetadataManager.removeDescr, "Missing.jpg")
+        self.assertRaises(FileNotFoundError, MetadataManager.wipeDescr, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.containsRating, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.getRating, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setRating, "Missing.jpg", 3)
@@ -148,10 +100,10 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         removeAllFiles()
         """Hopefully none of these tests actually alter the files"""
         f_filename = downloadGooglePicture("rippledotzero.jpg")
-        self.assertRaises(MetadataManager.MetadataMissingError, MetadataManager.removeTitle, f_filename)
+        self.assertRaises(MetadataManager.MetadataMissingError, MetadataManager.wipeTitle, f_filename)
         self.assertRaises(MetadataManager.MetadataMissingError, MetadataManager.removeArtist, f_filename, "tumblr")
         self.assertRaises(MetadataManager.MetadataMissingError, MetadataManager.removeTag, f_filename, "penguin")
-        self.assertRaises(MetadataManager.MetadataMissingError, MetadataManager.removeDescr, f_filename, "a video game cover")
+        self.assertRaises(MetadataManager.MetadataMissingError, MetadataManager.wipeDescr, f_filename, "a video game cover")
         os.remove(f_filename)
 
 
@@ -163,7 +115,7 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.getTitle, f_filename)
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.setTitle, f_filename, "sampleTitle")
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.searchTitle, f_filename, "sampleTitle")
-        self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.removeTitle, f_filename)
+        self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.wipeTitle, f_filename)
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.getArtists, f_filename)
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.setArtists, f_filename, ["thing1", "thing2"])
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.searchArtists, f_filename, "sampleArtist")
@@ -180,7 +132,7 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.setDescr, f_filename, "sample of a file's\n description")
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.searchDescr, f_filename, "line from a description")
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.addDescr, f_filename, "\nnew line for a description")
-        self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.removeDescr, f_filename)
+        self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.wipeDescr, f_filename)
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.containsRating, f_filename)
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.getRating, f_filename)
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.setRating, f_filename, 3)
@@ -203,7 +155,7 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getTitle, "Toaster.pdf")
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setTitle, "Toaster.pdf", "sampleTitle")
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchTitle, "Toaster.pdf", "sampleTitle")
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.removeTitle, f_filename)
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.wipeTitle, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getArtists, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setArtists, f_filename, ["thing1", "thing2"])
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchArtists, f_filename, "sampleArtist")
@@ -220,7 +172,7 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setDescr, f_filename, "sample of a file's\n description")
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchDescr, f_filename, "line from a description")
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.addDescr, f_filename, "\nnew line for a description")
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.removeDescr, f_filename)
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.wipeDescr, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsRating, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getRating, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setRating, f_filename, 3)
@@ -243,7 +195,7 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.getTitle, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setTitle, f_filename, "sampleTitle")
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.searchTitle, f_filename, "sampleTitle")
-        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.removeTitle, f_filename)
+        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.wipeTitle, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.getArtists, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setArtists, f_filename, ["thing1", "thing2"])
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.searchArtists, f_filename, "sampleArtist")
@@ -260,7 +212,7 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setDescr, f_filename, "sample of a file's\n description")
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.searchDescr, f_filename, "line from a description")
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.addDescr, f_filename, "\nnew line for a description")
-        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.removeDescr, f_filename)
+        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.wipeDescr, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.containsRating, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.getRating, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setRating, f_filename, 3)
@@ -274,8 +226,6 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setOrgDate, f_filename, "2017-Jun-20 11:13 PM")
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.searchOrgDate, f_filename, "2000-Jan-10 11:13 PM")
         os.remove(f_filename)
-
-
 class ResultsCheck_DelicateTests(unittest.TestCase):
     def test_metadataResults(self):
         removeAllFiles()
@@ -330,8 +280,6 @@ class ResultsCheck_DelicateTests(unittest.TestCase):
         os.remove(f_filename1)
         os.remove(f_filename2)
         os.remove(f_filename3)
-
-
 class ResultsCheck_FileAlteringTests(unittest.TestCase):
     def test_setTitleResults(self):
         removeAllFiles()
@@ -349,10 +297,10 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
     def test_removeTitleResults(self):
         removeAllFiles()
         f_filename = downloadGooglePicture("fixingComputer.jpg")
-        self.assertEqual(False, MetadataManager.removeTitle(f_filename))
+        self.assertEqual(False, MetadataManager.wipeTitle(f_filename))
         os.remove(f_filename)
         f_filename = downloadGooglePicture("catScreamPizza.jpg")
-        self.assertEqual(False, MetadataManager.removeTitle(f_filename))
+        self.assertEqual(False, MetadataManager.wipeTitle(f_filename))
         os.remove(f_filename)
 
 
@@ -458,10 +406,10 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
     def test_removeDescrResults(self):
         removeAllFiles()
         f_filename = downloadGooglePicture("fixingComputer.jpg")
-        self.assertEqual(False, MetadataManager.removeDescr(f_filename))
+        self.assertEqual(False, MetadataManager.wipeDescr(f_filename))
         os.remove(f_filename)
         f_filename = downloadGooglePicture("catScreamPizza.jpg")
-        self.assertEqual(False, MetadataManager.removeDescr(f_filename))
+        self.assertEqual(False, MetadataManager.wipeDescr(f_filename))
         os.remove(f_filename)
 
 
@@ -476,7 +424,9 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
         f_filename = downloadGooglePicture("rippledotzero.jpg")
         self.assertEqual(2, MetadataManager.setRating(f_filename, 2))
         os.remove(f_filename)
-
+#test for rating. must be int
+#number must be between 1 and 5
+#two similar tests for searchRating
 
 if __name__ == '__main__':
     unittest.main()
