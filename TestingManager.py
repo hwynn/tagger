@@ -503,7 +503,6 @@ def removeTagTest(p_fileEntry, f_outpath=g_outpath):
     os.remove(f_filename)
     return True
 
-
 def tagUseageCheck(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
@@ -521,10 +520,9 @@ def tagUseageCheck(p_filename):
 # -----Tag Metadata Tests. Successful for CatInBox.jpg-----------------------
 # ===========================================================================
 
-containsTagsTest("boxcat")
-getTagsTest("boxcat")  # test passed
+#containsTagsTest("boxcat")
+#getTagsTest("boxcat")  # test passed
 setTagsTest("boxcat", ["mammal", "feline"])
-searchTagsTest("boxcat")
-addTagTest("boxcat")
-removeTagTest("boxcat")
-
+#searchTagsTest("boxcat")
+#addTagTest("boxcat")
+#removeTagTest("boxcat")
