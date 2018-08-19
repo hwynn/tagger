@@ -80,7 +80,7 @@ def alpha1SupportCheck(p_filename):
 def listHexTrim(p_rawList):
     # Takes a freshly translated string list and
     # trims the '\x00' ends off all the strings
-    print("listHexTrim(", p_rawList, ")")
+    #print("listHexTrim(", p_rawList, ")")
     return [x.replace('\x00', '') for x in p_rawList]
 def dirtyStr2cleanStr(p_bustedTags):
     f_tags = ""
@@ -114,6 +114,8 @@ def cleanList2dirtyStr(p_cleanTagList):
     f_dirtyTagString = ";\x00".join(f_dirtyTagList) + "\x00\x00"
     # print("cleanList2dirtyStr(): f_dirtyTagString", f_dirtyTagString)
     return f_dirtyTagString
+def cleanList2cleanStr(p_cleanTagList):
+    return ";".join(p_cleanTagList)
 #-------stashing utility functions
 """Note: 'stashing' is a term I made up
 which refers to storing several types of 
@@ -319,11 +321,20 @@ def setArtists(p_filename, p_cleanArtistList):
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
-        return True
+        #f_metadata['Exif.Image.Artist'] = pyexiv2.ExifTag('Exif.Image.Artist', cleanList2cleanStr(p_cleanArtistList))
+        f_metadata.read()
+        f_artistDataToSet = f_metadata['Exif.Image.Artist']
+        f_artistString = cleanList2cleanStr(p_cleanArtistList)
+        print("new artists should be:", f_artistString)
+        #f_artistDataToSet.value = f_artistString
+        f_artistDataToSet.value = "hwllo testing akjhjwe"
+        #f_metadata['Exif.Image.Artist'].value = cleanList2cleanStr(p_cleanArtistList)
+        f_metadata.write()
+        return
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
-        return True
+        return
 def searchArtists(p_filename, p_artist):
     filecheck(p_filename)
 
@@ -352,9 +363,43 @@ def searchArtists(p_filename, p_artist):
         return False
     return False
 def addArtist(p_filename, p_artist):
-    filecheck(p_filename)	
-	#TODO
-	
+    filecheck(p_filename)
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        f_key = 'Exif.Image.XPAuthor'
+        if not containsArtists(p_filename):
+            f_cleanArtistList = [p_artist]
+            f_dirtyArtistString2 = cleanList2dirtyStr(f_cleanArtistList)
+            f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
+            f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+            f_metadata.write()
+            f_metadata['Exif.Image.Artist'] = pyexiv2.ExifTag('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))
+            f_metadata.write()
+            return
+        f_keywords = f_metadata['Exif.Image.XPAuthor']
+        f_dirtyArtistString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        #print("addArtist() f_dirtyArtistString\t\t", f_dirtyArtistString)
+        f_cleanArtistList = dirtyStr2cleanList(f_dirtyArtistString)
+        #print("addArtist() f_cleanArtistList\t\t", f_cleanArtistList)
+        if p_artist in f_cleanArtistList:
+            raise DuplicateDataError("file already contains this artist")
+        f_cleanArtistList.insert(0, p_artist)
+        f_dirtyArtistString2 = cleanList2dirtyStr(f_cleanArtistList)
+        #print("addArtist() f_dirtyArtistString2\t\t", f_dirtyArtistString2)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
+        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+        f_metadata.write()
+        f_metadata['Exif.Image.Artist'] = pyexiv2.ExifTag('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))
+        f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have artist data?
+        return
+    return
 def removeArtist(p_filename, p_artist):
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -362,34 +407,38 @@ def removeArtist(p_filename, p_artist):
         f_metadata.read()
         # print(f_metadata.exif_keys)
         if not containsArtists(p_filename):
-            raise Exception(
+            raise MetadataMissingError(
                 'The file \'{}\' does not contain any artist data \n This operation cannot be performed'.format(
                     p_filename))
         f_keywords = f_metadata['Exif.Image.XPAuthor']
         f_key = 'Exif.Image.XPAuthor'
         f_dirtyArtistString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        print("removeArtist() f_dirtyArtistString\t\t", f_dirtyArtistString)
+        #print("removeArtist() f_dirtyArtistString\t\t", f_dirtyArtistString)
         f_cleanArtistList = dirtyStr2cleanList(f_dirtyArtistString)
-        print("removeArtist() f_cleanArtistList\t\t", f_cleanArtistList)
-        # Note: unlike in searchArtist(), removeArtist() requires the full exact
-        # artist entry in the list to allow the removal to proceed
+        #print("removeArtist() f_cleanArtistList\t\t", f_cleanArtistList)
+        #Note that p_artist must be an exact match with an entry to have it removed
         if p_artist not in f_cleanArtistList:
-            raise Exception(
+            raise NoSuchItemError(
                 'The file \'{}\' does not contain the artist \'{}\' \n This operation cannot be performed'.format(
                     p_filename, p_artist))
         f_cleanArtistList.remove(p_artist)
         f_dirtyArtistString2 = cleanList2dirtyStr(f_cleanArtistList)
-        print("removeArtist() f_dirtyArtistString2\t\t", f_dirtyArtistString2)
+        #print("removeArtist() f_dirtyArtistString2\t\t", f_dirtyArtistString2)
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
-        return True
+        print("artist string should be:", cleanList2cleanStr(f_cleanArtistList))
+        #f_metadata['Exif.Image.Artist'] = pyexiv2.ExifTag('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))
+        f_metadata['Exif.Image.Artist'].value = cleanList2cleanStr(f_cleanArtistList)
+        f_metadata.write()
+        return
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have artist data?
-        return True
-    return False
+        return
+    return
+
 # -----edit tag metadata
 def containsTags(p_filename):
 	# This will tell us if the file
@@ -479,28 +528,27 @@ def addTag(p_filename, p_tag):
             f_value = pyexiv2.utils.string_to_undefined(f_dirtyTagString2)
             f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
             f_metadata.write()
-            return True
+            return
         f_keywords = f_metadata['Exif.Image.XPKeywords']
         f_dirtyTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        print("addTag() f_dirtyTagString\t\t", f_dirtyTagString)
+        #print("addTag() f_dirtyTagString\t\t", f_dirtyTagString)
         f_cleanTagList = dirtyStr2cleanList(f_dirtyTagString)
-        print("addTag() f_cleanTagList\t\t", f_cleanTagList)
+        #print("addTag() f_cleanTagList\t\t", f_cleanTagList)
         if p_tag in f_cleanTagList:
-            print("Warning: file already contains this tag")
-            return False
+            raise DuplicateDataError("file already contains this tag")
         f_cleanTagList.insert(0, p_tag)
         f_dirtyTagString2 = cleanList2dirtyStr(f_cleanTagList)
-        print("addTag() f_dirtyTagString2\t\t", f_dirtyTagString2)
+        #print("addTag() f_dirtyTagString2\t\t", f_dirtyTagString2)
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyTagString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
-        return True
+        return
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have tag data?
-        return True
-    return False
+        return
+    return
 def removeTag(p_filename, p_tag):
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -508,32 +556,32 @@ def removeTag(p_filename, p_tag):
         f_metadata.read()
         # print(f_metadata.exif_keys)
         if not containsTags(p_filename):
-            raise Exception(
+            raise MetadataMissingError(
                 'The file \'{}\' does not contain any tag data \n This operation cannot be performed'.format(
                     p_filename))
         f_keywords = f_metadata['Exif.Image.XPKeywords']
         f_key = 'Exif.Image.XPKeywords'
         f_dirtyTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        print("removeTag() f_dirtyTagString\t\t", f_dirtyTagString)
+        #print("removeTag() f_dirtyTagString\t\t", f_dirtyTagString)
         f_cleanTagList = dirtyStr2cleanList(f_dirtyTagString)
-        print("removeTag() f_cleanTagList\t\t", f_cleanTagList)
+        #print("removeTag() f_cleanTagList\t\t", f_cleanTagList)
         if p_tag not in f_cleanTagList:
-            raise Exception(
+            raise NoSuchItemError(
                 'The file \'{}\' does not contain the tag \'{}\' \n This operation cannot be performed'.format(
                     p_filename, p_tag))
         f_cleanTagList.remove(p_tag)
         f_dirtyTagString2 = cleanList2dirtyStr(f_cleanTagList)
-        print("removeTag() f_dirtyTagString2\t\t", f_dirtyTagString2)
+        #print("removeTag() f_dirtyTagString2\t\t", f_dirtyTagString2)
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyTagString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
-        return True
+        return
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have tag data?
-        return True
-    return False
+        return
+    return
 # -------edit description metadata
 def containsDescr(p_filename):
 	# This will tell us if the file
@@ -649,7 +697,6 @@ def wipeDescr(p_filename):
         # TODO add png and gif support
         return
     return
-
 # ------edit rating metadata
 def containsRating(p_filename):
 	# This will tell us if the file
