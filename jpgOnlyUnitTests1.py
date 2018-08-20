@@ -57,6 +57,29 @@ class ErrorCheck_FileAlteringTests(unittest.TestCase):
         f_filename = downloadGooglePicture("catScreamPizza.jpg")
         self.assertRaises(MetadataManager.NoSuchItemError, MetadataManager.removeTag, f_filename, "bird")
         os.remove(f_filename)
+
+    def test_ratingInputCheck(self):
+        removeAllFiles()
+        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.setRating, f_filename, 6)
+        self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.setRating, f_filename, 0)
+        self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.setRating, f_filename, -1)
+        # OutOfRangeError conditions are checked before NotIntegerError conditons
+        self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.setRating, f_filename, 0.1)
+        self.assertRaises(MetadataManager.NotIntegerError, MetadataManager.setRating, f_filename, 1.0)
+        self.assertRaises(MetadataManager.NotIntegerError, MetadataManager.setRating, f_filename, 1.3)
+        self.assertRaises(MetadataManager.NotIntegerError, MetadataManager.setRating, f_filename, 4.9)
+        os.remove(f_filename)
+        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.searchRating, f_filename, 6)
+        self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.searchRating, f_filename, -1.3)
+        self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.searchRating, f_filename, -3)
+        self.assertRaises(MetadataManager.NotIntegerError, MetadataManager.searchRating, f_filename, 1.0)
+        self.assertRaises(MetadataManager.NotIntegerError, MetadataManager.searchRating, f_filename, 0.0)
+        self.assertRaises(MetadataManager.NotIntegerError, MetadataManager.searchRating, f_filename, 1.3)
+        self.assertRaises(MetadataManager.NotIntegerError, MetadataManager.searchRating, f_filename, 4.9)
+        os.remove(f_filename)
+
 class ErrorCheck_DelicateTests(unittest.TestCase):
     def test_fileNotFound(self):
         removeAllFiles()
@@ -86,14 +109,14 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(FileNotFoundError, MetadataManager.getRating, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setRating, "Missing.jpg", 3)
         self.assertRaises(FileNotFoundError, MetadataManager.searchRating, "Missing.jpg", 2)
-        #self.assertRaises(FileNotFoundError, MetadataManager.containsSrc, "Missing.jpg")
-        #self.assertRaises(FileNotFoundError, MetadataManager.getSrc, "Missing.jpg")
-        #self.assertRaises(FileNotFoundError, MetadataManager.addSrc, "Missing.jpg", "sampleurl")
-        #self.assertRaises(FileNotFoundError, MetadataManager.searchSrc, "Missing.jpg", "sampleurl")
-        #self.assertRaises(FileNotFoundError, MetadataManager.containsOrgDate, "Missing.jpg")
-        #self.assertRaises(FileNotFoundError, MetadataManager.getOrgDate, "Missing.jpg")
-        #self.assertRaises(FileNotFoundError, MetadataManager.setOrgDate, "Missing.jpg", "2017-Jun-20 11:13 PM")
-        #self.assertRaises(FileNotFoundError, MetadataManager.searchOrgDate, "Missing.jpg", "2000-Jan-10 11:13 PM")
+        self.assertRaises(FileNotFoundError, MetadataManager.containsSrc, "Missing.jpg")
+        self.assertRaises(FileNotFoundError, MetadataManager.getSrc, "Missing.jpg")
+        self.assertRaises(FileNotFoundError, MetadataManager.addSrc, "Missing.jpg", "sampleurl")
+        self.assertRaises(FileNotFoundError, MetadataManager.searchSrc, "Missing.jpg", "sampleurl")
+        self.assertRaises(FileNotFoundError, MetadataManager.containsOrgDate, "Missing.jpg")
+        self.assertRaises(FileNotFoundError, MetadataManager.getOrgDate, "Missing.jpg")
+        self.assertRaises(FileNotFoundError, MetadataManager.setOrgDate, "Missing.jpg", "2017-Jun-20 11:13 PM")
+        self.assertRaises(FileNotFoundError, MetadataManager.searchOrgDate, "Missing.jpg", "2000-Jan-10 11:13 PM")
 
 
     def test_metadataMissing(self):
@@ -177,14 +200,14 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getRating, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setRating, f_filename, 3)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchRating, f_filename, 2)
-        #self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsSrc, f_filename)
-        #self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getSrc, f_filename)
-        #self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.addSrc, f_filename, "sampleurl")
-        #self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchSrc, f_filename, "sampleurl")
-        #self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsOrgDate, f_filename)
-        #self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getOrgDate, f_filename)
-        #self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setOrgDate, f_filename, "2017-Jun-20 11:13 PM")
-        #self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchOrgDate, f_filename, "2000-Jan-10 11:13 PM")
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsSrc, f_filename)
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getSrc, f_filename)
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.addSrc, f_filename, "sampleurl")
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchSrc, f_filename, "sampleurl")
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsOrgDate, f_filename)
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getOrgDate, f_filename)
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setOrgDate, f_filename, "2017-Jun-20 11:13 PM")
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchOrgDate, f_filename, "2000-Jan-10 11:13 PM")
         os.remove(f_filename)
 
 
@@ -332,11 +355,11 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
         print(MetadataManager.getArtists(f_filename))
         MetadataManager.addArtist(f_filename, "model: crazyguy")
         print(MetadataManager.getArtists(f_filename))
-        self.assertEqual(["stockphotographer", "publisher: twitter", "model: crazyguy"], MetadataManager.getArtists(f_filename))
+        self.assertEqual(["model: crazyguy", "stockphotographer", "publisher: twitter"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
         f_filename = downloadGooglePicture("catScreamPizza.jpg")
         MetadataManager.addArtist(f_filename, "model: pizzadog")
-        self.assertEqual(["photographer: idunno", "model: pizzadog"], MetadataManager.getArtists(f_filename))
+        self.assertEqual(["model: pizzadog", "photographer: idunno"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
         f_filename = downloadGooglePicture("rippledotzero.jpg")
         MetadataManager.addArtist(f_filename, "Artist: Simon Stalenhag")
@@ -355,7 +378,6 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
         self.assertEqual([], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
 
-
     def test_setTagsResults(self):
         removeAllFiles()
         f_filename = downloadGooglePicture("fixingComputer.jpg")
@@ -371,16 +393,15 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
         self.assertEqual(["video games", "penguin", "browser games", "rippledotzero", "cover art"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
 
-
     def test_addTagResults(self):
         removeAllFiles()
         f_filename = downloadGooglePicture("fixingComputer.jpg")
         MetadataManager.addTag(f_filename, "computer")
-        self.assertEqual(["stock photo", "funny", "bad stock photos of my job", "technology", "computer"], MetadataManager.getTags(f_filename))
+        self.assertEqual(["computer", "stock photo", "funny", "bad stock photos of my job", "technology"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
         f_filename = downloadGooglePicture("catScreamPizza.jpg")
         MetadataManager.addTag(f_filename, "dramatic")
-        self.assertEqual(["funny", "cat", "dog", "dog wearing pizza box", "screaming", "dramatic"], MetadataManager.getTags(f_filename))
+        self.assertEqual(["dramatic", "cat"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
         f_filename = downloadGooglePicture("rippledotzero.jpg")
         MetadataManager.addTag(f_filename, "video games")
@@ -391,12 +412,16 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
     def test_removeTagResults(self):
         removeAllFiles()
         f_filename = downloadGooglePicture("fixingComputer.jpg")
+
+
         MetadataManager.removeTag(f_filename, "funny")
-        self.assertEqual(["stock photo", "bad stock photos of my job", "technology", "computer"], MetadataManager.getTags(f_filename))
+        self.assertEqual(["stock photo", "bad stock photos of my job", "technology"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
         f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        print(MetadataManager.getTags(f_filename))
         MetadataManager.removeTag(f_filename, "cat")
-        self.assertEqual(["funny", "dog", "dog wearing pizza box", "screaming"], MetadataManager.getTags(f_filename))
+        print(MetadataManager.getTags(f_filename))
+        self.assertEqual([], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
 
 
@@ -424,7 +449,7 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
         os.remove(f_filename)
         f_filename = downloadGooglePicture("catScreamPizza.jpg")
         MetadataManager.addDescr(f_filename, "\nCrazy cat picture")
-        self.assertEqual("Picture of a cat\n and a dog\nCrazy cat picture", MetadataManager.getDescr(f_filename))
+        self.assertEqual("a cat screaming at the camera in front of a dog wearing a pizza box\nCrazy cat picture", MetadataManager.getDescr(f_filename))
         os.remove(f_filename)
         f_filename = downloadGooglePicture("rippledotzero.jpg")
         MetadataManager.addDescr(f_filename, "The game is about a penguin")

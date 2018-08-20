@@ -108,6 +108,10 @@ def dirtyStr2cleanList(p_dirtyTagStr):
     # print("dirtyStr2cleanList(): f_dirtyTagList", f_dirtyTagList)
     f_cleanTagList = [dirtyStr2cleanStr(x) for x in f_dirtyTagList]
     # print("dirtyStr2cleanList(): f_cleanTagList", f_cleanTagList)
+    #Note: an empty list represented by p_dirtyTagStr translates to
+    #the non empty list ['']. This should compensate for that.
+    if f_cleanTagList == ['']:
+        return []
     return f_cleanTagList
 def cleanList2dirtyStr(p_cleanTagList):
     # Takes a list of tags
@@ -426,8 +430,6 @@ def removeArtist(p_filename, p_artist):
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
-        print("artist string should be:", cleanList2cleanStr(f_cleanArtistList))
-        #f_metadata['Exif.Image.Artist'] = pyexiv2.ExifTag('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))
         return
     else:
         earlySupportCheck(p_filename)
@@ -752,6 +754,11 @@ def setRating(p_filename, p_setRatingToThis):
     return
 def searchRating(p_filename, p_searchForThisRating):
     if not (-1 <= p_searchForThisRating <= 5):
+        #Note: the reason we allow for searches of 0 and -1
+        #is that theoretically, getRating() is used to get the value for searching
+        #and it returns -1 if the file contains no rating.
+        # we don't actually use getRating() for this search functtion
+        # But we might change this function to work that way.
         raise OutOfRangeError('number out of range (must be 1..5)')
     if not isinstance(p_searchForThisRating, int):
         raise NotIntegerError('non-integers can not be used')

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="functionality completed: tags, rating, artist, title, description(I think)">
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="All tests (except with src and date) passed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MetadataManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/MetadataManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jpgOnlyUnitTests1.py" beforeDir="false" afterPath="$PROJECT_DIR$/jpgOnlyUnitTests1.py" afterDir="false" />
@@ -36,28 +36,28 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="50" />
+          <entry key="py" value="51" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="32" />
+          <entry key="Python" value="33" />
           <entry key="Scratch" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="35" />
-          <entry key="py" value="19546" />
-          <entry key="txt" value="890" />
+          <entry key="py" value="20253" />
+          <entry key="txt" value="1027" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="925" />
-          <entry key="Python" value="16564" />
+          <entry key="PLAIN_TEXT" value="1062" />
+          <entry key="Python" value="17271" />
           <entry key="Scratch" value="2982" />
         </counts>
       </usages-collector>
@@ -68,26 +68,29 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="346" column="39" lean-forward="true" selection-start-line="346" selection-start-column="39" selection-end-line="346" selection-end-column="39" />
+            <state relative-caret-position="180">
+              <caret line="51" column="43" lean-forward="true" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="43" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
                 <element signature="e#122#299#0" />
                 <element signature="e#310#682#0" />
                 <element signature="e#723#842#0" />
                 <element signature="e#869#1024#0" />
-                <element signature="e#1084#2813#0" />
-                <element signature="e#1121#2813#0" />
-                <element signature="e#2906#6265#0" />
-                <element signature="e#6312#6949#0" />
-                <element signature="e#6990#11260#0" />
-                <element signature="e#11306#15446#0" />
-                <element signature="e#15492#19480#0" />
+                <element signature="e#2860#3865#0" />
                 <element signature="e#19538#23570#0" />
                 <element signature="e#19578#23570#0" />
                 <element signature="e#23667#24425#0" />
                 <element signature="e#24475#24923#0" />
                 <element signature="e#24972#25742#0" />
+                <element signature="e#25790#26626#0" />
+                <element signature="e#26677#27184#0" />
+                <element signature="e#27230#28264#0" />
+                <element signature="e#28309#29137#0" />
+                <element signature="e#29185#29752#0" />
+                <element signature="e#29799#30657#0" />
+                <element signature="e#30704#31603#0" />
+                <element signature="e#31653#32101#0" />
+                <element signature="e#32149#32797#0" />
               </folding>
             </state>
           </provider>
@@ -96,8 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="381" column="18" lean-forward="true" selection-start-line="381" selection-start-column="18" selection-end-line="381" selection-end-column="18" />
+            <state relative-caret-position="150">
+              <caret line="23" column="26" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="26" />
               <folding>
                 <element signature="e#163#220#0" />
                 <element signature="e#435#439#0" />
@@ -160,7 +163,6 @@
                 <element signature="e#10351#10875#0" />
                 <element signature="e#10351#10382#0" />
                 <element signature="e#10651#10719#0" />
-                <element signature="e#10908#11757#0" />
                 <element signature="e#11634#11664#0" />
                 <element signature="e#11809#12721#0" />
                 <element signature="e#11809#11883#0" />
@@ -175,8 +177,6 @@
                 <element signature="e#13706#13736#0" />
                 <element signature="e#15306#15450#0" />
                 <element signature="e#15344#15374#0" />
-                <element signature="e#15506#17094#0" />
-                <element signature="e#15581#16920#0" />
                 <element signature="e#15748#15921#0" />
                 <element signature="e#16251#16316#0" />
                 <element signature="e#16373#16553#0" />
@@ -228,16 +228,11 @@
                 <element signature="e#26314#26746#0" />
                 <element signature="e#26314#26345#0" />
                 <element signature="e#26778#27380#0" />
-                <element signature="e#26853#27200#0" />
-                <element signature="e#27219#27366#0" />
                 <element signature="e#27257#27287#0" />
-                <element signature="e#27431#28083#0" />
                 <element signature="e#27723#27970#0" />
                 <element signature="e#27989#28072#0" />
                 <element signature="e#28141#28701#0" />
-                <element signature="e#28216#28515#0" />
-                <element signature="e#28534#28684#0" />
-                <element signature="e#28572#28602#0" />
+                <element signature="e#30935#31007#0" />
                 <element signature="e#28702#28735#0" />
                 <element signature="e#28814#29272#0" />
                 <element signature="e#28814#28845#0" />
@@ -294,17 +289,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find />
-      <find>download_file_from_google_drive</find>
-      <find>getGoogleDrivePicture</find>
-      <find>for</find>
-      <find>in g_gpp</find>
-      <find>p_filename[-4:]</find>
-      <find>g_metadata</find>
-      <find>remove</find>
-      <find>Title</find>
-      <find>x</find>
-      <find>Descr</find>
       <find>raise</find>
       <find>Tag</find>
       <find>ExifArtist</find>
@@ -321,12 +305,22 @@
       <find>SupportNotImplementedError</find>
       <find>wipeDescr</find>
       <find>containsR</find>
-      <find>f_metadata</find>
-      <find>containsOrgDate</find>
       <find>UnknownFiletypeError</find>
+      <find>removeArtist</find>
+      <find>dirtyStr2cleanList</find>
+      <find>containsOrgDate</find>
+      <find>artist string should be</find>
+      <find>&quot;computer&quot;</find>
+      <find>&quot;dog&quot;, &quot;dog wearing pizza box&quot;</find>
+      <find>ture of a cat</find>
+      <find>f_metadata</find>
+      <find>#self</find>
+      <find>NotIntegerError</find>
+      <find>DuplicateDataError</find>
+      <find>NoSuchItemError</find>
+      <find>MetadataMissingError</find>
     </findStrings>
     <replaceStrings>
-      <replace>g_setArtists</replace>
       <replace>dirtyStr2cleanStr</replace>
       <replace>f_cleanThing</replace>
       <replace>searchTags</replace>
@@ -356,6 +350,7 @@
       <replace>('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))</replace>
       <replace>&lt;= p_searchForThisRating &lt;= 5):</replace>
       <replace>Descr</replace>
+      <replace>self</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -441,8 +436,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addArtistResults">
-    <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_DelicateTests.test_metadataResults" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Unittests for jpgOnlyUnitTests1.ErrorCheck_FileAlteringTests.test_ratingInputCheck">
+    <configuration name="Unittests for jpgOnlyUnitTests1.ErrorCheck_FileAlteringTests.test_ratingInputCheck" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -452,11 +447,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;jpgOnlyUnitTests1.ResultsCheck_DelicateTests.test_metadataResults&quot;" />
+      <option name="_new_target" value="&quot;jpgOnlyUnitTests1.ErrorCheck_FileAlteringTests.test_ratingInputCheck&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addArtistResults" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addDescrResults" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -466,11 +461,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addArtistResults&quot;" />
+      <option name="_new_target" value="&quot;jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addDescrResults&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeTitleResults" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeDescrResults" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -480,11 +475,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeTitleResults&quot;" />
+      <option name="_new_target" value="&quot;jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeDescrResults&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setArtistsResults" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setDescrResults" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -494,11 +489,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setArtistsResults&quot;" />
+      <option name="_new_target" value="&quot;jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setDescrResults&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setTitleResults" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setRatingResults" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -508,24 +503,24 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setTitleResults&quot;" />
+      <option name="_new_target" value="&quot;jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setRatingResults&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_DelicateTests.test_metadataResults" />
-      <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setTitleResults" />
-      <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeTitleResults" />
-      <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setArtistsResults" />
-      <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addArtistResults" />
+      <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setDescrResults" />
+      <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addDescrResults" />
+      <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeDescrResults" />
+      <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setRatingResults" />
+      <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ErrorCheck_FileAlteringTests.test_ratingInputCheck" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addArtistResults" />
-        <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setArtistsResults" />
-        <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeTitleResults" />
-        <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setTitleResults" />
-        <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_DelicateTests.test_metadataResults" />
+        <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ErrorCheck_FileAlteringTests.test_ratingInputCheck" />
+        <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setRatingResults" />
+        <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeDescrResults" />
+        <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addDescrResults" />
+        <item itemvalue="Python tests.Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setDescrResults" />
       </list>
     </recent_temporary>
   </component>
@@ -624,39 +619,53 @@
       <option name="project" value="LOCAL" />
       <updated>1534736783992</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="fixed several bugs during unit testing.&#10;Planning to change lists to unordered sets">
+      <created>1534797869855</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1534797869855</updated>
+    </task>
+    <task id="LOCAL-00014" summary="All tests (except with src and date) passed">
+      <created>1534805042051</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1534805042051</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ErrorCheck_DelicateTests_test_noSupport - 2018.08.20 at 12h 46m 30s.xml">
-      <configuration name="Unittests for jpgOnlyUnitTests1.ErrorCheck_DelicateTests.test_noSupport" configurationId="tests" />
+    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_addTagResults - 2018.08.20 at 17h 29m 57s.xml">
+      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addTagResults" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ErrorCheck_DelicateTests_test_weCantTakeThat - 2018.08.20 at 12h 46m 57s.xml">
-      <configuration name="Unittests for jpgOnlyUnitTests1.ErrorCheck_DelicateTests.test_weCantTakeThat" configurationId="tests" />
+    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_removeTagResults - 2018.08.20 at 17h 31m 21s.xml">
+      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeTagResults" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ErrorCheck_DelicateTests_test_whatEvenIsThat - 2018.08.20 at 12h 47m 19s.xml">
-      <configuration name="Unittests for jpgOnlyUnitTests1.ErrorCheck_DelicateTests.test_whatEvenIsThat" configurationId="tests" />
+    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_setDescrResults - 2018.08.20 at 17h 31m 36s.xml">
+      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setDescrResults" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ErrorCheck_DelicateTests_test_whatEvenIsThat - 2018.08.20 at 12h 49m 17s.xml">
-      <configuration name="Unittests for jpgOnlyUnitTests1.ErrorCheck_DelicateTests.test_whatEvenIsThat" configurationId="tests" />
+    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_addDescrResults - 2018.08.20 at 17h 31m 54s.xml">
+      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addDescrResults" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_DelicateTests_test_metadataResults - 2018.08.20 at 12h 49m 42s.xml">
-      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_DelicateTests.test_metadataResults" configurationId="tests" />
+    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_addDescrResults - 2018.08.20 at 17h 39m 21s.xml">
+      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addDescrResults" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_setTitleResults - 2018.08.20 at 12h 50m 04s.xml">
-      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setTitleResults" configurationId="tests" />
+    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_removeDescrResults - 2018.08.20 at 17h 39m 46s.xml">
+      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeDescrResults" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_removeTitleResults - 2018.08.20 at 12h 50m 18s.xml">
-      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_removeTitleResults" configurationId="tests" />
+    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_setRatingResults - 2018.08.20 at 17h 40m 13s.xml">
+      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setRatingResults" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_setArtistsResults - 2018.08.20 at 12h 50m 39s.xml">
-      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setArtistsResults" configurationId="tests" />
+    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_setRatingResults - 2018.08.20 at 17h 41m 02s.xml">
+      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setRatingResults" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_addArtistResults - 2018.08.20 at 12h 51m 00s.xml">
-      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addArtistResults" configurationId="tests" />
+    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_setRatingResults - 2018.08.20 at 17h 48m 15s.xml">
+      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_setRatingResults" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ResultsCheck_FileAlteringTests_test_addArtistResults - 2018.08.20 at 13h 02m 45s.xml">
-      <configuration name="Unittests for jpgOnlyUnitTests1.ResultsCheck_FileAlteringTests.test_addArtistResults" configurationId="tests" />
+    <history-entry file="Unittests_for_jpgOnlyUnitTests1_ErrorCheck_FileAlteringTests_test_ratingInputCheck - 2018.08.20 at 19h 22m 31s.xml">
+      <configuration name="Unittests for jpgOnlyUnitTests1.ErrorCheck_FileAlteringTests.test_ratingInputCheck" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -742,18 +751,9 @@
     <MESSAGE value="I give up on the artist tag crap. This is as far as I got. I'm going to cut it all out." />
     <MESSAGE value="the artist stuff all works now. I'm just ignoring the Exif.Image.Artist tag." />
     <MESSAGE value="functionality completed: tags, rating, artist, title, description(I think)" />
-    <option name="LAST_COMMIT_MESSAGE" value="functionality completed: tags, rating, artist, title, description(I think)" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/jpgOnlyUnitTests1.py</url>
-          <line>334</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="fixed several bugs during unit testing.&#10;Planning to change lists to unordered sets" />
+    <MESSAGE value="All tests (except with src and date) passed" />
+    <option name="LAST_COMMIT_MESSAGE" value="All tests (except with src and date) passed" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/utils.py" />
@@ -772,13 +772,6 @@
     <entry file="file://$PROJECT_DIR$/ByteString2.py" />
     <entry file="file://$PROJECT_DIR$/TestingWget.py" />
     <entry file="file://$PROJECT_DIR$/gregTwitterJoke.png" />
-    <entry file="file:///usr/lib/python3.6/unittest/case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5">
-          <caret line="177" selection-start-line="177" selection-end-line="177" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -843,6 +836,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/lib/python3.6/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="604" selection-start-line="604" selection-end-line="604" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -856,8 +856,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="381" column="18" lean-forward="true" selection-start-line="381" selection-start-column="18" selection-end-line="381" selection-end-column="18" />
+        <state relative-caret-position="150">
+          <caret line="23" column="26" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="26" />
           <folding>
             <element signature="e#163#220#0" />
             <element signature="e#435#439#0" />
@@ -920,7 +920,6 @@
             <element signature="e#10351#10875#0" />
             <element signature="e#10351#10382#0" />
             <element signature="e#10651#10719#0" />
-            <element signature="e#10908#11757#0" />
             <element signature="e#11634#11664#0" />
             <element signature="e#11809#12721#0" />
             <element signature="e#11809#11883#0" />
@@ -935,8 +934,6 @@
             <element signature="e#13706#13736#0" />
             <element signature="e#15306#15450#0" />
             <element signature="e#15344#15374#0" />
-            <element signature="e#15506#17094#0" />
-            <element signature="e#15581#16920#0" />
             <element signature="e#15748#15921#0" />
             <element signature="e#16251#16316#0" />
             <element signature="e#16373#16553#0" />
@@ -988,16 +985,11 @@
             <element signature="e#26314#26746#0" />
             <element signature="e#26314#26345#0" />
             <element signature="e#26778#27380#0" />
-            <element signature="e#26853#27200#0" />
-            <element signature="e#27219#27366#0" />
             <element signature="e#27257#27287#0" />
-            <element signature="e#27431#28083#0" />
             <element signature="e#27723#27970#0" />
             <element signature="e#27989#28072#0" />
             <element signature="e#28141#28701#0" />
-            <element signature="e#28216#28515#0" />
-            <element signature="e#28534#28684#0" />
-            <element signature="e#28572#28602#0" />
+            <element signature="e#30935#31007#0" />
             <element signature="e#28702#28735#0" />
             <element signature="e#28814#29272#0" />
             <element signature="e#28814#28845#0" />
@@ -1016,26 +1008,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="346" column="39" lean-forward="true" selection-start-line="346" selection-start-column="39" selection-end-line="346" selection-end-column="39" />
+        <state relative-caret-position="180">
+          <caret line="51" column="43" lean-forward="true" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="43" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <element signature="e#122#299#0" />
             <element signature="e#310#682#0" />
             <element signature="e#723#842#0" />
             <element signature="e#869#1024#0" />
-            <element signature="e#1084#2813#0" />
-            <element signature="e#1121#2813#0" />
-            <element signature="e#2906#6265#0" />
-            <element signature="e#6312#6949#0" />
-            <element signature="e#6990#11260#0" />
-            <element signature="e#11306#15446#0" />
-            <element signature="e#15492#19480#0" />
+            <element signature="e#2860#3865#0" />
             <element signature="e#19538#23570#0" />
             <element signature="e#19578#23570#0" />
             <element signature="e#23667#24425#0" />
             <element signature="e#24475#24923#0" />
             <element signature="e#24972#25742#0" />
+            <element signature="e#25790#26626#0" />
+            <element signature="e#26677#27184#0" />
+            <element signature="e#27230#28264#0" />
+            <element signature="e#28309#29137#0" />
+            <element signature="e#29185#29752#0" />
+            <element signature="e#29799#30657#0" />
+            <element signature="e#30704#31603#0" />
+            <element signature="e#31653#32101#0" />
+            <element signature="e#32149#32797#0" />
           </folding>
         </state>
       </provider>
