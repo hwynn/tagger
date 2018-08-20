@@ -4,40 +4,46 @@ import os
 from pathlib import PurePosixPath
 from pathlib import PureWindowsPath
 
-#-------These are the exceptions that can be thrown
-#reasons we might throw an error:
-# 1. File not found
-# this should already exist as FileNotFoundError
+#========================================================
+#---------------Defined exceptions-----------------------
+#========================================================
 
-# 2. Unrecognized filetype (or no filetype)
-class UnknownFiletypeError(ValueError): pass
-
-# 3. Unsupported filetype
-class UnsupportedFiletypeError(ValueError): pass
-
-# 4. Support not yet implemented
-# This exception will occur in cases of acceptable use
-# but the functionality is not yet complete.
-class SupportNotImplementedError(NotImplementedError): pass
-
-# 5. File does not have this data.
-# Used when we want to remove metadata but none is present.
-class MetadataMissingError(ValueError): pass
-
+class UnknownFiletypeError(ValueError):
+    '''Unrecognized filetype (or no filetype)'''
+    pass
+class UnsupportedFiletypeError(ValueError):
+    '''Unsupported filetype'''
+    pass
+class SupportNotImplementedError(NotImplementedError):
+    '''
+    Support not yet implemented
+    This exception will occur in cases of acceptable use
+    but the functionality is not yet complete.
+    '''
+    pass
+class MetadataMissingError(ValueError):
+    '''File does not have this data.
+    Used when we want to remove metadata but none is present.'''
+    pass
 class NoSuchItemError(ValueError):
     """This is similar to MetadataMissing (it shows up in similar contexts)
     But it's raised when data is present, but the item we want to remove
     isn't present in the list"""
     pass
-
 class DuplicateDataError(ValueError):
     """we raise this when we try to add a tag
     or something similar to a list and the list already has that item"""
     pass
+class OutOfRangeError(ValueError):
+    '''used for setRating'''
+    pass
+class NotIntegerError(ValueError):
+    '''used for setRating'''
+    pass
 
-#both of these are used for setRating
-class OutOfRangeError(ValueError): pass
-class NotIntegerError(ValueError): pass
+#========================================================
+#------------------Utility functions---------------------
+#========================================================
 
 def getExtension(p_filepathname):
     #this lets us extract file extensions
@@ -47,17 +53,18 @@ def getExtension(p_filepathname):
         return PureWindowsPath(p_filepathname).suffix
     #assume posix otherwise
     return PurePosixPath(p_filepathname).suffix
-
 def filecheck(p_filename):
     #this function checks the type of the file, and raises an exception
     #if the filetype is not recognized
     if len(p_filename) < 5:
         raise UnknownFiletypeError('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
+    if getExtension(p_filename)== '':
+        raise UnknownFiletypeError(
+            'Filename \'{}\' has no extension. What even is this hot mess you gave us?'.format(p_filename))
     if getExtension(p_filename) != '.jpg' and getExtension(p_filename) != '.png' and getExtension(p_filename) != '.gif':
         raise UnsupportedFiletypeError(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_filename))
     return
-
 def earlySupportCheck(p_filename):
     # this function checks the type of the file.
     # it will raise an exception if this type of file should be supported
@@ -66,7 +73,6 @@ def earlySupportCheck(p_filename):
     if getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
         raise SupportNotImplementedError('Sorry. This operation not ready to support .png or .gif files yet.')
     return
-
 def alpha1SupportCheck(p_filename):
     # this function checks the type of the file.
     # it will raise an exception if this type of file should be supported
@@ -75,7 +81,6 @@ def alpha1SupportCheck(p_filename):
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
         raise SupportNotImplementedError('Sorry. This operation is not ready for anything.')
     return
-
 #-------string cleaning utility functions
 def listHexTrim(p_rawList):
     # Takes a freshly translated string list and
@@ -173,6 +178,9 @@ def getStashData(p_filename, p_key):
     # TODO
     return
 
+#========================================================
+#---------------MetaData functionality-------------------
+#========================================================
 
 # ------edit title metadata
 def containsTitle(p_filename):
@@ -282,6 +290,7 @@ def containsArtists(p_filename):
         # print("this file has no artist data")
         return False
     else:
+        earlySupportCheck(p_filename)
         # TODO add png and gif support
         return False
     return False
@@ -349,6 +358,7 @@ def searchArtists(p_filename, p_artist):
                 break
         return f_found
     else:
+        earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have artist data?
         return False
@@ -441,6 +451,7 @@ def containsTags(p_filename):
         # print("this file has no tag data")
         return False
     else:
+        earlySupportCheck(p_filename)
         # TODO add png and gif support
         return False
     return False
@@ -498,6 +509,7 @@ def searchTags(p_filename, p_tag):
         if p_tag in dirtyStr2cleanList(f_bustedTagString):
             return True
     else:
+        earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have tag data?
         return False
@@ -578,6 +590,7 @@ def containsDescr(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     # TODO add png support
+    earlySupportCheck(p_filename)
     if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.XPComment' in f_metadata.exif_keys)):
         # print("this file already has description data")
         return True
@@ -697,6 +710,7 @@ def containsRating(p_filename):
         # print("this file already has rating data")
         return True
     # print("this file has no rating data")
+    earlySupportCheck(p_filename)
     return False
 def getRating(p_filename):
     filecheck(p_filename)
@@ -717,7 +731,7 @@ def getRating(p_filename):
         return -1
     return -1
 def setRating(p_filename, p_setRatingToThis):
-    if not (1 < p_setRatingToThis < 5):
+    if not (1 <= p_setRatingToThis <= 5):
         raise OutOfRangeError('number out of range (must be 1..5)')
     if not isinstance(p_setRatingToThis, int):
         raise NotIntegerError('non-integers can not be used')
@@ -767,6 +781,7 @@ def containsSrc(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     # TODO add png support
+    earlySupportCheck(p_filename)
     if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.ImageHistory' in f_metadata.exif_keys)):
         # print("this file already has history/source data")
         return True
@@ -792,9 +807,11 @@ def containsOrgDate(p_filename):
 	# This will tell us if the file
 	# has any original date metadata.
 	# Returns bool
+    filecheck(p_filename)
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     # TODO add png support
+    earlySupportCheck(p_filename)
     if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.DateTimeOriginal' in f_metadata.exif_keys)):
         # print("this file already has original date data")
         return True
