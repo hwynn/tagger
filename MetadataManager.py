@@ -737,6 +737,10 @@ def setRating(p_filename, p_setRatingToThis):
         return
     return
 def searchRating(p_filename, p_searchForThisRating):
+    if not (-1 <= p_searchForThisRating <= 5):
+        raise OutOfRangeError('number out of range (must be 1..5)')
+    if not isinstance(p_searchForThisRating, int):
+        raise NotIntegerError('non-integers can not be used')
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)

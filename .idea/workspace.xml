@@ -49,15 +49,15 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="35" />
-          <entry key="py" value="18926" />
+          <entry key="py" value="19009" />
           <entry key="txt" value="810" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="845" />
-          <entry key="Python" value="16070" />
-          <entry key="Scratch" value="2856" />
+          <entry key="Python" value="16076" />
+          <entry key="Scratch" value="2933" />
         </counts>
       </usages-collector>
     </session>
@@ -67,8 +67,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="813" lean-forward="true" selection-start-line="813" selection-end-line="813" />
+            <state relative-caret-position="142">
+              <caret line="537" column="10" lean-forward="true" selection-start-line="537" selection-start-column="10" selection-end-line="537" selection-end-column="10" />
               <folding>
                 <element signature="e#119#170#0" />
                 <element signature="e#359#363#0" />
@@ -86,6 +86,11 @@
                 <element signature="e#8036#8562#0" />
                 <element signature="e#8613#9389#0" />
                 <element signature="e#9421#10287#0" />
+                <element signature="e#10351#10875#0" />
+                <element signature="e#10908#11757#0" />
+                <element signature="e#11809#12721#0" />
+                <element signature="e#12767#13835#0" />
+                <element signature="e#13877#15461#0" />
                 <element signature="e#15745#16262#0" />
                 <element signature="e#16292#17077#0" />
                 <element signature="e#17123#18001#0" />
@@ -98,6 +103,7 @@
                 <element signature="e#23800#24503#0" />
                 <element signature="e#24552#25413#0" />
                 <element signature="e#25445#26251#0" />
+                <element signature="e#26314#26746#0" />
                 <element signature="e#26778#27380#0" />
                 <element signature="e#27431#28083#0" />
                 <element signature="e#28141#28701#0" />
@@ -114,11 +120,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
+            <state relative-caret-position="165">
+              <caret line="83" column="5" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
-                <marker date="1534726855536" expanded="true" signature="250:252" ph="..." />
+                <marker date="1534728687692" expanded="true" signature="250:252" ph="..." />
               </folding>
             </state>
           </provider>
@@ -148,7 +154,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find># TODO delete file</find>
       <find>MetadataManager.MetadataManager</find>
       <find>, &quot;catScreamPizza.jpg&quot;</find>
       <find>, &quot;Makefile&quot;</find>
@@ -177,10 +182,10 @@
       <find>print</find>
       <find>('Exif.Image.Artist', f_value)</find>
       <find>supp</find>
+      <find>&lt; p_searchForThisRating &lt; 5):</find>
       <find>f_metadata</find>
     </findStrings>
     <replaceStrings>
-      <replace>, \n'</replace>
       <replace>g_setArtists</replace>
       <replace>dirtyStr2cleanStr</replace>
       <replace>f_cleanThing</replace>
@@ -209,6 +214,7 @@
       <replace>artist</replace>
       <replace>('Exif.Image.Artist', cleanList2cleanStr(p_cleanArtistList))</replace>
       <replace>('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))</replace>
+      <replace>&lt;= p_searchForThisRating &lt;= 5):</replace>
       <replace>Descr</replace>
     </replaceStrings>
   </component>
@@ -237,8 +243,8 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_3.py" />
-        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
         <option value="$PROJECT_DIR$/MetadataManager.py" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
       </list>
     </option>
   </component>
@@ -491,7 +497,14 @@
       <option name="project" value="LOCAL" />
       <updated>1534727200562</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="the artist stuff all works now. I'm just ignoring the Exif.Image.Artist tag.">
+      <created>1534727255177</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1534727255177</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -580,27 +593,6 @@
     <MESSAGE value="I give up on the artist tag crap. This is as far as I got. I'm going to cut it all out." />
     <MESSAGE value="the artist stuff all works now. I'm just ignoring the Exif.Image.Artist tag." />
     <option name="LAST_COMMIT_MESSAGE" value="the artist stuff all works now. I'm just ignoring the Exif.Image.Artist tag." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py</url>
-          <line>24</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py</url>
-          <line>28</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py</url>
-          <line>30</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/utils.py" />
@@ -702,19 +694,19 @@
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
+        <state relative-caret-position="165">
+          <caret line="83" column="5" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <marker date="1534726855536" expanded="true" signature="250:252" ph="..." />
+            <marker date="1534728687692" expanded="true" signature="250:252" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="813" lean-forward="true" selection-start-line="813" selection-end-line="813" />
+        <state relative-caret-position="142">
+          <caret line="537" column="10" lean-forward="true" selection-start-line="537" selection-start-column="10" selection-end-line="537" selection-end-column="10" />
           <folding>
             <element signature="e#119#170#0" />
             <element signature="e#359#363#0" />
@@ -732,6 +724,11 @@
             <element signature="e#8036#8562#0" />
             <element signature="e#8613#9389#0" />
             <element signature="e#9421#10287#0" />
+            <element signature="e#10351#10875#0" />
+            <element signature="e#10908#11757#0" />
+            <element signature="e#11809#12721#0" />
+            <element signature="e#12767#13835#0" />
+            <element signature="e#13877#15461#0" />
             <element signature="e#15745#16262#0" />
             <element signature="e#16292#17077#0" />
             <element signature="e#17123#18001#0" />
@@ -744,6 +741,7 @@
             <element signature="e#23800#24503#0" />
             <element signature="e#24552#25413#0" />
             <element signature="e#25445#26251#0" />
+            <element signature="e#26314#26746#0" />
             <element signature="e#26778#27380#0" />
             <element signature="e#27431#28083#0" />
             <element signature="e#28141#28701#0" />
