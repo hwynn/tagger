@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="while working on artist set functionality, I hit a segfault bug. I've never had that in python.">
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="the artist stuff all works now. I'm just ignoring the Exif.Image.Artist tag.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MetadataManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/MetadataManager.py" afterDir="false" />
     </list>
@@ -49,26 +49,26 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="35" />
-          <entry key="py" value="18802" />
-          <entry key="txt" value="633" />
+          <entry key="py" value="18926" />
+          <entry key="txt" value="810" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="668" />
-          <entry key="Python" value="16040" />
-          <entry key="Scratch" value="2762" />
+          <entry key="PLAIN_TEXT" value="845" />
+          <entry key="Python" value="16070" />
+          <entry key="Scratch" value="2856" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="363" column="36" lean-forward="true" selection-start-line="363" selection-start-column="36" selection-end-line="363" selection-end-column="36" />
+            <state relative-caret-position="210">
+              <caret line="813" lean-forward="true" selection-start-line="813" selection-end-line="813" />
               <folding>
                 <element signature="e#119#170#0" />
                 <element signature="e#359#363#0" />
@@ -86,7 +86,6 @@
                 <element signature="e#8036#8562#0" />
                 <element signature="e#8613#9389#0" />
                 <element signature="e#9421#10287#0" />
-                <element signature="e#12767#13835#0" />
                 <element signature="e#15745#16262#0" />
                 <element signature="e#16292#17077#0" />
                 <element signature="e#17123#18001#0" />
@@ -107,20 +106,19 @@
                 <element signature="e#29411#29489#0" />
                 <element signature="e#29524#29602#0" />
                 <element signature="e#29664#30101#0" />
-                <marker date="1534723196753" expanded="true" signature="14466:14479" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="36" column="83" selection-start-line="36" selection-start-column="83" selection-end-line="36" selection-end-column="83" />
+            <state relative-caret-position="180">
+              <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
-                <marker date="1534726050184" expanded="true" signature="306:308" ph="..." />
+                <marker date="1534726855536" expanded="true" signature="250:252" ph="..." />
               </folding>
             </state>
           </provider>
@@ -178,8 +176,8 @@
       <find>print</find>
       <find>print</find>
       <find>('Exif.Image.Artist', f_value)</find>
-      <find>f_metadata</find>
       <find>supp</find>
+      <find>f_metadata</find>
     </findStrings>
     <replaceStrings>
       <replace>, \n'</replace>
@@ -210,8 +208,8 @@
       <replace>'Exif.Image.XPAuthor'</replace>
       <replace>artist</replace>
       <replace>('Exif.Image.Artist', cleanList2cleanStr(p_cleanArtistList))</replace>
-      <replace>Descr</replace>
       <replace>('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))</replace>
+      <replace>Descr</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -239,8 +237,8 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_3.py" />
-        <option value="$PROJECT_DIR$/MetadataManager.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
+        <option value="$PROJECT_DIR$/MetadataManager.py" />
       </list>
     </option>
   </component>
@@ -472,7 +470,28 @@
       <option name="project" value="LOCAL" />
       <updated>1534713691179</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="I give up on the artist tag crap. This is as far as I got. I'm going to cut it all out.">
+      <created>1534726104830</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1534726104830</updated>
+    </task>
+    <task id="LOCAL-00009" summary="the artist stuff all works now. I'm just ignoring the Exif.Image.Artist tag.">
+      <created>1534727137863</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1534727137863</updated>
+    </task>
+    <task id="LOCAL-00010" summary="the artist stuff all works now. I'm just ignoring the Exif.Image.Artist tag.">
+      <created>1534727200562</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1534727200562</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -558,70 +577,27 @@
     <MESSAGE value="unit tests created" />
     <MESSAGE value="adding functionality to MetaDataManager libraby functions" />
     <MESSAGE value="while working on artist set functionality, I hit a segfault bug. I've never had that in python." />
-    <option name="LAST_COMMIT_MESSAGE" value="while working on artist set functionality, I hit a segfault bug. I've never had that in python." />
+    <MESSAGE value="I give up on the artist tag crap. This is as far as I got. I'm going to cut it all out." />
+    <MESSAGE value="the artist stuff all works now. I'm just ignoring the Exif.Image.Artist tag." />
+    <option name="LAST_COMMIT_MESSAGE" value="the artist stuff all works now. I'm just ignoring the Exif.Image.Artist tag." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>466</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>467</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>428</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>429</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>323</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>331</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py</url>
-          <line>25</line>
+          <line>24</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py</url>
-          <line>30</line>
+          <line>28</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py</url>
-          <line>49</line>
+          <line>30</line>
           <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py</url>
-          <line>57</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>363</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>295</line>
-          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -724,10 +700,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <marker date="1534726855536" expanded="true" signature="250:252" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="363" column="36" lean-forward="true" selection-start-line="363" selection-start-column="36" selection-end-line="363" selection-end-column="36" />
+        <state relative-caret-position="210">
+          <caret line="813" lean-forward="true" selection-start-line="813" selection-end-line="813" />
           <folding>
             <element signature="e#119#170#0" />
             <element signature="e#359#363#0" />
@@ -745,7 +732,6 @@
             <element signature="e#8036#8562#0" />
             <element signature="e#8613#9389#0" />
             <element signature="e#9421#10287#0" />
-            <element signature="e#12767#13835#0" />
             <element signature="e#15745#16262#0" />
             <element signature="e#16292#17077#0" />
             <element signature="e#17123#18001#0" />
@@ -766,18 +752,6 @@
             <element signature="e#29411#29489#0" />
             <element signature="e#29524#29602#0" />
             <element signature="e#29664#30101#0" />
-            <marker date="1534723196753" expanded="true" signature="14466:14479" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="36" column="83" selection-start-line="36" selection-start-column="83" selection-end-line="36" selection-end-column="83" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-            <marker date="1534726050184" expanded="true" signature="306:308" ph="..." />
           </folding>
         </state>
       </provider>

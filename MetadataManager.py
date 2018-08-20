@@ -321,55 +321,11 @@ def setArtists(p_filename, p_cleanArtistList):
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
-        #f_metadata['Exif.Image.Artist'] = pyexiv2.ExifTag('Exif.Image.Artist', cleanList2cleanStr(p_cleanArtistList))
-        f_metadata.read()
-        f_artistDataToSet = f_metadata['Exif.Image.Artist']
-        f_artistString = cleanList2cleanStr(p_cleanArtistList)
-        print("new artists should be:", f_artistString)
-        #f_artistDataToSet.value = f_artistString
-        f_artistDataToSet.value = "hwl777lo testing akjhjwe"
-        #f_metadata['Exif.Image.Artist'].value = cleanList2cleanStr(p_cleanArtistList)
-        f_metadata.write()
         return
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         return
-
-def containsFixArtists(p_filename):
-	# This will tell us if the file
-	# has any artist metadata.
-	# Returns bool
-    filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        if ('Exif.Image.Artist' in f_metadata.exif_keys):
-            return True
-    else:
-        raise UnsupportedFiletypeError("You only need this for .jpgs")
-        return False
-    return False
-def fixArtists(p_filename):
-    # Exif.Image.Artist doesn't change when 'Exif.Image.XPAuthor' changes
-    #this should fix that
-    #this should only be used for .jpg files
-    if (getExtension(p_filename) == '.jpg'):
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        if not containsFixArtists(p_filename):
-            #do we even want to set this data if it doesn't exist?
-            return
-        print("fixing artists")
-        #f_key = 'Exif.Image.Artist'
-        f_keywords = f_metadata['Exif.Image.Artist']
-        f_keywords.value = "hey this got changed inside a function"
-        f_metadata.write()
-    return
-
-
-    return
-
 def searchArtists(p_filename, p_artist):
     filecheck(p_filename)
 
@@ -388,7 +344,7 @@ def searchArtists(p_filename, p_artist):
         # Perhaps a strictSearchArtists() function is needed
         f_found = False
         for i_artist in dirtyStr2cleanList(f_bustedArtistString):
-            if p_artist.lower in i_artist.lower:
+            if p_artist.lower() in i_artist.lower():
                 f_found = True
                 break
         return f_found
@@ -426,8 +382,6 @@ def addArtist(p_filename, p_artist):
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
-        f_metadata['Exif.Image.Artist'] = pyexiv2.ExifTag('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))
-        f_metadata.write()
         return
     else:
         earlySupportCheck(p_filename)
@@ -464,8 +418,6 @@ def removeArtist(p_filename, p_artist):
         f_metadata.write()
         print("artist string should be:", cleanList2cleanStr(f_cleanArtistList))
         #f_metadata['Exif.Image.Artist'] = pyexiv2.ExifTag('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))
-        f_metadata['Exif.Image.Artist'].value = cleanList2cleanStr(f_cleanArtistList)
-        f_metadata.write()
         return
     else:
         earlySupportCheck(p_filename)
