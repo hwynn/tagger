@@ -202,6 +202,8 @@ def containsTitle(p_filename):
     # print("this file has no title data")
     return False
 def getTitle(p_filename):
+    #takes: filename as string (including path)
+    #returns: title. "" if one does not exist
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -238,6 +240,9 @@ def setTitle(p_filename, p_setTitleToThis):
         return
     return
 def searchTitle(p_filename, p_searchForThis):
+    #takes: filename as string (including path)
+    #returns: truth value of p_searchForThis being in the title
+    #always returns false when no title exists
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
