@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import pyexiv2
 import os
+import datetime
 from pathlib import PurePosixPath
 from pathlib import PureWindowsPath
 
@@ -624,8 +625,6 @@ def getDescr(p_filename):
         return ""
     return ""
 
-
-    return
 def setDescr(p_filename, p_setDescrToThis):
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -784,6 +783,7 @@ def searchRating(p_filename, p_searchForThisRating):
         return False
     return False
 #TODO def wipeRating(p_filename):
+
 # ------edit metadata that can store source url
 def containsSrc(p_filename):
 	# This will tell us if the file
@@ -800,21 +800,71 @@ def containsSrc(p_filename):
     # print("this file has no history/source data")
     return False
 def getSrc(p_filename):
+    #takes filename. Returns src info if the file has any.
+    #src info is planned to be used to store picture origin url
+    # along with the history of edits this software has performed upon it
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsSrc(p_filename):
+            return ""
+        f_keywords = f_metadata['Exif.Image.ImageHistory']
+        f_SrcString = f_keywords.value
+        return f_SrcString
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have Src data?
+        return ""
+    return ""
+
 def addSrc(p_filename, x):
+    #appends source info to the end of the current src info
+    #we don't want src info to be removed.
+    # But we do allow more to be added
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
+    if (getExtension(p_filename) == '.jpg'):
+        f_key = 'Exif.Image.ImageHistory'
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        #this is an append, so we fetch any src data to add
+        f_value = getSrc(p_filename)
+        #Note the line break. This means all future added data begins on a new line'
+        if f_value == "":
+            f_value = x
+        else:
+            f_value = f_value + "\n" + x
+        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+        f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        return
     return
-def searchSrc(p_filename, x):
+def searchSrc(p_filename, p_searchForThis):
+    #this returns true is p_searchForThis is found
+    # anywhere in the src string
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsSrc(p_filename):
+            return False
+        f_cleanSrc = getSrc(p_filename)
+        if p_searchForThis in f_cleanSrc:
+            return True
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have Src data?
+        return False
+    return False
 # -------edit orginal date
+
 def containsOrgDate(p_filename):
 	# This will tell us if the file
 	# has any original date metadata.
@@ -829,18 +879,43 @@ def containsOrgDate(p_filename):
         return True
     # print("this file has no original date data")
     return False
+
 def getOrgDate(p_filename):
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
-def setOrgDate(p_filename, x):
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsOrgDate(p_filename):
+            return ""
+        f_keywords = f_metadata['Exif.Image.DateTimeOriginal']
+        f_datestring = str(f_keywords.value)
+        return f_datestring
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have Descr data?
+        return ""
+    return ""
+
+def setOrgDate(p_filename, p_year, p_month, p_day, p_hour,p_minute,p_second):
+    #takes filename and several numbers to create datetime object
+    #sets the file's metadata to be this new datetime
+    #planned: passing datetime object as parameter rather than creating it internally
     filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
-    return
-def searchOrgDate(p_filename, x):
-    filecheck(p_filename)
-    alpha1SupportCheck(p_filename)
-    # TODO
+    if (getExtension(p_filename) == '.jpg'):
+        f_key = 'Exif.Photo.DateTimeOriginal'
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_value = datetime.datetime(p_year, p_month, p_day, p_hour, p_minute, p_second)
+        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+        f_metadata.write()
+        f_key = 'Exif.Photo.DateTimeDigitized'
+        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+        f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        return
     return
