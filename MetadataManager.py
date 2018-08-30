@@ -874,48 +874,81 @@ def containsOrgDate(p_filename):
     f_metadata.read()
     # TODO add png support
     earlySupportCheck(p_filename)
-    if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.DateTimeOriginal' in f_metadata.exif_keys)):
+    if ((getExtension(p_filename) == '.jpg') and ('Exif.Photo.DateTimeDigitized' in f_metadata.exif_keys)):
         # print("this file already has original date data")
         return True
     # print("this file has no original date data")
     return False
 
 def getOrgDate(p_filename):
+    #takes filename. returns date object if metadata exists
+    #if none exists, returns datetime.datetime(1, 1, 1)
+    #please don't use this as a magic number. It's just to keep consistent types
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
         if not containsOrgDate(p_filename):
-            return ""
-        f_keywords = f_metadata['Exif.Image.DateTimeOriginal']
-        f_datestring = str(f_keywords.value)
-        return f_datestring
+            return datetime.datetime(1, 1, 1)
+        """
+        if 'Exif.Image.DateTimeOriginal' in f_metadata.exif_keys:
+            print('Exif.Image.DateTimeOriginal:', f_metadata['Exif.Image.DateTimeOriginal'].value)
+        else:
+            print("no Exif.Image.DateTimeOriginal")
+        if 'Exif.Photo.DateTimeDigitized' in f_metadata.exif_keys:
+            print('Exif.Photo.DateTimeDigitized', f_metadata['Exif.Photo.DateTimeDigitized'].value)
+        else:
+            print("no Exif.Photo.DateTimeDigitized")
+        """
+        f_keywords = f_metadata['Exif.Photo.DateTimeDigitized']
+        return f_keywords.value
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have Descr data?
-        return ""
-    return ""
+        return datetime.datetime(1, 1, 1)
 
-def setOrgDate(p_filename, p_year, p_month, p_day, p_hour,p_minute,p_second):
-    #takes filename and several numbers to create datetime object
+def setOrgDate(p_filename, p_date):
+    #takes filename and datetime object
     #sets the file's metadata to be this new datetime
-    #planned: passing datetime object as parameter rather than creating it internally
+    #Note: this function doesn't work for 'Exif.Image.DateTimeOriginal:'
+    #I'm having a problem similar to the problem with 'Exif.Image.Artist'
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_key = 'Exif.Photo.DateTimeOriginal'
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        f_value = datetime.datetime(p_year, p_month, p_day, p_hour, p_minute, p_second)
+        f_value = str(p_date)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         f_key = 'Exif.Photo.DateTimeDigitized'
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
+        print(getOrgDate(p_filename))
         return
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         return
     return
+
+def searchOrgDate(p_filename, p_startDate, p_endDate):
+    # this returns true if the datetime is in between
+    # the
+    filecheck(p_filename)
+    if (getExtension(p_filename) == '.jpg'):
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsOrgDate(p_filename):
+            return False
+        f_cleanOrgDate = getOrgDate(p_filename)
+        if p_startDate <= f_cleanOrgDate <= p_endDate:
+            return True
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add png and gif support
+        # TODO error check: does this file have Src data?
+        return False
+    return False

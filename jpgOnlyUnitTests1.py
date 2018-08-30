@@ -1,6 +1,7 @@
 import unittest
 import MetadataManager
 import TestingManager
+import datetime
 import os
 
 g_outpath = TestingManager.g_outpath
@@ -116,7 +117,6 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(FileNotFoundError, MetadataManager.containsOrgDate, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.getOrgDate, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setOrgDate, "Missing.jpg", "2017-Jun-20 11:13 PM")
-        self.assertRaises(FileNotFoundError, MetadataManager.searchOrgDate, "Missing.jpg", "2000-Jan-10 11:13 PM")
 
 
     def test_metadataMissing(self):
@@ -167,7 +167,6 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.containsOrgDate, f_filename)
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.getOrgDate, f_filename)
         self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.setOrgDate, f_filename, "2017-Jun-20 11:13 PM")
-        self.assertRaises(MetadataManager.SupportNotImplementedError, MetadataManager.searchOrgDate, f_filename, "2000-Jan-10 11:13 PM")
         os.remove(f_filename)
 
 
@@ -207,7 +206,6 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsOrgDate, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getOrgDate, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setOrgDate, f_filename, "2017-Jun-20 11:13 PM")
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchOrgDate, f_filename, "2000-Jan-10 11:13 PM")
         os.remove(f_filename)
 
 
@@ -247,7 +245,6 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.containsOrgDate, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.getOrgDate, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setOrgDate, f_filename, "2017-Jun-20 11:13 PM")
-        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.searchOrgDate, f_filename, "2000-Jan-10 11:13 PM")
         os.remove(f_filename)
 class ResultsCheck_DelicateTests(unittest.TestCase):
     def test_metadataResults(self):
@@ -300,6 +297,31 @@ class ResultsCheck_DelicateTests(unittest.TestCase):
         self.assertEqual(True, MetadataManager.searchRating(f_filename1, 2))
         self.assertEqual(False, MetadataManager.searchRating(f_filename2, 3))
         self.assertEqual(False, MetadataManager.searchRating(f_filename3, 3))
+
+        self.assertEqual(False, MetadataManager.containsSrc(f_filename1))
+        self.assertEqual(False, MetadataManager.containsSrc(f_filename2))
+        self.assertEqual(False, MetadataManager.containsSrc(f_filename3))
+
+        self.assertEqual("", MetadataManager.getSrc(f_filename1))
+        self.assertEqual("", MetadataManager.getSrc(f_filename2))
+        self.assertEqual("", MetadataManager.getSrc(f_filename3))
+
+        self.assertEqual(False, MetadataManager.searchSrc(f_filename1, "sampleSrc"))
+        self.assertEqual(False, MetadataManager.searchSrc(f_filename2, "sampleSrc"))
+        self.assertEqual(False, MetadataManager.searchSrc(f_filename3, "sampleSrc"))
+
+        self.assertEqual(True, MetadataManager.containsOrgDate(f_filename1))
+        self.assertEqual(False, MetadataManager.containsOrgDate(f_filename2))
+        self.assertEqual(False, MetadataManager.containsOrgDate(f_filename3))
+
+        self.assertEqual('2017-12-11 21:51:28', str(MetadataManager.getOrgDate(f_filename1)))
+        self.assertEqual('0001-01-01 00:00:00', str(MetadataManager.getOrgDate(f_filename2)))
+        self.assertEqual('0001-01-01 00:00:00', str(MetadataManager.getOrgDate(f_filename3)))
+
+        self.assertEqual(True, MetadataManager.searchOrgDate(f_filename1, datetime.datetime(2017, 1, 1), datetime.datetime(2018, 1, 1)))
+        self.assertEqual(False, MetadataManager.searchOrgDate(f_filename2, datetime.datetime(2017, 1, 1), datetime.datetime(2018, 1, 1)))
+        self.assertEqual(False, MetadataManager.searchOrgDate(f_filename3, datetime.datetime(2017, 1, 1), datetime.datetime(2018, 1, 1)))
+
         os.remove(f_filename1)
         os.remove(f_filename2)
         os.remove(f_filename3)
@@ -347,7 +369,6 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
         MetadataManager.setArtists(f_filename, ["penguindude", "Artist: Simon Stalenhag"])
         self.assertEqual(["penguindude", "Artist: Simon Stalenhag"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
-
 
     def test_addArtistResults(self):
         removeAllFiles()
@@ -484,6 +505,36 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
         self.assertEqual(2, MetadataManager.getRating(f_filename))
         os.remove(f_filename)
 
+    def test_addSrcResults(self):
+        removeAllFiles()
+        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        MetadataManager.addSrc(f_filename, "SampleURL")
+        self.assertEqual("SampleURL", MetadataManager.getSrc(f_filename))
+        os.remove(f_filename)
+        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        MetadataManager.addSrc(f_filename, "SampleURL")
+        self.assertEqual("SampleURL", MetadataManager.getSrc(f_filename))
+        os.remove(f_filename)
+        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        MetadataManager.addSrc(f_filename, "SampleURL")
+        self.assertEqual("SampleURL", MetadataManager.getSrc(f_filename))
+        os.remove(f_filename)
+
+    def test_setOrgDateResults(self):
+        removeAllFiles()
+        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        f_date = datetime.datetime.today()
+        MetadataManager.setOrgDate(f_filename, f_date)
+        self.assertEqual(str(f_date), str(MetadataManager.getOrgDate(f_filename)))
+        os.remove(f_filename)
+        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        MetadataManager.setOrgDate(f_filename, f_date)
+        self.assertEqual(str(f_date), str(MetadataManager.getOrgDate(f_filename)))
+        os.remove(f_filename)
+        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        MetadataManager.setOrgDate(f_filename, f_date)
+        self.assertEqual(str(f_date), str(MetadataManager.getOrgDate(f_filename)))
+        os.remove(f_filename)
 
 #test for rating. must be int
 #number must be between 1 and 5
