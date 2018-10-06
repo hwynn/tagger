@@ -47,16 +47,32 @@ class NotIntegerError(ValueError):
 #========================================================
 
 def getExtension(p_filepathname):
-    #this lets us extract file extensions
-    #regardless of operating system
+    """!
+    this function checks the type of the file.
+    Used for png and gif
+
+    :param p_filepathname: the path/name of the file
+    :type p_filepathname: string
+
+    :return: the file extension
+    :rtype: string
+    """
     if os.name == 'nt':
         #this filepath is from windows
         return PureWindowsPath(p_filepathname).suffix
     #assume posix otherwise
     return PurePosixPath(p_filepathname).suffix
 def filecheck(p_filename):
-    #this function checks the type of the file, and raises an exception
-    #if the filetype is not recognized
+    """!
+    this function checks the type of the file.
+    Used for png and gif
+
+    :param p_filename: the type of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype is not recognized
+    :raise UnsupportedFiletypeError: if the filetype is recognized but not supported
+    """
     if len(p_filename) < 5:
         raise UnknownFiletypeError('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
     if getExtension(p_filename)== '':
@@ -67,44 +83,93 @@ def filecheck(p_filename):
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_filename))
     return
 def earlySupportCheck(p_filename):
-    # this function checks the type of the file.
-    # it will raise an exception if this type of file should be supported
-    # but that support has not yet been implemented
-    # Used for png and gif
+    """!
+    this function checks the type of the file.
+    Used for png and gif
+
+    :param p_filename: the type of the file
+    :type p_filename: string
+
+    :raise SupportNotImplementedError: if type of given file should be supported
+    but that support has not yet been implemented
+    """
     if getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
         raise SupportNotImplementedError('Sorry. This operation not ready to support .png or .gif files yet.')
     return
 def alpha1SupportCheck(p_filename):
-    # this function checks the type of the file.
-    # it will raise an exception if this type of file should be supported
-    # but that support has not yet been implemented
-    # Used for png and gif
+    """!
+    this function checks the type of the file.
+    it will raise an exception if this type of file should be supported
+    Used for completely unfinished functions
+
+    :param p_filename: the type of the file
+    :type p_filename: string
+
+    :raise SupportNotImplementedError: if this type of file is recognized
+    """
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
         raise SupportNotImplementedError('Sorry. This operation is not ready for anything.')
     return
 #-------string cleaning utility functions
 def listHexTrim(p_rawList):
-    # Takes a freshly translated string list and
-    # trims the '\x00' ends off all the strings
+    """!
+    Takes a freshly translated list of byte-strings and
+    trims the '\x00' ends off all the strings
+
+    #TODO replace this function with the python struct byte methods
+    :param p_rawList: list of byte-format strings
+    :type p_rawList: list<string>
+
+    :return: the file extension
+    :rtype: string
+    """
     #print("listHexTrim(", p_rawList, ")")
     return [x.replace('\x00', '') for x in p_rawList]
 def dirtyStr2cleanStr(p_bustedTags):
+    """!
+    trims the '\x00' ends off all the characters in a byte-string
+
+    #TODO replace this function with the python struct byte methods
+    :param p_bustedTags: a single tag in byte-string format
+    :type p_bustedTags: string
+
+    :return: a single tag in string format
+    :rtype: string
+    """
     f_tags = ""
     for y in [x.replace('\x00', '') for x in p_bustedTags]:
         if y != '':
             f_tags += y
     return f_tags
 def cleanStr2dirtyStr(p_newtag):
+    """!
+    adds the '\x00' on all the characters of a string
+
+    #TODO replace this function with the python struct byte methods
+    :param p_newtag: a single tag in string format
+    :type p_newtag: string
+
+    :return: a single tag in byte-string format
+    :rtype: string
+    """
     f_bustedTag = ""
     for x in p_newtag:
         f_bustedTag += x
         f_bustedTag += '\x00'
     return f_bustedTag
 def dirtyStr2cleanList(p_dirtyTagStr):
-    # Takes a semicolon-delimited list of tags
-    # represented by a dirty (\x00 filled) string.
-    # This function returns a list of tags
-    # represented by clean strings
+    """!
+    Takes a byte-string representing a ; delimited list
+    trims the '\x00' ends off all the strings
+    Name: dirty string means it is filled with \x00
+
+    #TODO replace this function with the python struct byte methods
+    :param p_dirtyTagStr: ; delimited list represented as a byte-string
+    :type p_dirtyTagStr: string
+
+    :return: a list of tags in string format
+    :rtype: list<string>
+    """
     f_dirtyTagList = p_dirtyTagStr.split(';')
     # print("dirtyStr2cleanList(): f_dirtyTagList", f_dirtyTagList)
     f_cleanTagList = [dirtyStr2cleanStr(x) for x in f_dirtyTagList]
@@ -115,16 +180,28 @@ def dirtyStr2cleanList(p_dirtyTagStr):
         return []
     return f_cleanTagList
 def cleanList2dirtyStr(p_cleanTagList):
-    # Takes a list of tags
-    # represented by clean strings.
-    # This function returns a semicolon-delimited list of tags
-    # represented by a dirty (\x00 filled) string.
+    """!
+    #TODO replace this function with the python struct byte methods
+    :param p_cleanTagList: a list of tags in string format
+    :type p_cleanTagList: list<string>
+
+    :return: ; delimited list represented as a byte-string
+    :rtype: string
+    """
     f_dirtyTagList = [cleanStr2dirtyStr(x) for x in p_cleanTagList]
     # print("cleanList2dirtyStr(): f_dirtyTagList", f_dirtyTagList)
     f_dirtyTagString = ";\x00".join(f_dirtyTagList) + "\x00\x00"
     # print("cleanList2dirtyStr(): f_dirtyTagString", f_dirtyTagString)
     return f_dirtyTagString
 def cleanList2cleanStr(p_cleanTagList):
+    """!
+    #TODO replace this function with the python struct byte methods
+    :param p_cleanTagList: a list of tags in string format
+    :type p_cleanTagList: list<string>
+
+    :return: ; delimited list represented as a string
+    :rtype: list<string>
+    """
     return ";".join(p_cleanTagList)
 #-------stashing utility functions
 """Note: 'stashing' is a term I made up
@@ -189,9 +266,19 @@ def getStashData(p_filename, p_key):
 
 # ------edit title metadata
 def containsTitle(p_filename):
-    # This will tell us if the file
-    # has any title metadata.
-    # Returns bool
+    """!
+    This will tell us if the file
+    has any title metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has title metadata
+    :rtype: bool
+    """
     filecheck(p_filename)
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
@@ -203,8 +290,16 @@ def containsTitle(p_filename):
     # print("this file has no title data")
     return False
 def getTitle(p_filename):
-    #takes: filename as string (including path)
-    #returns: title. "" if one does not exist
+    """!
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: title if it exists. Else, ""
+    :rtype: string
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -225,6 +320,16 @@ def getTitle(p_filename):
         return ""
     return ""
 def setTitle(p_filename, p_setTitleToThis):
+    """
+
+    :param p_filename:
+    :param p_setTitleToThis:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_key = 'Exif.Image.XPTitle'
@@ -244,6 +349,15 @@ def searchTitle(p_filename, p_searchForThis):
     #takes: filename as string (including path)
     #returns: truth value of p_searchForThis being in the title
     #always returns false when no title exists
+    """
+    :param p_filename:
+    :param p_searchForThis:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -265,13 +379,22 @@ def searchTitle(p_filename, p_searchForThis):
     return False
 def wipeTitle(p_filename):
     # considering renaming the function wipeTitle(p_filename)
+    """
+    :param p_filename:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise MetadataMissingError: if the file has no title metadata
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_key = 'Exif.Image.XPTitle'
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         if not containsTitle(p_filename):
-            raise MetadataMissingError("there is no description to remove")
+            raise MetadataMissingError("there is no title to remove")
         f_dirtyString = cleanStr2dirtyStr(" ")
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyString)
         # we set the value to (almost) nothing before removing the key just in case the values stick around
@@ -287,9 +410,19 @@ def wipeTitle(p_filename):
     return
 # ------edit artist metadata
 def containsArtists(p_filename):
-	# This will tell us if the file
-	# has any artist metadata.
-	# Returns bool
+    """!
+    This will tell us if the file
+    has any artist metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has artist metadata
+    :rtype: bool
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -305,7 +438,16 @@ def containsArtists(p_filename):
         return False
     return False
 def getArtists(p_filename):
-    # returns list of artists
+    """!
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: list of artists if it exists. Else, []
+    :rtype: list<string>
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -329,6 +471,15 @@ def setArtists(p_filename, p_cleanArtistList):
     # Instead of appending a new artist to the list of artists already present
     # This function replaces all artists with the list of artists provided as p_cleanArtistList.
     # Use this function with caution. Because.. you know. It wipes your artists.
+    """
+    :param p_filename:
+    :param p_cleanArtistList:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -346,6 +497,15 @@ def setArtists(p_filename, p_cleanArtistList):
         # TODO add png and gif support
         return
 def searchArtists(p_filename, p_artist):
+    """
+    :param p_filename:
+    :param p_artist:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
 
     if (getExtension(p_filename) == '.jpg'):
@@ -374,6 +534,16 @@ def searchArtists(p_filename, p_artist):
         return False
     return False
 def addArtist(p_filename, p_artist):
+    """
+    :param p_filename:
+    :param p_artist:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise DuplicateDataError: if the file already has this artist in its artist metadata
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -410,6 +580,17 @@ def addArtist(p_filename, p_artist):
         return
     return
 def removeArtist(p_filename, p_artist):
+    """
+    :param p_filename:
+    :param p_artist:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise MetadataMissingError: if the file has no artist metadata
+    :raise NoSuchItemError: if the file does not have p_artist in their artist list
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -446,9 +627,19 @@ def removeArtist(p_filename, p_artist):
 
 # -----edit tag metadata
 def containsTags(p_filename):
-	# This will tell us if the file
-	# has any tag metadata.
-	# Returns bool
+    """!
+    This will tell us if the file
+    has any tag metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has tag metadata
+    :rtype: bool
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -464,6 +655,16 @@ def containsTags(p_filename):
         return False
     return False
 def getTags(p_filename):
+    """!
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: list of tags if it exists. Else, []
+    :rtype: list<string>
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -487,6 +688,15 @@ def setTags(p_filename, p_cleanTagList):
     # Instead of appending a new tag to the list of tags already present
     # This function replaces all tags with the list of tags provided as p_cleanTagList.
     # Use this function with caution. Because.. you know. It wipes your tags.
+    """
+    :param p_filename:
+    :param p_cleanTagList:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -504,6 +714,15 @@ def setTags(p_filename, p_cleanTagList):
         # TODO add png and gif support
         return True
 def searchTags(p_filename, p_tag):
+    """
+    :param p_filename:
+    :param p_tag:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metaData = pyexiv2.ImageMetadata(p_filename)
@@ -523,6 +742,16 @@ def searchTags(p_filename, p_tag):
         return False
     return False
 def addTag(p_filename, p_tag):
+    """
+    :param p_filename:
+    :param p_tag:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise DuplicateDataError: if the file already has this tag in its tag metadata
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -557,6 +786,17 @@ def addTag(p_filename, p_tag):
         return
     return
 def removeTag(p_filename, p_tag):
+    """
+    :param p_filename:
+    :param p_tag:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise MetadataMissingError: if the file has no tag metadata
+    :raise NoSuchItemError: if the file does not have p_artist in their tag list
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -591,9 +831,19 @@ def removeTag(p_filename, p_tag):
     return
 # -------edit description metadata
 def containsDescr(p_filename):
-	# This will tell us if the file
-	# has any description metadata.
-	# Returns bool
+    """!
+    This will tell us if the file
+    has any Description metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has description metadata
+    :rtype: bool
+    """
     filecheck(p_filename)
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
@@ -605,6 +855,16 @@ def containsDescr(p_filename):
     # print("this file has no description data")
     return False
 def getDescr(p_filename):
+    """!
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: description if it exists. Else, ""
+    :rtype: string
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -626,6 +886,15 @@ def getDescr(p_filename):
     return ""
 
 def setDescr(p_filename, p_setDescrToThis):
+    """
+    :param p_filename:
+    :param p_setDescrToThis:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_key = 'Exif.Image.XPComment'
@@ -642,6 +911,15 @@ def setDescr(p_filename, p_setDescrToThis):
         return
     return
 def searchDescr(p_filename, p_searchForThis):
+    """
+    :param p_filename:
+    :param p_searchForThis:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -661,6 +939,15 @@ def searchDescr(p_filename, p_searchForThis):
         return False
     return False
 def addDescr(p_filename, p_addThisToDescr):
+    """
+    :param p_filename:
+    :param p_addThisToDescr:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_key = 'Exif.Image.XPComment'
@@ -683,6 +970,15 @@ def addDescr(p_filename, p_addThisToDescr):
         return
     return
 def wipeDescr(p_filename):
+    """
+    :param p_filename:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise MetadataMissingError: if the file has no description metadata
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_key = 'Exif.Image.XPComment'
@@ -705,9 +1001,19 @@ def wipeDescr(p_filename):
     return
 # ------edit rating metadata
 def containsRating(p_filename):
-	# This will tell us if the file
-	# has any rating metadata.
-	# Returns bool
+    """!
+    This will tell us if the file
+    has any rating metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has rating metadata
+    :rtype: bool
+    """
     filecheck(p_filename)
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
@@ -719,6 +1025,16 @@ def containsRating(p_filename):
     earlySupportCheck(p_filename)
     return False
 def getRating(p_filename):
+    """!
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: rating if it exists. Else, -1
+    :rtype: int
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -737,6 +1053,17 @@ def getRating(p_filename):
         return -1
     return -1
 def setRating(p_filename, p_setRatingToThis):
+    """
+    :param p_filename:
+    :param p_setRatingToThis:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise OutOfRangeError: if p_setRatingToThis is not between 1 to 5
+    :raise NotIntegerError: if p_setRatingToThis is not a whole number
+
+    :return:
+    """
     if not (1 <= p_setRatingToThis <= 5):
         raise OutOfRangeError('number out of range (must be 1..5)')
     if not isinstance(p_setRatingToThis, int):
@@ -757,6 +1084,17 @@ def setRating(p_filename, p_setRatingToThis):
         return
     return
 def searchRating(p_filename, p_searchForThisRating):
+    """
+    :param p_filename:
+    :param p_searchForThisRating:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise OutOfRangeError: if p_setRatingToThis is not between 1 to 5
+    :raise NotIntegerError: if p_setRatingToThis is not a whole number
+
+    :return:
+    """
     if not (-1 <= p_searchForThisRating <= 5):
         #Note: the reason we allow for searches of 0 and -1
         #is that theoretically, getRating() is used to get the value for searching
@@ -786,9 +1124,19 @@ def searchRating(p_filename, p_searchForThisRating):
 
 # ------edit metadata that can store source url
 def containsSrc(p_filename):
-	# This will tell us if the file
-	# has any source url metadata.
-	# Returns bool
+    """!
+    This will tell us if the file
+    has any source url metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has source url metadata
+    :rtype: bool
+    """
     filecheck(p_filename)
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
@@ -800,9 +1148,19 @@ def containsSrc(p_filename):
     # print("this file has no history/source data")
     return False
 def getSrc(p_filename):
-    #takes filename. Returns src info if the file has any.
-    #src info is planned to be used to store picture origin url
-    # along with the history of edits this software has performed upon it
+    """!
+    src info is planned to be used to store picture origin url
+     along with the history of edits this software has performed upon it
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: source url if it exists. Else, ""
+    :rtype: string
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -824,6 +1182,15 @@ def addSrc(p_filename, x):
     #appends source info to the end of the current src info
     #we don't want src info to be removed.
     # But we do allow more to be added
+    """
+    :param p_filename:
+    :param x:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_key = 'Exif.Image.ImageHistory'
@@ -847,6 +1214,15 @@ def addSrc(p_filename, x):
 def searchSrc(p_filename, p_searchForThis):
     #this returns true is p_searchForThis is found
     # anywhere in the src string
+    """
+    :param p_filename:
+    :param p_searchForThis:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -866,9 +1242,19 @@ def searchSrc(p_filename, p_searchForThis):
 # -------edit orginal date
 
 def containsOrgDate(p_filename):
-	# This will tell us if the file
-	# has any original date metadata.
-	# Returns bool
+    """!
+    This will tell us if the file
+    has any original date metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has original date metadata
+    :rtype: bool
+    """
     filecheck(p_filename)
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
@@ -881,9 +1267,19 @@ def containsOrgDate(p_filename):
     return False
 
 def getOrgDate(p_filename):
-    #takes filename. returns date object if metadata exists
-    #if none exists, returns datetime.datetime(1, 1, 1)
-    #please don't use this as a magic number. It's just to keep consistent types
+    """
+    if none exists, returns datetime.datetime(1, 1, 1)
+    please don't use this as a magic number. It's just to keep consistent types
+    since set and get should have the same requirements to work.
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: original data if it exists. Else, datetime.datetime(1,1,1)
+    :rtype: datatime object
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -914,6 +1310,15 @@ def setOrgDate(p_filename, p_date):
     #sets the file's metadata to be this new datetime
     #Note: this function doesn't work for 'Exif.Image.DateTimeOriginal:'
     #I'm having a problem similar to the problem with 'Exif.Image.Artist'
+    """
+    :param p_filename:
+    :param p_date:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_key = 'Exif.Photo.DateTimeOriginal'
@@ -936,6 +1341,16 @@ def setOrgDate(p_filename, p_date):
 def searchOrgDate(p_filename, p_startDate, p_endDate):
     # this returns true if the datetime is in between
     # the
+    """
+    :param p_filename:
+    :param p_startDate:
+    :param p_endDate:
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return:
+    """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_metadata = pyexiv2.ImageMetadata(p_filename)
