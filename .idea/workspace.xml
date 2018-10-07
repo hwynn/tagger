@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="testing png metadata capabilities still">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -54,14 +57,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="35" />
-          <entry key="py" value="27824" />
+          <entry key="py" value="29431" />
           <entry key="txt" value="1272" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="1307" />
-          <entry key="Python" value="21200" />
+          <entry key="Python" value="22807" />
           <entry key="Scratch" value="6624" />
         </counts>
       </usages-collector>
@@ -104,19 +107,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="420" column="79" selection-start-line="420" selection-start-column="79" selection-end-line="420" selection-end-column="79" />
+            <state relative-caret-position="270">
+              <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
               <folding>
                 <element signature="e#135#192#0" />
                 <element signature="e#354#407#0" />
-                <element signature="e#456#491#0" />
-                <element signature="e#551#707#0" />
-                <element signature="e#551#698#1" />
-                <element signature="e#752#858#0" />
                 <element signature="e#1127#1250#0" />
                 <element signature="e#1290#1323#0" />
                 <element signature="e#1363#1396#0" />
-                <element signature="e#1611#2027#0" />
                 <element signature="e#4649#5088#0" />
                 <element signature="e#4649#4950#1" />
                 <element signature="e#5126#5529#0" />
@@ -127,13 +125,6 @@
                 <element signature="e#6484#6741#1" />
                 <element signature="e#7087#7381#0" />
                 <element signature="e#7087#7345#1" />
-                <element signature="e#7671#7760#0" />
-                <element signature="e#7796#7926#0" />
-                <element signature="e#7972#8159#0" />
-                <element signature="e#8208#8504#0" />
-                <element signature="e#8558#8717#0" />
-                <element signature="e#8768#9097#0" />
-                <element signature="e#9139#9373#0" />
               </folding>
             </state>
           </provider>
@@ -163,40 +154,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Descr</find>
-      <find>searchOrgDate</find>
-      <find>Exif.Photo</find>
-      <find>Exif.Photo.DateTimeDigitized</find>
-      <find>Exif.Image.DateTimeOriginal</find>
-      <find>x123456789</find>
-      <find>2017-12-11 21:51:28</find>
-      <find>\t</find>
-      <find>f_metadata.read()</find>
-      <find>pass</find>
-      <find>g_date2</find>
-      <find>und</find>
-      <find>xmp.Keywords</find>
-      <find>return f_metadata[k</find>
-      <find>key6</find>
-      <find>key5</find>
-      <find>key7</find>
-      <find>key8</find>
-      <find>key10</find>
-      <find>key11</find>
-      <find>cleanStr2dirtyStr</find>
-      <find>dirtyStr2cleanStr</find>
-      <find>earlySupportCheck</find>
-      <find>filecheck</find>
-      <find>MetadataMissingError</find>
-      <find>DuplicateDataError</find>
-      <find>OutOfRangeError</find>
-      <find>NotIntegerError</find>
-      <find>NoSuchItemError</find>
-      <find>raise</find>
+      <find>(?:^[ \t]*)def</find>
+      <find>(?:^[ \t]*)def \w+\(.*\):</find>
+      <find>(?:^[ \t]*)def \w+\(.*\):$</find>
+      <find>(?:^[ \t]*)def \w+\(.*\):$(\s++)</find>
+      <find>(?:^[ \t]*)def \w+\(.*\):$(\s++)(#([a-zA-Z\s.']++))++</find>
+      <find>(?:^[ \t]*)def \w+\(.*\):$(\s++)(#([a-zA-Z\s.'_]++))++</find>
+      <find>(?:^[ \t]*)def \w+\(.*\):$(\s++)(#([a-zA-Z\s.'_:]++))++</find>
+      <find>((?:^[ \t]*)def \w+\(.*\):$)</find>
+      <find>((?:^[ \t]*)def \w+\(.*\):$)($(\s++))</find>
+      <find>((?:^[ \t]*)def \w+\(.*\):$)((\s++)#)</find>
+      <find>((?:^[ \t]*)def \w+\(.*\):$)((\s++)#([a-zA-Z\s.'_:]++))++</find>
+      <find>((?:^[ \t]*)def \w+\(.*\):$)((\s++)#([a-zA-Z\s.'_:]+?))</find>
+      <find>((?:^[ \t]*)def \w+\(.*\):$)((\s++)#([a-zA-Z\s.'_: ]+?))</find>
+      <find>((?:^[ \t]*)def \w+\(.*\):$)((\s++)#([a-zA-Z\s.'_:\p{Blank}]+?))</find>
+      <find>((?:^[ \t]*)def \w+\(.*\):$)((\s++)(#([a-zA-Z\s.'_:\p{Blank}\(\)]++))++)</find>
+      <find>:param p_filename:</find>
+      <find>:param p_filename:(\s++)</find>
+      <find>name/path of the file</find>
+      <find>:param p_filename:(\s++):</find>
+      <find>p_setTitleToThis</find>
+      <find>p_searchForThis</find>
+      <find>param p_searchForThis</find>
+      <find>:param</find>
+      <find>:([a-zA-Z'_:\p{Blank}]+):</find>
+      <find>:([a-zA-Z'_:\p{Blank}]+):(\s++)</find>
+      <find>def search</find>
+      <find>def get</find>
+      <find>:([a-zA-Z'_:\p{Blank}]+):(\s++)\&quot;\&quot;\&quot;</find>
+      <find>return(\s++)return</find>
+      <find>datetime o</find>
     </findStrings>
     <replaceStrings>
-      <replace>assertRaises</replace>
-      <replace>(self):\nremoveAllFiles()</replace>
       <replace>(self):\n\tremoveAllFiles()</replace>
       <replace>(self):\n\t\tremoveAllFiles()</replace>
       <replace />
@@ -225,6 +214,8 @@
       <replace>'Xmp.dc.description'</replace>
       <replace>'Xmp.xmp.Rating'</replace>
       <replace>'Xmp.xmp.Label'</replace>
+      <replace>:param p_filename: name/path of the file\n\t:</replace>
+      <replace>:param p_filename: name/path of the file\n\t:type p_filename: string\n\t:</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -297,6 +288,7 @@
   <component name="PropertiesComponent">
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -606,7 +598,21 @@
       <option name="project" value="LOCAL" />
       <updated>1538798332765</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Documenting MetadataManager library">
+      <created>1538855953726</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1538855953741</updated>
+    </task>
+    <task id="LOCAL-00026" summary="testing png metadata capabilities still">
+      <created>1538883811610</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1538883811610</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -641,23 +647,33 @@
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1533" height="771" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.113907285" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.113907285" />
+      <window_info anchor="bottom" id="Inspection Results" sideWeight="0.49933776" weight="0.32917318" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49271524" weight="0.24180967" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49933776" weight="0.32917318" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50728476" side_tool="true" weight="0.24180967" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50066227" side_tool="true" weight="0.32917318" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32917318" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -731,9 +747,9 @@
     <MESSAGE value="maybe finished edit date and src" />
     <MESSAGE value="all functions implemented for jpg metadata. Passed all tests" />
     <MESSAGE value="testing png metadata capabilities" />
-    <MESSAGE value="testing png metadata capabilities still" />
     <MESSAGE value="Documenting MetadataManager library" />
-    <option name="LAST_COMMIT_MESSAGE" value="Documenting MetadataManager library" />
+    <MESSAGE value="testing png metadata capabilities still" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing png metadata capabilities still" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/utils.py" />
@@ -828,19 +844,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="420" column="79" selection-start-line="420" selection-start-column="79" selection-end-line="420" selection-end-column="79" />
+        <state relative-caret-position="270">
+          <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
           <folding>
             <element signature="e#135#192#0" />
             <element signature="e#354#407#0" />
-            <element signature="e#456#491#0" />
-            <element signature="e#551#707#0" />
-            <element signature="e#551#698#1" />
-            <element signature="e#752#858#0" />
             <element signature="e#1127#1250#0" />
             <element signature="e#1290#1323#0" />
             <element signature="e#1363#1396#0" />
-            <element signature="e#1611#2027#0" />
             <element signature="e#4649#5088#0" />
             <element signature="e#4649#4950#1" />
             <element signature="e#5126#5529#0" />
@@ -851,13 +862,6 @@
             <element signature="e#6484#6741#1" />
             <element signature="e#7087#7381#0" />
             <element signature="e#7087#7345#1" />
-            <element signature="e#7671#7760#0" />
-            <element signature="e#7796#7926#0" />
-            <element signature="e#7972#8159#0" />
-            <element signature="e#8208#8504#0" />
-            <element signature="e#8558#8717#0" />
-            <element signature="e#8768#9097#0" />
-            <element signature="e#9139#9373#0" />
           </folding>
         </state>
       </provider>

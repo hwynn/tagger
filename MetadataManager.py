@@ -5,46 +5,61 @@ import datetime
 from pathlib import PurePosixPath
 from pathlib import PureWindowsPath
 
-#========================================================
-#---------------Defined exceptions-----------------------
-#========================================================
+
+# ========================================================
+# ---------------Defined exceptions-----------------------
+# ========================================================
 
 class UnknownFiletypeError(ValueError):
     '''Unrecognized filetype (or no filetype)'''
     pass
+
+
 class UnsupportedFiletypeError(ValueError):
-    '''Unsupported filetype'''
+    """Unsupported filetype"""
     pass
+
 class SupportNotImplementedError(NotImplementedError):
-    '''
+    """
     Support not yet implemented
     This exception will occur in cases of acceptable use
     but the functionality is not yet complete.
-    '''
+    """
     pass
+
+
 class MetadataMissingError(ValueError):
-    '''File does not have this data.
-    Used when we want to remove metadata but none is present.'''
+    """File does not have this data.
+    Used when we want to remove metadata but none is present."""
     pass
+
+
 class NoSuchItemError(ValueError):
     """This is similar to MetadataMissing (it shows up in similar contexts)
     But it's raised when data is present, but the item we want to remove
     isn't present in the list"""
     pass
+
+
 class DuplicateDataError(ValueError):
     """we raise this when we try to add a tag
     or something similar to a list and the list already has that item"""
     pass
+
+
 class OutOfRangeError(ValueError):
     '''used for setRating'''
     pass
+
+
 class NotIntegerError(ValueError):
     '''used for setRating'''
     pass
 
-#========================================================
-#------------------Utility functions---------------------
-#========================================================
+
+# ========================================================
+# ------------------Utility functions---------------------
+# ========================================================
 
 def getExtension(p_filepathname):
     """!
@@ -58,10 +73,12 @@ def getExtension(p_filepathname):
     :rtype: string
     """
     if os.name == 'nt':
-        #this filepath is from windows
+        # this filepath is from windows
         return PureWindowsPath(p_filepathname).suffix
-    #assume posix otherwise
+    # assume posix otherwise
     return PurePosixPath(p_filepathname).suffix
+
+
 def filecheck(p_filename):
     """!
     this function checks the type of the file.
@@ -74,14 +91,17 @@ def filecheck(p_filename):
     :raise UnsupportedFiletypeError: if the filetype is recognized but not supported
     """
     if len(p_filename) < 5:
-        raise UnknownFiletypeError('Filename \'{}\' is too short to have any accepted filename extension'.format(p_filename))
-    if getExtension(p_filename)== '':
+        f_error = "Filename '{}' is too short to have any accepted filename extension".format(p_filename)
+        raise UnknownFiletypeError(f_error)
+    if getExtension(p_filename) == '':
         raise UnknownFiletypeError(
             'Filename \'{}\' has no extension. What even is this hot mess you gave us?'.format(p_filename))
     if getExtension(p_filename) != '.jpg' and getExtension(p_filename) != '.png' and getExtension(p_filename) != '.gif':
         raise UnsupportedFiletypeError(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_filename))
     return
+
+
 def earlySupportCheck(p_filename):
     """!
     this function checks the type of the file.
@@ -96,6 +116,8 @@ def earlySupportCheck(p_filename):
     if getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
         raise SupportNotImplementedError('Sorry. This operation not ready to support .png or .gif files yet.')
     return
+
+
 def alpha1SupportCheck(p_filename):
     """!
     this function checks the type of the file.
@@ -110,7 +132,9 @@ def alpha1SupportCheck(p_filename):
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
         raise SupportNotImplementedError('Sorry. This operation is not ready for anything.')
     return
-#-------string cleaning utility functions
+
+
+# -------string cleaning utility functions
 def listHexTrim(p_rawList):
     """!
     Takes a freshly translated list of byte-strings and
@@ -123,8 +147,10 @@ def listHexTrim(p_rawList):
     :return: the file extension
     :rtype: string
     """
-    #print("listHexTrim(", p_rawList, ")")
+    # print("listHexTrim(", p_rawList, ")")
     return [x.replace('\x00', '') for x in p_rawList]
+
+
 def dirtyStr2cleanStr(p_bustedTags):
     """!
     trims the '\x00' ends off all the characters in a byte-string
@@ -141,6 +167,8 @@ def dirtyStr2cleanStr(p_bustedTags):
         if y != '':
             f_tags += y
     return f_tags
+
+
 def cleanStr2dirtyStr(p_newtag):
     """!
     adds the '\x00' on all the characters of a string
@@ -157,6 +185,8 @@ def cleanStr2dirtyStr(p_newtag):
         f_bustedTag += x
         f_bustedTag += '\x00'
     return f_bustedTag
+
+
 def dirtyStr2cleanList(p_dirtyTagStr):
     """!
     Takes a byte-string representing a ; delimited list
@@ -174,11 +204,13 @@ def dirtyStr2cleanList(p_dirtyTagStr):
     # print("dirtyStr2cleanList(): f_dirtyTagList", f_dirtyTagList)
     f_cleanTagList = [dirtyStr2cleanStr(x) for x in f_dirtyTagList]
     # print("dirtyStr2cleanList(): f_cleanTagList", f_cleanTagList)
-    #Note: an empty list represented by p_dirtyTagStr translates to
-    #the non empty list ['']. This should compensate for that.
+    # Note: an empty list represented by p_dirtyTagStr translates to
+    # the non empty list ['']. This should compensate for that.
     if f_cleanTagList == ['']:
         return []
     return f_cleanTagList
+
+
 def cleanList2dirtyStr(p_cleanTagList):
     """!
     #TODO replace this function with the python struct byte methods
@@ -193,6 +225,8 @@ def cleanList2dirtyStr(p_cleanTagList):
     f_dirtyTagString = ";\x00".join(f_dirtyTagList) + "\x00\x00"
     # print("cleanList2dirtyStr(): f_dirtyTagString", f_dirtyTagString)
     return f_dirtyTagString
+
+
 def cleanList2cleanStr(p_cleanTagList):
     """!
     #TODO replace this function with the python struct byte methods
@@ -203,66 +237,102 @@ def cleanList2cleanStr(p_cleanTagList):
     :rtype: list<string>
     """
     return ";".join(p_cleanTagList)
-#-------stashing utility functions
+
+
+# -------stashing utility functions
 """Note: 'stashing' is a term I made up
 which refers to storing several types of 
 metadata into a single large string.
 This should let us store a variety of
 metadata in file types that only have 
 a few metadata tags"""
+
+
 def containsStash(p_filename):
-    # checks if we have added a stash string
-    # at all. Returns bool
-    # TODO
-    return
-def getStashIndex(p_filename):
-    # assuming containsStash() is true
-    # returns a list of the metadata
-    # similar to: metadata.exif_keys
-    # TODO
-    return
-def searchStashIndex(p_filename, p_key):
-    # assuming containsStash() is true
-    # this function checks whether or not
-    # a type of metadata is present in
-    # the stash index and the stash string
-    #returns bool
-    return
-def addItemToStashIndex(p_filename, p_key):
-    # assuming searchStashIndex() returns false
-    # this function adds a new kind of metadata
-    # to the stash string. Only certain values of p_key
-    # are allowed to keep metadata consistent across filetypes
-    # this also adds a blank metadata entry to the stash string
-    # TODO
-    return
-def removeItemFromStashIndex(p_filename, p_key):
-    # assuming searchStashIndex() returns true
-    # this function removes a type of metadata
-    # from the stash string and the stash index
-    # TODO
-    return
-def setStashData(p_filename, p_key, p_value):
-    # assuming searchStashIndex() returns true
-    # this function stores data of a given type
-    # into the appropriate place in the stash string
-    # note: this will completely rewrite a type of stash data
-    # there is no addStashData function. That must be done
-    # by the individual metadata functions
-    # TODO
-    return
-def getStashData(p_filename, p_key):
-    # assuming searchStashIndex() returns true
-    # this function returns the value of the given
-    # metadata type as a string.
-    # the individual metadata functions
-    # are responsible for parsing this string
-    # TODO
+    """
+    TODO
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:return: True if we have added a stash string
+	:rtype: bool
+    """
     return
 
-#========================================================
-#---------------MetaData functionality-------------------
-#========================================================
+
+def getStashIndex(p_filename):
+    """
+    assuming containsStash() is true
+    returns a list of the metadata
+    similar to: metadata.exif_keys
+    TODO
+    """
+    return
+
+
+def searchStashIndex(p_filename, p_key):
+    """
+    assuming containsStash() is true
+    this function checks whether or not
+    a type of metadata is present in
+    the stash index and the stash string
+    returns bool
+
+    :return: true if p_key is in the metadata
+    :rtype: bool
+    """
+    return
+
+
+def addItemToStashIndex(p_filename, p_key):
+    """
+    assuming searchStashIndex() returns false
+    this function adds a new kind of metadata
+    to the stash string. Only certain values of p_key
+    are allowed to keep metadata consistent across filetypes
+    this also adds a blank metadata entry to the stash string
+    TODO
+    """
+    return
+
+
+def removeItemFromStashIndex(p_filename, p_key):
+    """
+    assuming searchStashIndex() returns true
+    this function removes a type of metadata
+    from the stash string and the stash index
+    TODO
+    """
+    return
+
+
+def setStashData(p_filename, p_key, p_value):
+    """
+    assuming searchStashIndex() returns true
+    this function stores data of a given type
+    into the appropriate place in the stash string
+    note: this will completely rewrite a type of stash data
+    there is no addStashData function. That must be done
+    by the individual metadata functions
+    TODO
+    """
+    return
+
+
+def getStashData(p_filename, p_key):
+    """
+    assuming searchStashIndex() returns true
+    this function returns the value of the given
+    metadata type as a string.
+    the individual metadata functions
+    are responsible for parsing this string
+    TODO
+    """
+    return
+
+
+# ========================================================
+# ---------------MetaData functionality-------------------
+# ========================================================
 
 # ------edit title metadata
 def containsTitle(p_filename):
@@ -289,6 +359,8 @@ def containsTitle(p_filename):
         return True
     # print("this file has no title data")
     return False
+
+
 def getTitle(p_filename):
     """!
     :param p_filename: name/path of the file
@@ -309,30 +381,31 @@ def getTitle(p_filename):
             return ""
         f_keywords = f_metadata['Exif.Image.XPTitle']
         f_dirtyTitleString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        #print("dirty Title:", f_dirtyTitleString)
+        # print("dirty Title:", f_dirtyTitleString)
         f_cleanTitle = dirtyStr2cleanStr(f_dirtyTitleString)
-        #print("clean Title:", f_cleanTitle)
+        # print("clean Title:", f_cleanTitle)
         return f_cleanTitle
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have Title data?
-        return ""
     return ""
+
+
 def setTitle(p_filename, p_setTitleToThis):
     """
 
-    :param p_filename:
-    :param p_setTitleToThis:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_setTitleToThis: title we will store as title metadata
+	:type p_setTitleToThis: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
-        f_key = 'Exif.Image.XPTitle'
+        f_key = "Exif.Image.XPTitle"
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         f_dirtyString = cleanStr2dirtyStr(p_setTitleToThis)
@@ -341,22 +414,25 @@ def setTitle(p_filename, p_setTitleToThis):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        return
+        earlySupportCheck(p_filename)  # TODO add png and gif support
     return
+
+
 def searchTitle(p_filename, p_searchForThis):
-    #takes: filename as string (including path)
-    #returns: truth value of p_searchForThis being in the title
-    #always returns false when no title exists
     """
-    :param p_filename:
-    :param p_searchForThis:
+    takes: filename as string (including path)
+    returns: truth value of p_searchForThis being in the title
+    always returns false when no title exists
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_searchForThis: title that we're checking for
+    :type p_searchForThis: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
 
-    :return:
+    :return: True if p_searchForThis was in title metadata
+    :rtype: bool
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -365,28 +441,25 @@ def searchTitle(p_filename, p_searchForThis):
         # print(f_metadata.exif_keys)
         if not containsTitle(p_filename):
             return False
-        f_keywords = f_metadata['Exif.Image.XPTitle']
+        f_keywords = f_metadata["Exif.Image.XPTitle"]
         f_dirtyTitleString = pyexiv2.utils.undefined_to_string(f_keywords.value)
         f_cleanTitle = dirtyStr2cleanStr(f_dirtyTitleString)
-        #Note: Title does not need to be entire search term to return true
+        # Note: Title does not need to be entire search term to return true
         if p_searchForThis in f_cleanTitle:
             return True
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have Title data?
-        return False
+        earlySupportCheck(
+            p_filename)  # TODO add png and gif support  # TODO error check: does this file have Title data?
     return False
-def wipeTitle(p_filename):
-    # considering renaming the function wipeTitle(p_filename)
-    """
-    :param p_filename:
 
-    :raise UnknownFiletypeError: if the filetype cannot be found
+
+def wipeTitle(p_filename):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     :raise MetadataMissingError: if the file has no title metadata
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -404,10 +477,10 @@ def wipeTitle(p_filename):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        return
+        earlySupportCheck(p_filename)  # TODO add png and gif support
     return
+
+
 # ------edit artist metadata
 def containsArtists(p_filename):
     """!
@@ -433,10 +506,10 @@ def containsArtists(p_filename):
         # print("this file has no artist data")
         return False
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        return False
+        earlySupportCheck(p_filename)  # TODO add png and gif support
     return False
+
+
 def getArtists(p_filename):
     """!
     :param p_filename: name/path of the file
@@ -465,20 +538,22 @@ def getArtists(p_filename):
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have artist data?
-        return []
     return []
+
+
 def setArtists(p_filename, p_cleanArtistList):
-    # Instead of appending a new artist to the list of artists already present
-    # This function replaces all artists with the list of artists provided as p_cleanArtistList.
-    # Use this function with caution. Because.. you know. It wipes your artists.
     """
-    :param p_filename:
-    :param p_cleanArtistList:
+    Instead of appending a new artist to the list of artists already present
+    This function replaces all artists with the list of artists provided as p_cleanArtistList.
+    Use this function with caution. Because.. you know. It wipes your artists.
+
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_cleanArtistList: a list of artists we will set artist metadata to
+    :type p_cleanArtistList: list<string>
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -496,15 +571,21 @@ def setArtists(p_filename, p_cleanArtistList):
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         return
+
+
 def searchArtists(p_filename, p_artist):
     """
-    :param p_filename:
-    :param p_artist:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_artist: artist we are searching for in the metadata
+	:type p_artist: string
+
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
 
-    :return:
+    :return: True if p_artist was in artist metadata
+    :rtype: bool
     """
     filecheck(p_filename)
 
@@ -528,21 +609,23 @@ def searchArtists(p_filename, p_artist):
                 break
         return f_found
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have artist data?
-        return False
+        earlySupportCheck(
+            p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
     return False
+
+
 def addArtist(p_filename, p_artist):
     """
-    :param p_filename:
-    :param p_artist:
+    appends new artist to the artist metadata
+
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_artist: artist we are adding into the artist metadata
+	:type p_artist: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     :raise DuplicateDataError: if the file already has this artist in its artist metadata
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -550,46 +633,49 @@ def addArtist(p_filename, p_artist):
         f_metadata.read()
         # print(f_metadata.exif_keys)
         f_key = 'Exif.Image.XPAuthor'
+        f_key2 = 'Exif.Image.Artist'
         if not containsArtists(p_filename):
             f_cleanArtistList = [p_artist]
             f_dirtyArtistString2 = cleanList2dirtyStr(f_cleanArtistList)
             f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
             f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
             f_metadata.write()
-            f_metadata['Exif.Image.Artist'] = pyexiv2.ExifTag('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))
+            f_metadata[f_key2] = pyexiv2.ExifTag(f_key2, cleanList2cleanStr(f_cleanArtistList))
             f_metadata.write()
             return
         f_keywords = f_metadata['Exif.Image.XPAuthor']
         f_dirtyArtistString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        #print("addArtist() f_dirtyArtistString\t\t", f_dirtyArtistString)
+        # print("addArtist() f_dirtyArtistString\t\t", f_dirtyArtistString)
         f_cleanArtistList = dirtyStr2cleanList(f_dirtyArtistString)
-        #print("addArtist() f_cleanArtistList\t\t", f_cleanArtistList)
+        # print("addArtist() f_cleanArtistList\t\t", f_cleanArtistList)
         if p_artist in f_cleanArtistList:
             raise DuplicateDataError("file already contains this artist")
         f_cleanArtistList.insert(0, p_artist)
         f_dirtyArtistString2 = cleanList2dirtyStr(f_cleanArtistList)
-        #print("addArtist() f_dirtyArtistString2\t\t", f_dirtyArtistString2)
+        # print("addArtist() f_dirtyArtistString2\t\t", f_dirtyArtistString2)
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have artist data?
-        return
+        earlySupportCheck(
+            p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
     return
+
+
 def removeArtist(p_filename, p_artist):
     """
-    :param p_filename:
-    :param p_artist:
+    removes artist from artist metadata
+
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_artist: artist we are removing from the artist metadata
+	:type p_artist: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     :raise MetadataMissingError: if the file has no artist metadata
     :raise NoSuchItemError: if the file does not have p_artist in their artist list
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -603,17 +689,17 @@ def removeArtist(p_filename, p_artist):
         f_keywords = f_metadata['Exif.Image.XPAuthor']
         f_key = 'Exif.Image.XPAuthor'
         f_dirtyArtistString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        #print("removeArtist() f_dirtyArtistString\t\t", f_dirtyArtistString)
+        # print("removeArtist() f_dirtyArtistString\t\t", f_dirtyArtistString)
         f_cleanArtistList = dirtyStr2cleanList(f_dirtyArtistString)
-        #print("removeArtist() f_cleanArtistList\t\t", f_cleanArtistList)
-        #Note that p_artist must be an exact match with an entry to have it removed
+        # print("removeArtist() f_cleanArtistList\t\t", f_cleanArtistList)
+        # Note that p_artist must be an exact match with an entry to have it removed
         if p_artist not in f_cleanArtistList:
             raise NoSuchItemError(
                 'The file \'{}\' does not contain the artist \'{}\' \n This operation cannot be performed'.format(
                     p_filename, p_artist))
         f_cleanArtistList.remove(p_artist)
         f_dirtyArtistString2 = cleanList2dirtyStr(f_cleanArtistList)
-        #print("removeArtist() f_dirtyArtistString2\t\t", f_dirtyArtistString2)
+        # print("removeArtist() f_dirtyArtistString2\t\t", f_dirtyArtistString2)
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
@@ -622,8 +708,8 @@ def removeArtist(p_filename, p_artist):
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have artist data?
-        return
     return
+
 
 # -----edit tag metadata
 def containsTags(p_filename):
@@ -650,10 +736,10 @@ def containsTags(p_filename):
         # print("this file has no tag data")
         return False
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        return False
+        earlySupportCheck(p_filename)  # TODO add png and gif support
     return False
+
+
 def getTags(p_filename):
     """!
     :param p_filename: name/path of the file
@@ -682,20 +768,21 @@ def getTags(p_filename):
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have tag data?
-        return []
     return []
+
+
 def setTags(p_filename, p_cleanTagList):
-    # Instead of appending a new tag to the list of tags already present
-    # This function replaces all tags with the list of tags provided as p_cleanTagList.
-    # Use this function with caution. Because.. you know. It wipes your tags.
     """
-    :param p_filename:
-    :param p_cleanTagList:
+    Instead of appending a new tag to the list of tags already present
+    This function replaces all tags with the list of tags provided as p_cleanTagList.
+    Use this function with caution. Because.. you know. It wipes your tags.
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_cleanTagList: list of tags that tag metadata will be set to
+	:type p_cleanTagList: list<string>
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -713,15 +800,20 @@ def setTags(p_filename, p_cleanTagList):
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         return True
+
+
 def searchTags(p_filename, p_tag):
     """
-    :param p_filename:
-    :param p_tag:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_tag: tag we will search the tag metadata for
+	:type p_tag: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
 
-    :return:
+    :return: True if p_tag was in tag metadata
+    :rtype: bool
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -741,16 +833,18 @@ def searchTags(p_filename, p_tag):
         # TODO error check: does this file have tag data?
         return False
     return False
+
+
 def addTag(p_filename, p_tag):
     """
-    :param p_filename:
-    :param p_tag:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_tag: tag you will be adding to the tag metadata
+	:type p_tag: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     :raise DuplicateDataError: if the file already has this tag in its tag metadata
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -767,14 +861,14 @@ def addTag(p_filename, p_tag):
             return
         f_keywords = f_metadata['Exif.Image.XPKeywords']
         f_dirtyTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        #print("addTag() f_dirtyTagString\t\t", f_dirtyTagString)
+        # print("addTag() f_dirtyTagString\t\t", f_dirtyTagString)
         f_cleanTagList = dirtyStr2cleanList(f_dirtyTagString)
-        #print("addTag() f_cleanTagList\t\t", f_cleanTagList)
+        # print("addTag() f_cleanTagList\t\t", f_cleanTagList)
         if p_tag in f_cleanTagList:
             raise DuplicateDataError("file already contains this tag")
         f_cleanTagList.insert(0, p_tag)
         f_dirtyTagString2 = cleanList2dirtyStr(f_cleanTagList)
-        #print("addTag() f_dirtyTagString2\t\t", f_dirtyTagString2)
+        # print("addTag() f_dirtyTagString2\t\t", f_dirtyTagString2)
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyTagString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
@@ -783,19 +877,20 @@ def addTag(p_filename, p_tag):
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have tag data?
-        return
     return
+
+
 def removeTag(p_filename, p_tag):
     """
-    :param p_filename:
-    :param p_tag:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_tag: tag you will be removing from the tag metadata
+	:type p_tag: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     :raise MetadataMissingError: if the file has no tag metadata
     :raise NoSuchItemError: if the file does not have p_artist in their tag list
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -809,16 +904,16 @@ def removeTag(p_filename, p_tag):
         f_keywords = f_metadata['Exif.Image.XPKeywords']
         f_key = 'Exif.Image.XPKeywords'
         f_dirtyTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        #print("removeTag() f_dirtyTagString\t\t", f_dirtyTagString)
+        # print("removeTag() f_dirtyTagString\t\t", f_dirtyTagString)
         f_cleanTagList = dirtyStr2cleanList(f_dirtyTagString)
-        #print("removeTag() f_cleanTagList\t\t", f_cleanTagList)
+        # print("removeTag() f_cleanTagList\t\t", f_cleanTagList)
         if p_tag not in f_cleanTagList:
             raise NoSuchItemError(
                 'The file \'{}\' does not contain the tag \'{}\' \n This operation cannot be performed'.format(
                     p_filename, p_tag))
         f_cleanTagList.remove(p_tag)
         f_dirtyTagString2 = cleanList2dirtyStr(f_cleanTagList)
-        #print("removeTag() f_dirtyTagString2\t\t", f_dirtyTagString2)
+        # print("removeTag() f_dirtyTagString2\t\t", f_dirtyTagString2)
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyTagString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
@@ -827,8 +922,9 @@ def removeTag(p_filename, p_tag):
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have tag data?
-        return
     return
+
+
 # -------edit description metadata
 def containsDescr(p_filename):
     """!
@@ -854,6 +950,8 @@ def containsDescr(p_filename):
         return True
     # print("this file has no description data")
     return False
+
+
 def getDescr(p_filename):
     """!
     :param p_filename: name/path of the file
@@ -874,26 +972,26 @@ def getDescr(p_filename):
             return ""
         f_keywords = f_metadata['Exif.Image.XPComment']
         f_dirtyDescrString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        #print("dirty Descr:", f_dirtyDescrString)
+        # print("dirty Descr:", f_dirtyDescrString)
         f_cleanDescr = dirtyStr2cleanStr(f_dirtyDescrString)
-        #print("clean Descr:", f_cleanDescr)
+        # print("clean Descr:", f_cleanDescr)
         return f_cleanDescr
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have Descr data?
-        return ""
     return ""
+
 
 def setDescr(p_filename, p_setDescrToThis):
     """
-    :param p_filename:
-    :param p_setDescrToThis:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_setDescrToThis: description metadata will be set to this
+	:type p_setDescrToThis: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -908,17 +1006,21 @@ def setDescr(p_filename, p_setDescrToThis):
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
-        return
     return
+
+
 def searchDescr(p_filename, p_searchForThis):
     """
-    :param p_filename:
-    :param p_searchForThis:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_searchForThis: description that we're checking for
+    :type p_searchForThis: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
 
-    :return:
+    :return: True if p_searchForThis was in description metadata
+    :rtype: bool
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -933,20 +1035,20 @@ def searchDescr(p_filename, p_searchForThis):
         if p_searchForThis in f_cleanDescr:
             return True
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have Descr data?
-        return False
+        earlySupportCheck(
+            p_filename)  # TODO add png and gif support  # TODO error check: does this file have Descr data?
     return False
+
+
 def addDescr(p_filename, p_addThisToDescr):
     """
-    :param p_filename:
-    :param p_addThisToDescr:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_addThisToDescr: string you will be appending to the description metadata
+	:type p_addThisToDescr: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -967,17 +1069,16 @@ def addDescr(p_filename, p_addThisToDescr):
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
-        return
     return
+
+
 def wipeDescr(p_filename):
     """
-    :param p_filename:
-
-    :raise UnknownFiletypeError: if the filetype cannot be found
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     :raise MetadataMissingError: if the file has no description metadata
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -997,8 +1098,9 @@ def wipeDescr(p_filename):
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
-        return
     return
+
+
 # ------edit rating metadata
 def containsRating(p_filename):
     """!
@@ -1024,6 +1126,8 @@ def containsRating(p_filename):
     # print("this file has no rating data")
     earlySupportCheck(p_filename)
     return False
+
+
 def getRating(p_filename):
     """!
     :param p_filename: name/path of the file
@@ -1043,26 +1147,26 @@ def getRating(p_filename):
         if not containsRating(p_filename):
             return -1
         f_keywords = f_metadata['Exif.Image.Rating']
-        #print("getRating() Rating\t\t", f_keywords.value)
+        # print("getRating() Rating\t\t", f_keywords.value)
         f_rating = f_keywords.value
         return f_rating
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have rating data?
-        return -1
     return -1
+
 def setRating(p_filename, p_setRatingToThis):
     """
-    :param p_filename:
-    :param p_setRatingToThis:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_setRatingToThis: rating metadata will be set to this
+	:type p_setRatingToThis: int
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     :raise OutOfRangeError: if p_setRatingToThis is not between 1 to 5
     :raise NotIntegerError: if p_setRatingToThis is not a whole number
-
-    :return:
     """
     if not (1 <= p_setRatingToThis <= 5):
         raise OutOfRangeError('number out of range (must be 1..5)')
@@ -1081,24 +1185,28 @@ def setRating(p_filename, p_setRatingToThis):
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
-        return
     return
+
+
 def searchRating(p_filename, p_searchForThisRating):
     """
-    :param p_filename:
-    :param p_searchForThisRating:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_searchForThisRating: rating that we're checking for
+    :type p_searchForThisRating: int
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     :raise OutOfRangeError: if p_setRatingToThis is not between 1 to 5
     :raise NotIntegerError: if p_setRatingToThis is not a whole number
 
-    :return:
+    :return: True if p_searchForThisRating matched rating metadata
+    :rtype: bool
     """
     if not (-1 <= p_searchForThisRating <= 5):
-        #Note: the reason we allow for searches of 0 and -1
-        #is that theoretically, getRating() is used to get the value for searching
-        #and it returns -1 if the file contains no rating.
+        # Note: the reason we allow for searches of 0 and -1
+        # is that theoretically, getRating() is used to get the value for searching
+        # and it returns -1 if the file contains no rating.
         # we don't actually use getRating() for this search functtion
         # But we might change this function to work that way.
         raise OutOfRangeError('number out of range (must be 1..5)')
@@ -1120,7 +1228,9 @@ def searchRating(p_filename, p_searchForThisRating):
         # TODO error check: does this file have rating data?
         return False
     return False
-#TODO def wipeRating(p_filename):
+
+
+# TODO def wipeRating(p_filename):
 
 # ------edit metadata that can store source url
 def containsSrc(p_filename):
@@ -1147,6 +1257,8 @@ def containsSrc(p_filename):
         return True
     # print("this file has no history/source data")
     return False
+
+
 def getSrc(p_filename):
     """!
     src info is planned to be used to store picture origin url
@@ -1175,30 +1287,31 @@ def getSrc(p_filename):
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         # TODO error check: does this file have Src data?
-        return ""
     return ""
 
+
 def addSrc(p_filename, x):
-    #appends source info to the end of the current src info
-    #we don't want src info to be removed.
-    # But we do allow more to be added
     """
-    :param p_filename:
-    :param x:
+    appends source info to the end of the current src info
+    we don't want src info to be removed.
+     But we do allow more to be added
+
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param x: source url metadata will be set to this
+	:type x: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
         f_key = 'Exif.Image.ImageHistory'
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        #this is an append, so we fetch any src data to add
+        # this is an append, so we fetch any src data to add
         f_value = getSrc(p_filename)
-        #Note the line break. This means all future added data begins on a new line'
+        # Note the line break. This means all future added data begins on a new line'
         if f_value == "":
             f_value = x
         else:
@@ -1209,19 +1322,21 @@ def addSrc(p_filename, x):
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
-        return
     return
+
+
 def searchSrc(p_filename, p_searchForThis):
-    #this returns true is p_searchForThis is found
-    # anywhere in the src string
     """
-    :param p_filename:
-    :param p_searchForThis:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_searchForThis: sourrce url that we're checking for
+    :type p_searchForThis: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
 
-    :return:
+    :return: returns true is p_searchForThis is found anywhere in the src string
+    :rtype: bool
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -1239,6 +1354,8 @@ def searchSrc(p_filename, p_searchForThis):
         # TODO error check: does this file have Src data?
         return False
     return False
+
+
 # -------edit orginal date
 
 def containsOrgDate(p_filename):
@@ -1266,6 +1383,7 @@ def containsOrgDate(p_filename):
     # print("this file has no original date data")
     return False
 
+
 def getOrgDate(p_filename):
     """
     if none exists, returns datetime.datetime(1, 1, 1)
@@ -1278,7 +1396,7 @@ def getOrgDate(p_filename):
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
 
     :return: original data if it exists. Else, datetime.datetime(1,1,1)
-    :rtype: datatime object
+    :rtype: datetime
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -1305,19 +1423,21 @@ def getOrgDate(p_filename):
         # TODO error check: does this file have Descr data?
         return datetime.datetime(1, 1, 1)
 
+
 def setOrgDate(p_filename, p_date):
-    #takes filename and datetime object
-    #sets the file's metadata to be this new datetime
-    #Note: this function doesn't work for 'Exif.Image.DateTimeOriginal:'
-    #I'm having a problem similar to the problem with 'Exif.Image.Artist'
     """
-    :param p_filename:
-    :param p_date:
+    takes filename and datetime object
+    sets the file's metadata to be this new datetime
+    Note: this function doesn't work for 'Exif.Image.DateTimeOriginal:'
+    I'm having a problem similar to the problem with 'Exif.Image.Artist'
+
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_date: original date metadata will be set to this
+	:type p_date: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
-
-    :return:
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
@@ -1335,21 +1455,23 @@ def setOrgDate(p_filename, p_date):
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
-        return
     return
 
+
 def searchOrgDate(p_filename, p_startDate, p_endDate):
-    # this returns true if the datetime is in between
-    # the
     """
-    :param p_filename:
-    :param p_startDate:
-    :param p_endDate:
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_startDate: start of the date range we are searching for
+	:type p_startDate: datetime
+    :param p_endDate: end of the date range we are searching for
+    :type p_endDate: datetime
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
 
-    :return:
+    :return: True if the datetime is inbetween p_startDate and p_endDate
+    :rtype: bool
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
