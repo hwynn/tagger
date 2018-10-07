@@ -108,6 +108,22 @@ def pngGetKeywords(p_filename):
     f_key = 'Xmp.xmp.Label'
     return f_metadata[f_key].value
 
+def pngSetSeries(p_filename, p_seriesName, p_num):
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    f_metadata['Xmp.xmpDM.Series/SeriesName'] = p_seriesName
+    f_metadata['Xmp.xmpDM.Series/SeriesIdentifier'] = str(p_num)
+    f_metadata.write()
+    return
+
+def pngGetSeries(p_filename):
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    f_value1 = f_metadata['Xmp.xmpDM.Series/SeriesName'].value
+    f_value2 = int(f_metadata['Xmp.xmpDM.Series/SeriesIdentifier'].value)
+    return (f_value1, f_value2)
+
+
 
 
 """
