@@ -4,6 +4,7 @@ import os
 import datetime
 from pathlib import PurePosixPath
 from pathlib import PureWindowsPath
+import StashUtil
 
 # ========================================================
 # ---------------Defined exceptions-----------------------
@@ -132,6 +133,7 @@ def listHexTrim(p_rawList):
     :return: the file extension
     :rtype: string
     """
+    #[str(b)] to [d]
     # print("listHexTrim(", p_rawList, ")")
     return [x.replace('\x00', '') for x in p_rawList]
 
@@ -147,6 +149,7 @@ def dirtyStr2cleanStr(p_bustedTags):
     :return: a single tag in string format
     :rtype: string
     """
+    #str(b) to d
     #f_bytes = bytes(p_bustedTags, 'utf-8')
     #f_tags = f_bytes.decode('utf-16')
     f_tags = ""
@@ -168,6 +171,7 @@ def cleanStr2dirtyStr(p_newtag):
     :return: a single tag in byte-string format
     :rtype: string
     """
+    #d to str(b)
     #f_bustedTag = p_newtag.encode('utf-16')
     f_bustedTag = ""
     for x in p_newtag:
@@ -189,15 +193,16 @@ def dirtyStr2cleanList(p_dirtyTagStr):
     :return: a list of tags in string format
     :rtype: list<string>
     """
-    f_dirtyTagList = p_dirtyTagStr.split(';')
-    # print("dirtyStr2cleanList(): f_dirtyTagList", f_dirtyTagList)
-    f_cleanTagList = [dirtyStr2cleanStr(x) for x in f_dirtyTagList]
-    # print("dirtyStr2cleanList(): f_cleanTagList", f_cleanTagList)
+    #str(b) to [d]
+    f_dirtyXList = p_dirtyTagStr.split(';')
+    # print("dirtyStr2cleanList(): f_dirtyXList", f_dirtyXList)
+    f_cleanXList = [dirtyStr2cleanStr(x) for x in f_dirtyXList]
+    # print("dirtyStr2cleanList(): f_cleanXList", f_cleanXList)
     # Note: an empty list represented by p_dirtyTagStr translates to
     # the non empty list ['']. This should compensate for that.
-    if f_cleanTagList == ['']:
+    if f_cleanXList == ['']:
         return []
-    return f_cleanTagList
+    return f_cleanXList
 
 
 def cleanList2dirtyStr(p_cleanTagList):
@@ -210,24 +215,24 @@ def cleanList2dirtyStr(p_cleanTagList):
     :rtype: string
     """
     #p_cleanTagString = cleanList2cleanStr(p_cleanTagList)
-    #f_dirtyTagString = p_cleanTagString.encode('utf-16')
-
-    f_dirtyTagList = [cleanStr2dirtyStr(x) for x in p_cleanTagList]
-    # print("cleanList2dirtyStr(): f_dirtyTagList", f_dirtyTagList)
-    f_dirtyTagString = ";\x00".join(f_dirtyTagList) + "\x00\x00"
-    # print("cleanList2dirtyStr(): f_dirtyTagString", f_dirtyTagString)
-    return f_dirtyTagString
+    #f_dirtyXString = p_cleanTagString.encode('utf-16')
+    #[d] to str(b)
+    f_dirtyXList = [cleanStr2dirtyStr(x) for x in p_cleanTagList]
+    # print("cleanList2dirtyStr(): f_dirtyXList", f_dirtyXList)
+    f_dirtyXString = ";\x00".join(f_dirtyXList) + "\x00\x00"
+    # print("cleanList2dirtyStr(): f_dirtyXString", f_dirtyXString)
+    return f_dirtyXString
 
 
 def cleanList2cleanStr(p_cleanTagList):
     """!
-    #TODO replace this function with the python struct byte methods
     :param p_cleanTagList: a list of tags in string format
     :type p_cleanTagList: list<string>
 
     :return: ; delimited list represented as a string
     :rtype: list<string>
     """
+    #[d] to d
     return ";".join(p_cleanTagList)
 
 
@@ -281,9 +286,9 @@ def getTitle(p_filename):
         if not containsTitle(p_filename):
             return ""
         f_keywords = f_metadata['Exif.Image.XPTitle']
-        f_dirtyTitleString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        # print("dirty Title:", f_dirtyTitleString)
-        f_cleanTitle = dirtyStr2cleanStr(f_dirtyTitleString)
+        f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        # print("dirty Title:", f_dirtyXString)
+        f_cleanTitle = dirtyStr2cleanStr(f_dirtyXString)
         # print("clean Title:", f_cleanTitle)
         return f_cleanTitle
     else:
@@ -343,8 +348,8 @@ def searchTitle(p_filename, p_searchForThis):
         if not containsTitle(p_filename):
             return False
         f_keywords = f_metadata["Exif.Image.XPTitle"]
-        f_dirtyTitleString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        f_cleanTitle = dirtyStr2cleanStr(f_dirtyTitleString)
+        f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        f_cleanTitle = dirtyStr2cleanStr(f_dirtyXString)
         # Note: Title does not need to be entire search term to return true
         if p_searchForThis in f_cleanTitle:
             return True
@@ -430,11 +435,11 @@ def getArtists(p_filename):
         if not containsArtists(p_filename):
             return []
         f_keywords = f_metadata['Exif.Image.XPAuthor']
-        f_dirtyArtistString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        # print("getArtists() f_dirtyArtistString\t\t", f_dirtyArtistString)
-        f_cleanArtistList = dirtyStr2cleanList(f_dirtyArtistString)
-        # print("getArtists() f_cleanArtistList\t\t", f_cleanArtistList)
-        return f_cleanArtistList
+        f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        # print("getArtists() f_dirtyXString\t\t", f_dirtyXString)
+        f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
+        # print("getArtists() f_cleanXList\t\t", f_cleanXList)
+        return f_cleanXList
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
@@ -462,9 +467,9 @@ def setArtists(p_filename, p_cleanArtistList):
         f_metadata.read()
         f_key = 'Exif.Image.XPAuthor'
         # print(f_metadata.exif_keys)
-        f_dirtyArtistString = cleanList2dirtyStr(p_cleanArtistList)
-        # print("setArtists() f_dirtyArtistString\t\t", f_dirtyArtistString)
-        f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString)
+        f_dirtyXString = cleanList2dirtyStr(p_cleanArtistList)
+        # print("setArtists() f_dirtyXString\t\t", f_dirtyXString)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyXString)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
@@ -536,25 +541,25 @@ def addArtist(p_filename, p_artist):
         f_key = 'Exif.Image.XPAuthor'
         f_key2 = 'Exif.Image.Artist'
         if not containsArtists(p_filename):
-            f_cleanArtistList = [p_artist]
-            f_dirtyArtistString2 = cleanList2dirtyStr(f_cleanArtistList)
-            f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
+            f_cleanXList = [p_artist]
+            f_dirtyXString2 = cleanList2dirtyStr(f_cleanXList)
+            f_value = pyexiv2.utils.string_to_undefined(f_dirtyXString2)
             f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
             f_metadata.write()
-            f_metadata[f_key2] = pyexiv2.ExifTag(f_key2, cleanList2cleanStr(f_cleanArtistList))
+            f_metadata[f_key2] = pyexiv2.ExifTag(f_key2, cleanList2cleanStr(f_cleanXList))
             f_metadata.write()
             return
         f_keywords = f_metadata['Exif.Image.XPAuthor']
-        f_dirtyArtistString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        # print("addArtist() f_dirtyArtistString\t\t", f_dirtyArtistString)
-        f_cleanArtistList = dirtyStr2cleanList(f_dirtyArtistString)
-        # print("addArtist() f_cleanArtistList\t\t", f_cleanArtistList)
-        if p_artist in f_cleanArtistList:
+        f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        # print("addArtist() f_dirtyXString\t\t", f_dirtyXString)
+        f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
+        # print("addArtist() f_cleanXList\t\t", f_cleanXList)
+        if p_artist in f_cleanXList:
             raise DuplicateDataError("file already contains this artist")
-        f_cleanArtistList.insert(0, p_artist)
-        f_dirtyArtistString2 = cleanList2dirtyStr(f_cleanArtistList)
-        # print("addArtist() f_dirtyArtistString2\t\t", f_dirtyArtistString2)
-        f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
+        f_cleanXList.insert(0, p_artist)
+        f_dirtyXString2 = cleanList2dirtyStr(f_cleanXList)
+        # print("addArtist() f_dirtyXString2\t\t", f_dirtyXString2)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyXString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
@@ -589,19 +594,19 @@ def removeArtist(p_filename, p_artist):
                     p_filename))
         f_keywords = f_metadata['Exif.Image.XPAuthor']
         f_key = 'Exif.Image.XPAuthor'
-        f_dirtyArtistString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        # print("removeArtist() f_dirtyArtistString\t\t", f_dirtyArtistString)
-        f_cleanArtistList = dirtyStr2cleanList(f_dirtyArtistString)
-        # print("removeArtist() f_cleanArtistList\t\t", f_cleanArtistList)
+        f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        # print("removeArtist() f_dirtyXString\t\t", f_dirtyXString)
+        f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
+        # print("removeArtist() f_cleanXList\t\t", f_cleanXList)
         # Note that p_artist must be an exact match with an entry to have it removed
-        if p_artist not in f_cleanArtistList:
+        if p_artist not in f_cleanXList:
             raise NoSuchItemError(
                 'The file \'{}\' does not contain the artist \'{}\' \n This operation cannot be performed'.format(
                     p_filename, p_artist))
-        f_cleanArtistList.remove(p_artist)
-        f_dirtyArtistString2 = cleanList2dirtyStr(f_cleanArtistList)
-        # print("removeArtist() f_dirtyArtistString2\t\t", f_dirtyArtistString2)
-        f_value = pyexiv2.utils.string_to_undefined(f_dirtyArtistString2)
+        f_cleanXList.remove(p_artist)
+        f_dirtyXString2 = cleanList2dirtyStr(f_cleanXList)
+        # print("removeArtist() f_dirtyXString2\t\t", f_dirtyXString2)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyXString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
@@ -660,11 +665,11 @@ def getTags(p_filename):
         if not containsTags(p_filename):
             return []
         f_keywords = f_metadata['Exif.Image.XPKeywords']
-        f_dirtyTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        # print("getTags() f_dirtyTagString\t\t", f_dirtyTagString)
-        f_cleanTagList = dirtyStr2cleanList(f_dirtyTagString)
-        # print("getTags() f_cleanTagList\t\t", f_cleanTagList)
-        return f_cleanTagList
+        f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        # print("getTags() f_dirtyXString\t\t", f_dirtyXString)
+        f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
+        # print("getTags() f_cleanXList\t\t", f_cleanXList)
+        return f_cleanXList
     else:
         earlySupportCheck(p_filename)
         # TODO add png and gif support
@@ -691,9 +696,9 @@ def setTags(p_filename, p_cleanTagList):
         f_metadata.read()
         f_key = 'Exif.Image.XPKeywords'
         # print(f_metadata.exif_keys)
-        f_dirtyTagString = cleanList2dirtyStr(p_cleanTagList)
-        # print("setTags() f_dirtyTagString\t\t", f_dirtyTagString)
-        f_value = pyexiv2.utils.string_to_undefined(f_dirtyTagString)
+        f_dirtyXString = cleanList2dirtyStr(p_cleanTagList)
+        # print("setTags() f_dirtyXString\t\t", f_dirtyXString)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyXString)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return True
@@ -754,23 +759,23 @@ def addTag(p_filename, p_tag):
         # print(f_metadata.exif_keys)
         f_key = 'Exif.Image.XPKeywords'
         if not containsTags(p_filename):
-            f_cleanTagList = [p_tag]
-            f_dirtyTagString2 = cleanList2dirtyStr(f_cleanTagList)
-            f_value = pyexiv2.utils.string_to_undefined(f_dirtyTagString2)
+            f_cleanXList = [p_tag]
+            f_dirtyXString2 = cleanList2dirtyStr(f_cleanXList)
+            f_value = pyexiv2.utils.string_to_undefined(f_dirtyXString2)
             f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
             f_metadata.write()
             return
         f_keywords = f_metadata['Exif.Image.XPKeywords']
-        f_dirtyTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        # print("addTag() f_dirtyTagString\t\t", f_dirtyTagString)
-        f_cleanTagList = dirtyStr2cleanList(f_dirtyTagString)
-        # print("addTag() f_cleanTagList\t\t", f_cleanTagList)
-        if p_tag in f_cleanTagList:
+        f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        # print("addTag() f_dirtyXString\t\t", f_dirtyXString)
+        f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
+        # print("addTag() f_cleanXList\t\t", f_cleanXList)
+        if p_tag in f_cleanXList:
             raise DuplicateDataError("file already contains this tag")
-        f_cleanTagList.insert(0, p_tag)
-        f_dirtyTagString2 = cleanList2dirtyStr(f_cleanTagList)
-        # print("addTag() f_dirtyTagString2\t\t", f_dirtyTagString2)
-        f_value = pyexiv2.utils.string_to_undefined(f_dirtyTagString2)
+        f_cleanXList.insert(0, p_tag)
+        f_dirtyXString2 = cleanList2dirtyStr(f_cleanXList)
+        # print("addTag() f_dirtyXString2\t\t", f_dirtyXString2)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyXString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
@@ -804,18 +809,18 @@ def removeTag(p_filename, p_tag):
                     p_filename))
         f_keywords = f_metadata['Exif.Image.XPKeywords']
         f_key = 'Exif.Image.XPKeywords'
-        f_dirtyTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        # print("removeTag() f_dirtyTagString\t\t", f_dirtyTagString)
-        f_cleanTagList = dirtyStr2cleanList(f_dirtyTagString)
-        # print("removeTag() f_cleanTagList\t\t", f_cleanTagList)
-        if p_tag not in f_cleanTagList:
+        f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        # print("removeTag() f_dirtyXString\t\t", f_dirtyXString)
+        f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
+        # print("removeTag() f_cleanXList\t\t", f_cleanXList)
+        if p_tag not in f_cleanXList:
             raise NoSuchItemError(
                 'The file \'{}\' does not contain the tag \'{}\' \n This operation cannot be performed'.format(
                     p_filename, p_tag))
-        f_cleanTagList.remove(p_tag)
-        f_dirtyTagString2 = cleanList2dirtyStr(f_cleanTagList)
-        # print("removeTag() f_dirtyTagString2\t\t", f_dirtyTagString2)
-        f_value = pyexiv2.utils.string_to_undefined(f_dirtyTagString2)
+        f_cleanXList.remove(p_tag)
+        f_dirtyXString2 = cleanList2dirtyStr(f_cleanXList)
+        # print("removeTag() f_dirtyXString2\t\t", f_dirtyXString2)
+        f_value = pyexiv2.utils.string_to_undefined(f_dirtyXString2)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
@@ -872,9 +877,9 @@ def getDescr(p_filename):
         if not containsDescr(p_filename):
             return ""
         f_keywords = f_metadata['Exif.Image.XPComment']
-        f_dirtyDescrString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        # print("dirty Descr:", f_dirtyDescrString)
-        f_cleanDescr = dirtyStr2cleanStr(f_dirtyDescrString)
+        f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        # print("dirty Descr:", f_dirtyXString)
+        f_cleanDescr = dirtyStr2cleanStr(f_dirtyXString)
         # print("clean Descr:", f_cleanDescr)
         return f_cleanDescr
     else:
@@ -931,8 +936,8 @@ def searchDescr(p_filename, p_searchForThis):
         if not containsDescr(p_filename):
             return False
         f_keywords = f_metadata['Exif.Image.XPComment']
-        f_dirtyDescrString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-        f_cleanDescr = dirtyStr2cleanStr(f_dirtyDescrString)
+        f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+        f_cleanDescr = dirtyStr2cleanStr(f_dirtyXString)
         if p_searchForThis in f_cleanDescr:
             return True
     else:
@@ -959,8 +964,8 @@ def addDescr(p_filename, p_addThisToDescr):
         f_cleanDescr = ""
         if containsDescr(p_filename):
             f_keywords = f_metadata['Exif.Image.XPComment']
-            f_dirtyDescrString = pyexiv2.utils.undefined_to_string(f_keywords.value)
-            f_cleanDescr = dirtyStr2cleanStr(f_dirtyDescrString)
+            f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+            f_cleanDescr = dirtyStr2cleanStr(f_dirtyXString)
         f_setDescrToThis = f_cleanDescr + p_addThisToDescr
         f_dirtyString = cleanStr2dirtyStr(f_setDescrToThis)
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyString)

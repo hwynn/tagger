@@ -91,19 +91,22 @@ def getStashData(p_filename, p_key):
     """
     return
 
-
-
 import pyexiv2
 
 def display(p_str,p_var):
     print(p_str+":",p_var)
-    print(p_str + " type:", type(p_var))
+    #print(p_str + " type:", type(p_var))
 
+def trimSquare(x):
+    y = x
+    while y[-1]=="\x00":
+        y = y[:-1]
+    return y
 
 filename = '/home/hwynn/Pictures/fixingComputer.jpg'
 #f_metadata = pyexiv2.ImageMetadata(filename)
 #f_metadata.read()
-#f_keywords = f_metadata['Exif.Image.XPTitle']
+#f_keywords = f_metadata['Exif.Image.XPKeywords']
 #f_dirtyTitleString = pyexiv2.utils.undefined_to_string(f_keywords.value)
 
 """
@@ -135,19 +138,19 @@ x.encode('utf-16') takes normal string and converts it to a 'bytes' object of it
 def file_to_a(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
-    f_keywords = f_metadata['Exif.Image.XPTitle']
+    f_keywords = f_metadata['Exif.Image.XPKeywords']
     return f_keywords.value
 
 def file_to_b(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
-    f_keywords = f_metadata['Exif.Image.XPTitle']
+    f_keywords = f_metadata['Exif.Image.XPKeywords']
     return pyexiv2.utils.undefined_to_string(f_keywords.value)
 
 def file_to_c(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
-    f_keywords = f_metadata['Exif.Image.XPTitle']
+    f_keywords = f_metadata['Exif.Image.XPKeywords']
     f_item = pyexiv2.utils.undefined_to_string(f_keywords.value)
     f_bytes = bytes(f_item, 'utf-8')
     #f_bytes = f_item.encode('utf-8')
@@ -156,11 +159,12 @@ def file_to_c(p_filename):
 def file_to_d(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
-    f_keywords = f_metadata['Exif.Image.XPTitle']
+    f_keywords = f_metadata['Exif.Image.XPKeywords']
     f_item = pyexiv2.utils.undefined_to_string(f_keywords.value)
     f_bytes = bytes(f_item, 'utf-8')
     #f_bytes = f_item.encode('utf-8')
-    return f_bytes.decode('utf-16')
+    f_d = f_bytes.decode('utf-16')
+    return trimSquare(f_d)
 
 #--- a transitions
 
@@ -174,7 +178,9 @@ def a_to_c(x):
 def a_to_d(x):
     f_b = pyexiv2.utils.undefined_to_string(x)
     f_c = f_b.encode('utf-8')
-    return f_c.decode('utf-16')
+    f_d = trimSquare(f_c.decode('utf-16'))
+    return f_d
+
 
 #--- b transitions
 
@@ -187,37 +193,37 @@ def b_to_c(x):
 
 def b_to_d(x):
     f_c = x.encode('utf-8')
-    return f_c.decode('utf-16')
+    f_d = f_c.decode('utf-16')
+    return trimSquare(f_d)
 
 #--- c transitions
-
-def c_to_d(x):
-    return x.decode('utf-16')
-
-def c_to_b(x):
-    return x.decode('utf-8')
 
 def c_to_a(x):
     f_b = x.decode('utf-8')
     return pyexiv2.utils.string_to_undefined(f_b)
 
+def c_to_b(x):
+    return x.decode('utf-8')
+
+def c_to_d(x):
+    f_d = x.decode('utf-16')
+    return trimSquare(f_d)
+
 #--- d transitions
-
-def d_to_c(x):
-    #return bytes(x, 'utf-16')
-    f_c = x.encode('utf-16')
-    return f_c[2:]
-
-def d_to_b(x):
-    f_c = x.encode('utf-16')
-    return f_c[2:].decode('utf-8')
 
 def d_to_a(x):
     f_c = x.encode('utf-16')
     f_b = f_c[2:].decode('utf-8')
     return pyexiv2.utils.string_to_undefined(f_b)
 
+def d_to_b(x):
+    f_c = x.encode('utf-16')
+    return f_c[2:].decode('utf-8')
 
+def d_to_c(x):
+    #return bytes(x, 'utf-16')
+    f_c = x.encode('utf-16')
+    return f_c[2:]
 
 a1 = file_to_a(filename)
 
@@ -260,3 +266,27 @@ display("d1",d1)
 display("d2",d2)
 display("d3",d3)
 display("d4",d4)
+
+#----------flow 1
+#f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+#f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
+#f_keywords.value -> f_dirtyXString -> f_cleanXList
+#      a          ->      b         ->    [d]
+#      undefined_to_string     dirtyStr2cleanList
+
+#f_dirtyXString2 = cleanList2dirtyStr(f_cleanXList)
+#f_value = pyexiv2.utils.string_to_undefined(f_dirtyXString2)
+#f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
+#f_metadata.write()
+#f_cleanXList ->  f_dirtyXString2 -> f_value
+#   [d]       ->        b         ->     a
+#    cleanList2dirtyStr       string_to_undefined
+#NOTE: every use of cleanList2dirtyStr() follows this use pattern
+
+
+#----------flow 2
+#f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+#f_cleanX = dirtyStr2cleanStr(f_dirtyXString)
+# f_keywords.value -> f_dirtyXString -> f_cleanX
+#     a            ->       b        ->    d
+#       undefined_to_string    dirtyStr2cleanStr

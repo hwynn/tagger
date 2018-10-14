@@ -4,8 +4,9 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="fixing encoding stuff">
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="preparing to change metadata encoding">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetadataManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/MetadataManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StashUtil.py" beforeDir="false" afterPath="$PROJECT_DIR$/StashUtil.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,15 +59,15 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="35" />
-          <entry key="py" value="33030" />
-          <entry key="txt" value="1328" />
+          <entry key="py" value="34069" />
+          <entry key="txt" value="1378" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="1363" />
-          <entry key="Python" value="22977" />
-          <entry key="Scratch" value="10053" />
+          <entry key="PLAIN_TEXT" value="1413" />
+          <entry key="Python" value="23084" />
+          <entry key="Scratch" value="10985" />
         </counts>
       </usages-collector>
     </session>
@@ -76,19 +77,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="167" lean-forward="true" selection-end-line="167" />
+            <state>
+              <caret lean-forward="true" />
               <folding>
-                <marker date="1539543052107" expanded="true" signature="41:112" ph="..." />
-                <marker date="1539543052107" expanded="true" signature="2421:2710" ph="..." />
-                <marker date="1539543052107" expanded="true" signature="2656:2710" ph="..." />
-                <marker date="1539543052107" expanded="true" signature="2724:2774" ph="..." />
-                <marker date="1539543052107" expanded="true" signature="2818:2944" ph="..." />
-                <marker date="1539543052107" expanded="true" signature="2943:2944" ph="..." />
-                <marker date="1539543052107" expanded="true" signature="2944:2991" ph="..." />
-                <marker date="1539543052107" expanded="true" signature="2959:2991" ph="..." />
-                <marker date="1539543052107" expanded="true" signature="3005:3453" ph="..." />
-                <marker date="1539543052107" expanded="true" signature="3050:3150" ph="..." />
+                <element signature="e#1877#2157#0" />
+                <element signature="e#2190#2513#0" />
+                <element signature="e#2515#2588#0" />
+                <element signature="e#2717#2800#0" />
+                <element signature="e#3058#3136#0" />
+                <element signature="e#3180#3253#0" />
+                <marker date="1539553874896" expanded="true" signature="41:199" ph="..." />
+                <marker date="1539553874896" expanded="true" signature="2549:2865" ph="..." />
+                <marker date="1539553874896" expanded="true" signature="2842:2865" ph="..." />
+                <marker date="1539553874896" expanded="false" signature="2879:2929" ph="..." />
+                <marker date="1539553874896" expanded="true" signature="2973:3125" ph="..." />
+                <marker date="1539553874896" expanded="false" signature="3124:3125" ph="..." />
+                <marker date="1539553874896" expanded="true" signature="3264:3336" ph="..." />
+                <marker date="1539553874896" expanded="true" signature="3308:3336" ph="..." />
+                <marker date="1539553874896" expanded="true" signature="3336:3566" ph="..." />
+                <marker date="1539553874896" expanded="true" signature="3336:3659" ph="..." />
               </folding>
             </state>
           </provider>
@@ -97,8 +104,16 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/StashUtil.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="262" lean-forward="true" selection-start-line="262" selection-end-line="262" />
+            <state relative-caret-position="345">
+              <caret line="291" column="48" lean-forward="true" selection-start-line="291" selection-start-column="48" selection-end-line="291" selection-end-column="48" />
+              <folding>
+                <element signature="e#4079#4359#0" />
+                <element signature="e#4392#4715#0" />
+                <element signature="e#4820#4893#0" />
+                <element signature="e#4914#5044#0" />
+                <element signature="e#5225#5306#0" />
+                <element signature="e#5347#5420#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -106,8 +121,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="60" selection-start-line="60" selection-end-line="60" />
+            <state>
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -115,7 +132,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
+            <state relative-caret-position="366">
               <caret line="72" selection-start-line="72" selection-end-line="72" />
             </state>
           </provider>
@@ -124,8 +141,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1200">
-              <caret line="84" selection-start-line="84" selection-end-line="84" />
+            <state relative-caret-position="315">
+              <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
             </state>
           </provider>
         </entry>
@@ -142,11 +159,102 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="1087" column="38" lean-forward="true" selection-start-line="1087" selection-start-column="38" selection-end-line="1087" selection-end-column="38" />
+            <state relative-caret-position="1711">
+              <caret line="296" column="59" lean-forward="true" selection-start-line="296" selection-start-column="59" selection-end-line="296" selection-end-column="59" />
               <folding>
+                <element signature="e#23#37#0" expanded="true" />
                 <element signature="e#135#193#0" />
                 <element signature="e#357#410#0" />
+                <element signature="e#459#494#0" />
+                <element signature="e#554#710#0" />
+                <element signature="e#554#701#1" />
+                <element signature="e#755#861#0" />
+                <element signature="e#901#1087#0" />
+                <element signature="e#901#1078#1" />
+                <element signature="e#1130#1253#0" />
+                <element signature="e#1293#1326#0" />
+                <element signature="e#1366#1399#0" />
+                <element signature="e#1401#1459#0" />
+                <element signature="e#1617#2035#0" />
+                <element signature="e#1617#1840#1" />
+                <element signature="e#1873#1958#0" />
+                <element signature="e#2069#3029#0" />
+                <element signature="e#2069#2380#1" />
+                <element signature="e#2417#2558#0" />
+                <element signature="e#2606#2741#0" />
+                <element signature="e#2871#3018#0" />
+                <element signature="e#3071#3564#0" />
+                <element signature="e#3071#3361#1" />
+                <element signature="e#3607#4155#0" />
+                <element signature="e#3607#3932#1" />
+                <element signature="e#4233#4552#1" />
+                <element signature="e#4694#4995#1" />
+                <element signature="e#5163#5198#0" />
+                <element signature="e#5257#5538#1" />
+                <element signature="e#5636#5682#0" />
+                <element signature="e#5751#6161#1" />
+                <element signature="e#7445#7685#0" />
+                <element signature="e#35906#35974#0" />
+                <element signature="e#36019#37112#0" />
+                <element signature="e#36019#36316#1" />
+                <element signature="e#36396#37014#0" />
+                <element signature="e#37033#37101#0" />
+                <element signature="e#37180#37931#0" />
+                <element signature="e#37180#37540#1" />
+                <element signature="e#37772#37836#0" />
+                <element signature="e#37965#38847#0" />
+                <element signature="e#37965#38257#1" />
+                <element signature="e#38337#38685#0" />
+                <element signature="e#38704#38833#0" />
+                <element signature="e#38742#38772#0" />
+                <element signature="e#38899#40006#0" />
+                <element signature="e#38899#39362#1" />
+                <element signature="e#39661#39908#0" />
+                <element signature="e#39927#39995#0" />
+                <element signature="e#40066#41750#0" />
+                <element signature="e#40066#40620#1" />
+                <element signature="e#40676#41072#0" />
+                <element signature="e#40676#40728#0" />
+                <element signature="e#41265#41564#0" />
+                <element signature="e#41583#41733#0" />
+                <element signature="e#41621#41651#0" />
+                <element signature="e#41753#41787#0" />
+                <element signature="e#41870#42651#0" />
+                <element signature="e#41870#42238#1" />
+                <element signature="e#42510#42582#0" />
+                <element signature="e#42682#43654#0" />
+                <element signature="e#42682#43118#1" />
+                <element signature="e#43198#43495#0" />
+                <element signature="e#43514#43640#0" />
+                <element signature="e#43552#43582#0" />
+                <element signature="e#43688#44807#0" />
+                <element signature="e#43688#44124#1" />
+                <element signature="e#44204#44709#0" />
+                <element signature="e#44728#44796#0" />
+                <element signature="e#44858#45824#0" />
+                <element signature="e#44858#45280#1" />
+                <element signature="e#45360#45641#0" />
+                <element signature="e#45660#45807#0" />
+                <element signature="e#45698#45728#0" />
+                <element signature="e#45892#46682#0" />
+                <element signature="e#45892#46266#1" />
+                <element signature="e#46543#46614#0" />
+                <element signature="e#46717#48296#0" />
+                <element signature="e#46717#47242#1" />
+                <element signature="e#47322#48107#0" />
+                <element signature="e#47531#48011#1" />
+                <element signature="e#48126#48296#0" />
+                <element signature="e#48164#48194#0" />
+                <element signature="e#48339#49486#0" />
+                <element signature="e#48339#48886#1" />
+                <element signature="e#48966#49388#0" />
+                <element signature="e#49407#49475#0" />
+                <element signature="e#49548#50626#0" />
+                <element signature="e#49548#50057#1" />
+                <element signature="e#50137#50443#0" />
+                <element signature="e#50462#50609#0" />
+                <element signature="e#50500#50530#0" />
+                <element signature="e#50628#50654#0" />
               </folding>
             </state>
           </provider>
@@ -164,27 +272,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>:param p_filename:(\s++)</find>
-      <find>name/path of the file</find>
-      <find>:param p_filename:(\s++):</find>
-      <find>p_setTitleToThis</find>
-      <find>p_searchForThis</find>
-      <find>param p_searchForThis</find>
-      <find>:param</find>
-      <find>:([a-zA-Z'_:\p{Blank}]+):</find>
-      <find>:([a-zA-Z'_:\p{Blank}]+):(\s++)</find>
-      <find>def search</find>
-      <find>def get</find>
-      <find>:([a-zA-Z'_:\p{Blank}]+):(\s++)\&quot;\&quot;\&quot;</find>
-      <find>return(\s++)return</find>
-      <find>datetime o</find>
-      <find>listHexTrim</find>
-      <find>dirtyStr2cleanStr</find>
-      <find>#os.remove(f_filename)</find>
-      <find>unde</find>
       <find>f_metadata[</find>
       <find>'Exif.Photo.DateTimeOriginal'</find>
-      <find>cleanList2dirtyStr</find>
       <find>pyexi</find>
       <find>utils</find>
       <find>tils.string_to_undefined</find>
@@ -194,11 +283,27 @@
       <find>f_value4</find>
       <find>encode</find>
       <find>f_keywords</find>
+      <find>'Exif.Image.XPTitle'</find>
+      <find>'Exif.Image.XPKeywords'</find>
+      <find>undefined_to_string</find>
+      <find>_dirty([a-zA-Z'_:\p{Blank}]+)String</find>
+      <find>dirty([a-zA-Z'_:\p{Blank}]+)String</find>
+      <find>f_dirty([a-zA-Z'_:\p{Blank}]+)String</find>
+      <find>f_dirty([a-zA-Z'_:\p{Blank}]+)List</find>
+      <find>f_clean([a-zA-Z'_:\p{Blank}]+)</find>
+      <find>f_dirty([a-zA-Z'_]+)</find>
+      <find>f_dirty([a-zA-Z'_]+)List</find>
+      <find>f_clean([a-zA-Z'_]+)List</find>
+      <find>f_clean([a-zA-Z'_]+)</find>
+      <find>f_value = pyexiv2.utils.string_to_undefined(f_dirtyString)</find>
+      <find>f_value = pyexiv2.utils.string_to_undefined</find>
+      <find>f_value = pyexiv2.utils.string_to_undefined(f_dirty</find>
+      <find>string_t</find>
+      <find>listHexTrim</find>
+      <find>dirtyStr2cleanStr</find>
+      <find>cleanList2dirtyStr</find>
     </findStrings>
     <replaceStrings>
-      <replace />
-      <replace>TestingManager.download_file_from_google_drive</replace>
-      <replace>getExtension(p_filename)</replace>
       <replace>f_metadata</replace>
       <replace>TestingManager.getGoogleDrivePicture</replace>
       <replace>Title</replace>
@@ -226,6 +331,9 @@
       <replace>:param p_filename: name/path of the file\n\t:type p_filename: string\n\t:</replace>
       <replace>&quot;&quot;&quot;</replace>
       <replace>os.remove(f_filename)</replace>
+      <replace>'Exif.Image.XPKeywords'</replace>
+      <replace>'Exif.Image.XPTitle'</replace>
+      <replace>f_cleanXList</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -254,9 +362,9 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py" />
         <option value="$PROJECT_DIR$/PNGmetadataTests.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
-        <option value="$PROJECT_DIR$/MetadataManager.py" />
         <option value="$PROJECT_DIR$/jpgOnlyUnitTests1.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
+        <option value="$PROJECT_DIR$/MetadataManager.py" />
         <option value="$PROJECT_DIR$/StashUtil.py" />
       </list>
     </option>
@@ -657,7 +765,21 @@
       <option name="project" value="LOCAL" />
       <updated>1539541406646</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="still fixing encoding stuff">
+      <created>1539543102426</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1539543102426</updated>
+    </task>
+    <task id="LOCAL-00033" summary="preparing to change metadata encoding">
+      <created>1539544878145</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1539544878145</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -796,7 +918,9 @@
     <MESSAGE value="testing png metadata capabilities still" />
     <MESSAGE value="Moved unused stash functions" />
     <MESSAGE value="fixing encoding stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing encoding stuff" />
+    <MESSAGE value="still fixing encoding stuff" />
+    <MESSAGE value="preparing to change metadata encoding" />
+    <option name="LAST_COMMIT_MESSAGE" value="preparing to change metadata encoding" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/utils.py" />
@@ -818,24 +942,10 @@
     <entry file="file://$PROJECT_DIR$/PNGmetadataTests.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
+        <state relative-caret-position="366">
           <caret line="72" selection-start-line="72" selection-end-line="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
         </state>
       </provider>
     </entry>
@@ -846,40 +956,161 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="1087" column="38" lean-forward="true" selection-start-line="1087" selection-start-column="38" selection-end-line="1087" selection-end-column="38" />
+        <state relative-caret-position="1711">
+          <caret line="296" column="59" lean-forward="true" selection-start-line="296" selection-start-column="59" selection-end-line="296" selection-end-column="59" />
           <folding>
+            <element signature="e#23#37#0" expanded="true" />
             <element signature="e#135#193#0" />
             <element signature="e#357#410#0" />
+            <element signature="e#459#494#0" />
+            <element signature="e#554#710#0" />
+            <element signature="e#554#701#1" />
+            <element signature="e#755#861#0" />
+            <element signature="e#901#1087#0" />
+            <element signature="e#901#1078#1" />
+            <element signature="e#1130#1253#0" />
+            <element signature="e#1293#1326#0" />
+            <element signature="e#1366#1399#0" />
+            <element signature="e#1401#1459#0" />
+            <element signature="e#1617#2035#0" />
+            <element signature="e#1617#1840#1" />
+            <element signature="e#1873#1958#0" />
+            <element signature="e#2069#3029#0" />
+            <element signature="e#2069#2380#1" />
+            <element signature="e#2417#2558#0" />
+            <element signature="e#2606#2741#0" />
+            <element signature="e#2871#3018#0" />
+            <element signature="e#3071#3564#0" />
+            <element signature="e#3071#3361#1" />
+            <element signature="e#3607#4155#0" />
+            <element signature="e#3607#3932#1" />
+            <element signature="e#4233#4552#1" />
+            <element signature="e#4694#4995#1" />
+            <element signature="e#5163#5198#0" />
+            <element signature="e#5257#5538#1" />
+            <element signature="e#5636#5682#0" />
+            <element signature="e#5751#6161#1" />
+            <element signature="e#7445#7685#0" />
+            <element signature="e#35906#35974#0" />
+            <element signature="e#36019#37112#0" />
+            <element signature="e#36019#36316#1" />
+            <element signature="e#36396#37014#0" />
+            <element signature="e#37033#37101#0" />
+            <element signature="e#37180#37931#0" />
+            <element signature="e#37180#37540#1" />
+            <element signature="e#37772#37836#0" />
+            <element signature="e#37965#38847#0" />
+            <element signature="e#37965#38257#1" />
+            <element signature="e#38337#38685#0" />
+            <element signature="e#38704#38833#0" />
+            <element signature="e#38742#38772#0" />
+            <element signature="e#38899#40006#0" />
+            <element signature="e#38899#39362#1" />
+            <element signature="e#39661#39908#0" />
+            <element signature="e#39927#39995#0" />
+            <element signature="e#40066#41750#0" />
+            <element signature="e#40066#40620#1" />
+            <element signature="e#40676#41072#0" />
+            <element signature="e#40676#40728#0" />
+            <element signature="e#41265#41564#0" />
+            <element signature="e#41583#41733#0" />
+            <element signature="e#41621#41651#0" />
+            <element signature="e#41753#41787#0" />
+            <element signature="e#41870#42651#0" />
+            <element signature="e#41870#42238#1" />
+            <element signature="e#42510#42582#0" />
+            <element signature="e#42682#43654#0" />
+            <element signature="e#42682#43118#1" />
+            <element signature="e#43198#43495#0" />
+            <element signature="e#43514#43640#0" />
+            <element signature="e#43552#43582#0" />
+            <element signature="e#43688#44807#0" />
+            <element signature="e#43688#44124#1" />
+            <element signature="e#44204#44709#0" />
+            <element signature="e#44728#44796#0" />
+            <element signature="e#44858#45824#0" />
+            <element signature="e#44858#45280#1" />
+            <element signature="e#45360#45641#0" />
+            <element signature="e#45660#45807#0" />
+            <element signature="e#45698#45728#0" />
+            <element signature="e#45892#46682#0" />
+            <element signature="e#45892#46266#1" />
+            <element signature="e#46543#46614#0" />
+            <element signature="e#46717#48296#0" />
+            <element signature="e#46717#47242#1" />
+            <element signature="e#47322#48107#0" />
+            <element signature="e#47531#48011#1" />
+            <element signature="e#48126#48296#0" />
+            <element signature="e#48164#48194#0" />
+            <element signature="e#48339#49486#0" />
+            <element signature="e#48339#48886#1" />
+            <element signature="e#48966#49388#0" />
+            <element signature="e#49407#49475#0" />
+            <element signature="e#49548#50626#0" />
+            <element signature="e#49548#50057#1" />
+            <element signature="e#50137#50443#0" />
+            <element signature="e#50462#50609#0" />
+            <element signature="e#50500#50530#0" />
+            <element signature="e#50628#50654#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="167" lean-forward="true" selection-end-line="167" />
+        <state>
+          <caret lean-forward="true" />
           <folding>
-            <marker date="1539543052107" expanded="true" signature="41:112" ph="..." />
-            <marker date="1539543052107" expanded="true" signature="2421:2710" ph="..." />
-            <marker date="1539543052107" expanded="true" signature="2656:2710" ph="..." />
-            <marker date="1539543052107" expanded="true" signature="2724:2774" ph="..." />
-            <marker date="1539543052107" expanded="true" signature="2818:2944" ph="..." />
-            <marker date="1539543052107" expanded="true" signature="2943:2944" ph="..." />
-            <marker date="1539543052107" expanded="true" signature="2944:2991" ph="..." />
-            <marker date="1539543052107" expanded="true" signature="2959:2991" ph="..." />
-            <marker date="1539543052107" expanded="true" signature="3005:3453" ph="..." />
-            <marker date="1539543052107" expanded="true" signature="3050:3150" ph="..." />
+            <element signature="e#1877#2157#0" />
+            <element signature="e#2190#2513#0" />
+            <element signature="e#2515#2588#0" />
+            <element signature="e#2717#2800#0" />
+            <element signature="e#3058#3136#0" />
+            <element signature="e#3180#3253#0" />
+            <marker date="1539553874896" expanded="true" signature="41:199" ph="..." />
+            <marker date="1539553874896" expanded="true" signature="2549:2865" ph="..." />
+            <marker date="1539553874896" expanded="true" signature="2842:2865" ph="..." />
+            <marker date="1539553874896" expanded="false" signature="2879:2929" ph="..." />
+            <marker date="1539553874896" expanded="true" signature="2973:3125" ph="..." />
+            <marker date="1539553874896" expanded="false" signature="3124:3125" ph="..." />
+            <marker date="1539553874896" expanded="true" signature="3264:3336" ph="..." />
+            <marker date="1539553874896" expanded="true" signature="3308:3336" ph="..." />
+            <marker date="1539553874896" expanded="true" signature="3336:3566" ph="..." />
+            <marker date="1539553874896" expanded="true" signature="3336:3659" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/StashUtil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="262" lean-forward="true" selection-start-line="262" selection-end-line="262" />
+        <state relative-caret-position="345">
+          <caret line="291" column="48" lean-forward="true" selection-start-line="291" selection-start-column="48" selection-end-line="291" selection-end-column="48" />
+          <folding>
+            <element signature="e#4079#4359#0" />
+            <element signature="e#4392#4715#0" />
+            <element signature="e#4820#4893#0" />
+            <element signature="e#4914#5044#0" />
+            <element signature="e#5225#5306#0" />
+            <element signature="e#5347#5420#0" />
+          </folding>
         </state>
       </provider>
     </entry>
