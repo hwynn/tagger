@@ -90,21 +90,10 @@ def getStashData(p_filename, p_key):
     TODO
     """
     return
-from struct import *
-import pyexiv2
-"""
-print(pack('>hhl', 1, 2, 3))
-print(pack('<hhl', 1, 2, 3))
-print(type(pack('>hhl', 1, 2, 3)))
-print(calcsize('>hhl'))
-#b'\x00\x01\x00\x02\x00\x00\x00\x03'
-print(unpack('>hhl', b'\x00\x01\x00\x02\x00\x00\x00\x03'))
-print(unpack('<hhl', b'\x00\x01\x00\x02\x00\x00\x00\x03'))
-print(type(unpack('>hhl', b'\x00\x01\x00\x02\x00\x00\x00\x03')))
-##print(calcsize('hhl'))
-print(type(b'\x00\x01\x00\x02\x00\x00\x00\x03'))
-"""
 
+
+
+import pyexiv2
 
 def display(p_str,p_var):
     print(p_str+":",p_var)
@@ -112,12 +101,10 @@ def display(p_str,p_var):
 
 
 filename = '/home/hwynn/Pictures/fixingComputer.jpg'
-f_metadata = pyexiv2.ImageMetadata(filename)
-f_metadata.read()
-#print(f_metadata.exif_keys)
-
-f_keywords = f_metadata['Exif.Image.XPTitle']
-f_dirtyTitleString = pyexiv2.utils.undefined_to_string(f_keywords.value)
+#f_metadata = pyexiv2.ImageMetadata(filename)
+#f_metadata.read()
+#f_keywords = f_metadata['Exif.Image.XPTitle']
+#f_dirtyTitleString = pyexiv2.utils.undefined_to_string(f_keywords.value)
 
 """
 undefined_to_string takes a huge string of spaced numbers and converts it to a string with squares
@@ -127,12 +114,23 @@ string_to_undefined takes a string with squares and converts it to a huge string
 perfect inverse functions in this situation
 """
 """
+x.encode('utf-8') takes x as a string with squares and returns a 'bytes' object of it.
+
+x.encode('utf-8') and bytes(x, 'utf-8') do the exact same thing.
+x.encode('utf-16') and bytes(x, 'utf-16') do the exact same thing.
+x.decode('utf-16')  takes x as a 'bytes' object and returns a normal string
+str() can be used on a 'bytes' object and return the exact data as a string. The reverse does not seem possible.
+
+x.encode('utf-16') takes normal string and converts it to a 'bytes' object of it.
+"""
+"""
 4 objects:
 (a) a huge string of spaced numbers         f_keywords.value directly from file
 (b) a string with squares                   from pyexiv2.utils.undefined_to_string(f_keywords.value) from file
 (c) a 'bytes' object
 (d) a normal string
 """
+
 
 def file_to_a(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
@@ -164,17 +162,34 @@ def file_to_d(p_filename):
     #f_bytes = f_item.encode('utf-8')
     return f_bytes.decode('utf-16')
 
+#--- a transitions
+
 def a_to_b(x):
     return pyexiv2.utils.undefined_to_string(x)
+
+def a_to_c(x):
+    f_b = pyexiv2.utils.undefined_to_string(x)
+    return f_b.encode('utf-8')
+
+def a_to_d(x):
+    f_b = pyexiv2.utils.undefined_to_string(x)
+    f_c = f_b.encode('utf-8')
+    return f_c.decode('utf-16')
+
+#--- b transitions
 
 def b_to_a(x):
     return pyexiv2.utils.string_to_undefined(x)
 
 def b_to_c(x):
+    #return bytes(x, 'utf-8')
     return x.encode('utf-8')
 
-def d_to_c(x):
-    return x.encode('utf-16')
+def b_to_d(x):
+    f_c = x.encode('utf-8')
+    return f_c.decode('utf-16')
+
+#--- c transitions
 
 def c_to_d(x):
     return x.decode('utf-16')
@@ -182,43 +197,27 @@ def c_to_d(x):
 def c_to_b(x):
     return x.decode('utf-8')
 
+def c_to_a(x):
+    f_b = x.decode('utf-8')
+    return pyexiv2.utils.string_to_undefined(f_b)
+
+#--- d transitions
+
+def d_to_c(x):
+    #return bytes(x, 'utf-16')
+    f_c = x.encode('utf-16')
+    return f_c[2:]
+
 def d_to_b(x):
-    f_c = d_to_c(x)
-    return c_to_b(f_c[2:])
+    f_c = x.encode('utf-16')
+    return f_c[2:].decode('utf-8')
 
-"""
-x.encode('utf-8') takes x as a string with squares and returns a 'bytes' object of it.
+def d_to_a(x):
+    f_c = x.encode('utf-16')
+    f_b = f_c[2:].decode('utf-8')
+    return pyexiv2.utils.string_to_undefined(f_b)
 
-x.encode('utf-8') and bytes(x, 'utf-8') do the exact same thing.
-x.encode('utf-16') and bytes(x, 'utf-16') do the exact same thing.
-x.decode('utf-16')  takes x as a 'bytes' object and returns a normal string
-str() can be used on a 'bytes' object and return the exact data as a string. The reverse does not seem possible.
 
-x.encode('utf-16') takes normal string and converts it to a 'bytes' object of it.
-"""
-"""
-
-v1 = bytes(f_dirtyTitleString, 'utf-8') #works
-#v2 = bytes(f_dirtyTitleString, 'utf-16')
-display("v1",v1)
-#print(v2)
-#v3 = f_dirtyTitleString.decode(encoding='utf-16')
-v3 = v1.decode('utf-16')  #works perfectly
-display("v3",v3) #works perfectly
-v4 = v3.encode('utf-16')
-display("v4",v4)
-v5 = v4.decode('utf-16')
-display("v5",v5)
-"""
-"""
-v6 = pyexiv2.utils.undefined_to_string(f_value4)
-display("v6",v6)
-v9 = v5.encode('utf-16')
-display("v9",v9)
-#v6 and v9 are identical except that v9 is 'bytes'
-#v6 is string and cannot be made into bytes now
-#v6 and str(v9) are identical in every way.
-"""
 
 a1 = file_to_a(filename)
 
@@ -228,28 +227,36 @@ c1 = file_to_c(filename)
 
 d1 = file_to_d(filename)
 
-c2 = b_to_c(b1)
-c3 = d_to_c(d1)
-b2 = c_to_b(c1)
+#---conversions to a
 a2 = b_to_a(b1)
-b3 = a_to_b(a2)
-d2 = c_to_d(c3)
-b4 = c_to_b(c3[2:])
-b5 = d_to_b(d1)
-
-
+a3 = c_to_a(c1)
+a4 = d_to_a(d1)
+#---conversions to b
+b2 = a_to_b(a1)
+b3 = c_to_b(c1)
+b4 = d_to_b(d1)
+#---conversions to c
+c2 = a_to_c(a1)
+c3 = b_to_c(b1)
+c4 = d_to_c(d1)
+#---conversions to d
+d2 = a_to_d(a1)
+d3 = b_to_d(b1)
+d4 = c_to_d(c1)
 
 display("a1",a1)
 display("a2",a2)
+display("a3",a3)
+display("a4",a4)
 display("b1",b1)
 display("b2",b2)
 display("b3",b3)
 display("b4",b4)
-display("b5",b5)
 display("c1",c1)
 display("c2",c2)
-display("cx",c3[2:])
 display("c3",c3)
+display("c4",c4)
 display("d1",d1)
 display("d2",d2)
-
+display("d3",d3)
+display("d4",d4)
