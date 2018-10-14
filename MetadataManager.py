@@ -12,12 +12,9 @@ from pathlib import PureWindowsPath
 class UnknownFiletypeError(ValueError):
     """Unrecognized filetype (or no filetype)"""
     pass
-
-
 class UnsupportedFiletypeError(ValueError):
     """Unsupported filetype"""
     pass
-
 class SupportNotImplementedError(NotImplementedError):
     """
     Support not yet implemented
@@ -25,33 +22,25 @@ class SupportNotImplementedError(NotImplementedError):
     but the functionality is not yet complete.
     """
     pass
-
-
 class MetadataMissingError(ValueError):
     """File does not have this data.
     Used when we want to remove metadata but none is present."""
     pass
-
-
 class NoSuchItemError(ValueError):
     """This is similar to MetadataMissing (it shows up in similar contexts)
     But it's raised when data is present, but the item we want to remove
     isn't present in the list"""
     pass
-
 class DuplicateDataError(ValueError):
     """we raise this when we try to add a tag
     or something similar to a list and the list already has that item"""
     pass
-
 class OutOfRangeError(ValueError):
     """used for setRating"""
     pass
-
 class NotIntegerError(ValueError):
     """used for setRating"""
     pass
-
 
 # ========================================================
 # ------------------Utility functions---------------------
@@ -158,10 +147,13 @@ def dirtyStr2cleanStr(p_bustedTags):
     :return: a single tag in string format
     :rtype: string
     """
+    #f_bytes = bytes(p_bustedTags, 'utf-8')
+    #f_tags = f_bytes.decode('utf-16')
     f_tags = ""
     for y in [x.replace('\x00', '') for x in p_bustedTags]:
         if y != '':
             f_tags += y
+
     return f_tags
 
 
@@ -176,6 +168,7 @@ def cleanStr2dirtyStr(p_newtag):
     :return: a single tag in byte-string format
     :rtype: string
     """
+    #f_bustedTag = p_newtag.encode('utf-16')
     f_bustedTag = ""
     for x in p_newtag:
         f_bustedTag += x
@@ -216,6 +209,9 @@ def cleanList2dirtyStr(p_cleanTagList):
     :return: ; delimited list represented as a byte-string
     :rtype: string
     """
+    #p_cleanTagString = cleanList2cleanStr(p_cleanTagList)
+    #f_dirtyTagString = p_cleanTagString.encode('utf-16')
+
     f_dirtyTagList = [cleanStr2dirtyStr(x) for x in p_cleanTagList]
     # print("cleanList2dirtyStr(): f_dirtyTagList", f_dirtyTagList)
     f_dirtyTagString = ";\x00".join(f_dirtyTagList) + "\x00\x00"
