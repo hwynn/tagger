@@ -136,6 +136,15 @@ def listHexTrim(p_rawList):
     #[str(b)] to [d]
     # print("listHexTrim(", p_rawList, ")")
     return [x.replace('\x00', '') for x in p_rawList]
+#raw_to_cleanStr
+#a -> d
+#cleanStr_to_raw
+#d -> a
+
+#raw_to_cleanList
+#a -> [d]
+#cleanList_to_raw
+#[d] -> a
 
 
 def dirtyStr2cleanStr(p_bustedTags):
@@ -157,7 +166,7 @@ def dirtyStr2cleanStr(p_bustedTags):
     #    if y != '':
     #        f_tags += y
 
-    f_tags = StashUtil.b_to_d(p_bustedTags)
+    f_tags = StashUtil.dirtyStr_to_cleanStr(p_bustedTags)
     return f_tags
 
 
@@ -178,8 +187,7 @@ def cleanStr2dirtyStr(p_newtag):
     #for x in p_newtag:
     #    f_bustedTag += x
     #    f_bustedTag += '\x00'
-
-    f_bustedTag = StashUtil.d_to_b(p_newtag)
+    f_bustedTag = StashUtil.cleanStr_to_dirtyStr(p_newtag)
     return f_bustedTag
 
 
@@ -200,7 +208,7 @@ def dirtyStr2cleanList(p_dirtyTagStr):
     #f_dirtyXList = p_dirtyTagStr.split(';')
     # print("dirtyStr2cleanList(): f_dirtyXList", f_dirtyXList)
     #f_cleanXList = [dirtyStr2cleanStr(x) for x in f_dirtyXList]
-    f_dirtyXString = StashUtil.b_to_d(p_dirtyTagStr)
+    f_dirtyXString = StashUtil.dirtyStr_to_cleanStr(p_dirtyTagStr)
     f_cleanXList = f_dirtyXString.split(';')
     # print("dirtyStr2cleanList(): f_cleanXList", f_cleanXList)
     # Note: an empty list represented by p_dirtyTagStr translates to
@@ -224,14 +232,10 @@ def cleanList2dirtyStr(p_cleanTagList):
     #f_dirtyXString = p_cleanTagString.encode('utf-16')
     #[d] to str(b)
     f_cleanXString = ';'.join(p_cleanTagList)
-    f_dirtyXString = cleanStr2dirtyStr(f_cleanXString)
+    f_dirtyXString = StashUtil.cleanStr_to_dirtyStr(f_cleanXString)
     #Note: metadata values cannot be set to no value. This is why we provide a space here.
     if f_dirtyXString=="":
         return "\x00\x00"
-    #f_dirtyXList = [cleanStr2dirtyStr(x) for x in p_cleanTagList]
-    # print("cleanList2dirtyStr(): f_dirtyXList", f_dirtyXList)
-    #f_dirtyXString = ";\x00".join(f_dirtyXList) + "\x00\x00"
-    # print("cleanList2dirtyStr(): f_dirtyXString", f_dirtyXString)
     return f_dirtyXString
 
 
@@ -297,7 +301,7 @@ def getTitle(p_filename):
         if not containsTitle(p_filename):
             return ""
         f_keywords = f_metadata['Exif.Image.XPTitle']
-        f_cleanTitle = StashUtil.a_to_d(f_keywords.value)
+        f_cleanTitle = StashUtil.raw_to_cleanStr(f_keywords.value)
         # print("clean Title:", f_cleanTitle)
         return f_cleanTitle
     else:
@@ -359,7 +363,7 @@ def searchTitle(p_filename, p_searchForThis):
         if not containsTitle(p_filename):
             return False
         f_keywords = f_metadata["Exif.Image.XPTitle"]
-        f_cleanTitle = StashUtil.a_to_d(f_keywords.value)
+        f_cleanTitle = StashUtil.raw_to_cleanStr(f_keywords.value)
 
         if p_searchForThis in f_cleanTitle:
             return True
@@ -607,6 +611,9 @@ def removeArtist(p_filename, p_artist):
         f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
         #print("removeArtist() f_dirtyXString\t\t", f_dirtyXString)
         f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
+
+
+
         #print("removeArtist() f_cleanXList\t\t", f_cleanXList)
         # Note that p_artist must be an exact match with an entry to have it removed
         if p_artist not in f_cleanXList:
@@ -781,6 +788,8 @@ def addTag(p_filename, p_tag):
         f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
         # print("addTag() f_dirtyXString\t\t", f_dirtyXString)
         f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
+
+
         # print("addTag() f_cleanXList\t\t", f_cleanXList)
         if p_tag in f_cleanXList:
             raise DuplicateDataError("file already contains this tag")
@@ -891,7 +900,7 @@ def getDescr(p_filename):
         if not containsDescr(p_filename):
             return ""
         f_keywords = f_metadata['Exif.Image.XPComment']
-        f_cleanDescr = StashUtil.a_to_d(f_keywords.value)
+        f_cleanDescr = StashUtil.raw_to_cleanStr(f_keywords.value)
         # print("clean Descr:", f_cleanDescr)
         return f_cleanDescr
     else:
@@ -950,7 +959,7 @@ def searchDescr(p_filename, p_searchForThis):
         f_keywords = f_metadata['Exif.Image.XPComment']
         f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
         f_cleanDescr = dirtyStr2cleanStr(f_dirtyXString)
-        f_cleanDescr = StashUtil.a_to_d(f_keywords.value)
+        f_cleanDescr = StashUtil.raw_to_cleanStr(f_keywords.value)
         if p_searchForThis in f_cleanDescr:
             return True
     else:
@@ -979,7 +988,7 @@ def addDescr(p_filename, p_addThisToDescr):
             f_keywords = f_metadata['Exif.Image.XPComment']
             f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
             f_cleanDescr = dirtyStr2cleanStr(f_dirtyXString)
-            f_cleanDescr = StashUtil.a_to_d(f_keywords.value)
+            f_cleanDescr = StashUtil.raw_to_cleanStr(f_keywords.value)
         f_setDescrToThis = f_cleanDescr + p_addThisToDescr
         f_dirtyString = cleanStr2dirtyStr(f_setDescrToThis)
         f_value = pyexiv2.utils.string_to_undefined(f_dirtyString)

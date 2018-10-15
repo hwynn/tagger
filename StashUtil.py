@@ -133,10 +133,10 @@ x.encode('utf-16') takes normal string and converts it to a 'bytes' object of it
 """
 """
 4 objects:
-(a) a huge string of spaced numbers         f_keywords.value directly from file
-(b) a string with squares                   from pyexiv2.utils.undefined_to_string(f_keywords.value) from file
-(c) a 'bytes' object
-(d) a normal string
+(a) a huge string of spaced numbers         f_keywords.value directly from file                                    raw
+(b) a string with squares                   from pyexiv2.utils.undefined_to_string(f_keywords.value) from file  dirtyStr
+(c) a 'bytes' object                                                                                            bytes
+(d) a normal string                                                                                             cleanStr
 """
 
 
@@ -180,7 +180,8 @@ def a_to_c(x):
     f_b = pyexiv2.utils.undefined_to_string(x)
     return f_b.encode('utf-8')
 
-def a_to_d(x):
+#def a_to_d(x):
+def raw_to_cleanStr(x):
     f_b = pyexiv2.utils.undefined_to_string(x)
     f_c = f_b.encode('utf-8')
     f_d = trimSquare(f_c.decode('utf-16'))
@@ -196,7 +197,8 @@ def b_to_c(x):
     #return bytes(x, 'utf-8')
     return x.encode('utf-8')
 
-def b_to_d(x):
+#def b_to_d(x):
+def dirtyStr_to_cleanStr(x):
     f_c = x.encode('utf-8')
     f_d = f_c.decode('utf-16')
     return trimSquare(f_d)
@@ -220,8 +222,8 @@ def d_to_a(x):
     f_c = x.encode('utf-16')
     f_b = f_c[2:].decode('utf-8')
     return pyexiv2.utils.string_to_undefined(f_b)
-
-def d_to_b(x):
+#def d_to_b(x):
+def cleanStr_to_dirtyStr(x):
     f_c = x.encode('utf-16')
     return f_c[2:].decode('utf-8')
 
@@ -229,6 +231,8 @@ def d_to_c(x):
     #return bytes(x, 'utf-16')
     f_c = x.encode('utf-16')
     return f_c[2:]
+
+
 
 
 """
@@ -247,14 +251,14 @@ a4 = d_to_a(d1)
 #---conversions to b
 b2 = a_to_b(a1)
 b3 = c_to_b(c1)
-b4 = d_to_b(d1)
+b4 = cleanStr_to_dirtyStr(d1)
 #---conversions to c
 c2 = a_to_c(a1)
 c3 = b_to_c(b1)
 c4 = d_to_c(d1)
 #---conversions to d
-d2 = a_to_d(a1)
-d3 = b_to_d(b1)
+d2 = raw_to_cleanStr(a1)
+d3 = dirtyStr_to_cleanStr(b1)
 d4 = c_to_d(c1)
 
 display("a1",a1)
@@ -273,9 +277,7 @@ display("d1",d1)
 display("d2",d2)
 display("d3",d3)
 display("d4",d4)
-
 """
-
 #----------flow 1
 #f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
 #f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
@@ -299,4 +301,4 @@ display("d4",d4)
 # f_keywords.value -> f_dirtyXString -> f_cleanX
 #     a            ->       b        ->    d
 #       undefined_to_string    dirtyStr2cleanStr
-#f_cleanX = StashUtil.a_to_d
+
