@@ -99,11 +99,16 @@ def display(p_str,p_var):
 
 def trimSquare(x):
     y = x
+    if len(y) < 1:
+        return y
     while y[-1]=="\x00":
         y = y[:-1]
+        if len(y) < 1:
+            break
     return y
 
-filename = '/home/hwynn/Pictures/fixingComputer.jpg'
+#filename = '/home/hwynn/Pictures/fixingComputer.jpg'
+
 #f_metadata = pyexiv2.ImageMetadata(filename)
 #f_metadata.read()
 #f_keywords = f_metadata['Exif.Image.XPKeywords']
@@ -225,6 +230,8 @@ def d_to_c(x):
     f_c = x.encode('utf-16')
     return f_c[2:]
 
+
+"""
 a1 = file_to_a(filename)
 
 b1 = file_to_b(filename)
@@ -267,6 +274,8 @@ display("d2",d2)
 display("d3",d3)
 display("d4",d4)
 
+"""
+
 #----------flow 1
 #f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
 #f_cleanXList = dirtyStr2cleanList(f_dirtyXString)
@@ -290,3 +299,4 @@ display("d4",d4)
 # f_keywords.value -> f_dirtyXString -> f_cleanX
 #     a            ->       b        ->    d
 #       undefined_to_string    dirtyStr2cleanStr
+#f_cleanX = StashUtil.a_to_d
