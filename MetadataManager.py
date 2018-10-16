@@ -4,12 +4,11 @@ import os
 import datetime
 from pathlib import PurePosixPath
 from pathlib import PureWindowsPath
-import StashUtil
+
 
 # ========================================================
 # ---------------Defined exceptions-----------------------
 # ========================================================
-
 class UnknownFiletypeError(ValueError):
     """Unrecognized filetype (or no filetype)"""
     pass
@@ -46,7 +45,6 @@ class NotIntegerError(ValueError):
 # ========================================================
 # ------------------Utility functions---------------------
 # ========================================================
-
 def getExtension(p_filepathname):
     """!
     this function checks the type of the file.
@@ -63,8 +61,6 @@ def getExtension(p_filepathname):
         return PureWindowsPath(p_filepathname).suffix
     # assume posix otherwise
     return PurePosixPath(p_filepathname).suffix
-
-
 def filecheck(p_filename):
     """!
     this function checks the type of the file.
@@ -86,8 +82,6 @@ def filecheck(p_filename):
         raise UnsupportedFiletypeError(
             'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_filename))
     return
-
-
 def earlySupportCheck(p_filename):
     """!
     this function checks the type of the file.
@@ -102,8 +96,6 @@ def earlySupportCheck(p_filename):
     if getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
         raise SupportNotImplementedError('Sorry. This operation not ready to support .png or .gif files yet.')
     return
-
-
 def alpha1SupportCheck(p_filename):
     """!
     this function checks the type of the file.
@@ -121,80 +113,128 @@ def alpha1SupportCheck(p_filename):
 
 
 # -------string cleaning utility functions
-def listHexTrim(p_rawList):
-    """!
-    Takes a freshly translated list of byte-strings and
-    trims the '\x00' ends off all the strings
-
-    #TODO replace this function with the python struct byte methods
-    :param p_rawList: list of byte-format strings
-    :type p_rawList: list<string>
-
-    :return: the file extension
+"""
+4 objects:
+(raw)       a huge string of spaced numbers     f_keywords.value directly from file
+(dirtyStr)  a string with squares               from pyexiv2.utils.undefined_to_string(f_keywords.value) from file
+(bytes)     a 'bytes' object
+(cleanStr)   a normal string
+"""
+def trimSquare(x):
+    """
+    :param x: a string that possibly has one or more '\x00' at the end
+    :type x: string
+    :return: a completely clean string
     :rtype: string
     """
-    #[str(b)] to [d]
-    # print("listHexTrim(", p_rawList, ")")
-    return [x.replace('\x00', '') for x in p_rawList]
+    y = x
+    if len(y) < 1:
+        return y
+    while y[-1] == '\x00':
+        y = y[:-1]
+        if len(y) < 1:
+            break
+    return y
+
+def raw_to_cleanStr(x):
+    """
+    :param x: a raw metadata value stored as a long string of numbers
+    :type x: string
+    :return: a clean human-readable string
+    :rtype: string
+    """
+    f_b = pyexiv2.utils.undefined_to_string(x)
+    f_c = f_b.encode('utf-8')
+    f_d = trimSquare(f_c.decode('utf-16'))
+    return f_d
+def raw_to_cleanList(x):
+    """
+    :param x: a raw metadata value stored as a long string of numbers
+    :type x: string
+    :return: a list of clean human-readable strings
+    :rtype: list<string>
+    """
+    f_b = pyexiv2.utils.undefined_to_string(x)
+    f_c = f_b.encode('utf-8')
+    f_d = trimSquare(f_c.decode('utf-16'))
+    f_cleanXList = f_d.split(';')
+    # Note: an empty list represented by f_b translates to
+    # the non empty list ['']. This should compensate for that.
+    if f_cleanXList == ['']:
+        return []
+    return f_cleanXList
+def cleanStr_to_raw(x):
+    """
+    :param x: a clean human-readable string
+    :type x: string
+    :return: a raw metadata value stored as a long string of numbers
+    :rtype: string
+    """
+    f_c = x.encode('utf-16')
+    f_b = f_c[2:].decode('utf-8')
+    return pyexiv2.utils.string_to_undefined(f_b)
+def cleanList_to_raw(x):
+    """
+    :param x: a list of clean human-readable strings
+    :type x: list<string>
+    :return: a raw metadata value stored as a long string of numbers
+    :rtype: string
+    """
+    f_cleanXString = ';'.join(x)
+    f_c = f_cleanXString.encode('utf-16')
+    f_dirtyXString = f_c[2:].decode('utf-8')
+    #Note: metadata values cannot be set to no value. This is why we provide a space here.
+    if f_dirtyXString=="":
+        f_dirtyXString = "\x00\x00"
+    f_raw = pyexiv2.utils.string_to_undefined(f_dirtyXString)
+    return f_raw
 
 def dirtyStr2cleanStr(p_bustedTags):
     """!
     trims the '\x00' ends off all the characters in a byte-string
-
-    #TODO replace this function with the python struct byte methods
     :param p_bustedTags: a single tag in byte-string format
     :type p_bustedTags: string
 
     :return: a single tag in string format
     :rtype: string
     """
-    f_tags = StashUtil.dirtyStr_to_cleanStr(p_bustedTags)
+    f_c = p_bustedTags.encode('utf-8')
+    f_d = f_c.decode('utf-16')
+    f_tags = trimSquare(f_d)
     return f_tags
-
-
 def cleanStr2dirtyStr(p_newtag):
     """!
     adds the '\x00' on all the characters of a string
-
-    #TODO replace this function with the python struct byte methods
     :param p_newtag: a single tag in string format
     :type p_newtag: string
 
     :return: a single tag in byte-string format
     :rtype: string
     """
-    f_bustedTag = StashUtil.cleanStr_to_dirtyStr(p_newtag)
-    return f_bustedTag
-
-
+    f_c = p_newtag.encode('utf-16')
+    return f_c[2:].decode('utf-8')
 def dirtyStr2cleanList(p_dirtyTagStr):
     """!
     Takes a byte-string representing a ; delimited list
     trims the '\x00' ends off all the strings
     Name: dirty string means it is filled with \x00
-
-    #TODO replace this function with the python struct byte methods
     :param p_dirtyTagStr: ; delimited list represented as a byte-string
     :type p_dirtyTagStr: string
 
     :return: a list of tags in string format
     :rtype: list<string>
     """
-    f_dirtyXString = StashUtil.dirtyStr_to_cleanStr(p_dirtyTagStr)
-    #print("dirtyStr2cleanList(): f_dirtyXString", f_dirtyXString)
+    f_c = p_dirtyTagStr.encode('utf-8')
+    f_d = f_c.decode('utf-16')
+    f_dirtyXString = trimSquare(f_d)
     f_cleanXList = f_dirtyXString.split(';')
-    # print("dirtyStr2cleanList(): f_cleanXList", f_cleanXList)
     # Note: an empty list represented by p_dirtyTagStr translates to
     # the non empty list ['']. This should compensate for that.
-
     if f_cleanXList == ['']:
         return []
     return f_cleanXList
-
-
 def cleanList2dirtyStr(p_cleanTagList):
     """!
-    #TODO replace this function with the python struct byte methods
     :param p_cleanTagList: a list of tags in string format
     :type p_cleanTagList: list<string>
 
@@ -202,12 +242,12 @@ def cleanList2dirtyStr(p_cleanTagList):
     :rtype: string
     """
     f_cleanXString = ';'.join(p_cleanTagList)
-    f_dirtyXString = StashUtil.cleanStr_to_dirtyStr(f_cleanXString)
-    #Note: metadata values cannot be set to no value. This is why we provide a space here.
-    if f_dirtyXString=="":
+    f_c = f_cleanXString.encode('utf-16')
+    f_dirtyXString = f_c[2:].decode('utf-8')
+    # Note: metadata values cannot be set to no value. This is why we provide a space here.
+    if f_dirtyXString == "":
         return "\x00\x00"
     return f_dirtyXString
-
 
 def cleanList2cleanStr(p_cleanTagList):
     """!
@@ -217,7 +257,6 @@ def cleanList2cleanStr(p_cleanTagList):
     :return: ; delimited list represented as a string
     :rtype: list<string>
     """
-    #[d] to d
     return ";".join(p_cleanTagList)
 
 
@@ -271,19 +310,17 @@ def getTitle(p_filename):
         if not containsTitle(p_filename):
             return ""
         f_keywords = f_metadata['Exif.Image.XPTitle']
-        f_cleanTitle = StashUtil.raw_to_cleanStr(f_keywords.value)
+        f_cleanTitle = raw_to_cleanStr(f_keywords.value)
         # print("clean Title:", f_cleanTitle)
         return f_cleanTitle
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have Title data?
+        earlySupportCheck(
+            p_filename)  # TODO add png and gif support  # TODO error check: does this file have Title data?
     return ""
 
 
 def setTitle(p_filename, p_setTitleToThis):
     """
-
     :param p_filename: name/path of the file
 	:type p_filename: string
 	:param p_setTitleToThis: title we will store as title metadata
@@ -297,7 +334,7 @@ def setTitle(p_filename, p_setTitleToThis):
         f_key = "Exif.Image.XPTitle"
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        f_value = StashUtil.cleanStr_to_raw(p_setTitleToThis)
+        f_value = cleanStr_to_raw(p_setTitleToThis)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
@@ -332,7 +369,7 @@ def searchTitle(p_filename, p_searchForThis):
         if not containsTitle(p_filename):
             return False
         f_keywords = f_metadata["Exif.Image.XPTitle"]
-        f_cleanTitle = StashUtil.raw_to_cleanStr(f_keywords.value)
+        f_cleanTitle = raw_to_cleanStr(f_keywords.value)
 
         if p_searchForThis in f_cleanTitle:
             return True
@@ -357,7 +394,7 @@ def wipeTitle(p_filename):
         f_metadata.read()
         if not containsTitle(p_filename):
             raise MetadataMissingError("there is no title to remove")
-        f_value = StashUtil.cleanStr_to_raw(" ")
+        f_value = cleanStr_to_raw(" ")
         # we set the value to (almost) nothing before removing the key just in case the values stick around
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
@@ -417,13 +454,12 @@ def getArtists(p_filename):
         if not containsArtists(p_filename):
             return []
         f_keywords = f_metadata['Exif.Image.XPAuthor']
-        f_cleanXList = StashUtil.raw_to_cleanList(f_keywords.value)
-        #print("getArtists() f_cleanXList\t\t", f_cleanXList)
+        f_cleanXList = raw_to_cleanList(f_keywords.value)
+        # print("getArtists() f_cleanXList\t\t", f_cleanXList)
         return f_cleanXList
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have artist data?
+        earlySupportCheck(
+            p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
     return []
 
 
@@ -447,7 +483,7 @@ def setArtists(p_filename, p_cleanArtistList):
         f_metadata.read()
         f_key = 'Exif.Image.XPAuthor'
         # print(f_metadata.exif_keys)
-        f_value = StashUtil.cleanList_to_raw(p_cleanArtistList)
+        f_value = cleanList_to_raw(p_cleanArtistList)
 
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
@@ -487,7 +523,7 @@ def searchArtists(p_filename, p_artist):
         # will all return true.
         # Perhaps a strictSearchArtists() function is needed
         f_found = False
-        f_cleanXList = StashUtil.raw_to_cleanList(f_keywords.value)
+        f_cleanXList = raw_to_cleanList(f_keywords.value)
         for i_artist in f_cleanXList:
             if p_artist.lower() in i_artist.lower():
                 f_found = True
@@ -521,19 +557,19 @@ def addArtist(p_filename, p_artist):
         f_key2 = 'Exif.Image.Artist'
         if not containsArtists(p_filename):
             f_cleanXList = [p_artist]
-            f_value = StashUtil.cleanList_to_raw(f_cleanXList)
+            f_value = cleanList_to_raw(f_cleanXList)
             f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
             f_metadata.write()
             f_metadata[f_key2] = pyexiv2.ExifTag(f_key2, cleanList2cleanStr(f_cleanXList))
             f_metadata.write()
             return
         f_keywords = f_metadata['Exif.Image.XPAuthor']
-        f_cleanXList = StashUtil.raw_to_cleanList(f_keywords.value)
-        #print("addArtist() f_cleanXList\t\t", f_cleanXList)
+        f_cleanXList = raw_to_cleanList(f_keywords.value)
+        # print("addArtist() f_cleanXList\t\t", f_cleanXList)
         if p_artist in f_cleanXList:
             raise DuplicateDataError("file already contains this artist")
         f_cleanXList.insert(0, p_artist)
-        f_value = StashUtil.cleanList_to_raw(f_cleanXList)
+        f_value = cleanList_to_raw(f_cleanXList)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
@@ -568,23 +604,22 @@ def removeArtist(p_filename, p_artist):
                     p_filename))
         f_keywords = f_metadata['Exif.Image.XPAuthor']
         f_key = 'Exif.Image.XPAuthor'
-        f_cleanXList = StashUtil.raw_to_cleanList(f_keywords.value)
-        #print("removeArtist() f_cleanXList\t\t", f_cleanXList)
+        f_cleanXList = raw_to_cleanList(f_keywords.value)
+        # print("removeArtist() f_cleanXList\t\t", f_cleanXList)
         # Note that p_artist must be an exact match with an entry to have it removed
         if p_artist not in f_cleanXList:
             raise NoSuchItemError(
                 'The file \'{}\' does not contain the artist \'{}\' \n This operation cannot be performed'.format(
                     p_filename, p_artist))
         f_cleanXList.remove(p_artist)
-        f_value = StashUtil.cleanList_to_raw(f_cleanXList)
-        #print("removeArtist() f_value\t\t", f_value)
+        f_value = cleanList_to_raw(f_cleanXList)
+        # print("removeArtist() f_value\t\t", f_value)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have artist data?
+        earlySupportCheck(
+            p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
     return
 
 
@@ -636,13 +671,11 @@ def getTags(p_filename):
         if not containsTags(p_filename):
             return []
         f_keywords = f_metadata['Exif.Image.XPKeywords']
-        f_cleanXList = StashUtil.raw_to_cleanList(f_keywords.value)
+        f_cleanXList = raw_to_cleanList(f_keywords.value)
         # print("getTags() f_cleanXList\t\t", f_cleanXList)
         return f_cleanXList
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have tag data?
+        earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have tag data?
     return []
 
 
@@ -665,7 +698,7 @@ def setTags(p_filename, p_cleanTagList):
         f_metadata.read()
         f_key = 'Exif.Image.XPKeywords'
         # print(f_metadata.exif_keys)
-        f_value = StashUtil.cleanList_to_raw(p_cleanTagList)
+        f_value = cleanList_to_raw(p_cleanTagList)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return True
@@ -697,7 +730,7 @@ def searchTags(p_filename, p_tag):
         f_keywords = f_metaData['Exif.Image.XPKeywords']
         # Note: these are strict searches. They are case sensative
         # non case sensative searches may require longer execution time
-        f_cleanXList = StashUtil.raw_to_cleanList(f_keywords.value)
+        f_cleanXList = raw_to_cleanList(f_keywords.value)
         if p_tag in f_cleanXList:
             return True
     else:
@@ -727,25 +760,23 @@ def addTag(p_filename, p_tag):
         f_key = 'Exif.Image.XPKeywords'
         if not containsTags(p_filename):
             f_cleanXList = [p_tag]
-            f_value = StashUtil.cleanList_to_raw(f_cleanXList)
+            f_value = cleanList_to_raw(f_cleanXList)
             f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
             f_metadata.write()
             return
         f_keywords = f_metadata['Exif.Image.XPKeywords']
-        f_cleanXList = StashUtil.raw_to_cleanList(f_keywords.value)
+        f_cleanXList = raw_to_cleanList(f_keywords.value)
         # print("addTag() f_cleanXList\t\t", f_cleanXList)
         if p_tag in f_cleanXList:
             raise DuplicateDataError("file already contains this tag")
         f_cleanXList.insert(0, p_tag)
-        f_value = StashUtil.cleanList_to_raw(f_cleanXList)
+        f_value = cleanList_to_raw(f_cleanXList)
 
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have tag data?
+        earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have tag data?
     return
 
 
@@ -772,23 +803,21 @@ def removeTag(p_filename, p_tag):
                     p_filename))
         f_keywords = f_metadata['Exif.Image.XPKeywords']
         f_key = 'Exif.Image.XPKeywords'
-        f_cleanXList = StashUtil.raw_to_cleanList(f_keywords.value)
+        f_cleanXList = raw_to_cleanList(f_keywords.value)
         # print("removeTag() f_cleanXList\t\t", f_cleanXList)
         if p_tag not in f_cleanXList:
             raise NoSuchItemError(
                 'The file \'{}\' does not contain the tag \'{}\' \n This operation cannot be performed'.format(
                     p_filename, p_tag))
         f_cleanXList.remove(p_tag)
-        #print("removeTag() f_cleanXList\t\t", f_cleanXList)
-        f_value = StashUtil.cleanList_to_raw(f_cleanXList)
-        #print("removeTag() f_value\t\t", f_value)
+        # print("removeTag() f_cleanXList\t\t", f_cleanXList)
+        f_value = cleanList_to_raw(f_cleanXList)
+        # print("removeTag() f_value\t\t", f_value)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have tag data?
+        earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have tag data?
     return
 
 
@@ -838,13 +867,12 @@ def getDescr(p_filename):
         if not containsDescr(p_filename):
             return ""
         f_keywords = f_metadata['Exif.Image.XPComment']
-        f_cleanDescr = StashUtil.raw_to_cleanStr(f_keywords.value)
+        f_cleanDescr = raw_to_cleanStr(f_keywords.value)
         # print("clean Descr:", f_cleanDescr)
         return f_cleanDescr
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have Descr data?
+        earlySupportCheck(
+            p_filename)  # TODO add png and gif support  # TODO error check: does this file have Descr data?
     return ""
 
 
@@ -863,13 +891,12 @@ def setDescr(p_filename, p_setDescrToThis):
         f_key = 'Exif.Image.XPComment'
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        f_value = StashUtil.cleanStr_to_raw(p_setDescrToThis)
+        f_value = cleanStr_to_raw(p_setDescrToThis)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add png and gif support
     return
 
 
@@ -894,7 +921,7 @@ def searchDescr(p_filename, p_searchForThis):
         if not containsDescr(p_filename):
             return False
         f_keywords = f_metadata['Exif.Image.XPComment']
-        f_cleanDescr = StashUtil.raw_to_cleanStr(f_keywords.value)
+        f_cleanDescr = raw_to_cleanStr(f_keywords.value)
         if p_searchForThis in f_cleanDescr:
             return True
     else:
@@ -921,15 +948,14 @@ def addDescr(p_filename, p_addThisToDescr):
         f_cleanDescr = ""
         if containsDescr(p_filename):
             f_keywords = f_metadata['Exif.Image.XPComment']
-            f_cleanDescr = StashUtil.raw_to_cleanStr(f_keywords.value)
+            f_cleanDescr = raw_to_cleanStr(f_keywords.value)
         f_setDescrToThis = f_cleanDescr + p_addThisToDescr
-        f_value = StashUtil.cleanStr_to_raw(f_setDescrToThis)
+        f_value = cleanStr_to_raw(f_setDescrToThis)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add png and gif support
     return
 
 
@@ -949,15 +975,14 @@ def wipeDescr(p_filename):
         if not containsDescr(p_filename):
             raise MetadataMissingError("there is no description to remove")
         # we set the value to (almost) nothing before removing the key just in case the values stick around
-        f_value = StashUtil.cleanStr_to_raw(" ")
+        f_value = cleanStr_to_raw(" ")
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
         f_metadata.__delitem__(f_key)
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add png and gif support
     return
 
 
@@ -1011,10 +1036,10 @@ def getRating(p_filename):
         f_rating = f_keywords.value
         return f_rating
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have rating data?
+        earlySupportCheck(
+            p_filename)  # TODO add png and gif support  # TODO error check: does this file have rating data?
     return -1
+
 
 def setRating(p_filename, p_setRatingToThis):
     """
@@ -1043,8 +1068,7 @@ def setRating(p_filename, p_setRatingToThis):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add png and gif support
     return
 
 
@@ -1144,9 +1168,7 @@ def getSrc(p_filename):
         f_SrcString = f_keywords.value
         return f_SrcString
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have Src data?
+        earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have Src data?
     return ""
 
 
@@ -1180,8 +1202,7 @@ def addSrc(p_filename, x):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add png and gif support
     return
 
 
@@ -1310,11 +1331,10 @@ def setOrgDate(p_filename, p_date):
         f_key = 'Exif.Photo.DateTimeDigitized'
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
-        #print(getOrgDate(p_filename))
+        # print(getOrgDate(p_filename))
         return
     else:
-        earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add png and gif support
     return
 
 
@@ -1350,7 +1370,7 @@ def searchOrgDate(p_filename, p_startDate, p_endDate):
         return False
     return False
 
-#---------edit series data
+# ---------edit series data
 
 # TODO def getSeries(p_filename):
 
