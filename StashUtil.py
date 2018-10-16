@@ -187,6 +187,17 @@ def raw_to_cleanStr(x):
     f_d = trimSquare(f_c.decode('utf-16'))
     return f_d
 
+def raw_to_cleanList(x):
+    f_b = pyexiv2.utils.undefined_to_string(x)
+    f_c = f_b.encode('utf-8')
+    f_d = trimSquare(f_c.decode('utf-16'))
+    f_cleanXList = f_d.split(';')
+    # print("dirtyStr2cleanList(): f_cleanXList", f_cleanXList)
+    # Note: an empty list represented by p_dirtyTagStr translates to
+    # the non empty list ['']. This should compensate for that.
+    if f_cleanXList == ['']:
+        return []
+    return f_cleanXList
 
 #--- b transitions
 
@@ -217,11 +228,33 @@ def c_to_d(x):
     return trimSquare(f_d)
 
 #--- d transitions
-
-def d_to_a(x):
-    f_c = x.encode('utf-16')
-    f_b = f_c[2:].decode('utf-8')
+# def d_to_a(x):
+def cleanStr_to_raw(x):
+    #f_c = x.encode('utf-16')
+    #f_b = f_c[2:].decode('utf-8')
+    f_b = cleanStr_to_dirtyStr(x)
     return pyexiv2.utils.string_to_undefined(f_b)
+
+def cleanList_to_raw(x):
+    f_cleanXString = ';'.join(x)
+    f_dirtyXString = cleanStr_to_dirtyStr(f_cleanXString)
+    #Note: metadata values cannot be set to no value. This is why we provide a space here.
+    if f_dirtyXString=="":
+        f_dirtyXString = "\x00\x00"
+    f_raw = pyexiv2.utils.string_to_undefined(f_dirtyXString)
+    return f_raw
+
+def raw_to_cleanList(x):
+    p_dirtyTagStr = a_to_b(x)
+    f_dirtyXString = dirtyStr_to_cleanStr(p_dirtyTagStr)
+    f_cleanXList = f_dirtyXString.split(';')
+    # print("dirtyStr2cleanList(): f_cleanXList", f_cleanXList)
+    # Note: an empty list represented by p_dirtyTagStr translates to
+    # the non empty list ['']. This should compensate for that.
+    if f_cleanXList == ['']:
+        return []
+    return f_cleanXList
+
 #def d_to_b(x):
 def cleanStr_to_dirtyStr(x):
     f_c = x.encode('utf-16')
@@ -247,7 +280,7 @@ d1 = file_to_d(filename)
 #---conversions to a
 a2 = b_to_a(b1)
 a3 = c_to_a(c1)
-a4 = d_to_a(d1)
+a4 = cleanStr_to_raw(d1)
 #---conversions to b
 b2 = a_to_b(a1)
 b3 = c_to_b(c1)
@@ -261,10 +294,22 @@ d2 = raw_to_cleanStr(a1)
 d3 = dirtyStr_to_cleanStr(b1)
 d4 = c_to_d(c1)
 
+d5 = raw_to_cleanList(a1)
+a5 = cleanList_to_raw(d5)
+d6 = raw_to_cleanList(a4)
+a6 = cleanList_to_raw(d6)
+
+
+
+
+
+
 display("a1",a1)
 display("a2",a2)
 display("a3",a3)
 display("a4",a4)
+display("a5",a5)
+display("a6",a6)
 display("b1",b1)
 display("b2",b2)
 display("b3",b3)
@@ -277,7 +322,14 @@ display("d1",d1)
 display("d2",d2)
 display("d3",d3)
 display("d4",d4)
+display("d5",d5)
+display("d6",d6)
 """
+
+
+
+
+
 #----------flow 1
 #f_dirtyXString = pyexiv2.utils.undefined_to_string(f_keywords.value)
 #f_cleanXList = dirtyStr2cleanList(f_dirtyXString)

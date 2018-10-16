@@ -373,9 +373,9 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
     def test_addArtistResults(self):
         removeAllFiles()
         f_filename = downloadGooglePicture("fixingComputer.jpg")
-        print(MetadataManager.getArtists(f_filename))
+        #print(MetadataManager.getArtists(f_filename))
         MetadataManager.addArtist(f_filename, "model: crazyguy")
-        print(MetadataManager.getArtists(f_filename))
+        #print(MetadataManager.getArtists(f_filename))
         self.assertEqual(["model: crazyguy", "stockphotographer", "publisher: twitter"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
         f_filename = downloadGooglePicture("catScreamPizza.jpg")
@@ -439,9 +439,9 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
         self.assertEqual(["stock photo", "bad stock photos of my job", "technology"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
         f_filename = downloadGooglePicture("catScreamPizza.jpg")
-        print(MetadataManager.getTags(f_filename))
+        #print(MetadataManager.getTags(f_filename))
         MetadataManager.removeTag(f_filename, "cat")
-        print(MetadataManager.getTags(f_filename))
+        #print(MetadataManager.getTags(f_filename))
         self.assertEqual([], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
 

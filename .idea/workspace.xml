@@ -4,10 +4,11 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="metadata encoding changed but awkward">
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="metadata encoding changing more">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MetadataManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/MetadataManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StashUtil.py" beforeDir="false" afterPath="$PROJECT_DIR$/StashUtil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jpgOnlyUnitTests1.py" beforeDir="false" afterPath="$PROJECT_DIR$/jpgOnlyUnitTests1.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,49 +47,62 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="85" />
+          <entry key="py" value="86" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="48" />
+          <entry key="Python" value="49" />
           <entry key="Scratch" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="35" />
-          <entry key="py" value="35118" />
-          <entry key="txt" value="1429" />
+          <entry key="py" value="35336" />
+          <entry key="txt" value="1438" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="1464" />
-          <entry key="Python" value="23756" />
-          <entry key="Scratch" value="11362" />
+          <entry key="PLAIN_TEXT" value="1473" />
+          <entry key="Python" value="23930" />
+          <entry key="Scratch" value="11406" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="201" column="16" selection-start-line="201" selection-start-column="16" selection-end-line="201" selection-end-column="16" />
+            <state relative-caret-position="45">
+              <caret line="133" column="23" lean-forward="true" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
               <folding>
                 <element signature="e#1877#2157#0" />
                 <element signature="e#2190#2513#0" />
-                <marker date="1539639466152" expanded="true" signature="41:198" ph="..." />
-                <marker date="1539639466152" expanded="true" signature="2795:3136" ph="..." />
-                <marker date="1539639466152" expanded="true" signature="3113:3136" ph="..." />
-                <marker date="1539639466152" expanded="true" signature="3150:3200" ph="..." />
-                <marker date="1539639466152" expanded="true" signature="3836:3841" ph="..." />
-                <marker date="1539639466152" expanded="true" signature="4159:4561" ph="..." />
+                <marker date="1539641418056" expanded="true" signature="41:198" ph="..." />
+                <marker date="1539641418056" expanded="true" signature="2795:3583" ph="..." />
+                <marker date="1539641418056" expanded="true" signature="3113:3583" ph="..." />
+                <marker date="1539641418056" expanded="true" signature="3597:3647" ph="..." />
+                <marker date="1539641418056" expanded="true" signature="4319:4324" ph="..." />
+                <marker date="1539641418056" expanded="true" signature="4669:5071" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/StashUtil.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="235" column="14" lean-forward="true" selection-start-line="235" selection-start-column="14" selection-end-line="235" selection-end-column="14" />
+              <folding>
+                <element signature="e#4405#4685#0" />
+                <element signature="e#4718#5041#0" />
               </folding>
             </state>
           </provider>
@@ -97,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="11" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+            <state>
+              <caret lean-forward="true" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -109,23 +123,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="791" selection-start-line="791" selection-end-line="791" />
+            <state relative-caret-position="124">
+              <caret line="896" column="33" selection-start-line="896" selection-start-column="23" selection-end-line="896" selection-end-column="33" />
               <folding>
                 <element signature="e#23#37#0" expanded="true" />
+                <element signature="e#374#427#0" />
+                <element signature="e#476#511#0" />
+                <element signature="e#571#727#0" />
+                <element signature="e#772#878#0" />
+                <element signature="e#918#1104#0" />
+                <element signature="e#1147#1270#0" />
+                <element signature="e#1310#1343#0" />
+                <element signature="e#1383#1416#0" />
                 <element signature="e#1634#2052#0" />
                 <element signature="e#2086#3046#0" />
                 <element signature="e#3088#3581#0" />
                 <element signature="e#3624#4172#0" />
                 <element signature="e#4732#5033#1" />
-                <element signature="e#5038#5050#0" />
                 <element signature="e#5312#5593#1" />
-                <element signature="e#5646#5658#0" />
-                <element signature="e#6286#6300#0" />
+                <element signature="e#5823#6233#1" />
                 <element signature="e#6429#6488#0" />
                 <element signature="e#7946#8694#0" />
                 <element signature="e#8727#9021#1" />
-                <element signature="e#9857#10691#0" />
+                <element signature="e#9857#10182#1" />
                 <element signature="e#10744#12104#0" />
                 <element signature="e#10744#11367#1" />
                 <element signature="e#12138#13210#0" />
@@ -138,6 +158,7 @@
                 <element signature="e#23220#24283#0" />
                 <element signature="e#24331#25534#0" />
                 <element signature="e#25576#26705#0" />
+                <element signature="e#26743#28598#0" />
                 <element signature="e#30657#31431#0" />
                 <element signature="e#30657#31027#1" />
                 <element signature="e#31464#32491#0" />
@@ -183,23 +204,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dirty([a-zA-Z'_:\p{Blank}]+)String</find>
-      <find>f_dirty([a-zA-Z'_:\p{Blank}]+)String</find>
-      <find>f_dirty([a-zA-Z'_:\p{Blank}]+)List</find>
-      <find>f_clean([a-zA-Z'_:\p{Blank}]+)</find>
-      <find>f_dirty([a-zA-Z'_]+)</find>
-      <find>f_dirty([a-zA-Z'_]+)List</find>
-      <find>f_clean([a-zA-Z'_]+)List</find>
-      <find>f_clean([a-zA-Z'_]+)</find>
-      <find>f_value = pyexiv2.utils.string_to_undefined(f_dirtyString)</find>
-      <find>f_value = pyexiv2.utils.string_to_undefined</find>
-      <find>f_value = pyexiv2.utils.string_to_undefined(f_dirty</find>
-      <find>string_t</find>
-      <find>listHexTrim</find>
-      <find>to</find>
-      <find>removeArtist</find>
-      <find>cleanStr2dirtyStr</find>
-      <find>b_to</find>
       <find>_to_b</find>
       <find>d_to_b</find>
       <find>a_to_d</find>
@@ -208,11 +212,28 @@
       <find>cleanStr_to_raw</find>
       <find>d_to_</find>
       <find>raw_to_cleanStr</find>
-      <find>dirtyStr2cleanStr</find>
       <find>d_to_a</find>
-      <find>cleanList2dirtyStr</find>
+      <find>cleanStr_to_dirtyStr</find>
+      <find>a_to_c</find>
+      <find>a_to_b</find>
       <find>ResultsCheck_FileAlteringTests</find>
+      <find>print</find>
+      <find>_clean</find>
+      <find>_clean([a-zA-Z_])List</find>
+      <find>_clean([a-zA-Z_]+)List</find>
+      <find>dirtyStr_to_cleanStr</find>
+      <find>string_to_undefined</find>
+      <find>#f</find>
+      <find>#p</find>
+      <find>#</find>
+      <find>print</find>
+      <find>#</find>
+      <find>dirtyStr2cleanStr</find>
+      <find>cleanStr2dirtyStr</find>
       <find>dirtyStr2cleanList</find>
+      <find>cleanList2dirtyStr</find>
+      <find>StashUtil.</find>
+      <find>raw_to_cleanList</find>
     </findStrings>
     <replaceStrings>
       <replace>'Exif.Image.XPAuthor'</replace>
@@ -273,10 +294,10 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py" />
         <option value="$PROJECT_DIR$/PNGmetadataTests.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
-        <option value="$PROJECT_DIR$/jpgOnlyUnitTests1.py" />
-        <option value="$PROJECT_DIR$/StashUtil.py" />
-        <option value="$PROJECT_DIR$/MetadataManager.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
+        <option value="$PROJECT_DIR$/StashUtil.py" />
+        <option value="$PROJECT_DIR$/jpgOnlyUnitTests1.py" />
+        <option value="$PROJECT_DIR$/MetadataManager.py" />
       </list>
     </option>
   </component>
@@ -333,7 +354,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.scratch_1">
+  <component name="RunManager" selected="Python tests.Unittests in jpgOnlyUnitTests1.py">
     <configuration name="MetadataManager" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -457,8 +478,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python tests.Unittests in jpgOnlyUnitTests1.py" />
-        <item itemvalue="Python.StashUtil" />
         <item itemvalue="Python.MetadataManager" />
+        <item itemvalue="Python.StashUtil" />
         <item itemvalue="Python tests.Unittests in tagUnitTests.py" />
         <item itemvalue="Python.scratch_4" />
       </list>
@@ -720,38 +741,45 @@
       <option name="project" value="LOCAL" />
       <updated>1539587988733</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="metadata encoding changing more">
+      <created>1539639577971</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1539639577971</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 01h 49m 50s.xml">
+    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 18h 26m 47s.xml">
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 02h 00m 08s.xml">
+    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 18h 54m 48s.xml">
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 02h 00m 24s.xml">
+    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 19h 02m 53s.xml">
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 02h 07m 00s.xml">
+    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 19h 12m 46s.xml">
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 02h 12m 09s.xml">
+    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 19h 15m 06s.xml">
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 02h 12m 49s.xml">
+    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 19h 17m 55s.xml">
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 02h 13m 43s.xml">
+    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 19h 30m 08s.xml">
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 02h 14m 26s.xml">
+    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 20h 23m 01s.xml">
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 02h 17m 35s.xml">
+    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 20h 29m 01s.xml">
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 15h 51m 21s.xml">
+    <history-entry file="Unittests_in_jpgOnlyUnitTests1_py - 2018.10.15 at 20h 31m 33s.xml">
       <configuration name="Unittests in jpgOnlyUnitTests1.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -873,38 +901,8 @@
     <MESSAGE value="still fixing encoding stuff" />
     <MESSAGE value="preparing to change metadata encoding" />
     <MESSAGE value="metadata encoding changed but awkward" />
-    <option name="LAST_COMMIT_MESSAGE" value="metadata encoding changed but awkward" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/jpgOnlyUnitTests1.py</url>
-          <line>442</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/jpgOnlyUnitTests1.py</url>
-          <line>443</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/jpgOnlyUnitTests1.py</url>
-          <line>444</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>149</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>172</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="metadata encoding changing more" />
+    <option name="LAST_COMMIT_MESSAGE" value="metadata encoding changing more" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/utils.py" />
@@ -962,21 +960,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StashUtil.py">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="235" lean-forward="true" selection-start-line="235" selection-end-line="235" />
+        <state relative-caret-position="45">
+          <caret line="133" column="23" lean-forward="true" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
           <folding>
-            <element signature="e#4405#4685#0" />
-            <element signature="e#4718#5041#0" />
+            <element signature="e#1877#2157#0" />
+            <element signature="e#2190#2513#0" />
+            <marker date="1539641418056" expanded="true" signature="41:198" ph="..." />
+            <marker date="1539641418056" expanded="true" signature="2795:3583" ph="..." />
+            <marker date="1539641418056" expanded="true" signature="3113:3583" ph="..." />
+            <marker date="1539641418056" expanded="true" signature="3597:3647" ph="..." />
+            <marker date="1539641418056" expanded="true" signature="4319:4324" ph="..." />
+            <marker date="1539641418056" expanded="true" signature="4669:5071" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="11" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+        <state>
+          <caret lean-forward="true" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -985,23 +989,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="791" selection-start-line="791" selection-end-line="791" />
+        <state relative-caret-position="124">
+          <caret line="896" column="33" selection-start-line="896" selection-start-column="23" selection-end-line="896" selection-end-column="33" />
           <folding>
             <element signature="e#23#37#0" expanded="true" />
+            <element signature="e#374#427#0" />
+            <element signature="e#476#511#0" />
+            <element signature="e#571#727#0" />
+            <element signature="e#772#878#0" />
+            <element signature="e#918#1104#0" />
+            <element signature="e#1147#1270#0" />
+            <element signature="e#1310#1343#0" />
+            <element signature="e#1383#1416#0" />
             <element signature="e#1634#2052#0" />
             <element signature="e#2086#3046#0" />
             <element signature="e#3088#3581#0" />
             <element signature="e#3624#4172#0" />
             <element signature="e#4732#5033#1" />
-            <element signature="e#5038#5050#0" />
             <element signature="e#5312#5593#1" />
-            <element signature="e#5646#5658#0" />
-            <element signature="e#6286#6300#0" />
+            <element signature="e#5823#6233#1" />
             <element signature="e#6429#6488#0" />
             <element signature="e#7946#8694#0" />
             <element signature="e#8727#9021#1" />
-            <element signature="e#9857#10691#0" />
+            <element signature="e#9857#10182#1" />
             <element signature="e#10744#12104#0" />
             <element signature="e#10744#11367#1" />
             <element signature="e#12138#13210#0" />
@@ -1014,6 +1024,7 @@
             <element signature="e#23220#24283#0" />
             <element signature="e#24331#25534#0" />
             <element signature="e#25576#26705#0" />
+            <element signature="e#26743#28598#0" />
             <element signature="e#30657#31431#0" />
             <element signature="e#30657#31027#1" />
             <element signature="e#31464#32491#0" />
@@ -1046,19 +1057,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py">
+    <entry file="file://$PROJECT_DIR$/StashUtil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="201" column="16" selection-start-line="201" selection-start-column="16" selection-end-line="201" selection-end-column="16" />
+        <state relative-caret-position="105">
+          <caret line="235" column="14" lean-forward="true" selection-start-line="235" selection-start-column="14" selection-end-line="235" selection-end-column="14" />
           <folding>
-            <element signature="e#1877#2157#0" />
-            <element signature="e#2190#2513#0" />
-            <marker date="1539639466152" expanded="true" signature="41:198" ph="..." />
-            <marker date="1539639466152" expanded="true" signature="2795:3136" ph="..." />
-            <marker date="1539639466152" expanded="true" signature="3113:3136" ph="..." />
-            <marker date="1539639466152" expanded="true" signature="3150:3200" ph="..." />
-            <marker date="1539639466152" expanded="true" signature="3836:3841" ph="..." />
-            <marker date="1539639466152" expanded="true" signature="4159:4561" ph="..." />
+            <element signature="e#4405#4685#0" />
+            <element signature="e#4718#5041#0" />
           </folding>
         </state>
       </provider>
