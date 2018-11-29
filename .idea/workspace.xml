@@ -4,79 +4,20 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/windowstesting/windowsTests.py" description="            if f_metadata1[key1].value==f_metadata..." line="75" />
+    <bookmark url="file://$PROJECT_DIR$/windowstesting/windowsTests.py" description="            if f_metadata1[key1].value==f_metadata..." line="68" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="preparing to do windows testing to emulate windows behavior">
-      <change afterPath="$PROJECT_DIR$/windowstesting/windowsTests.py" afterDir="false" />
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="starting windows testing to emulate windows behavior">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windowstesting/windowsTesting.ods" beforeDir="false" afterPath="$PROJECT_DIR$/windowstesting/windowsTesting.ods" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windowstesting/windowsTests.py" beforeDir="false" afterPath="$PROJECT_DIR$/windowstesting/windowsTests.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="1963470057">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="13" />
-          <entry key="project.open.time.114" value="1" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.20" value="1" />
-          <entry key="project.open.time.205" value="1" />
-          <entry key="project.open.time.21" value="1" />
-          <entry key="project.open.time.22" value="1" />
-          <entry key="project.open.time.23" value="3" />
-          <entry key="project.open.time.24" value="1" />
-          <entry key="project.open.time.26" value="4" />
-          <entry key="project.open.time.27" value="2" />
-          <entry key="project.open.time.28" value="4" />
-          <entry key="project.open.time.29" value="2" />
-          <entry key="project.open.time.30" value="3" />
-          <entry key="project.open.time.32" value="2" />
-          <entry key="project.open.time.34" value="1" />
-          <entry key="project.open.time.35" value="1" />
-          <entry key="project.open.time.37" value="1" />
-          <entry key="project.open.time.38" value="2" />
-          <entry key="project.open.time.39" value="1" />
-          <entry key="project.open.time.41" value="1" />
-          <entry key="project.open.time.48" value="1" />
-          <entry key="project.open.time.8" value="1" />
-          <entry key="project.open.time.98" value="1" />
-          <entry key="project.opened" value="37" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="py" value="91" />
-          <entry key="txt" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="53" />
-          <entry key="Scratch" value="38" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="dummy" value="35" />
-          <entry key="py" value="37177" />
-          <entry key="txt" value="1566" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="PLAIN_TEXT" value="1601" />
-          <entry key="Python" value="25739" />
-          <entry key="Scratch" value="11438" />
-        </counts>
-      </usages-collector>
-    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -85,14 +26,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
               <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
-              <folding>
-                <marker date="1539658288471" expanded="true" signature="41:198" ph="..." />
-                <marker date="1539658288471" expanded="true" signature="2298:3086" ph="..." />
-                <marker date="1539658288471" expanded="true" signature="2616:3086" ph="..." />
-                <marker date="1539658288471" expanded="true" signature="3100:3150" ph="..." />
-                <marker date="1539658288471" expanded="true" signature="3822:3827" ph="..." />
-                <marker date="1539658288471" expanded="true" signature="4172:4574" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -100,7 +33,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TestingManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
+            <state relative-caret-position="3735">
               <caret line="249" column="38" selection-start-line="249" selection-start-column="38" selection-end-line="249" selection-end-column="38" />
             </state>
           </provider>
@@ -110,24 +43,20 @@
         <entry file="file://$PROJECT_DIR$/tagUnitTests.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+              <caret line="37" selection-start-line="37" selection-end-line="37" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PNGmetadataTests.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="15" column="21" lean-forward="true" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
+            <state relative-caret-position="2430">
               <caret line="166" column="38" selection-start-line="166" selection-start-column="38" selection-end-line="166" selection-end-column="38" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -139,8 +68,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+            <state relative-caret-position="133">
+              <caret line="287" lean-forward="true" selection-start-line="287" selection-end-line="287" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+                <element signature="e#1517#2934#0" />
+                <element signature="e#2991#3734#0" />
+                <element signature="e#3869#4855#0" />
+                <element signature="e#3846#4833#0" />
+                <element signature="e#4896#5882#0" />
+                <element signature="e#4897#6396#0" />
+                <element signature="e#6438#7937#0" />
+                <element signature="e#4365#5128#0" />
+                <element signature="e#5129#5150#0" />
+                <element signature="e#5545#5584#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -148,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="20" column="7" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+            <state relative-caret-position="163">
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
             </state>
           </provider>
         </entry>
@@ -157,8 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="1252" column="46" selection-start-line="1252" selection-start-column="46" selection-end-line="1252" selection-end-column="46" />
+            <state relative-caret-position="124">
+              <caret line="138" column="4" selection-start-line="138" selection-start-column="4" selection-end-line="138" selection-end-column="22" />
               <folding>
                 <element signature="e#136#194#0" />
               </folding>
@@ -178,19 +120,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>a_to_c</find>
-      <find>a_to_b</find>
-      <find>c_to_d</find>
-      <find>c_to_b</find>
-      <find>c_to_a</find>
-      <find>b_to_c</find>
-      <find>b_to_a</find>
-      <find>file_to_d</find>
-      <find>file_to_c</find>
       <find>file_to_b</find>
       <find>file_to_a</find>
-      <find>cleanList_to_raw</find>
-      <find>print</find>
       <find>cleanStr2dirtyStr</find>
       <find>cleanList2dirtyStr</find>
       <find>dirtyStr_to_cleanStr</find>
@@ -208,17 +139,19 @@
       <find>containsOrgDate</find>
       <find>g_filename</find>
       <find>g_filename_1</find>
+      <find>print</find>
+      <find>(&quot;init</find>
+      <find>printlist(missingKeys(</find>
+      <find>list(missingKeys(</find>
+      <find>printlist(newKeys(</find>
+      <find>cleanList_to_raw</find>
+      <find>raw</find>
+      <find>printlist(freshVals(</find>
+      <find>.jpg&quot;))</find>
+      <find>m.jpg&quot;,</find>
+      <find>list(bruteParse(&quot;</find>
     </findStrings>
     <replaceStrings>
-      <replace>('Exif.Image.Artist', cleanList2cleanStr(f_cleanArtistList))</replace>
-      <replace>&lt;= p_searchForThisRating &lt;= 5):</replace>
-      <replace>self</replace>
-      <replace>Descr</replace>
-      <replace>f_dirtyString</replace>
-      <replace>Exif.Image.ImageHistory</replace>
-      <replace>Src</replace>
-      <replace>Exif.Image.DateTimeOriginal</replace>
-      <replace>addSrc</replace>
       <replace>g_date</replace>
       <replace>'Xmp.dc.title'</replace>
       <replace>'Xmp.dc.creator'</replace>
@@ -240,6 +173,15 @@
       <replace>trimSquare</replace>
       <replace>g_filename_1</replace>
       <replace>g_file_1</replace>
+      <replace>#print</replace>
+      <replace>(&quot;\ninit</replace>
+      <replace>printlist(compAllVals(</replace>
+      <replace>list(newKeys(</replace>
+      <replace>printlist(freshVals(</replace>
+      <replace>printlist(bruteParse(</replace>
+      <replace>m.jpg&quot;))</replace>
+      <replace>.jpg&quot;,</replace>
+      <replace>list(compAllVals(&quot;</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -249,7 +191,6 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -313,11 +254,6 @@
             <path>
               <item name="sf_tagger" type="b2602c69:ProjectViewProjectNode" />
               <item name="sf_tagger" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sf_tagger" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sf_tagger" type="462c0819:PsiDirectoryNode" />
-              <item name="windowstesting" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sf_tagger" type="b2602c69:ProjectViewProjectNode" />
@@ -467,11 +403,11 @@
     </configuration>
     <list>
       <item itemvalue="Python.scratch_1" />
-      <item itemvalue="Python tests.Unittests in jpgOnlyUnitTests1.py" />
-      <item itemvalue="Python tests.Unittests in tagUnitTests.py" />
       <item itemvalue="Python.MetadataManager" />
       <item itemvalue="Python.StashUtil" />
       <item itemvalue="Python.windowsTests" />
+      <item itemvalue="Python tests.Unittests in jpgOnlyUnitTests1.py" />
+      <item itemvalue="Python tests.Unittests in tagUnitTests.py" />
     </list>
     <recent_temporary>
       <list>
@@ -774,7 +710,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543092751599</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="starting windows testing to emulate windows behavior">
+      <created>1543173516847</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1543173516847</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -827,7 +770,7 @@
       <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.13178807" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49271524" visible="true" weight="0.28705147" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49271524" visible="true" weight="0.28660437" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -897,13 +840,23 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="unit tests created" />
     <MESSAGE value="adding functionality to MetaDataManager libraby functions" />
     <MESSAGE value="while working on artist set functionality, I hit a segfault bug. I've never had that in python." />
     <MESSAGE value="I give up on the artist tag crap. This is as far as I got. I'm going to cut it all out." />
@@ -928,7 +881,8 @@
     <MESSAGE value="metadata encoding working tidy" />
     <MESSAGE value="metadata encoding working and tidy" />
     <MESSAGE value="preparing to do windows testing to emulate windows behavior" />
-    <option name="LAST_COMMIT_MESSAGE" value="preparing to do windows testing to emulate windows behavior" />
+    <MESSAGE value="starting windows testing to emulate windows behavior" />
+    <option name="LAST_COMMIT_MESSAGE" value="starting windows testing to emulate windows behavior" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/utils.py" />
@@ -966,9 +920,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
+          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestingManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3735">
+          <caret line="249" column="38" selection-start-line="249" selection-start-column="38" selection-end-line="249" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2430">
           <caret line="166" column="38" selection-start-line="166" selection-start-column="38" selection-end-line="166" selection-end-column="38" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -976,63 +944,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py">
+    <entry file="file://$PROJECT_DIR$/PNGmetadataTests.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tagUnitTests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
-          <folding>
-            <marker date="1539658288471" expanded="true" signature="41:198" ph="..." />
-            <marker date="1539658288471" expanded="true" signature="2298:3086" ph="..." />
-            <marker date="1539658288471" expanded="true" signature="2616:3086" ph="..." />
-            <marker date="1539658288471" expanded="true" signature="3100:3150" ph="..." />
-            <marker date="1539658288471" expanded="true" signature="3822:3827" ph="..." />
-            <marker date="1539658288471" expanded="true" signature="4172:4574" ph="..." />
-          </folding>
+        <state relative-caret-position="135">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="1252" column="46" selection-start-line="1252" selection-start-column="46" selection-end-line="1252" selection-end-column="46" />
+        <state relative-caret-position="124">
+          <caret line="138" column="4" selection-start-line="138" selection-start-column="4" selection-end-line="138" selection-end-column="22" />
           <folding>
             <element signature="e#136#194#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="20" column="7" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TestingManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="249" column="38" selection-start-line="249" selection-start-column="38" selection-end-line="249" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tagUnitTests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PNGmetadataTests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="21" lean-forward="true" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+        <state relative-caret-position="133">
+          <caret line="287" lean-forward="true" selection-start-line="287" selection-end-line="287" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#1517#2934#0" />
+            <element signature="e#2991#3734#0" />
+            <element signature="e#3869#4855#0" />
+            <element signature="e#3846#4833#0" />
+            <element signature="e#4896#5882#0" />
+            <element signature="e#4897#6396#0" />
+            <element signature="e#6438#7937#0" />
+            <element signature="e#4365#5128#0" />
+            <element signature="e#5129#5150#0" />
+            <element signature="e#5545#5584#0" />
+          </folding>
         </state>
       </provider>
     </entry>
