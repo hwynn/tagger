@@ -7,9 +7,8 @@
     <bookmark url="file://$PROJECT_DIR$/windowstesting/windowsTests.py" description="            if f_metadata1[key1].value==f_metadata..." line="69" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="continuing windows testing to emulate windows behavior">
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="windows testing to emulate windows behavior stage 3. 2 tests remain">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windowstesting/windowsTesting.ods" beforeDir="false" afterPath="$PROJECT_DIR$/windowstesting/windowsTesting.ods" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windowstesting/windowsTests.py" beforeDir="false" afterPath="$PROJECT_DIR$/windowstesting/windowsTests.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,8 +70,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="313" column="69" selection-start-line="313" selection-start-column="69" selection-end-line="313" selection-end-column="69" />
+            <state relative-caret-position="313">
+              <caret line="308" column="115" selection-start-line="308" selection-start-column="115" selection-end-line="308" selection-end-column="115" />
               <folding>
                 <element signature="e#19#33#0" expanded="true" />
                 <element signature="e#962#1534#0" />
@@ -81,7 +80,6 @@
                 <element signature="e#4916#5905#0" />
                 <element signature="e#5698#7117#0" />
                 <element signature="e#7280#8524#0" />
-                <element signature="e#8585#9348#0" />
                 <element signature="e#9349#9370#0" />
               </folding>
             </state>
@@ -91,8 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="1266" lean-forward="true" selection-start-line="1266" selection-end-line="1266" />
+            <state relative-caret-position="315">
+              <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
               <folding>
                 <element signature="e#136#194#0" />
               </folding>
@@ -716,7 +714,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543475822032</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="windows testing to emulate windows behavior stage 3. 2 tests remain">
+      <created>1543546953674</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1543546953674</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -855,7 +860,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="while working on artist set functionality, I hit a segfault bug. I've never had that in python." />
     <MESSAGE value="I give up on the artist tag crap. This is as far as I got. I'm going to cut it all out." />
     <MESSAGE value="the artist stuff all works now. I'm just ignoring the Exif.Image.Artist tag." />
     <MESSAGE value="functionality completed: tags, rating, artist, title, description(I think)" />
@@ -880,7 +884,8 @@
     <MESSAGE value="preparing to do windows testing to emulate windows behavior" />
     <MESSAGE value="starting windows testing to emulate windows behavior" />
     <MESSAGE value="continuing windows testing to emulate windows behavior" />
-    <option name="LAST_COMMIT_MESSAGE" value="continuing windows testing to emulate windows behavior" />
+    <MESSAGE value="windows testing to emulate windows behavior stage 3. 2 tests remain" />
+    <option name="LAST_COMMIT_MESSAGE" value="windows testing to emulate windows behavior stage 3. 2 tests remain" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/utils.py" />
@@ -965,8 +970,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="1266" lean-forward="true" selection-start-line="1266" selection-end-line="1266" />
+        <state relative-caret-position="315">
+          <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
           <folding>
             <element signature="e#136#194#0" />
           </folding>
@@ -975,8 +980,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="313" column="69" selection-start-line="313" selection-start-column="69" selection-end-line="313" selection-end-column="69" />
+        <state relative-caret-position="313">
+          <caret line="308" column="115" selection-start-line="308" selection-start-column="115" selection-end-line="308" selection-end-column="115" />
           <folding>
             <element signature="e#19#33#0" expanded="true" />
             <element signature="e#962#1534#0" />
@@ -985,7 +990,6 @@
             <element signature="e#4916#5905#0" />
             <element signature="e#5698#7117#0" />
             <element signature="e#7280#8524#0" />
-            <element signature="e#8585#9348#0" />
             <element signature="e#9349#9370#0" />
           </folding>
         </state>

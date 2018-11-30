@@ -291,24 +291,19 @@ def printlist(p_list):
     for item in p_list:
         print(item)
 
-print("\nmodify keys tiff test 1")
-printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny1.tiff",
-                      "/media/sf_tagger/windowstesting/tiny1m.tiff"))
-print("\nmodify keys tiff test 2")
-printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny2.tiff",
-                      "/media/sf_tagger/windowstesting/tiny2m.tiff"))
-print("\nmodify keys tiff test 3")
-printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny3.tiff",
-                      "/media/sf_tagger/windowstesting/tiny3m.tiff"))
-print("\nmodify keys tiff test 4")
-printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny4.tiff",
-                      "/media/sf_tagger/windowstesting/tiny4m.tiff"))
-print("\nmodify keys tiff test 5")
-printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny5.tiff",
-                      "/media/sf_tagger/windowstesting/tiny5m.tiff"))
-print("\nmodify keys tiff test 6")
-printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny6.tiff",
-                      "/media/sf_tagger/windowstesting/tiny6m.tiff"))
-print("\nmodify keys tiff test 7")
-printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny7.tiff",
-                      "/media/sf_tagger/windowstesting/tiny7m.tiff"))
+print("\nwipe keys jpg test 1")
+printlist(missingKeys("/media/sf_tagger/windowstesting/skull1.jpg", "/media/sf_tagger/windowstesting/skull1w.jpg"))
+print("\nwipe keys jpg test 2")
+printlist(missingKeys("/media/sf_tagger/windowstesting/skull2.jpg", "/media/sf_tagger/windowstesting/skull2w.jpg"))
+print("\nwipe keys jpg test 3")
+printlist(missingKeys("/media/sf_tagger/windowstesting/skull3.jpg", "/media/sf_tagger/windowstesting/skull3w.jpg"))
+print("\nwipe keys jpg test 4")
+printlist(missingKeys("/media/sf_tagger/windowstesting/skull4.jpg", "/media/sf_tagger/windowstesting/skull4w.jpg"))
+print("\nwipe keys jpg test 5")
+printlist(missingKeys("/media/sf_tagger/windowstesting/skull5.jpg", "/media/sf_tagger/windowstesting/skull5w.jpg"))
+print("\nwipe keys jpg test 6")
+printlist(missingKeys("/media/sf_tagger/windowstesting/skull6.jpg", "/media/sf_tagger/windowstesting/skull6w.jpg"))
+print("\nwipe keys jpg test 7")
+printlist(missingKeys("/media/sf_tagger/windowstesting/skull7.jpg", "/media/sf_tagger/windowstesting/skull7w.jpg"))
+print("\nwipe keys jpg test 8")
+printlist(missingKeys("/media/sf_tagger/windowstesting/skull8.jpg", "/media/sf_tagger/windowstesting/skull8w.jpg"))
