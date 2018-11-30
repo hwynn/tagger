@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import pyexiv2
 import MetadataManager
 
@@ -89,6 +90,35 @@ def compAllVals(p_file_1, p_file_2):
                 diffVals.append((key1, f_metadata1[key1].value, f_metadata2[key1].value))
     return diffVals
 
+def compNewVals(p_file_1, p_file_2, p_file_3):
+    #p_file_1 is unitialized, p_file_2 is initialized but unchanged, p_file_3's value was changed from p_file_2
+    #this finds the new keys for file2 and file3
+    #then it compares to see which values from those keys changed.
+    f_metadata1 = pyexiv2.ImageMetadata(p_file_1)
+    f_metadata1.read()
+    f_metadata2 = pyexiv2.ImageMetadata(p_file_2)
+    f_metadata2.read()
+    f_metadata3 = pyexiv2.ImageMetadata(p_file_3)
+    f_metadata3.read()
+    f_newkeys = newKeys(p_file_1, p_file_2)
+    f_vals = []
+    for key in f_newkeys:
+        if key=='Xmp.xmp.CreateDate' or key=='Xmp.MicrosoftPhoto.DateAcquired':
+            f_vals.append("???")
+            continue
+        if (key in f_metadata2.exif_keys or \
+            key in f_metadata2.iptc_keys or \
+            key in f_metadata2.xmp_keys) and \
+            (key in f_metadata3.exif_keys or \
+             key in f_metadata3.iptc_keys or \
+             key in f_metadata3.xmp_keys):      #if key really exists in both files
+            if f_metadata2[key].value!=f_metadata3[key].value:
+                f_vals.append("Yes. Data changed")
+            else:
+                f_vals.append("No")
+        else:
+            f_vals.append("key missing")
+    return f_vals
 
 # init keys test
 def newKeys(p_file_1, p_file_2):
@@ -118,28 +148,6 @@ def newKeys(p_file_1, p_file_2):
 # prints keys that file2 has but file1 doesn't have
 
 # init format test
-def freshKeys(p_file_1, p_file_2):
-    # prints the values of file2 that are in file2's newKeys
-    f_metadata1 = pyexiv2.ImageMetadata(p_file_1)
-    f_metadata1.read()
-    f_metadata2 = pyexiv2.ImageMetadata(p_file_2)
-    f_metadata2.read()
-    f_newkeys = newKeys(p_file_1, p_file_2)
-    f_vals = []
-    for key in f_newkeys:
-        if key=='Exif.Photo.0xea1c' or key=='Exif.Image.0xea1c':    #these values are too long
-            #f_vals.append((key, "..."))
-            f_vals.append("...")
-        elif key=='Xmp.xmp.CreateDate' or key=='Xmp.MicrosoftPhoto.DateAcquired':
-        #if key=='Xmp.xmp.CreateDate' or key=='Xmp.MicrosoftPhoto.DateAcquired':
-            #f_vals.append((key, "pyexiv2.xmp.XmpValueError")) #these can't be parsed by pyexiv2 for some reason.
-            f_vals.append("pyexiv2.xmp.XmpValueError")
-        else:
-            #f_vals.append((key, f_metadata2[key].value))
-            f_vals.append(f_metadata2[key].value)
-            #f_vals.append(type(f_metadata2[key].value))
-    return f_vals
-
 def freshVals(p_file_1, p_file_2):
     # prints the values of file2 that are in file2's newKeys
     f_metadata1 = pyexiv2.ImageMetadata(p_file_1)
@@ -159,7 +167,6 @@ def freshVals(p_file_1, p_file_2):
         else:
             #f_vals.append((key, f_metadata2[key].value))
             f_vals.append(f_metadata2[key].value)
-            #f_vals.append(type(f_metadata2[key].value))
     return f_vals
 
 def freshTypes(p_file_1, p_file_2):
@@ -171,19 +178,14 @@ def freshTypes(p_file_1, p_file_2):
     f_newkeys = newKeys(p_file_1, p_file_2)
     f_vals = []
     for key in f_newkeys:
-        if key=='Exif.Photo.0xea1c' or key=='Exif.Image.0xea1c':    #these values are too long
-            #f_vals.append((key, "..."))
-            f_vals.append("...")
-        elif key=='Xmp.xmp.CreateDate' or key=='Xmp.MicrosoftPhoto.DateAcquired':
-        #if key=='Xmp.xmp.CreateDate' or key=='Xmp.MicrosoftPhoto.DateAcquired':
+        if key=='Xmp.xmp.CreateDate' or key=='Xmp.MicrosoftPhoto.DateAcquired':
             #f_vals.append((key, "pyexiv2.xmp.XmpValueError")) #these can't be parsed by pyexiv2 for some reason.
             f_vals.append("pyexiv2.xmp.XmpValueError")
         else:
             #f_vals.append((key, f_metadata2[key].value))
-            f_vals.append(f_metadata2[key].value)
+            f_vals.append(type(f_metadata2[key].value))
             #f_vals.append(type(f_metadata2[key].value))
     return f_vals
-
 
 def bruteParse(p_file_1, p_file_2):
     # prints value in file2 using all potential parsing methods
@@ -206,6 +208,8 @@ def bruteParse(p_file_1, p_file_2):
                 key=='Exif.Image.XPKeywords' or \
                 key=='Exif.Image.XPAuthor':
             f_vals.append(MetadataManager.raw_to_cleanStr(f_metadata2[key].value))
+        elif key==key=='Exif.Image.XMLPacket':
+            f_vals.append("large empty xml space")
         elif key=='Xmp.dc.description' or \
                 key=='Xmp.dc.title':
             f_vals.append(f_metadata2[key].value['x-default'])
@@ -234,6 +238,8 @@ def whichParser(p_file_1, p_file_2):
                 key=='Exif.Image.XPKeywords' or \
                 key=='Exif.Image.XPAuthor':
             f_vals.append("MetadataManager.raw_to_cleanStr(f_metadata2[key].value)")
+        elif key==key=='Exif.Image.XMLPacket':
+            f_vals.append("pyexiv2.utils.undefined_to_string(f_metadata2[key].value)")
         elif key=='Xmp.dc.description' or \
                 key=='Xmp.dc.title':
             f_vals.append("f_metadata2[key].value['x-default']")
@@ -285,37 +291,24 @@ def printlist(p_list):
     for item in p_list:
         print(item)
 
-
-
-print("\ninit format jpeg test 1")
-printlist(compAllVals("/media/sf_tagger/windowstesting/skull1.jpg", "/media/sf_tagger/windowstesting/skull1m.jpg"))
-print("\ninit format jpeg test 2")
-printlist(compAllVals("/media/sf_tagger/windowstesting/skull2.jpg", "/media/sf_tagger/windowstesting/skull2m.jpg"))
-print("\ninit format jpeg test 3")
-printlist(compAllVals("/media/sf_tagger/windowstesting/skull3.jpg", "/media/sf_tagger/windowstesting/skull3m.jpg"))
-print("\ninit format jpeg test 4")
-printlist(compAllVals("/media/sf_tagger/windowstesting/skull4.jpg", "/media/sf_tagger/windowstesting/skull4m.jpg"))
-print("\ninit format jpeg test 5")
-printlist(compAllVals("/media/sf_tagger/windowstesting/skull5.jpg", "/media/sf_tagger/windowstesting/skull5m.jpg"))
-print("\ninit format jpeg test 6")
-printlist(compAllVals("/media/sf_tagger/windowstesting/skull6.jpg", "/media/sf_tagger/windowstesting/skull6m.jpg"))
-print("\ninit format jpeg test 7")
-printlist(compAllVals("/media/sf_tagger/windowstesting/skull7.jpg", "/media/sf_tagger/windowstesting/skull7m.jpg"))
-print("\ninit format jpeg test 8")
-printlist(compAllVals("/media/sf_tagger/windowstesting/skull8.jpg", "/media/sf_tagger/windowstesting/skull8m.jpg"))
-
-"""
-g_key = "Xmp.xmpMM.InstanceID"
-g_file_1 = "/media/sf_tagger/windowstesting/skull.jpg"
-g_file_2 = "/media/sf_tagger/windowstesting/skull7.jpg"
-
-g_metadata1 = pyexiv2.ImageMetadata(g_file_1)
-g_metadata1.read()
-g_metadata2 = pyexiv2.ImageMetadata(g_file_2)
-g_metadata2.read()
-print((g_key, g_metadata2[g_key].value))
-"""
-
-
-
-
+print("\nmodify keys tiff test 1")
+printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny1.tiff",
+                      "/media/sf_tagger/windowstesting/tiny1m.tiff"))
+print("\nmodify keys tiff test 2")
+printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny2.tiff",
+                      "/media/sf_tagger/windowstesting/tiny2m.tiff"))
+print("\nmodify keys tiff test 3")
+printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny3.tiff",
+                      "/media/sf_tagger/windowstesting/tiny3m.tiff"))
+print("\nmodify keys tiff test 4")
+printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny4.tiff",
+                      "/media/sf_tagger/windowstesting/tiny4m.tiff"))
+print("\nmodify keys tiff test 5")
+printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny5.tiff",
+                      "/media/sf_tagger/windowstesting/tiny5m.tiff"))
+print("\nmodify keys tiff test 6")
+printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny6.tiff",
+                      "/media/sf_tagger/windowstesting/tiny6m.tiff"))
+print("\nmodify keys tiff test 7")
+printlist(compNewVals("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny7.tiff",
+                      "/media/sf_tagger/windowstesting/tiny7m.tiff"))

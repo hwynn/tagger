@@ -1,0 +1,4 @@
+print("\ninit keys png test 1")
+printlist(newKeys("/media/sf_tagger/windowstesting/dan.png", "/media/sf_tagger/windowstesting/dan1.png"))
+
+nothing. The metadata we gave the png file in windows just doesn't show up at all. 

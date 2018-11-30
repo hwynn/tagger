@@ -1,0 +1,87 @@
+print("\ninit keys tiff test 1")
+printlist(newKeys("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny1.tiff"))
+print("\ninit keys tiff test 2")
+printlist(newKeys("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny2.tiff"))
+print("\ninit keys tiff test 3")
+printlist(newKeys("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny3.tiff"))
+print("\ninit keys tiff test 4")
+printlist(newKeys("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny4.tiff"))
+print("\ninit keys tiff test 5")
+printlist(newKeys("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny5.tiff"))
+print("\ninit keys tiff test 6")
+printlist(newKeys("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny6.tiff"))
+print("\ninit keys tiff test 7")
+printlist(newKeys("/media/sf_tagger/windowstesting/tiny.tiff", "/media/sf_tagger/windowstesting/tiny7.tiff"))
+print("\ninit keys tiff test 8")
+
+
+
+init keys tiff test 1
+Exif.Image.ImageDescription
+Exif.Image.Predictor
+Exif.Image.XMLPacket
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPTitle
+Exif.Image.0xea1c
+Xmp.dc.title
+Xmp.dc.description
+Xmp.xmpMM.InstanceID
+
+init keys tiff test 2
+Exif.Image.Predictor
+Exif.Image.XMLPacket
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPSubject
+Exif.Image.0xea1c
+
+init keys tiff test 3
+Exif.Image.Predictor
+Exif.Image.XMLPacket
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPComment
+Exif.Image.0xea1c
+
+init keys tiff test 4
+Exif.Image.Predictor
+Exif.Image.XMLPacket
+Exif.Image.Rating
+Exif.Image.RatingPercent
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.0xea1c
+Xmp.xmp.Rating
+Xmp.MicrosoftPhoto.Rating
+Xmp.xmpMM.InstanceID
+
+init keys tiff test 5
+Exif.Image.Predictor
+Exif.Image.XMLPacket
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPKeywords
+Exif.Image.0xea1c
+Xmp.dc.subject
+Xmp.xmpMM.InstanceID
+
+init keys tiff test 6
+Exif.Image.Artist
+Exif.Image.Predictor
+Exif.Image.XMLPacket
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPAuthor
+Exif.Image.0xea1c
+Xmp.dc.creator
+Xmp.xmpMM.InstanceID
+
+init keys tiff test 7
+Exif.Image.Predictor
+Exif.Image.XMLPacket
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.0xea1c
+Xmp.MicrosoftPhoto.DateAcquired
+Xmp.xmpMM.InstanceID

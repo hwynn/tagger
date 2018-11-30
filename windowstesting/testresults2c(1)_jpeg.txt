@@ -1,0 +1,326 @@
+"""
+print("\ninit format jpeg test 1")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull1.jpg"))
+print("\ninit format jpeg test 2")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull2.jpg"))
+print("\ninit format jpeg test 3")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull3.jpg"))
+print("\ninit format jpeg test 4")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull4.jpg"))
+print("\ninit format jpeg test 5")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull5.jpg"))
+print("\ninit format jpeg test 6")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull6.jpg"))
+print("\ninit format jpeg test 7")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull7.jpg"))
+print("\ninit format jpeg test 8")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull8.jpg"))
+"""
+
+init format jpeg test 1
+('Exif.Image.ImageDescription', 'sample title')
+('Exif.Image.ExifTag', 2136)
+('Exif.Photo.0xea1c', '...')
+('Exif.Image.XPTitle', '115 0 97 0 109 0 112 0 108 0 101 0 32 0 116 0 105 0 116 0 108 0 101 0 0 0')
+('Exif.Image.0xea1c', '...')
+('Xmp.dc.title', {'x-default': 'sample title'})
+('Xmp.dc.description', {'x-default': 'sample title'})
+('Xmp.xmpMM.InstanceID', 'uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b')
+
+init format jpeg test 2
+('Exif.Image.ExifTag', 2110)
+('Exif.Photo.0xea1c', '...')
+('Exif.Image.XPSubject', '116 0 104 0 105 0 115 0 32 0 105 0 115 0 110 0 39 0 116 0 32 0 97 0 32 0 103 0 111 0 111 0 100 0 32 0 112 0 105 0 99 0 116 0 117 0 114 0 101 0 0 0')
+('Exif.Image.0xea1c', '...')
+
+init format jpeg test 3
+('Exif.Image.ExifTag', 2110)
+('Exif.Photo.0xea1c', '...')
+('Exif.Image.XPComment', '116 0 104 0 105 0 115 0 32 0 105 0 115 0 32 0 116 0 104 0 101 0 32 0 111 0 110 0 108 0 121 0 32 0 112 0 105 0 99 0 116 0 117 0 114 0 101 0 32 0 119 0 101 0 32 0 104 0 97 0 118 0 101 0 32 0 111 0 102 0 32 0 109 0 121 0 32 0 103 0 114 0 97 0 110 0 100 0 112 0 97 0 0 0')
+('Exif.Image.0xea1c', '...')
+
+init format jpeg test 4
+('Exif.Image.Rating', 2)
+('Exif.Image.RatingPercent', 25)
+('Exif.Image.ExifTag', 2122)
+('Exif.Photo.0xea1c', '...')
+('Exif.Image.0xea1c', '...')
+('Xmp.xmp.Rating', 2)
+('Xmp.MicrosoftPhoto.Rating', '25')
+('Xmp.xmpMM.InstanceID', 'uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b')
+
+init format jpeg test 5
+('Exif.Image.ExifTag', 2110)
+('Exif.Photo.0xea1c', '...')
+('Exif.Image.XPKeywords', '99 0 97 0 116 0 59 0 112 0 97 0 112 0 101 0 114 0 59 0 106 0 117 0 115 0 116 0 32 0 109 0 101 0 59 0 68 0 111 0 99 0 116 0 111 0 114 0 0 0')
+('Exif.Image.0xea1c', '...')
+('Xmp.dc.subject', ['cat', 'paper', 'just me', 'Doctor'])
+('Xmp.MicrosoftPhoto.LastKeywordXMP', ['cat', 'paper', 'just me', 'Doctor'])
+('Xmp.xmpMM.InstanceID', 'uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b')
+
+init format jpeg test 6
+('Exif.Image.Artist', 'actor: Miles;Sam;director: Bob;Tom Fart')
+('Exif.Image.ExifTag', 2162)
+('Exif.Photo.0xea1c', '...')
+('Exif.Image.XPAuthor', '97 0 99 0 116 0 111 0 114 0 58 0 32 0 77 0 105 0 108 0 101 0 115 0 59 0 83 0 97 0 109 0 59 0 100 0 105 0 114 0 101 0 99 0 116 0 111 0 114 0 58 0 32 0 66 0 111 0 98 0 59 0 84 0 111 0 109 0 32 0 70 0 97 0 114 0 116 0 0 0')
+('Exif.Image.0xea1c', '...')
+('Xmp.dc.creator', ['actor: Miles', 'Sam', 'director: Bob', 'Tom Fart'])
+('Xmp.xmpMM.InstanceID', 'uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b')
+
+init format jpeg test 7
+('Exif.Image.ExifTag', 2098)
+('Exif.Photo.DateTimeOriginal', datetime.datetime(2017, 5, 1, 13, 38, 23))
+('Exif.Photo.DateTimeDigitized', datetime.datetime(2017, 5, 1, 13, 38, 23))
+('Exif.Photo.SubSecTimeOriginal', '24')
+('Exif.Photo.SubSecTimeDigitized', '24')
+('Exif.Photo.0xea1c', '...')
+('Exif.Image.0xea1c', '...')
+('Xmp.xmp.CreateDate', 'pyexiv2.xmp.XmpValueError')
+('Xmp.xmpMM.InstanceID', 'uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b')
+
+init format jpeg test 8
+('Exif.Image.ExifTag', 2098)
+('Exif.Photo.0xea1c', '...')
+('Exif.Image.0xea1c', '...')
+('Xmp.MicrosoftPhoto.DateAcquired', 'pyexiv2.xmp.XmpValueError')
+('Xmp.xmpMM.InstanceID', 'uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b')
+
+
+
+
+
+
+
+
+
+
+
+init format jpeg test 1
+sample title
+2136
+...
+115 0 97 0 109 0 112 0 108 0 101 0 32 0 116 0 105 0 116 0 108 0 101 0 0 0
+...
+{'x-default': 'sample title'}
+{'x-default': 'sample title'}
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+init format jpeg test 2
+2110
+...
+116 0 104 0 105 0 115 0 32 0 105 0 115 0 110 0 39 0 116 0 32 0 97 0 32 0 103 0 111 0 111 0 100 0 32 0 112 0 105 0 99 0 116 0 117 0 114 0 101 0 0 0
+...
+
+init format jpeg test 3
+2110
+...
+116 0 104 0 105 0 115 0 32 0 105 0 115 0 32 0 116 0 104 0 101 0 32 0 111 0 110 0 108 0 121 0 32 0 112 0 105 0 99 0 116 0 117 0 114 0 101 0 32 0 119 0 101 0 32 0 104 0 97 0 118 0 101 0 32 0 111 0 102 0 32 0 109 0 121 0 32 0 103 0 114 0 97 0 110 0 100 0 112 0 97 0 0 0
+...
+
+init format jpeg test 4
+2
+25
+2122
+...
+...
+2
+25
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+init format jpeg test 5
+2110
+...
+99 0 97 0 116 0 59 0 112 0 97 0 112 0 101 0 114 0 59 0 106 0 117 0 115 0 116 0 32 0 109 0 101 0 59 0 68 0 111 0 99 0 116 0 111 0 114 0 0 0
+...
+['cat', 'paper', 'just me', 'Doctor']
+['cat', 'paper', 'just me', 'Doctor']
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+init format jpeg test 6
+actor: Miles;Sam;director: Bob;Tom Fart
+2162
+...
+97 0 99 0 116 0 111 0 114 0 58 0 32 0 77 0 105 0 108 0 101 0 115 0 59 0 83 0 97 0 109 0 59 0 100 0 105 0 114 0 101 0 99 0 116 0 111 0 114 0 58 0 32 0 66 0 111 0 98 0 59 0 84 0 111 0 109 0 32 0 70 0 97 0 114 0 116 0 0 0
+...
+['actor: Miles', 'Sam', 'director: Bob', 'Tom Fart']
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+init format jpeg test 7
+2098
+2017-05-01 13:38:23
+2017-05-01 13:38:23
+24
+24
+...
+...
+pyexiv2.xmp.XmpValueError
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+init format jpeg test 8
+2098
+...
+...
+pyexiv2.xmp.XmpValueError
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+init format jpeg test 1
+<class 'str'>
+<class 'int'>
+<class 'str'>
+<class 'str'>
+<class 'str'>
+<class 'dict'>
+<class 'dict'>
+<class 'str'>
+
+init format jpeg test 2
+<class 'int'>
+<class 'str'>
+<class 'str'>
+<class 'str'>
+
+init format jpeg test 3
+<class 'int'>
+<class 'str'>
+<class 'str'>
+<class 'str'>
+
+init format jpeg test 4
+<class 'int'>
+<class 'int'>
+<class 'int'>
+<class 'str'>
+<class 'str'>
+<class 'int'>
+<class 'str'>
+<class 'str'>
+
+init format jpeg test 5
+<class 'int'>
+<class 'str'>
+<class 'str'>
+<class 'str'>
+<class 'list'>
+<class 'list'>
+<class 'str'>
+
+init format jpeg test 6
+<class 'str'>
+<class 'int'>
+<class 'str'>
+<class 'str'>
+<class 'str'>
+<class 'list'>
+<class 'str'>
+
+init format jpeg test 7
+<class 'int'>
+<class 'datetime.datetime'>
+<class 'datetime.datetime'>
+<class 'str'>
+<class 'str'>
+<class 'str'>
+<class 'str'>
+pyexiv2.xmp.XmpValueError
+<class 'str'>
+
+init format jpeg test 8
+<class 'int'>
+<class 'str'>
+<class 'str'>
+pyexiv2.xmp.XmpValueError
+<class 'str'>
+
+
+
+
+
+
+
+
+
+
+
+
+init format jpeg test 1
+f_metadata2[key].value
+useless
+useless
+MetadataManager.raw_to_cleanStr(f_metadata2[key].value)
+useless
+f_metadata2[key].value['x-default']
+f_metadata2[key].value['x-default']
+useless
+
+init format jpeg test 2
+useless
+useless
+MetadataManager.raw_to_cleanStr(f_metadata2[key].value)
+useless
+
+init format jpeg test 3
+useless
+useless
+MetadataManager.raw_to_cleanStr(f_metadata2[key].value)
+useless
+
+init format jpeg test 4
+f_metadata2[key].value
+f_metadata2[key].value
+useless
+useless
+useless
+f_metadata2[key].value
+f_metadata2[key].value
+useless
+
+init format jpeg test 5
+useless
+useless
+MetadataManager.raw_to_cleanStr(f_metadata2[key].value)
+useless
+f_metadata2[key].value
+f_metadata2[key].value
+useless
+
+init format jpeg test 6
+f_metadata2[key].value
+useless
+useless
+MetadataManager.raw_to_cleanStr(f_metadata2[key].value)
+useless
+f_metadata2[key].value
+useless
+
+init format jpeg test 7
+useless
+f_metadata2[key].value
+f_metadata2[key].value
+f_metadata2[key].value
+f_metadata2[key].value
+useless
+useless
+???
+useless
+
+init format jpeg test 8
+useless
+useless
+useless
+???
+useless

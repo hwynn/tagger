@@ -1,0 +1,365 @@
+print("\nmodify keys jpg test 1")
+printlist(newKeys("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull1.jpg"))
+print("\nmodify keys jpg test 2")
+printlist(newKeys("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull2.jpg"))
+print("\nmodify keys jpg test 3")
+printlist(newKeys("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull3.jpg"))
+print("\nmodify keys jpg test 4")
+printlist(newKeys("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull4.jpg"))
+print("\nmodify keys jpg test 5")
+printlist(newKeys("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull5.jpg"))
+print("\nmodify keys jpg test 6")
+printlist(newKeys("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull6.jpg"))
+print("\nmodify keys jpg test 7")
+printlist(newKeys("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull7.jpg"))
+print("\nmodify keys jpg test 8")
+printlist(newKeys("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull8.jpg"))
+
+modify keys jpg test 1
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPTitle
+Exif.Image.0xea1c
+Xmp.dc.title
+Xmp.dc.description
+Xmp.xmpMM.InstanceID
+
+modify keys jpg test 2
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPSubject
+Exif.Image.0xea1c
+
+modify keys jpg test 3
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPComment
+Exif.Image.0xea1c
+
+modify keys jpg test 4
+Exif.Image.Rating
+Exif.Image.RatingPercent
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.0xea1c
+Xmp.xmp.Rating
+Xmp.MicrosoftPhoto.Rating
+Xmp.xmpMM.InstanceID
+
+modify keys jpg test 5
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPKeywords
+Exif.Image.0xea1c
+Xmp.dc.subject
+Xmp.MicrosoftPhoto.LastKeywordXMP
+Xmp.xmpMM.InstanceID
+
+modify keys jpg test 6
+Exif.Image.Artist
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPAuthor
+Exif.Image.0xea1c
+Xmp.dc.creator
+Xmp.xmpMM.InstanceID
+
+modify keys jpg test 7
+Exif.Image.ExifTag
+Exif.Photo.DateTimeOriginal
+Exif.Photo.DateTimeDigitized
+Exif.Photo.SubSecTimeOriginal
+Exif.Photo.SubSecTimeDigitized
+Exif.Photo.0xea1c
+Exif.Image.0xea1c
+Xmp.xmp.CreateDate
+Xmp.xmpMM.InstanceID
+
+modify keys jpg test 8
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.0xea1c
+Xmp.MicrosoftPhoto.DateAcquired
+Xmp.xmpMM.InstanceID
+
+
+
+
+
+
+
+
+
+print("\nmodify keys jpg test 1")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull1m.jpg"))
+print("\nmodify keys jpg test 2")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull2m.jpg"))
+print("\nmodify keys jpg test 3")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull3m.jpg"))
+print("\nmodify keys jpg test 4")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull4m.jpg"))
+print("\nmodify keys jpg test 5")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull5m.jpg"))
+print("\nmodify keys jpg test 6")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull6m.jpg"))
+print("\nmodify keys jpg test 7")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull7m.jpg"))
+print("\nmodify keys jpg test 8")
+printlist(freshVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull8m.jpg"))
+
+modify keys jpg test 1
+2136
+...
+99 0 111 0 109 0 109 0 117 0 110 0 105 0 115 0 109 0 0 0
+...
+{'x-default': 'communism'}
+{'x-default': 'communism'}
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+modify keys jpg test 2
+2110
+...
+109 0 111 0 111 0 100 0 0 0
+...
+
+modify keys jpg test 3
+2110
+...
+105 0 116 0 39 0 115 0 32 0 114 0 101 0 97 0 108 0 108 0 121 0 32 0 102 0 117 0 110 0 126 0 32 0 116 0 111 0 46 0 32 0 100 0 111 0 32 0 116 0 104 0 105 0 115 0 32 0 58 0 41 0 99 0 0 0
+...
+
+modify keys jpg test 4
+3
+50
+2122
+...
+...
+3
+50
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+modify keys jpg test 5
+2110
+...
+99 0 97 0 116 0 59 0 115 0 107 0 101 0 108 0 101 0 116 0 111 0 110 0 0 0
+...
+['cat', 'skeleton']
+['cat', 'skeleton']
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+modify keys jpg test 6
+Paul Blart;Dr. eggman
+2162
+...
+80 0 97 0 117 0 108 0 32 0 66 0 108 0 97 0 114 0 116 0 59 0 68 0 114 0 46 0 32 0 101 0 103 0 103 0 109 0 97 0 110 0 0 0
+...
+['Paul Blart', 'Dr. eggman']
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+modify keys jpg test 7
+2098
+2016-05-01 13:38:23
+2016-05-01 13:38:23
+24
+24
+...
+...
+pyexiv2.xmp.XmpValueError
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+modify keys jpg test 8
+2098
+...
+...
+pyexiv2.xmp.XmpValueError
+uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b
+
+
+
+
+
+
+print("\nmodify keys jpg test 1")
+printlist(bruteParse("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull1m.jpg"))
+print("\nmodify keys jpg test 2")
+printlist(bruteParse("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull2m.jpg"))
+print("\nmodify keys jpg test 3")
+printlist(bruteParse("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull3m.jpg"))
+print("\nmodify keys jpg test 4")
+printlist(bruteParse("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull4m.jpg"))
+print("\nmodify keys jpg test 5")
+printlist(bruteParse("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull5m.jpg"))
+print("\nmodify keys jpg test 6")
+printlist(bruteParse("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull6m.jpg"))
+print("\nmodify keys jpg test 7")
+printlist(bruteParse("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull7m.jpg"))
+print("\nmodify keys jpg test 8")
+printlist(bruteParse("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull8m.jpg"))
+
+modify keys jpg test 1
+useless
+useless
+communism
+useless
+communism
+communism
+useless
+
+modify keys jpg test 2
+useless
+useless
+mood
+useless
+
+modify keys jpg test 3
+useless
+useless
+it's really fun~ to. do this :)c
+useless
+
+modify keys jpg test 4
+3
+50
+useless
+useless
+useless
+3
+50
+useless
+
+modify keys jpg test 5
+useless
+useless
+cat;skeleton
+useless
+['cat', 'skeleton']
+['cat', 'skeleton']
+useless
+
+modify keys jpg test 6
+Paul Blart;Dr. eggman
+useless
+useless
+Paul Blart;Dr. eggman
+useless
+['Paul Blart', 'Dr. eggman']
+useless
+
+modify keys jpg test 7
+useless
+2016-05-01 13:38:23
+2016-05-01 13:38:23
+24
+24
+useless
+useless
+pyexiv2.xmp.XmpValueError
+useless
+
+modify keys jpg test 8
+useless
+useless
+useless
+pyexiv2.xmp.XmpValueError
+useless
+
+
+
+
+
+
+
+
+
+print("\nmodify keys jpg test 1")
+printlist(compNewVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull1.jpg",
+                      "/media/sf_tagger/windowstesting/skull1m.jpg"))
+print("\nmodify keys jpg test 2")
+printlist(compNewVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull2.jpg",
+                      "/media/sf_tagger/windowstesting/skull2m.jpg"))
+print("\nmodify keys jpg test 3")
+printlist(compNewVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull3.jpg",
+                      "/media/sf_tagger/windowstesting/skull3m.jpg"))
+print("\nmodify keys jpg test 4")
+printlist(compNewVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull4.jpg",
+                      "/media/sf_tagger/windowstesting/skull4m.jpg"))
+print("\nmodify keys jpg test 5")
+printlist(compNewVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull5.jpg",
+                      "/media/sf_tagger/windowstesting/skull5m.jpg"))
+print("\nmodify keys jpg test 6")
+printlist(compNewVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull6.jpg",
+                      "/media/sf_tagger/windowstesting/skull6m.jpg"))
+print("\nmodify keys jpg test 7")
+printlist(compNewVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull7.jpg",
+                      "/media/sf_tagger/windowstesting/skull7m.jpg"))
+print("\nmodify keys jpg test 8")
+printlist(compNewVals("/media/sf_tagger/windowstesting/skull.jpg", "/media/sf_tagger/windowstesting/skull8.jpg",
+                      "/media/sf_tagger/windowstesting/skull8m.jpg"))
+					  
+modify keys jpg test 1
+key missing
+No
+No
+Yes. Data changed
+Yes. Data changed
+Yes. Data changed
+Yes. Data changed
+No
+
+modify keys jpg test 2
+No
+No
+Yes. Data changed
+Yes. Data changed
+
+modify keys jpg test 3
+No
+No
+Yes. Data changed
+Yes. Data changed
+
+modify keys jpg test 4
+Yes. Data changed
+Yes. Data changed
+No
+No
+No
+Yes. Data changed
+Yes. Data changed
+No
+
+modify keys jpg test 5
+No
+No
+Yes. Data changed
+Yes. Data changed
+Yes. Data changed
+Yes. Data changed
+No
+
+modify keys jpg test 6
+Yes. Data changed
+No
+No
+Yes. Data changed
+Yes. Data changed
+Yes. Data changed
+No
+
+modify keys jpg test 7
+No
+Yes. Data changed
+Yes. Data changed
+No
+No
+No
+No
+???
+No
+
+modify keys jpg test 8
+No
+No
+No
+???
+No

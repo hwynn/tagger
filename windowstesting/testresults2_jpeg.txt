@@ -1,0 +1,67 @@
+init keys jpeg test 1
+Exif.Image.ImageDescription
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPTitle
+Exif.Image.0xea1c
+Xmp.dc.title
+Xmp.dc.description
+Xmp.xmpMM.InstanceID
+
+init keys jpeg test 2
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPSubject
+Exif.Image.0xea1c
+
+init keys jpeg test 3
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPComment
+Exif.Image.0xea1c
+
+init keys jpeg test 4
+Exif.Image.Rating
+Exif.Image.RatingPercent
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.0xea1c
+Xmp.xmp.Rating
+Xmp.MicrosoftPhoto.Rating
+Xmp.xmpMM.InstanceID
+
+init keys jpeg test 5
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPKeywords
+Exif.Image.0xea1c
+Xmp.dc.subject
+Xmp.MicrosoftPhoto.LastKeywordXMP
+Xmp.xmpMM.InstanceID
+
+init keys jpeg test 6
+Exif.Image.Artist
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.XPAuthor
+Exif.Image.0xea1c
+Xmp.dc.creator
+Xmp.xmpMM.InstanceID
+
+init keys jpeg test 7
+Exif.Image.ExifTag
+Exif.Photo.DateTimeOriginal
+Exif.Photo.DateTimeDigitized
+Exif.Photo.SubSecTimeOriginal
+Exif.Photo.SubSecTimeDigitized
+Exif.Photo.0xea1c
+Exif.Image.0xea1c
+Xmp.xmp.CreateDate
+Xmp.xmpMM.InstanceID
+
+init keys jpeg test 8
+Exif.Image.ExifTag
+Exif.Photo.0xea1c
+Exif.Image.0xea1c
+Xmp.MicrosoftPhoto.DateAcquired
+Xmp.xmpMM.InstanceID
