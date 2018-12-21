@@ -141,15 +141,15 @@ def selectVals (p_file, p_keys):
         pairs.append((key,f_metadata[key].value))
     return pairs
 
-print(appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Date Created"))
-print(checkAllKeysPresent("/media/sf_tagger/windowstesting/skullA.jpg", "Date Created"))
+print(appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
+print(checkAllKeysPresent("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
 
-g_titleVals = selectVals("/media/sf_tagger/windowstesting/skullA.jpg", appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Date Created"))
+g_titleVals = selectVals("/media/sf_tagger/windowstesting/skullA.jpg", appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
 for i_pair in g_titleVals:
     print(i_pair)
 
 
-def valTranslateDictDef(p_dict):
+def valTranslateFromDictDef(p_dict):
     #this is one of the translation functions
     #these single parameter functions are used to automatically parse metadata values
     #these functions are called by another function that determines which translation is needed
@@ -157,22 +157,30 @@ def valTranslateDictDef(p_dict):
     #output: string
     #we assume 'x-default' is in the dictionary
     return p_dict['x-default']
+def valTranslateToDictDef(p_val):
+    f_dict = {'x-default': p_val}
+    return f_dict
 
-def valTranslateRawS(p_raw):
+def valTranslateFromRawS(p_raw):
     #this is one of the translation functions
     #these single parameter functions are used to automatically parse metadata values
     #these functions are called by another function that determines which translation is needed
     #input: string of numbers
     #output: string
     return MetadataManager.raw_to_cleanStr(p_raw)
+def valTranslateToRawS(p_val):
+    return MetadataManager.cleanStr_to_raw(p_val)
 
-def valTranslateRawL(p_raw):
+def valTranslateFromRawL(p_raw):
     #this is one of the translation functions
     #these single parameter functions are used to automatically parse metadata values
     #these functions are called by another function that determines which translation is needed
     #input: string of numbers
     #output: list
     return MetadataManager.raw_to_cleanList(p_raw)
+def valTranslateToRawL(p_val):
+    return MetadataManager.cleanList_to_raw(p_val)
+
 def valTranslateNone(p_val):
     #this is one of the translation functions
     #these single parameter functions are used to automatically parse metadata values
@@ -181,13 +189,13 @@ def valTranslateNone(p_val):
     #output: the parameter passed in with no change and no side effects
     return p_val
 
-g_translaters = {'Exif.Image.XPTitle': valTranslateRawS,
-                 'Exif.Image.XPSubject': valTranslateRawS,
-                 'Exif.Image.XPComment': valTranslateRawS,
-                 'Exif.Image.XPKeywords': valTranslateRawL,
-                 'Exif.Image.XPAuthor': valTranslateRawL,
-                 'Xmp.dc.title': valTranslateDictDef,
-                 'Xmp.dc.description': valTranslateDictDef,
+g_translaters = {'Exif.Image.XPTitle': valTranslateFromRawS,
+                 'Exif.Image.XPSubject': valTranslateFromRawS,
+                 'Exif.Image.XPComment': valTranslateFromRawS,
+                 'Exif.Image.XPKeywords': valTranslateFromRawL,
+                 'Exif.Image.XPAuthor': valTranslateFromRawL,
+                 'Xmp.dc.title': valTranslateFromDictDef,
+                 'Xmp.dc.description': valTranslateFromDictDef,
                  'Xmp.dc.subject': valTranslateNone,
                  'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
                  'Exif.Image.Artist': MetadataManager.cleanStr2cleanList,
@@ -199,14 +207,39 @@ g_translaters = {'Exif.Image.XPTitle': valTranslateRawS,
                  'Exif.Photo.DateTimeOriginal': valTranslateNone,
                  'Exif.Photo.DateTimeDigitized': valTranslateNone
                  }
+g_untranslaters = {'Exif.Image.XPTitle': valTranslateToRawS,
+                 'Exif.Image.XPSubject': valTranslateToRawS,
+                 'Exif.Image.XPComment': valTranslateToRawS,
+                 'Exif.Image.XPKeywords': valTranslateToRawL,
+                 'Exif.Image.XPAuthor': valTranslateToRawL,
+                 'Xmp.dc.title': valTranslateToDictDef,
+                 'Xmp.dc.description': valTranslateToDictDef,
+                 'Xmp.dc.subject': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
+                 'Exif.Image.Artist': MetadataManager.cleanList2cleanStr,
+                 'Xmp.dc.creator': valTranslateNone,
+                 'Exif.Image.Rating': valTranslateNone,
+                 'Xmp.xmp.Rating': valTranslateNone,
+                 'Exif.Image.RatingPercent': MetadataManager.rating2percent,
+                 'Xmp.MicrosoftPhoto.Rating': MetadataManager.rating2percentStr,
+                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
+                 'Exif.Photo.DateTimeDigitized': valTranslateNone
+                 }
 
 g_translatedVals = []
-for i_pair in g_titleVals:
-    g_translatedVals.append(g_translaters[i_pair[0]](i_pair[1]))
+for i in range(len(g_titleVals)):
+    g_translatedVals.append(g_translaters[g_titleVals[i][0]](g_titleVals[i][1]))
+
+g_untranslatedVals = []
+for i in range(len(g_titleVals)):
+    g_untranslatedVals.append(g_untranslaters[g_titleVals[i][0]](g_translatedVals[i]))
 
 print()
 print(g_translatedVals)
 print(allSame(g_translatedVals))
+
+for i in range(len(g_titleVals)):
+    print((g_titleVals[i][0] ,g_untranslatedVals[i]))
 """
 g_mainfile = "/media/sf_tagger/windowstesting/skull.jpg"
 g_files = shadowClones(g_mainfile, 5)

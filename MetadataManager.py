@@ -329,8 +329,8 @@ def cleanList2dirtyStr(p_cleanTagList):
 
 def cleanStr2cleanList(p_cleanTagList):
     """
-    :param: p_cleanTagList: ; delimited list represented as a string
-    :type: p_cleanTagList: string
+    :param p_cleanTagList: ; delimited list represented as a string
+    :type p_cleanTagList: string
 
     :return: a list of tags in string format
     :rtype: list<string>
