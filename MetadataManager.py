@@ -346,6 +346,76 @@ def cleanList2cleanStr(p_cleanTagList):
     """
     return ";".join(p_cleanTagList)
 
+# -------additional transformation functions
+def valTranslateFromDictDef(p_dict):
+    #this is one of the translation functions
+    #these single parameter functions are used to automatically parse metadata values
+    #these functions are called by another function that determines which translation is needed
+    #input: dictionary
+    #output: string
+    #we assume 'x-default' is in the dictionary
+    return p_dict['x-default']
+def valTranslateToDictDef(p_val):
+    f_dict = {'x-default': p_val}
+    return f_dict
+
+def valTranslateNone(p_val):
+    #this is one of the translation functions
+    #these single parameter functions are used to automatically parse metadata values
+    #these functions are called by another function that determines which translation is needed
+    #input: value of unknown type
+    #output: the parameter passed in with no change and no side effects
+    return p_val
+
+
+# -------key selection functions
+
+def appropriateKeys(p_file, p_metatype):
+    # for now this assumes jpg
+    # TODO support for gif, tiff, and png
+    # takes a filename and a metadata type (Title, Description, Tags, etc)
+    # returns keys associated with that metadata type that work with that file
+    f_filetype = getExtension(p_file)
+    f_keydict = g_keylists[f_filetype]
+    f_keys = f_keydict[p_metatype]
+    return f_keys
+
+g_translaters = {'Exif.Image.XPTitle': raw_to_cleanStr,
+                 'Exif.Image.XPSubject': raw_to_cleanStr,
+                 'Exif.Image.XPComment': raw_to_cleanStr,
+                 'Exif.Image.XPKeywords': raw_to_cleanList,
+                 'Exif.Image.XPAuthor': raw_to_cleanList,
+                 'Xmp.dc.title': valTranslateFromDictDef,
+                 'Xmp.dc.description': valTranslateFromDictDef,
+                 'Xmp.dc.subject': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
+                 'Exif.Image.Artist': cleanStr2cleanList,
+                 'Xmp.dc.creator': valTranslateNone,
+                 'Exif.Image.Rating': valTranslateNone,
+                 'Xmp.xmp.Rating': valTranslateNone,
+                 'Exif.Image.RatingPercent': percent2rating,
+                 'Xmp.MicrosoftPhoto.Rating': percentStr2rating,
+                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
+                 'Exif.Photo.DateTimeDigitized': valTranslateNone
+                 }
+g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
+                 'Exif.Image.XPSubject': cleanStr_to_raw,
+                 'Exif.Image.XPComment': cleanStr_to_raw,
+                 'Exif.Image.XPKeywords': cleanList_to_raw,
+                 'Exif.Image.XPAuthor': cleanList_to_raw,
+                 'Xmp.dc.title': valTranslateToDictDef,
+                 'Xmp.dc.description': valTranslateToDictDef,
+                 'Xmp.dc.subject': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
+                 'Exif.Image.Artist': cleanList2cleanStr,
+                 'Xmp.dc.creator': valTranslateNone,
+                 'Exif.Image.Rating': valTranslateNone,
+                 'Xmp.xmp.Rating': valTranslateNone,
+                 'Exif.Image.RatingPercent': rating2percent,
+                 'Xmp.MicrosoftPhoto.Rating': rating2percentStr,
+                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
+                 'Exif.Photo.DateTimeDigitized': valTranslateNone
+                 }
 
 # ========================================================
 # ---------------MetaData functionality-------------------

@@ -93,25 +93,13 @@ def allMeta(p_file_1):
         print(f_metadata[key].value)
     print()
 
-
-
-def appropriateKeys(p_file, p_metatype):
-    # for now this assumes jpg
-    # TODO support for gif, tiff, and png
-    # takes a filename and a metadata type (Title, Description, Tags, etc)
-    # returns keys associated with that metadata type that work with that file
-    f_filetype = getExtension(p_file)
-    f_keydict = MetadataManager.g_keylists[f_filetype]
-    f_keys = f_keydict[p_metatype]
-    return f_keys
-
 def checkAllKeysPresent(p_file, p_metatype):
     #takes a filename and a metadata type (Title, Description, Tags, etc)
     #and returns true if all keys associated with that metadata type are present in the file
     #used for testing the metadata editing functions
     f_metadata = pyexiv2.ImageMetadata(p_file)
     f_metadata.read()
-    f_keys = appropriateKeys(p_file, p_metatype)
+    f_keys = MetadataManager.appropriateKeys(p_file, p_metatype)
     for key in f_keys:
         if key not in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
             return False
@@ -141,98 +129,20 @@ def selectVals (p_file, p_keys):
         pairs.append((key,f_metadata[key].value))
     return pairs
 
-print(appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
+print(MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
 print(checkAllKeysPresent("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
 
-g_titleVals = selectVals("/media/sf_tagger/windowstesting/skullA.jpg", appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
+g_titleVals = selectVals("/media/sf_tagger/windowstesting/skullA.jpg", MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
 for i_pair in g_titleVals:
     print(i_pair)
 
-
-def valTranslateFromDictDef(p_dict):
-    #this is one of the translation functions
-    #these single parameter functions are used to automatically parse metadata values
-    #these functions are called by another function that determines which translation is needed
-    #input: dictionary
-    #output: string
-    #we assume 'x-default' is in the dictionary
-    return p_dict['x-default']
-def valTranslateToDictDef(p_val):
-    f_dict = {'x-default': p_val}
-    return f_dict
-
-def valTranslateFromRawS(p_raw):
-    #this is one of the translation functions
-    #these single parameter functions are used to automatically parse metadata values
-    #these functions are called by another function that determines which translation is needed
-    #input: string of numbers
-    #output: string
-    return MetadataManager.raw_to_cleanStr(p_raw)
-def valTranslateToRawS(p_val):
-    return MetadataManager.cleanStr_to_raw(p_val)
-
-def valTranslateFromRawL(p_raw):
-    #this is one of the translation functions
-    #these single parameter functions are used to automatically parse metadata values
-    #these functions are called by another function that determines which translation is needed
-    #input: string of numbers
-    #output: list
-    return MetadataManager.raw_to_cleanList(p_raw)
-def valTranslateToRawL(p_val):
-    return MetadataManager.cleanList_to_raw(p_val)
-
-def valTranslateNone(p_val):
-    #this is one of the translation functions
-    #these single parameter functions are used to automatically parse metadata values
-    #these functions are called by another function that determines which translation is needed
-    #input: value of unknown type
-    #output: the parameter passed in with no change and no side effects
-    return p_val
-
-g_translaters = {'Exif.Image.XPTitle': valTranslateFromRawS,
-                 'Exif.Image.XPSubject': valTranslateFromRawS,
-                 'Exif.Image.XPComment': valTranslateFromRawS,
-                 'Exif.Image.XPKeywords': valTranslateFromRawL,
-                 'Exif.Image.XPAuthor': valTranslateFromRawL,
-                 'Xmp.dc.title': valTranslateFromDictDef,
-                 'Xmp.dc.description': valTranslateFromDictDef,
-                 'Xmp.dc.subject': valTranslateNone,
-                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
-                 'Exif.Image.Artist': MetadataManager.cleanStr2cleanList,
-                 'Xmp.dc.creator': valTranslateNone,
-                 'Exif.Image.Rating': valTranslateNone,
-                 'Xmp.xmp.Rating': valTranslateNone,
-                 'Exif.Image.RatingPercent': MetadataManager.percent2rating,
-                 'Xmp.MicrosoftPhoto.Rating': MetadataManager.percentStr2rating,
-                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
-                 'Exif.Photo.DateTimeDigitized': valTranslateNone
-                 }
-g_untranslaters = {'Exif.Image.XPTitle': valTranslateToRawS,
-                 'Exif.Image.XPSubject': valTranslateToRawS,
-                 'Exif.Image.XPComment': valTranslateToRawS,
-                 'Exif.Image.XPKeywords': valTranslateToRawL,
-                 'Exif.Image.XPAuthor': valTranslateToRawL,
-                 'Xmp.dc.title': valTranslateToDictDef,
-                 'Xmp.dc.description': valTranslateToDictDef,
-                 'Xmp.dc.subject': valTranslateNone,
-                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
-                 'Exif.Image.Artist': MetadataManager.cleanList2cleanStr,
-                 'Xmp.dc.creator': valTranslateNone,
-                 'Exif.Image.Rating': valTranslateNone,
-                 'Xmp.xmp.Rating': valTranslateNone,
-                 'Exif.Image.RatingPercent': MetadataManager.rating2percent,
-                 'Xmp.MicrosoftPhoto.Rating': MetadataManager.rating2percentStr,
-                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
-                 'Exif.Photo.DateTimeDigitized': valTranslateNone
-                 }
-
 g_translatedVals = []
 for i in range(len(g_titleVals)):
-    g_translatedVals.append(g_translaters[g_titleVals[i][0]](g_titleVals[i][1]))
+    g_translatedVals.append(MetadataManager.g_translaters[g_titleVals[i][0]](g_titleVals[i][1]))
 
 g_untranslatedVals = []
 for i in range(len(g_titleVals)):
-    g_untranslatedVals.append(g_untranslaters[g_titleVals[i][0]](g_translatedVals[i]))
+    g_untranslatedVals.append(MetadataManager.g_untranslaters[g_titleVals[i][0]](g_translatedVals[i]))
 
 print()
 print(g_translatedVals)
