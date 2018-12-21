@@ -110,7 +110,84 @@ def alpha1SupportCheck(p_filename):
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
         raise SupportNotImplementedError('Sorry. This operation is not ready for anything.')
     return
+def rating2percent(x):
+    #input: int of rating
+    #output: int of rating percent
+    if x==1:
+        return 1
+    if x==2:
+        return 25
+    if x==3:
+        return 50
+    if x==4:
+        return 75
+    if x==5:
+        return 99
+    raise OutOfRangeError('number out of range (must be 1..5)')
+def rating2percentStr(x):
+    #input: int of rating
+    #output: string of rating percent
+    if x==1:
+        return '1'
+    if x==2:
+        return '25'
+    if x==3:
+        return '50'
+    if x==4:
+        return '75'
+    if x==5:
+        return '99'
+    raise OutOfRangeError('number out of range (must be 1..5)')
+def percent2rating(x):
+    #input: int of rating percent
+    #output int, the star rating
+    if x==1:
+        return 1
+    if x==25:
+        return 2
+    if x==50:
+        return 3
+    if x==75:
+        return 4
+    if x==99:
+        return 5
+    raise OutOfRangeError('not valid rating percents ' + str(x))
+def percentStr2rating(x):
+    #input: string of rating percent
+    # (for some reason pyexiv returns the value of 'Xmp.MicrosoftPhoto.Rating' as a string)
+    #input: int
+    #output int, the star rating
+    if int(x)==1:
+        return 1
+    if int(x)==25:
+        return 2
+    if int(x)==50:
+        return 3
+    if int(x)==75:
+        return 4
+    if int(x)==99:
+        return 5
+    raise OutOfRangeError('not valid rating percents ' + x)
 
+
+#dictionary (keys= metadata types) (values= list of keys for that metadata type for jpg files)
+g_jpgKeys = {
+    "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
+    "Description": ['Exif.Image.XPComment'],
+    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
+    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
+    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized']
+}
+
+g_keylists = {'.jpg': g_jpgKeys}
+
+#dictionary (keys= metadata types) (values= list of keys for that metadata type for tiff files)
+
+
+#dictionary (keys= metadata keys) (values= the functions needed to parse the metadata values into clean values)
+#dictionary (keys= metadata keys) (values= the functions needed to change clean values into metadata values)
+#def key2value      without knowing the parsing details, key to value returns clean value we want
 
 # -------string cleaning utility functions
 """
@@ -213,6 +290,7 @@ def cleanStr2dirtyStr(p_newtag):
     """
     f_c = p_newtag.encode('utf-16')
     return f_c[2:].decode('utf-8')
+
 def dirtyStr2cleanList(p_dirtyTagStr):
     """!
     Takes a byte-string representing a ; delimited list
@@ -249,10 +327,19 @@ def cleanList2dirtyStr(p_cleanTagList):
         return "\x00\x00"
     return f_dirtyXString
 
+def cleanStr2cleanList(p_cleanTagList):
+    """
+    :param: p_cleanTagList: ; delimited list represented as a string
+    :type: p_cleanTagList: string
+
+    :return: a list of tags in string format
+    :rtype: list<string>
+    """
+    return p_cleanTagList.split(';')
 def cleanList2cleanStr(p_cleanTagList):
     """!
-    :param p_cleanTagList: a list of tags in string format
-    :type p_cleanTagList: list<string>
+    :param: p_cleanTagList: a list of tags in string format
+    :type: p_cleanTagList: list<string>
 
     :return: ; delimited list represented as a string
     :rtype: list<string>

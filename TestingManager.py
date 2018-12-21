@@ -708,3 +708,8 @@ def testExtensionParse2():
 
 #testExtensionParse2()
 
+
+
+#some test that can check if all possible keys were used in set functions
+
+#some test to check if all keys from a set function have equal values
