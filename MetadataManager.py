@@ -347,35 +347,71 @@ def cleanList2cleanStr(p_cleanTagList):
     return ";".join(p_cleanTagList)
 
 # -------additional transformation functions
+"""
+The translation functions
+these single parameter functions are used to automatically parse metadata values
+these functions are called by another function that determines which translation is needed
+"""
 def valTranslateFromDictDef(p_dict):
-    #this is one of the translation functions
-    #these single parameter functions are used to automatically parse metadata values
-    #these functions are called by another function that determines which translation is needed
-    #input: dictionary
-    #output: string
-    #we assume 'x-default' is in the dictionary
+    """!
+    returns what you give it and does nothing
+    :param p_dict: a dictionary containing a value like title
+    :type p_dict: dictionary
+
+    :raise KeyError: if the 'x-default' is not in p_dict
+
+    :return: the value in the dictionary assigned to the key 'x-default'
+    :rtype: string
+    """
     return p_dict['x-default']
+
 def valTranslateToDictDef(p_val):
+    """!
+    returns what you give it and does nothing
+    :param p_val: a value like title
+    :type p_val: string
+
+    :raise KeyError: if the 'x-default' is not in p_dict
+
+    :return: dictionary with the given value assigned to the key 'x-default'
+    :rtype: dictionary
+    """
     f_dict = {'x-default': p_val}
     return f_dict
 
 def valTranslateNone(p_val):
-    #this is one of the translation functions
-    #these single parameter functions are used to automatically parse metadata values
-    #these functions are called by another function that determines which translation is needed
-    #input: value of unknown type
-    #output: the parameter passed in with no change and no side effects
+    """!
+    returns what you give it and does nothing
+    :param p_val: what you give it
+    :type p_file: unknown
+
+    :return: the parameter passed in with no change and no side effects
+    :rtype: unknown
+    """
     return p_val
 
 
 # -------key selection functions
 
 def appropriateKeys(p_file, p_metatype):
-    # for now this assumes jpg
+    """!
+    returns keys associated with that metadata type that work with that file
+    :param p_file: name/path of the file
+    :type p_file: string
+    :param p_metatype: a metadata type (Title, Description, Tags, etc)
+    :type p_metatype: string
+
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, tiff, or .gif
+    :raise KeyError: if the p_metatype is not in f_keydict
+
+    :return: list of keys that the file can store p_metatype data in
+    :rtype: list<string>
+    """
     # TODO support for gif, tiff, and png
-    # takes a filename and a metadata type (Title, Description, Tags, etc)
-    # returns keys associated with that metadata type that work with that file
     f_filetype = getExtension(p_file)
+    if f_filetype not in g_keylists:
+        raise UnsupportedFiletypeError(
+            'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_file))
     f_keydict = g_keylists[f_filetype]
     f_keys = f_keydict[p_metatype]
     return f_keys
@@ -585,7 +621,7 @@ def containsArtists(p_filename):
         if ('Exif.Image.XPAuthor' in f_metadata.exif_keys):
             # print("this file already has artist data")
             return True
-        # print("this file has no artist data")
+        # print("this file has no artist data")/
         return False
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support

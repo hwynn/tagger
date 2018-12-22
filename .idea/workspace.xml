@@ -7,7 +7,7 @@
     <bookmark url="file://$PROJECT_DIR$/windowstesting/windowsTests.py" description="            if f_metadata1[key1].value==f_metadata..." line="69" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="Adding functions that can figure out what metadata keys to use and can transform data appropriately">
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="Moved functions to metadata manager.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MetadataManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/MetadataManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testFileManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/testFileManager.py" afterDir="false" />
@@ -35,7 +35,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PNGmetadataTests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
+            <state relative-caret-position="1050">
               <caret line="72" selection-start-line="72" selection-end-line="72" />
             </state>
           </provider>
@@ -57,18 +57,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/testFileManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="179" column="56" lean-forward="true" selection-start-line="179" selection-start-column="56" selection-end-line="179" selection-end-column="56" />
+            <state relative-caret-position="465">
+              <caret line="190" column="27" lean-forward="true" selection-start-line="190" selection-start-column="27" selection-end-line="190" selection-end-column="27" />
               <folding>
                 <element signature="e#23#37#0" expanded="true" />
                 <element signature="e#301#719#0" />
-                <element signature="e#776#1019#0" />
-                <element signature="e#1267#1311#0" />
-                <element signature="e#1354#2117#0" />
-                <element signature="e#2146#2718#0" />
               </folding>
             </state>
           </provider>
@@ -77,7 +73,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
+            <state relative-caret-position="1110">
               <caret line="308" column="115" selection-start-line="308" selection-start-column="115" selection-end-line="308" selection-end-column="115" />
               <folding>
                 <element signature="e#19#33#0" expanded="true" />
@@ -96,11 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="380" lean-forward="true" selection-start-line="380" selection-end-line="380" />
+            <state relative-caret-position="10665">
+              <caret line="995" column="31" selection-start-line="994" selection-start-column="101" selection-end-line="995" selection-end-column="31" />
               <folding>
                 <element signature="e#136#194#0" />
                 <element signature="e#357#410#0" />
@@ -127,21 +123,37 @@
                 <element signature="e#3600#4148#0" />
                 <element signature="e#3600#3925#1" />
                 <element signature="e#4176#4450#0" />
+                <element signature="e#4176#4197#0" />
                 <element signature="e#4481#4768#0" />
+                <element signature="e#4481#4502#0" />
                 <element signature="e#4796#5077#0" />
+                <element signature="e#4796#4825#0" />
                 <element signature="e#5108#5520#0" />
+                <element signature="e#5108#5140#0" />
+                <element signature="e#5630#6121#0" />
+                <element signature="e#6157#6252#0" />
+                <element signature="e#6618#6893#1" />
+                <element signature="e#6917#7223#0" />
+                <element signature="e#6917#7077#1" />
+                <element signature="e#7159#7210#0" />
                 <element signature="e#7253#7551#0" />
+                <element signature="e#7253#7416#1" />
                 <element signature="e#7581#8107#0" />
+                <element signature="e#7581#7759#1" />
+                <element signature="e#7918#7972#0" />
                 <element signature="e#8136#8412#0" />
+                <element signature="e#8136#8299#1" />
                 <element signature="e#8442#8973#0" />
+                <element signature="e#8442#8620#1" />
                 <element signature="e#9016#9365#0" />
+                <element signature="e#9016#9248#1" />
                 <element signature="e#9403#9686#0" />
+                <element signature="e#9403#9615#1" />
                 <element signature="e#9731#10429#0" />
+                <element signature="e#9731#10072#1" />
+                <element signature="e#10230#10294#0" />
                 <element signature="e#10474#10969#0" />
-                <element signature="e#11015#11237#0" />
-                <element signature="e#11282#11510#0" />
-                <element signature="e#11596#11941#0" />
-                <element signature="e#11980#12027#0" />
+                <element signature="e#10474#10663#1" />
               </folding>
             </state>
           </provider>
@@ -159,13 +171,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cleanStr_to_dirtyStr</find>
-      <find>StashUtil.raw_to_cleanList</find>
-      <find>StashUtil.</find>
-      <find>raw_to_cleanStr</find>
-      <find>cleanList2cleanStr</find>
-      <find>dirtyStr2cleanList</find>
-      <find>dirtyStr2cleanStr</find>
       <find>containsOrgDate</find>
       <find>g_filename</find>
       <find>g_filename_1</find>
@@ -188,7 +193,14 @@
       <find>Title</find>
       <find>cleanStr</find>
       <find>valTranslate</find>
+      <find>UnsupportedFiletypeError</find>
       <find>appropriateKeys</find>
+      <find>selectVals</find>
+      <find>shadowClones</find>
+      <find>app</find>
+      <find>Tag(</find>
+      <find>g_translaters</find>
+      <find>raise</find>
     </findStrings>
     <replaceStrings>
       <replace>xmp.Label</replace>
@@ -254,15 +266,15 @@
         <option value="$PROJECT_DIR$/StashUtil.py" />
         <option value="$PROJECT_DIR$/windowstesting/windowsTests.py" />
         <option value="$PROJECT_DIR$/TestingManager.py" />
-        <option value="$PROJECT_DIR$/testFileManager.py" />
         <option value="$PROJECT_DIR$/MetadataManager.py" />
+        <option value="$PROJECT_DIR$/testFileManager.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="417" />
+    <option name="x" value="429" />
     <option name="y" value="25" />
-    <option name="width" value="351" />
+    <option name="width" value="363" />
     <option name="height" value="755" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -778,7 +790,14 @@
       <option name="project" value="LOCAL" />
       <updated>1545373041331</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Moved functions to metadata manager.">
+      <created>1545378248382</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1545378248382</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -831,7 +850,7 @@
       <window_info content_ui="combo" id="Project" order="2" weight="0.13178807" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32866043" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49271524" visible="true" weight="0.34890965" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49271524" visible="true" weight="0.33956388" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -918,7 +937,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="All tests (except with src and date) passed" />
     <MESSAGE value="All tests (except with src and date) passed&#10;&#10;Signed-off-by: hwynn &lt;Rocketferret54&gt;" />
     <MESSAGE value="Working on editting and reading file creation dates" />
     <MESSAGE value="maybe finished edit date and src" />
@@ -943,7 +961,19 @@
     <MESSAGE value="Preparing to make set functions use more keys to behave more like windows" />
     <MESSAGE value="Adding functions that can figure out what metadata keys to use and can test them." />
     <MESSAGE value="Adding functions that can figure out what metadata keys to use and can transform data appropriately" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding functions that can figure out what metadata keys to use and can transform data appropriately" />
+    <MESSAGE value="Moved functions to metadata manager." />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved functions to metadata manager." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/testFileManager.py</url>
+          <line>171</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/utils.py" />
@@ -1015,6 +1045,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PNGmetadataTests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
@@ -1029,16 +1066,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PNGmetadataTests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="72" selection-start-line="72" selection-end-line="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
+        <state relative-caret-position="1110">
           <caret line="308" column="115" selection-start-line="308" selection-start-column="115" selection-end-line="308" selection-end-column="115" />
           <folding>
             <element signature="e#19#33#0" expanded="true" />
@@ -1056,25 +1086,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testFileManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="179" column="56" lean-forward="true" selection-start-line="179" selection-start-column="56" selection-end-line="179" selection-end-column="56" />
-          <folding>
-            <element signature="e#23#37#0" expanded="true" />
-            <element signature="e#301#719#0" />
-            <element signature="e#776#1019#0" />
-            <element signature="e#1267#1311#0" />
-            <element signature="e#1354#2117#0" />
-            <element signature="e#2146#2718#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="380" lean-forward="true" selection-start-line="380" selection-end-line="380" />
+        <state relative-caret-position="10665">
+          <caret line="995" column="31" selection-start-line="994" selection-start-column="101" selection-end-line="995" selection-end-column="31" />
           <folding>
             <element signature="e#136#194#0" />
             <element signature="e#357#410#0" />
@@ -1101,21 +1116,48 @@
             <element signature="e#3600#4148#0" />
             <element signature="e#3600#3925#1" />
             <element signature="e#4176#4450#0" />
+            <element signature="e#4176#4197#0" />
             <element signature="e#4481#4768#0" />
+            <element signature="e#4481#4502#0" />
             <element signature="e#4796#5077#0" />
+            <element signature="e#4796#4825#0" />
             <element signature="e#5108#5520#0" />
+            <element signature="e#5108#5140#0" />
+            <element signature="e#5630#6121#0" />
+            <element signature="e#6157#6252#0" />
+            <element signature="e#6618#6893#1" />
+            <element signature="e#6917#7223#0" />
+            <element signature="e#6917#7077#1" />
+            <element signature="e#7159#7210#0" />
             <element signature="e#7253#7551#0" />
+            <element signature="e#7253#7416#1" />
             <element signature="e#7581#8107#0" />
+            <element signature="e#7581#7759#1" />
+            <element signature="e#7918#7972#0" />
             <element signature="e#8136#8412#0" />
+            <element signature="e#8136#8299#1" />
             <element signature="e#8442#8973#0" />
+            <element signature="e#8442#8620#1" />
             <element signature="e#9016#9365#0" />
+            <element signature="e#9016#9248#1" />
             <element signature="e#9403#9686#0" />
+            <element signature="e#9403#9615#1" />
             <element signature="e#9731#10429#0" />
+            <element signature="e#9731#10072#1" />
+            <element signature="e#10230#10294#0" />
             <element signature="e#10474#10969#0" />
-            <element signature="e#11015#11237#0" />
-            <element signature="e#11282#11510#0" />
-            <element signature="e#11596#11941#0" />
-            <element signature="e#11980#12027#0" />
+            <element signature="e#10474#10663#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFileManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="190" column="27" lean-forward="true" selection-start-line="190" selection-start-column="27" selection-end-line="190" selection-end-column="27" />
+          <folding>
+            <element signature="e#23#37#0" expanded="true" />
+            <element signature="e#301#719#0" />
           </folding>
         </state>
       </provider>

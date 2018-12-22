@@ -38,8 +38,8 @@ def shadowClones(p_filename, p_howmany, p_mod=''):
 def jutsu(p_filename, p_files):
     for file in p_files:
         if os.path.isfile(file)==True:
-            print("File already exists")
-            return
+            raise ValueError(
+                'File \'{}\' already exists'.format(file))
     for file in p_files:
         shutil.copy(p_filename, file)
 
@@ -129,27 +129,148 @@ def selectVals (p_file, p_keys):
         pairs.append((key,f_metadata[key].value))
     return pairs
 
+def MetaDataVals(p_file, p_metatype):
+    #given a file and a metadata type
+    #reads the values of the appropriate keys
+    #returns a list of the key/value pairs
+    f_metadata = pyexiv2.ImageMetadata(p_file)
+    f_metadata.read()
+    f_keys = MetadataManager.appropriateKeys(p_file, p_metatype)
+    pairs = []
+    for key in f_keys:
+        pairs.append((key,f_metadata[key].value))
+    return pairs
+
+#given a file with a type of metadata
+#take that value. create a new file (of the same filetype)
+#give that new file the same kind of metadata
+#check the associated key/value pairs of each value
+#they must be identical
+#we need: filewithvalue, filetocopy, newfilename, metadatatype
+
+def newsetArtist(p_file, p_artists):
+    #sets artist in all appropriate keys
+    f_keyval = []
+
+xxxx = ''
+g_getFunctions = {'Title': MetadataManager.getTitle,
+                  'Description': MetadataManager.getDescr,
+                  'Rating': MetadataManager.getRating,
+                  'Tags': MetadataManager.getTags,
+                  'Artist': MetadataManager.getArtists,
+                  'Date Created': MetadataManager.getOrgDate
+                  }
+g_setFunctions = {'Title': xxxx,
+                  'Description': xxxx,
+                  'Rating': xxxx,
+                  'Tags': xxxx,
+                  'Artist': newsetArtist,
+                  'Date Created': xxxx
+                  }
+
+
+def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
+    #this takes a file with a value, another file of the same type, and a metadata type
+    #finds the value of the first file.
+    #then it adds appropriately transformed versions of that value to all
+    #the appropriate keys of a copy of the second file
+    #then it compares all the appropriate key/value pairs
+    #a list of all the differing values is made
+    #if a key/value pair is so different that the clean versions are different, we return false (and the list)
+    #else we return true (and the list)
+    if getExtension(p_filewithvalue)!=getExtension(p_filetocopy):
+        raise ValueError(
+            'file extensions must be the same')
+    f_newfilel = shadowClones(p_filetocopy, 1) #creates names for files
+    jutsu(p_filetocopy, f_newfilel) #this actually makes the new files
+    f_newfile = f_newfilel[0]
+    f_valueToSet = g_getFunctions[p_metatype](p_filewithvalue)
+    f_keys = MetadataManager.appropriateKeys(f_newfile, p_metatype)
+    #read metadata value of p_filewithvalue
+
+    f_untranslatedVals = []
+    for i_key in f_keys:
+        f_untranslatedVals.append(MetadataManager.g_untranslaters[i_key](f_valueToSet))
+    print("In the file ", f_newfile, " the following keys will be set:\n", f_keys)
+    #print("the value to be set is ", f_valueToSet)
+    #print("it will be formatted in the following ways:\n", f_untranslatedVals)
+
+    f_metadata = pyexiv2.ImageMetadata(f_newfile)
+    f_metadata.read()
+    #this actually sets the appropriately formatted values to the appropriate keys in the file
+    for i in range(len(f_keys)):
+        i_key = f_keys[i]
+        i_value = f_untranslatedVals[i]
+        #print(i_key)
+        i_prefix = i_key[:i_key.find('.')]
+        #print(i_prefix)
+        if i_prefix=='Exif':
+            f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+        elif i_prefix=='Xmp':
+            f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+        elif i_prefix=='Iptc':
+            f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+        else: raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+        f_metadata.write()
+    print()
+    f_oldfileVals = MetaDataVals(p_filewithvalue, p_metatype)
+    print("these are the key/value pairs from the original file ", p_filewithvalue)
+    for i_pair in f_oldfileVals:
+        print(i_pair)
+    f_newfileVals = MetaDataVals(f_newfile, p_metatype)
+    print("these are the key/value pairs from the new file ", f_newfile)
+    for i_pair in f_newfileVals:
+        print(i_pair)
+    f_same = True
+    f_diff = []
+    for i in range(len(f_oldfileVals)):
+        i_a = f_oldfileVals[i]
+        i_b = f_newfileVals[i]
+        if i_a!=i_b:
+            i_c = MetadataManager.g_translaters[i_a[0]](i_a[1])
+            i_d = MetadataManager.g_translaters[i_b[0]](i_b[1])
+            if i_c!=i_d:
+                f_same=False
+            f_diff.append((i_a,i_b))
+    return (f_same,f_diff)
+
+g_result1 = testMetadataSet("/media/sf_tagger/windowstesting/skullA.jpg", "/media/sf_tagger/windowstesting/skull.jpg", "Artist")
+print(g_result1)
+
+#testing reading all appropriate key/value pairs for a file given metadata type
+"""
 print(MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
 print(checkAllKeysPresent("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
-
 g_titleVals = selectVals("/media/sf_tagger/windowstesting/skullA.jpg", MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
+print("titlevals")
 for i_pair in g_titleVals:
     print(i_pair)
-
+g_titleVals2 = MetaDataVals("/media/sf_tagger/windowstesting/skullA.jpg", "Artist")
+for i_pair in g_titleVals2:
+    print(i_pair)
 g_translatedVals = []
 for i in range(len(g_titleVals)):
     g_translatedVals.append(MetadataManager.g_translaters[g_titleVals[i][0]](g_titleVals[i][1]))
-
 g_untranslatedVals = []
 for i in range(len(g_titleVals)):
     g_untranslatedVals.append(MetadataManager.g_untranslaters[g_titleVals[i][0]](g_translatedVals[i]))
-
 print()
 print(g_translatedVals)
 print(allSame(g_translatedVals))
-
 for i in range(len(g_titleVals)):
     print((g_titleVals[i][0] ,g_untranslatedVals[i]))
+"""
+#-----test generating appropriate keys and values for a file given a metadata type
+"""
+print()
+g_titleVals = selectVals("/media/sf_tagger/windowstesting/skullA.jpg", MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
+g_untranslatedVals = []
+for i_keys in MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"):
+    g_untranslatedVals.append(MetadataManager.g_untranslaters[i_keys](['George Washington', 'model: Skeletore']))
+print(MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
+print(g_untranslatedVals)
+"""
+#-----testing file copying and comparing
 """
 g_mainfile = "/media/sf_tagger/windowstesting/skull.jpg"
 g_files = shadowClones(g_mainfile, 5)
