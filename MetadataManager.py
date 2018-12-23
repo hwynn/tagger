@@ -41,6 +41,9 @@ class OutOfRangeError(ValueError):
 class NotIntegerError(ValueError):
     """used for setRating"""
     pass
+class UnsupportedOperationError(ValueError):
+    """This operation cannot be done for this tyoe of metadata"""
+    pass
 
 # ========================================================
 # ------------------Utility functions---------------------
@@ -170,17 +173,6 @@ def percentStr2rating(x):
     raise OutOfRangeError('not valid rating percents ' + x)
 
 
-#dictionary (keys= metadata types) (values= list of keys for that metadata type for jpg files)
-g_jpgKeys = {
-    "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
-    "Description": ['Exif.Image.XPComment'],
-    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
-    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
-    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
-    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized']
-}
-
-g_keylists = {'.jpg': g_jpgKeys}
 
 #dictionary (keys= metadata types) (values= list of keys for that metadata type for tiff files)
 
@@ -391,68 +383,11 @@ def valTranslateNone(p_val):
     return p_val
 
 
-# -------key selection functions
 
-def appropriateKeys(p_file, p_metatype):
-    """!
-    returns keys associated with that metadata type that work with that file
-    :param p_file: name/path of the file
-    :type p_file: string
-    :param p_metatype: a metadata type (Title, Description, Tags, etc)
-    :type p_metatype: string
 
-    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, tiff, or .gif
-    :raise KeyError: if the p_metatype is not in f_keydict
-
-    :return: list of keys that the file can store p_metatype data in
-    :rtype: list<string>
-    """
-    # TODO support for gif, tiff, and png
-    f_filetype = getExtension(p_file)
-    if f_filetype not in g_keylists:
-        raise UnsupportedFiletypeError(
-            'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_file))
-    f_keydict = g_keylists[f_filetype]
-    f_keys = f_keydict[p_metatype]
-    return f_keys
-
-g_translaters = {'Exif.Image.XPTitle': raw_to_cleanStr,
-                 'Exif.Image.XPSubject': raw_to_cleanStr,
-                 'Exif.Image.XPComment': raw_to_cleanStr,
-                 'Exif.Image.XPKeywords': raw_to_cleanList,
-                 'Exif.Image.XPAuthor': raw_to_cleanList,
-                 'Xmp.dc.title': valTranslateFromDictDef,
-                 'Xmp.dc.description': valTranslateFromDictDef,
-                 'Xmp.dc.subject': valTranslateNone,
-                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
-                 'Exif.Image.Artist': cleanStr2cleanList,
-                 'Xmp.dc.creator': valTranslateNone,
-                 'Exif.Image.Rating': valTranslateNone,
-                 'Xmp.xmp.Rating': valTranslateNone,
-                 'Exif.Image.RatingPercent': percent2rating,
-                 'Xmp.MicrosoftPhoto.Rating': percentStr2rating,
-                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
-                 'Exif.Photo.DateTimeDigitized': valTranslateNone
-                 }
-g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
-                 'Exif.Image.XPSubject': cleanStr_to_raw,
-                 'Exif.Image.XPComment': cleanStr_to_raw,
-                 'Exif.Image.XPKeywords': cleanList_to_raw,
-                 'Exif.Image.XPAuthor': cleanList_to_raw,
-                 'Xmp.dc.title': valTranslateToDictDef,
-                 'Xmp.dc.description': valTranslateToDictDef,
-                 'Xmp.dc.subject': valTranslateNone,
-                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
-                 'Exif.Image.Artist': cleanList2cleanStr,
-                 'Xmp.dc.creator': valTranslateNone,
-                 'Exif.Image.Rating': valTranslateNone,
-                 'Xmp.xmp.Rating': valTranslateNone,
-                 'Exif.Image.RatingPercent': rating2percent,
-                 'Xmp.MicrosoftPhoto.Rating': rating2percentStr,
-                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
-                 'Exif.Photo.DateTimeDigitized': valTranslateNone
-                 }
-
+#--------------------------------------
+#---------Metadata operations----------
+#--------------------------------------
 # ========================================================
 # ---------------MetaData functionality-------------------
 # ========================================================
@@ -482,8 +417,6 @@ def containsTitle(p_filename):
         return True
     # print("this file has no title data")
     return False
-
-
 def getTitle(p_filename):
     """!
     :param p_filename: name/path of the file
@@ -510,8 +443,6 @@ def getTitle(p_filename):
         earlySupportCheck(
             p_filename)  # TODO add png and gif support  # TODO error check: does this file have Title data?
     return ""
-
-
 def setTitle(p_filename, p_setTitleToThis):
     """
     :param p_filename: name/path of the file
@@ -534,8 +465,6 @@ def setTitle(p_filename, p_setTitleToThis):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support
     return
-
-
 def searchTitle(p_filename, p_searchForThis):
     """
     takes: filename as string (including path)
@@ -570,8 +499,6 @@ def searchTitle(p_filename, p_searchForThis):
         earlySupportCheck(
             p_filename)  # TODO add png and gif support  # TODO error check: does this file have Title data?
     return False
-
-
 def wipeTitle(p_filename):
     """
     :param p_filename: name/path of the file
@@ -626,8 +553,6 @@ def containsArtists(p_filename):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support
     return False
-
-
 def getArtists(p_filename):
     """!
     :param p_filename: name/path of the file
@@ -654,8 +579,6 @@ def getArtists(p_filename):
         earlySupportCheck(
             p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
     return []
-
-
 def setArtists(p_filename, p_cleanArtistList):
     """
     Instead of appending a new artist to the list of artists already present
@@ -685,8 +608,6 @@ def setArtists(p_filename, p_cleanArtistList):
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         return
-
-
 def searchArtists(p_filename, p_artist):
     """
     :param p_filename: name/path of the file
@@ -726,8 +647,6 @@ def searchArtists(p_filename, p_artist):
         earlySupportCheck(
             p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
     return False
-
-
 def addArtist(p_filename, p_artist):
     """
     appends new artist to the artist metadata
@@ -770,8 +689,6 @@ def addArtist(p_filename, p_artist):
         earlySupportCheck(
             p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
     return
-
-
 def removeArtist(p_filename, p_artist):
     """
     removes artist from artist metadata
@@ -843,8 +760,6 @@ def containsTags(p_filename):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support
     return False
-
-
 def getTags(p_filename):
     """!
     :param p_filename: name/path of the file
@@ -870,8 +785,6 @@ def getTags(p_filename):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have tag data?
     return []
-
-
 def setTags(p_filename, p_cleanTagList):
     """
     Instead of appending a new tag to the list of tags already present
@@ -899,8 +812,6 @@ def setTags(p_filename, p_cleanTagList):
         earlySupportCheck(p_filename)
         # TODO add png and gif support
         return True
-
-
 def searchTags(p_filename, p_tag):
     """
     :param p_filename: name/path of the file
@@ -932,8 +843,6 @@ def searchTags(p_filename, p_tag):
         # TODO error check: does this file have tag data?
         return False
     return False
-
-
 def addTag(p_filename, p_tag):
     """
     :param p_filename: name/path of the file
@@ -971,8 +880,6 @@ def addTag(p_filename, p_tag):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have tag data?
     return
-
-
 def removeTag(p_filename, p_tag):
     """
     :param p_filename: name/path of the file
@@ -1039,8 +946,6 @@ def containsDescr(p_filename):
         return True
     # print("this file has no description data")
     return False
-
-
 def getDescr(p_filename):
     """!
     :param p_filename: name/path of the file
@@ -1067,8 +972,6 @@ def getDescr(p_filename):
         earlySupportCheck(
             p_filename)  # TODO add png and gif support  # TODO error check: does this file have Descr data?
     return ""
-
-
 def setDescr(p_filename, p_setDescrToThis):
     """
     :param p_filename: name/path of the file
@@ -1091,8 +994,6 @@ def setDescr(p_filename, p_setDescrToThis):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support
     return
-
-
 def searchDescr(p_filename, p_searchForThis):
     """
     :param p_filename: name/path of the file
@@ -1121,8 +1022,6 @@ def searchDescr(p_filename, p_searchForThis):
         earlySupportCheck(
             p_filename)  # TODO add png and gif support  # TODO error check: does this file have Descr data?
     return False
-
-
 def addDescr(p_filename, p_addThisToDescr):
     """
     :param p_filename: name/path of the file
@@ -1150,8 +1049,6 @@ def addDescr(p_filename, p_addThisToDescr):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support
     return
-
-
 def wipeDescr(p_filename):
     """
     :param p_filename: name/path of the file
@@ -1204,8 +1101,6 @@ def containsRating(p_filename):
     # print("this file has no rating data")
     earlySupportCheck(p_filename)
     return False
-
-
 def getRating(p_filename):
     """!
     :param p_filename: name/path of the file
@@ -1232,8 +1127,6 @@ def getRating(p_filename):
         earlySupportCheck(
             p_filename)  # TODO add png and gif support  # TODO error check: does this file have rating data?
     return -1
-
-
 def setRating(p_filename, p_setRatingToThis):
     """
     :param p_filename: name/path of the file
@@ -1263,8 +1156,6 @@ def setRating(p_filename, p_setRatingToThis):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support
     return
-
-
 def searchRating(p_filename, p_searchForThisRating):
     """
     :param p_filename: name/path of the file
@@ -1306,7 +1197,6 @@ def searchRating(p_filename, p_searchForThisRating):
         return False
     return False
 
-
 # TODO def wipeRating(p_filename):
 
 # ------edit metadata that can store source url
@@ -1334,8 +1224,6 @@ def containsSrc(p_filename):
         return True
     # print("this file has no history/source data")
     return False
-
-
 def getSrc(p_filename):
     """!
     src info is planned to be used to store picture origin url
@@ -1363,8 +1251,6 @@ def getSrc(p_filename):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have Src data?
     return ""
-
-
 def addSrc(p_filename, x):
     """
     appends source info to the end of the current src info
@@ -1397,8 +1283,6 @@ def addSrc(p_filename, x):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support
     return
-
-
 def searchSrc(p_filename, p_searchForThis):
     """
     :param p_filename: name/path of the file
@@ -1456,8 +1340,6 @@ def containsOrgDate(p_filename):
         return True
     # print("this file has no original date data")
     return False
-
-
 def getOrgDate(p_filename):
     """
     if none exists, returns datetime.datetime(1, 1, 1)
@@ -1496,8 +1378,6 @@ def getOrgDate(p_filename):
         # TODO add png and gif support
         # TODO error check: does this file have Descr data?
         return datetime.datetime(1, 1, 1)
-
-
 def setOrgDate(p_filename, p_date):
     """
     takes filename and datetime object
@@ -1529,8 +1409,6 @@ def setOrgDate(p_filename, p_date):
     else:
         earlySupportCheck(p_filename)  # TODO add png and gif support
     return
-
-
 def searchOrgDate(p_filename, p_startDate, p_endDate):
     """
     :param p_filename: name/path of the file
@@ -1563,6 +1441,7 @@ def searchOrgDate(p_filename, p_startDate, p_endDate):
         return False
     return False
 
+
 # ---------edit series data
 
 # TODO def getSeries(p_filename):
@@ -1572,3 +1451,119 @@ def searchOrgDate(p_filename, p_startDate, p_endDate):
 # TODO def searchSeries(p_filename):
 
 # TODO def removeSeries(p_filename):
+
+
+
+
+
+
+#----------------------------------------
+#--------Data given Metadata type--------
+#----------------------------------------
+"""
+There's a lot we can figure out just given the metadata type.
+We can figure out what keys we'll use, what functions to call,
+etc. This is where we keep the information to do high level calls
+given the type of metadata we will be operating with.
+"""
+# -------key selection functions
+#TODO make unit tests that uses thhese dctionaries
+#for every key, its translate and untranslate function should be one to one
+g_getFunctions = {'Title': getTitle,
+                  'Description': getDescr,
+                  'Rating': getRating,
+                  'Tags': getTags,
+                  'Artist': getArtists,
+                  'Date Created': getOrgDate
+                  }
+g_translaters = {'Exif.Image.XPTitle': raw_to_cleanStr,
+                 'Exif.Image.XPSubject': raw_to_cleanStr,
+                 'Exif.Image.XPComment': raw_to_cleanStr,
+                 'Exif.Image.XPKeywords': raw_to_cleanList,
+                 'Exif.Image.XPAuthor': raw_to_cleanList,
+                 'Xmp.dc.title': valTranslateFromDictDef,
+                 'Xmp.dc.description': valTranslateFromDictDef,
+                 'Xmp.dc.subject': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
+                 'Exif.Image.Artist': cleanStr2cleanList,
+                 'Xmp.dc.creator': valTranslateNone,
+                 'Exif.Image.Rating': valTranslateNone,
+                 'Xmp.xmp.Rating': valTranslateNone,
+                 'Exif.Image.RatingPercent': percent2rating,
+                 'Xmp.MicrosoftPhoto.Rating': percentStr2rating,
+                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
+                 'Exif.Photo.DateTimeDigitized': valTranslateNone
+                 }
+g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
+                 'Exif.Image.XPSubject': cleanStr_to_raw,
+                 'Exif.Image.XPComment': cleanStr_to_raw,
+                 'Exif.Image.XPKeywords': cleanList_to_raw,
+                 'Exif.Image.XPAuthor': cleanList_to_raw,
+                 'Xmp.dc.title': valTranslateToDictDef,
+                 'Xmp.dc.description': valTranslateToDictDef,
+                 'Xmp.dc.subject': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
+                 'Exif.Image.Artist': cleanList2cleanStr,
+                 'Xmp.dc.creator': valTranslateNone,
+                 'Exif.Image.Rating': valTranslateNone,
+                 'Xmp.xmp.Rating': valTranslateNone,
+                 'Exif.Image.RatingPercent': rating2percent,
+                 'Xmp.MicrosoftPhoto.Rating': rating2percentStr,
+                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
+                 'Exif.Photo.DateTimeDigitized': valTranslateNone
+                 }
+
+#dictionary (keys= metadata types) (values= list of keys for that metadata type for jpg files)
+g_jpgKeys = {
+    "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
+    "Description": ['Exif.Image.XPComment'],
+    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
+    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
+    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized']
+}
+
+g_tiffKeys = {
+    "Title": ['Exif.Image.ImageDescription', 'Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
+    "Description": ['Exif.Image.XPComment'],
+    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
+    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject'],
+    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized']
+}
+
+
+g_keylists = {'.jpg': g_jpgKeys}
+
+
+# TODO make a dictionary with lists of operations
+# every key is a metadata type
+# and the dictionary contains lists of
+# what operations are supported for that metadata type
+# this will be used for the UI manager to know what buttons to display
+
+
+
+
+def appropriateKeys(p_file, p_metatype):
+    """!
+    returns keys associated with that metadata type that work with that file
+    :param p_file: name/path of the file
+    :type p_file: string
+    :param p_metatype: a metadata type (Title, Description, Tags, etc)
+    :type p_metatype: string
+
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, tiff, or .gif
+    :raise KeyError: if the p_metatype is not in f_keydict
+
+    :return: list of keys that the file can store p_metatype data in
+    :rtype: list<string>
+    """
+    # TODO support for gif, tiff, and png
+    f_filetype = getExtension(p_file)
+    if f_filetype not in g_keylists:
+        raise UnsupportedFiletypeError(
+            'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_file))
+    f_keydict = g_keylists[f_filetype]
+    f_keys = f_keydict[p_metatype]
+    return f_keys

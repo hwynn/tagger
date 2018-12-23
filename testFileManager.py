@@ -4,9 +4,11 @@ import shutil
 import os
 from pathlib import PurePosixPath
 from pathlib import PureWindowsPath
+
 import MetadataManager
+
 """
-This libraryhas functions that will allow us to easily
+This library has functions that will allow us to easily
 create and manage files for metadata testing
 """
 def getExtension(p_filepathname):
@@ -93,6 +95,21 @@ def allMeta(p_file_1):
         print(f_metadata[key].value)
     print()
 
+def MetaDataVals(p_file, p_metatype):
+    #given a file and a metadata type
+    #reads the values of the appropriate keys
+    #returns a list of the key/value pairs
+    f_metadata = pyexiv2.ImageMetadata(p_file)
+    f_metadata.read()
+    f_keys = MetadataManager.appropriateKeys(p_file, p_metatype)
+    pairs = []
+    for key in f_keys:
+        pairs.append((key,f_metadata[key].value))
+    return pairs
+
+
+#TODO make unit tests that use this function.
+#this should be true after a successful set operation is performed
 def checkAllKeysPresent(p_file, p_metatype):
     #takes a filename and a metadata type (Title, Description, Tags, etc)
     #and returns true if all keys associated with that metadata type are present in the file
@@ -105,6 +122,8 @@ def checkAllKeysPresent(p_file, p_metatype):
             return False
     return True
 
+#TODO make unit tests that use this function.
+#this should be true after a successful set operation is performed
 def allSame(p_list, ifempty=True):
     #this takes a list and returns true if all items are the same
     #returns false if any item is different
@@ -129,17 +148,6 @@ def selectVals (p_file, p_keys):
         pairs.append((key,f_metadata[key].value))
     return pairs
 
-def MetaDataVals(p_file, p_metatype):
-    #given a file and a metadata type
-    #reads the values of the appropriate keys
-    #returns a list of the key/value pairs
-    f_metadata = pyexiv2.ImageMetadata(p_file)
-    f_metadata.read()
-    f_keys = MetadataManager.appropriateKeys(p_file, p_metatype)
-    pairs = []
-    for key in f_keys:
-        pairs.append((key,f_metadata[key].value))
-    return pairs
 
 #given a file with a type of metadata
 #take that value. create a new file (of the same filetype)
@@ -152,7 +160,6 @@ def newsetArtist(p_file, p_artists):
     #sets artist in all appropriate keys
     f_keyval = []
 
-xxxx = ''
 g_getFunctions = {'Title': MetadataManager.getTitle,
                   'Description': MetadataManager.getDescr,
                   'Rating': MetadataManager.getRating,
@@ -160,6 +167,7 @@ g_getFunctions = {'Title': MetadataManager.getTitle,
                   'Artist': MetadataManager.getArtists,
                   'Date Created': MetadataManager.getOrgDate
                   }
+xxxx = ''
 g_setFunctions = {'Title': xxxx,
                   'Description': xxxx,
                   'Rating': xxxx,
@@ -184,7 +192,7 @@ def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
     f_newfilel = shadowClones(p_filetocopy, 1) #creates names for files
     jutsu(p_filetocopy, f_newfilel) #this actually makes the new files
     f_newfile = f_newfilel[0]
-    f_valueToSet = g_getFunctions[p_metatype](p_filewithvalue)
+    f_valueToSet = MetadataManager.g_getFunctions[p_metatype](p_filewithvalue)
     f_keys = MetadataManager.appropriateKeys(f_newfile, p_metatype)
     #read metadata value of p_filewithvalue
 
@@ -232,10 +240,11 @@ def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
             if i_c!=i_d:
                 f_same=False
             f_diff.append((i_a,i_b))
+    release(f_newfilel)
     return (f_same,f_diff)
 
-g_result1 = testMetadataSet("/media/sf_tagger/windowstesting/skullA.jpg", "/media/sf_tagger/windowstesting/skull.jpg", "Artist")
-print(g_result1)
+#g_result1 = testMetadataSet("/media/sf_tagger/windowstesting/skullA.jpg", "/media/sf_tagger/windowstesting/skull.jpg", "Artist")
+#print(g_result1)
 
 #testing reading all appropriate key/value pairs for a file given metadata type
 """
@@ -245,7 +254,7 @@ g_titleVals = selectVals("/media/sf_tagger/windowstesting/skullA.jpg", MetadataM
 print("titlevals")
 for i_pair in g_titleVals:
     print(i_pair)
-g_titleVals2 = MetaDataVals("/media/sf_tagger/windowstesting/skullA.jpg", "Artist")
+g_titleVals2 = MetadataManager.MetaDataVals("/media/sf_tagger/windowstesting/skullA.jpg", "Artist")
 for i_pair in g_titleVals2:
     print(i_pair)
 g_translatedVals = []
@@ -299,3 +308,5 @@ g_description = "a silly propaganda picture"
 g_tags = ['skeleton', 'mood']
 g_artist = ['George Washington', 'model: Skeletore']
 g_modfile = "/media/sf_tagger/windowstesting/skullA.jpg"
+
+
