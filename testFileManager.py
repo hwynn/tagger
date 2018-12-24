@@ -104,7 +104,12 @@ def MetaDataVals(p_file, p_metatype):
     f_keys = MetadataManager.appropriateKeys(p_file, p_metatype)
     pairs = []
     for key in f_keys:
-        pairs.append((key,f_metadata[key].value))
+        if key not in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            continue
+        if key=='Xmp.MicrosoftPhoto.DateAcquired' or key=='Xmp.xmp.CreateDate':
+            pairs.append((key, f_metadata[key].raw_value))
+        else:
+            pairs.append((key,f_metadata[key].value))
     return pairs
 
 
@@ -198,7 +203,10 @@ def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
 
     f_untranslatedVals = []
     for i_key in f_keys:
-        f_untranslatedVals.append(MetadataManager.g_untranslaters[i_key](f_valueToSet))
+        if i_key=='Xmp.MicrosoftPhoto.DateAcquired' or i_key=='Xmp.xmp.CreateDate':
+            f_untranslatedVals.append(f_valueToSet)
+        else:
+            f_untranslatedVals.append(MetadataManager.g_untranslaters[i_key](f_valueToSet))
     print("In the file ", f_newfile, " the following keys will be set:\n", f_keys)
     #print("the value to be set is ", f_valueToSet)
     #print("it will be formatted in the following ways:\n", f_untranslatedVals)
@@ -244,7 +252,8 @@ def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
     return (f_same,f_diff)
 
 #g_result1 = testMetadataSet("/media/sf_tagger/windowstesting/skullA.jpg", "/media/sf_tagger/windowstesting/skull.jpg", "Artist")
-#print(g_result1)
+g_result1 = testMetadataSet("/media/sf_tagger/windowstesting/skullA.jpg", "/media/sf_tagger/windowstesting/skull.jpg", "Date Created")
+print(g_result1)
 
 #testing reading all appropriate key/value pairs for a file given metadata type
 """

@@ -4,6 +4,7 @@ import os
 import datetime
 from pathlib import PurePosixPath
 from pathlib import PureWindowsPath
+import dateutil.parser
 
 
 # ========================================================
@@ -381,6 +382,27 @@ def valTranslateNone(p_val):
     :rtype: unknown
     """
     return p_val
+#https://codeyarns.com/2017/10/12/how-to-convert-datetime-to-and-from-iso-8601-string/
+def Iso8601_to_date(p_isodate):
+    """
+    :param p_isodate: the date in ISO 8601 string format
+    :type p_isodate: string
+
+    :return: a date
+    :rtype: datetime object
+    """
+    f_parsedDate = dateutil.parser.parse(p_isodate)
+    return f_parsedDate
+def date_to_Iso8601(p_date):
+    """
+    :param p_date: a date
+    :type p_date: datetime object
+
+    :return: the date in ISO 8601 string format
+    :rtype: string
+    """
+    f_unparsedDate = p_date.isoformat()
+    return f_unparsedDate
 
 
 
@@ -1476,6 +1498,7 @@ g_getFunctions = {'Title': getTitle,
                   'Artist': getArtists,
                   'Date Created': getOrgDate
                   }
+#these change values from file metadata into human readable values
 g_translaters = {'Exif.Image.XPTitle': raw_to_cleanStr,
                  'Exif.Image.XPSubject': raw_to_cleanStr,
                  'Exif.Image.XPComment': raw_to_cleanStr,
@@ -1492,8 +1515,11 @@ g_translaters = {'Exif.Image.XPTitle': raw_to_cleanStr,
                  'Exif.Image.RatingPercent': percent2rating,
                  'Xmp.MicrosoftPhoto.Rating': percentStr2rating,
                  'Exif.Photo.DateTimeOriginal': valTranslateNone,
-                 'Exif.Photo.DateTimeDigitized': valTranslateNone
+                 'Exif.Photo.DateTimeDigitized': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.DateAcquired': Iso8601_to_date,
+                 'Xmp.xmp.CreateDate':Iso8601_to_date
                  }
+#these change human readable values into values we can store in files
 g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
                  'Exif.Image.XPSubject': cleanStr_to_raw,
                  'Exif.Image.XPComment': cleanStr_to_raw,
@@ -1510,7 +1536,9 @@ g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
                  'Exif.Image.RatingPercent': rating2percent,
                  'Xmp.MicrosoftPhoto.Rating': rating2percentStr,
                  'Exif.Photo.DateTimeOriginal': valTranslateNone,
-                 'Exif.Photo.DateTimeDigitized': valTranslateNone
+                 'Exif.Photo.DateTimeDigitized': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.DateAcquired': date_to_Iso8601,
+                 'Xmp.xmp.CreateDate': date_to_Iso8601
                  }
 
 #dictionary (keys= metadata types) (values= list of keys for that metadata type for jpg files)
@@ -1520,7 +1548,7 @@ g_jpgKeys = {
     "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
     "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
     "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
-    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized']
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate']
 }
 
 g_tiffKeys = {
@@ -1529,7 +1557,7 @@ g_tiffKeys = {
     "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
     "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject'],
     "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
-    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized']
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired']
 }
 
 
