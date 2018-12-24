@@ -28,7 +28,7 @@ def allKeys(p_file_1):
         keys.append(key)
     #print()
     return keys
-
+#https://codeyarns.com/2017/10/12/how-to-convert-datetime-to-and-from-iso-8601-string/
 def Iso86012date(p_isodate):
     """
     :param p_isodate: the date in ISO 8601 string format
@@ -65,36 +65,70 @@ print(allKeys(g_fulljpg))
 print(allKeys(g_newfile))
 print(g_newfilel)
 print()
-
+"""
+#test retrieving and using value from 'Xmp.xmp.CreateDate'
 g_metadata = pyexiv2.ImageMetadata(g_fulljpg)
 g_metadata.read()
-print(g_metadata['Exif.Image.Rating'].value)
-print(g_metadata['Xmp.dc.title'].value)
-print(type(g_metadata['Xmp.dc.title']))
-print(g_metadata['Xmp.dc.title'])
+#TODO in the smart set function (whenever you make it) add conditions for these values
+# so they get retrieved using .raw_value
+print()
 print(g_metadata['Xmp.xmp.CreateDate'])
 print(type(g_metadata['Xmp.xmp.CreateDate']))
-print(g_metadata['Xmp.xmp.CreateDate'].raw_value)
+print()
 g_rawdate = g_metadata['Xmp.xmp.CreateDate'].raw_value
-#https://codeyarns.com/2017/10/12/how-to-convert-datetime-to-and-from-iso-8601-string/
+
 print(g_rawdate)
 print(type(g_rawdate))
-
 
 g_parsedDate = Iso86012date(g_rawdate)
 print(g_parsedDate)
 print(type(g_parsedDate))
 
+g_unparsedDate = date2Iso8601(g_parsedDate)
+print(g_unparsedDate)
+print(type(g_unparsedDate))
+"""
+"""
+##test setting, retrieving, and using 'Xmp.MicrosoftPhoto.DateAcquired'
+g_metadata = pyexiv2.ImageMetadata(g_fulljpg)
+g_metadata.read()
+g_newvalue = datetime.datetime(2017, 3, 6, 11, 34, 5)
+g_metadata['Xmp.MicrosoftPhoto.DateAcquired'] = pyexiv2.XmpTag('Xmp.MicrosoftPhoto.DateAcquired', g_newvalue)
+g_metadata.write()
+g_metadata.read()
+print()
+print(g_metadata['Xmp.MicrosoftPhoto.DateAcquired'])
+print(type(g_metadata['Xmp.MicrosoftPhoto.DateAcquired']))
+print()
+g_rawdate = g_metadata['Xmp.MicrosoftPhoto.DateAcquired'].raw_value
+
+print(g_rawdate)
+print(type(g_rawdate))
+
+g_parsedDate = Iso86012date(g_rawdate)
+print(g_parsedDate)
+print(type(g_parsedDate))
 
 g_unparsedDate = date2Iso8601(g_parsedDate)
 print(g_unparsedDate)
 print(type(g_unparsedDate))
+"""
+
 
 g_newvalue = datetime.datetime(2017, 3, 6, 11, 34, 5)
 print(g_newvalue)
-
-
-
+"""
+#test using and setting 'Xmp.xmp.CreateDate'
+g_metadata = pyexiv2.ImageMetadata(g_newfile)
+g_metadata.read()
+#TODO in smart set function, add condition to NOT run this through the untranslator
+# we need to give the file a datetime format
+g_metadata['Xmp.xmp.CreateDate'] = pyexiv2.XmpTag('Xmp.xmp.CreateDate', g_newvalue)
+g_metadata.write()
+g_metadata.read()
+g_newIsoVal = g_metadata['Xmp.xmp.CreateDate'].raw_value
+print(g_newIsoVal)
+"""
 
 testFileManager.release(g_newfilel)
 
