@@ -32,21 +32,22 @@ def allKeys(p_file_1):
 
 g_emptyjpg = "/media/sf_tagger/windowstesting/skull.jpg"
 g_fulljpg = "/media/sf_tagger/windowstesting/skullA.jpg"
+g_png1 = "/media/sf_tagger/windowstesting/dan1.png"
 
 emptyXMLkey = 'Exif.Image.XMLPacket'
 
-g_newfilel = testFileManager.shadowClones(g_emptyjpg, 1)
-testFileManager.jutsu(g_emptyjpg, g_newfilel)  # this actually makes the new files
+g_newfilel = testFileManager.shadowClones(g_png1, 1)
+testFileManager.jutsu(g_png1, g_newfilel)  # this actually makes the new files
 g_newfile = g_newfilel[0]
-print(allKeys(g_fulljpg))
+print(allKeys(g_png1))
 print(allKeys(g_newfile))
 print(g_newfilel)
 print()
-"""
+
 g_key = 'Xmp.MicrosoftPhoto.DateAcquired'
 #test setting, retrieving, and using g_key
 
-g_metadata = pyexiv2.ImageMetadata(g_fulljpg)
+g_metadata = pyexiv2.ImageMetadata(g_png1)
 g_metadata.read()
 g_newvalue = datetime.datetime(2017, 3, 6, 11, 34, 5)
 g_metadata[g_key] = pyexiv2.XmpTag(g_key, g_newvalue)
@@ -61,14 +62,14 @@ g_rawdate = g_metadata[g_key].raw_value
 print(g_rawdate)
 print(type(g_rawdate))
 
-g_parsedVal= MetadataManager.valTranslateNone(g_rawdate)
+g_parsedVal= MetadataManager.Iso8601_to_date(g_rawdate)
 print(g_parsedVal)
 print(type(g_parsedVal))
 
 g_unparsedVal= MetadataManager.valTranslateNone(g_parsedVal)
 print(g_unparsedVal)
 print(type(g_unparsedVal))
-"""
+
 
 
 

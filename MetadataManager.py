@@ -1560,6 +1560,15 @@ g_tiffKeys = {
     "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired']
 }
 
+g_pngKeys = {
+    "Title": [],
+    "Description": [],
+    "Rating": [],
+    "Tags": [],
+    "Artist": [],
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate']
+}
+
 
 g_keylists = {'.jpg': g_jpgKeys}
 

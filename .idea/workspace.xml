@@ -7,11 +7,10 @@
     <bookmark url="file://$PROJECT_DIR$/windowstesting/windowsTests.py" description="            if f_metadata1[key1].value==f_metadata..." line="69" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="Finishing figuring out how to us problematic date keys">
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="Applying what I learned in previous testing and cleaning up to test keys for png files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KeyTesting.py" beforeDir="false" afterPath="$PROJECT_DIR$/KeyTesting.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MetadataManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/MetadataManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testFileManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/testFileManager.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -103,8 +102,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/KeyTesting.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="54" column="7" lean-forward="true" selection-start-line="54" selection-start-column="7" selection-end-line="54" selection-end-column="7" />
+            <state relative-caret-position="90">
+              <caret line="39" column="78" lean-forward="true" selection-start-line="39" selection-start-column="78" selection-end-line="39" selection-end-column="78" />
               <folding>
                 <element signature="e#23#37#0" expanded="true" />
                 <element signature="e#205#670#0" />
@@ -116,8 +115,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="52" />
+            <state relative-caret-position="315">
+              <caret line="39" column="36" lean-forward="true" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
               <folding>
                 <element signature="e#19#33#0" expanded="true" />
                 <element signature="e#436#901#0" />
@@ -135,8 +134,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="374" column="20" selection-start-line="374" selection-start-column="4" selection-end-line="374" selection-end-column="20" />
+            <state relative-caret-position="60">
+              <caret line="1540" column="17" selection-start-line="1540" selection-start-column="17" selection-end-line="1540" selection-end-column="37" />
               <folding>
                 <element signature="e#23#37#0" expanded="true" />
                 <element signature="e#136#194#0" />
@@ -359,7 +358,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>raise</find>
       <find>selectVals</find>
       <find>getTitle</find>
       <find>Tag</find>
@@ -382,13 +380,14 @@
       <find>or k</find>
       <find>or k</find>
       <find>g_newvalue</find>
-      <find>testMetadataSet</find>
       <find>TODO</find>
       <find>Iso86012date</find>
       <find>write</find>
       <find>date_to_Iso8601</find>
-      <find>appropriateKeys</find>
       <find>date</find>
+      <find>testMetadataSet</find>
+      <find>g_fulljpg</find>
+      <find>appropriateKeys</find>
     </findStrings>
     <replaceStrings>
       <replace>:param p_filename: name/path of the file\n\t:type p_filename: string\n\t:</replace>
@@ -522,7 +521,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.testFileManager">
+  <component name="RunManager" selected="Python.KeyTesting">
     <configuration name="KeyTesting" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -652,8 +651,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.testFileManager" />
         <item itemvalue="Python.KeyTesting" />
+        <item itemvalue="Python.testFileManager" />
         <item itemvalue="Python.windowsTests" />
         <item itemvalue="Python tests.Unittests in jpgOnlyUnitTests1.py" />
         <item itemvalue="Python.MetadataManager" />
@@ -670,13 +669,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529891189873</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Various changes. Preparing to alter testing methods and create unit tests">
-      <created>1534281670044</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1534281670044</updated>
     </task>
     <task id="LOCAL-00005" summary="unit tests created">
       <created>1534552734670</created>
@@ -1014,7 +1006,14 @@
       <option name="project" value="LOCAL" />
       <updated>1545674962025</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Applying what I learned in previous testing and cleaning up to test keys for png files">
+      <created>1545677306849</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1545677306849</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1154,7 +1153,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="testing png metadata capabilities" />
     <MESSAGE value="Documenting MetadataManager library" />
     <MESSAGE value="testing png metadata capabilities still" />
     <MESSAGE value="Moved unused stash functions" />
@@ -1179,7 +1177,8 @@
     <MESSAGE value="Figuring out new/problematic keys one at a time.&#10;I figured out how to handle the Xmp.xmp.CreateDate tag that was causing problems" />
     <MESSAGE value="Figuring out new/problematic keys one at a time.&#10;I figured out how to handle the Xmp.xmp.CreateDate tag that was causing problems&#10;&#10;Signed-off-by: hwynn &lt;Rocketferret54&gt;" />
     <MESSAGE value="Finishing figuring out how to us problematic date keys" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finishing figuring out how to us problematic date keys" />
+    <MESSAGE value="Applying what I learned in previous testing and cleaning up to test keys for png files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Applying what I learned in previous testing and cleaning up to test keys for png files" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/utils.py" />
@@ -1328,27 +1327,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="52" />
-          <folding>
-            <element signature="e#19#33#0" expanded="true" />
-            <element signature="e#436#901#0" />
-            <element signature="e#1559#2976#0" />
-            <element signature="e#3029#4249#0" />
-            <element signature="e#4305#5048#0" />
-            <element signature="e#6131#6871#0" />
-            <element signature="e#8314#9692#0" />
-            <element signature="e#9753#10516#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="374" column="20" selection-start-line="374" selection-start-column="4" selection-end-line="374" selection-end-column="20" />
+        <state relative-caret-position="60">
+          <caret line="1540" column="17" selection-start-line="1540" selection-start-column="17" selection-end-line="1540" selection-end-column="37" />
           <folding>
             <element signature="e#23#37#0" expanded="true" />
             <element signature="e#136#194#0" />
@@ -1558,10 +1540,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="39" column="36" lean-forward="true" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+          <folding>
+            <element signature="e#19#33#0" expanded="true" />
+            <element signature="e#436#901#0" />
+            <element signature="e#1559#2976#0" />
+            <element signature="e#3029#4249#0" />
+            <element signature="e#4305#5048#0" />
+            <element signature="e#6131#6871#0" />
+            <element signature="e#8314#9692#0" />
+            <element signature="e#9753#10516#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/KeyTesting.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="54" column="7" lean-forward="true" selection-start-line="54" selection-start-column="7" selection-end-line="54" selection-end-column="7" />
+        <state relative-caret-position="90">
+          <caret line="39" column="78" lean-forward="true" selection-start-line="39" selection-start-column="78" selection-end-line="39" selection-end-column="78" />
           <folding>
             <element signature="e#23#37#0" expanded="true" />
             <element signature="e#205#670#0" />
