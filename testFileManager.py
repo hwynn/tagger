@@ -252,8 +252,8 @@ def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
     return (f_same,f_diff)
 
 #g_result1 = testMetadataSet("/media/sf_tagger/windowstesting/skullA.jpg", "/media/sf_tagger/windowstesting/skull.jpg", "Artist")
-g_result1 = testMetadataSet("/media/sf_tagger/windowstesting/skullA.jpg", "/media/sf_tagger/windowstesting/skull.jpg", "Date Created")
-print(g_result1)
+#g_result1 = testMetadataSet("/media/sf_tagger/windowstesting/skullA.jpg", "/media/sf_tagger/windowstesting/skull.jpg", "Date Created")
+#print(g_result1)
 
 #testing reading all appropriate key/value pairs for a file given metadata type
 """

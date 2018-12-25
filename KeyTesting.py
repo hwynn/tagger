@@ -44,13 +44,28 @@ print(allKeys(g_newfile))
 print(g_newfilel)
 print()
 
-g_key = 'Xmp.MicrosoftPhoto.DateAcquired'
-#test setting, retrieving, and using g_key
+#possible errors:
+#KeyError: "No namespace info available for XMP prefix `iTXt'"
 
-g_metadata = pyexiv2.ImageMetadata(g_png1)
+
+g_understoodkeys = ['Xmp.xmp.CreateDate']
+g_useablekeys =['Xmp.xmp.Label','Xmp.xmp.MetadataDate','Xmp.xmp.BaseURL','Xmp.xmp.Rating',
+                'Xmp.xmp.Disclaimer','Xmp.xmp.Author','Xmp.xmp.Collection','Xmp.xmp.Comment',
+                'Xmp.xmp.CreationTime','Xmp.xmp.Description','Xmp.xmp.PNGWarning','Xmp.xmp.Source', 'Xmp.xmp.Title',
+                'Exif.Image.ImageDescription']
+#Exif data tags seem to work for some reason...
+#g_key = 'Xmp.xmp.CreateDate'
+#g_key = 'Xmp.xmp.Title'
+g_key= 'Exif.Image.ImageDescription'
+#test setting, retrieving, and using g_key
+g_metadata = pyexiv2.ImageMetadata(g_newfile)
 g_metadata.read()
-g_newvalue = datetime.datetime(2017, 3, 6, 11, 34, 5)
-g_metadata[g_key] = pyexiv2.XmpTag(g_key, g_newvalue)
+#g_newvalue = datetime.datetime(2017, 3, 6, 11, 34, 5)
+g_newvalue = "Johny Boy"
+#g_newvalue = "https://sno.phy.queensu.ca/~phil/exiftool/TagNames/XMP.html"
+#g_newvalue = 2
+#g_metadata[g_key] = pyexiv2.XmpTag(g_key, g_newvalue)
+g_metadata[g_key] = pyexiv2.ExifTag(g_key, g_newvalue)
 g_metadata.write()
 g_metadata.read()
 print()
@@ -59,16 +74,16 @@ print(type(g_metadata[g_key]))
 print()
 g_rawdate = g_metadata[g_key].raw_value
 
-print(g_rawdate)
+print("g_rawdate:",g_rawdate)
 print(type(g_rawdate))
+print(allKeys(g_newfile))
+#g_parsedVal= MetadataManager.Iso8601_to_date(g_rawdate)
+#print(g_parsedVal)
+#print(type(g_parsedVal))
 
-g_parsedVal= MetadataManager.Iso8601_to_date(g_rawdate)
-print(g_parsedVal)
-print(type(g_parsedVal))
-
-g_unparsedVal= MetadataManager.valTranslateNone(g_parsedVal)
-print(g_unparsedVal)
-print(type(g_unparsedVal))
+#g_unparsedVal= MetadataManager.valTranslateNone(g_parsedVal)
+#print(g_unparsedVal)
+#print(type(g_unparsedVal))
 
 
 
