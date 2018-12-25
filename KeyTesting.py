@@ -9,6 +9,8 @@ This is a place to test individual keys
 Reading and writing values in certain files
 """
 
+g_metadataTypes = ['Title', 'Description', 'Rating', 'Tags', 'Artist', 'Date Created']
+
 def allKeys(p_file_1):
     #prints all keys from file
     keys = []
@@ -33,9 +35,11 @@ def allKeys(p_file_1):
 g_emptyjpg = "/media/sf_tagger/windowstesting/skull.jpg"
 g_fulljpg = "/media/sf_tagger/windowstesting/skullA.jpg"
 g_png1 = "/media/sf_tagger/windowstesting/dan1.png"
+g_gif1 = "/media/sf_tagger/windowstesting/pikachus.gif"
 
 emptyXMLkey = 'Exif.Image.XMLPacket'
-
+"""
+#starting generic file set testing. 
 g_newfilel = testFileManager.shadowClones(g_png1, 1)
 testFileManager.jutsu(g_png1, g_newfilel)  # this actually makes the new files
 g_newfile = g_newfilel[0]
@@ -43,6 +47,8 @@ print(allKeys(g_png1))
 print(allKeys(g_newfile))
 print(g_newfilel)
 print()
+"""
+
 
 #possible errors:
 #KeyError: "No namespace info available for XMP prefix `iTXt'"
@@ -53,6 +59,9 @@ g_useablekeys =['Xmp.xmp.Label','Xmp.xmp.MetadataDate','Xmp.xmp.BaseURL','Xmp.xm
                 'Xmp.xmp.Disclaimer','Xmp.xmp.Author','Xmp.xmp.Collection','Xmp.xmp.Comment',
                 'Xmp.xmp.CreationTime','Xmp.xmp.Description','Xmp.xmp.PNGWarning','Xmp.xmp.Source', 'Xmp.xmp.Title',
                 'Exif.Image.ImageDescription']
+
+"""
+#the actual generic testing
 #Exif data tags seem to work for some reason...
 #g_key = 'Xmp.xmp.CreateDate'
 #g_key = 'Xmp.xmp.Title'
@@ -84,11 +93,13 @@ print(allKeys(g_newfile))
 #g_unparsedVal= MetadataManager.valTranslateNone(g_parsedVal)
 #print(g_unparsedVal)
 #print(type(g_unparsedVal))
+"""
 
+#finish generic testing
+#testFileManager.release(g_newfilel)
 
-
-
-testFileManager.release(g_newfilel)
-
-#f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-#metadata[key] = pyexiv2.XmpTag(key, value)
+#g_result1 = testFileManager.isThisLikeJpeg(g_fulljpg, g_gif1, "Title")
+#Note: writing to GIF files is commpletely unsupported by my API.
+# I get this error:   self._image._writeMetadata()
+#                   OSError: Writing to GIF images is not supported
+# Not sure why yet.

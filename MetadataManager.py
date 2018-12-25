@@ -1542,6 +1542,7 @@ g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
                  }
 
 #dictionary (keys= metadata types) (values= list of keys for that metadata type for jpg files)
+
 g_jpgKeys = {
     "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
     "Description": ['Exif.Image.XPComment'],
@@ -1561,16 +1562,20 @@ g_tiffKeys = {
 }
 
 g_pngKeys = {
-    "Title": [],
-    "Description": [],
-    "Rating": [],
-    "Tags": [],
-    "Artist": [],
+    "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
+    "Description": ['Exif.Image.XPComment'],
+    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
+    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
+    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
     "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate']
 }
 
 
-g_keylists = {'.jpg': g_jpgKeys}
+g_keylists = {
+    '.jpg': g_jpgKeys,
+    '.tiff': g_tiffKeys,
+    '.png': g_pngKeys
+}
 
 
 # TODO make a dictionary with lists of operations

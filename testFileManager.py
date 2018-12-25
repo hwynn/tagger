@@ -208,8 +208,8 @@ def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
         else:
             f_untranslatedVals.append(MetadataManager.g_untranslaters[i_key](f_valueToSet))
     print("In the file ", f_newfile, " the following keys will be set:\n", f_keys)
-    #print("the value to be set is ", f_valueToSet)
-    #print("it will be formatted in the following ways:\n", f_untranslatedVals)
+    print("the value to be set is ", f_valueToSet)
+    print("it will be formatted in the following ways:\n", f_untranslatedVals)
 
     f_metadata = pyexiv2.ImageMetadata(f_newfile)
     f_metadata.read()
@@ -234,6 +234,81 @@ def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
     for i_pair in f_oldfileVals:
         print(i_pair)
     f_newfileVals = MetaDataVals(f_newfile, p_metatype)
+    print("these are the key/value pairs from the new file ", f_newfile)
+    for i_pair in f_newfileVals:
+        print(i_pair)
+    f_same = True
+    f_diff = []
+    for i in range(len(f_oldfileVals)):
+        i_a = f_oldfileVals[i]
+        i_b = f_newfileVals[i]
+        if i_a!=i_b:
+            i_c = MetadataManager.g_translaters[i_a[0]](i_a[1])
+            i_d = MetadataManager.g_translaters[i_b[0]](i_b[1])
+            if i_c!=i_d:
+                f_same=False
+            f_diff.append((i_a,i_b))
+    release(f_newfilel)
+    return (f_same,f_diff)
+
+
+def isThisLikeJpeg(p_filewithvalue, p_filetocopy, p_metatype):
+    #a messed up version of testMetadataSet.
+    #we throw caution to the wind and treat another file format as if it were
+    #jpeg.
+    #this is to rapidly test a bunch of keys in another file format to see what breaks.
+    f_newfilel = shadowClones(p_filetocopy, 1) #creates names for files
+    jutsu(p_filetocopy, f_newfilel) #this actually makes the new files
+    f_newfile = f_newfilel[0]
+    f_valueToSet = MetadataManager.g_getFunctions[p_metatype](p_filewithvalue)
+    # notice this uses the keys from the file with values, not the file we will be changing.
+    f_keys = MetadataManager.appropriateKeys(p_filewithvalue, p_metatype)
+    #read metadata value of p_filewithvalue
+
+    f_untranslatedVals = []
+    for i_key in f_keys:
+        if i_key=='Xmp.MicrosoftPhoto.DateAcquired' or i_key=='Xmp.xmp.CreateDate':
+            f_untranslatedVals.append(f_valueToSet)
+        else:
+            f_untranslatedVals.append(MetadataManager.g_untranslaters[i_key](f_valueToSet))
+    print("In the file ", f_newfile, " the following keys will be set:\n", f_keys)
+    print("the value to be set is ", f_valueToSet)
+    print("it will be formatted in the following ways:\n", f_untranslatedVals)
+
+    f_metadata = pyexiv2.ImageMetadata(f_newfile)
+    f_metadata.read()
+    #this actually sets the appropriately formatted values to the appropriate keys in the file
+    for i in range(len(f_keys)):
+        i_key = f_keys[i]
+        i_value = f_untranslatedVals[i]
+        #print(i_key)
+        i_prefix = i_key[:i_key.find('.')]
+        #print(i_prefix)
+        if i_prefix=='Exif':
+            f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+        elif i_prefix=='Xmp':
+            f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+        elif i_prefix=='Iptc':
+            f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+        else: raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+        f_metadata.write()
+    print()
+    f_oldfileVals = MetaDataVals(p_filewithvalue, p_metatype)
+    print("these are the key/value pairs from the original file ", p_filewithvalue)
+    for i_pair in f_oldfileVals:
+        print(i_pair)
+    f_metadata = pyexiv2.ImageMetadata(f_newfile)
+    f_metadata.read()
+    f_keys = MetadataManager.appropriateKeys(p_filewithvalue, p_metatype)
+    f_newfileVals = []
+    for key in f_keys:
+        if key not in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            continue
+        if key=='Xmp.MicrosoftPhoto.DateAcquired' or key=='Xmp.xmp.CreateDate':
+            f_newfileVals.append((key, f_metadata[key].raw_value))
+        else:
+            f_newfileVals.append((key,f_metadata[key].value))
+
     print("these are the key/value pairs from the new file ", f_newfile)
     for i_pair in f_newfileVals:
         print(i_pair)

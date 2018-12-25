@@ -7,9 +7,10 @@
     <bookmark url="file://$PROJECT_DIR$/windowstesting/windowsTests.py" description="            if f_metadata1[key1].value==f_metadata..." line="69" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="testing keys for png now. The date keys still work">
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="Organizing way to test new keys. PNG can store a lot. Even Exif data. I'm going to test all the Exif keys next.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KeyTesting.py" beforeDir="false" afterPath="$PROJECT_DIR$/KeyTesting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetadataManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/MetadataManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testFileManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/testFileManager.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testFileManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="255" column="17" lean-forward="true" selection-start-line="255" selection-start-column="17" selection-end-line="255" selection-end-column="17" />
+            <state relative-caret-position="113">
+              <caret line="293" selection-start-line="293" selection-end-line="293" />
               <folding>
                 <element signature="e#155#262#1" />
                 <element signature="e#301#719#0" />
@@ -86,11 +87,8 @@
                 <element signature="e#4505#4542#0" />
                 <element signature="e#4829#4883#0" />
                 <element signature="e#4863#5084#0" />
+                <element signature="e#5155#8092#0" />
                 <element signature="e#5155#5238#0" />
-                <element signature="e#5739#5804#0" />
-                <element signature="e#6786#6833#0" />
-                <element signature="e#8162#8455#0" />
-                <element signature="e#8249#8455#0" />
                 <element signature="e#8711#9731#1" />
                 <element signature="e#10338#10656#1" />
                 <element signature="e#10699#10854#1" />
@@ -99,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/KeyTesting.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="59" column="42" lean-forward="true" selection-start-line="59" selection-start-column="42" selection-end-line="59" selection-end-column="42" />
+            <state relative-caret-position="392">
+              <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
               <folding>
                 <element signature="e#23#37#0" expanded="true" />
                 <element signature="e#205#670#0" />
@@ -116,7 +114,7 @@
         <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="e#19#33#0" expanded="true" />
                 <element signature="e#436#901#0" />
@@ -131,11 +129,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="483" column="44" selection-start-line="483" selection-start-column="40" selection-end-line="483" selection-end-column="44" />
+            <state relative-caret-position="186">
+              <caret line="796" column="42" selection-start-line="796" selection-start-column="33" selection-end-line="796" selection-end-column="42" />
               <folding>
                 <element signature="e#23#37#0" expanded="true" />
                 <element signature="e#136#194#0" />
@@ -210,52 +208,32 @@
                 <element signature="e#12771#12829#0" />
                 <element signature="e#16016#16764#0" />
                 <element signature="e#16016#16374#1" />
-                <element signature="e#16641#16704#0" />
                 <element signature="e#16797#17091#1" />
-                <element signature="e#17549#17676#0" />
                 <element signature="e#17741#18065#1" />
                 <element signature="e#18552#19775#0" />
                 <element signature="e#18552#19175#1" />
-                <element signature="e#19255#19612#0" />
-                <element signature="e#19631#19758#0" />
-                <element signature="e#19809#20806#0" />
                 <element signature="e#19809#20100#1" />
-                <element signature="e#20180#20715#0" />
                 <element signature="e#20875#21695#0" />
                 <element signature="e#20875#21235#1" />
-                <element signature="e#21315#21598#0" />
                 <element signature="e#21460#21528#0" />
                 <element signature="e#21730#22661#0" />
                 <element signature="e#21730#22040#1" />
-                <element signature="e#22120#22500#0" />
-                <element signature="e#22519#22647#0" />
                 <element signature="e#19315#20400#0" />
                 <element signature="e#22715#23313#1" />
-                <element signature="e#23393#23698#0" />
                 <element signature="e#23848#25274#0" />
                 <element signature="e#23848#24234#1" />
-                <element signature="e#24315#25110#0" />
                 <element signature="e#24520#24582#0" />
-                <element signature="e#24994#25087#0" />
                 <element signature="e#25051#25087#0" />
                 <element signature="e#25129#25257#0" />
                 <element signature="e#25318#27043#0" />
                 <element signature="e#25318#25771#1" />
-                <element signature="e#25851#26885#0" />
                 <element signature="e#26093#26407#0" />
-                <element signature="e#26904#27032#0" />
                 <element signature="e#27090#28958#0" />
                 <element signature="e#27090#27601#1" />
-                <element signature="e#27681#28800#0" />
-                <element signature="e#27848#28021#0" />
                 <element signature="e#28181#28237#0" />
                 <element signature="e#28376#28556#0" />
-                <element signature="e#28819#28947#0" />
                 <element signature="e#29020#29829#0" />
                 <element signature="e#29020#29374#1" />
-                <element signature="e#29454#29732#0" />
-                <element signature="e#29601#29666#0" />
-                <element signature="e#29861#30769#0" />
                 <element signature="e#29861#30168#1" />
                 <element signature="e#30248#30624#0" />
                 <element signature="e#30817#31879#0" />
@@ -334,12 +312,14 @@
                 <element signature="e#53072#53242#0" />
                 <element signature="e#53110#53140#0" />
                 <element signature="e#53285#53832#1" />
-                <element signature="e#54489#55567#0" />
                 <element signature="e#54489#54998#1" />
-                <element signature="e#55078#55384#0" />
-                <element signature="e#55403#55550#0" />
-                <element signature="e#55441#55471#0" />
                 <element signature="e#55569#55596#0" />
+                <element signature="e#53814#54055#0" />
+                <element signature="e#53693#54828#0" />
+                <element signature="e#55108#56121#0" />
+                <element signature="e#56230#56721#0" />
+                <element signature="e#55774#56265#0" />
+                <element signature="e#58166#58714#1" />
                 <element signature="e#56149#57006#0" />
               </folding>
             </state>
@@ -358,11 +338,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getTitle</find>
-      <find>Tag</find>
-      <find>tag</find>
-      <find>MetadataManager.</find>
-      <find>g_getFunctions</find>
       <find>g_keylists</find>
       <find>KeyValManager</find>
       <find>Key</find>
@@ -384,10 +359,15 @@
       <find>write</find>
       <find>date_to_Iso8601</find>
       <find>date</find>
-      <find>testMetadataSet</find>
       <find>appropriateKeys</find>
       <find>g_fulljpg</find>
+      <find>Johny</find>
+      <find>testMetadataSet</find>
       <find>Tag(</find>
+      <find>support</find>
+      <find>supported</find>
+      <find>g_raw</find>
+      <find>== '.jpg'</find>
     </findStrings>
     <replaceStrings>
       <replace>:param p_filename: name/path of the file\n\t:type p_filename: string\n\t:</replace>
@@ -454,9 +434,9 @@
         <option value="$PROJECT_DIR$/TestingManager.py" />
         <option value="$PROJECT_DIR$/KeyValManager.py" />
         <option value="$PROJECT_DIR$/windowstesting/windowsTests.py" />
-        <option value="$PROJECT_DIR$/MetadataManager.py" />
         <option value="$PROJECT_DIR$/testFileManager.py" />
         <option value="$PROJECT_DIR$/KeyTesting.py" />
+        <option value="$PROJECT_DIR$/MetadataManager.py" />
       </list>
     </option>
   </component>
@@ -669,13 +649,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529891189873</updated>
-    </task>
-    <task id="LOCAL-00006" summary="adding functionality to MetaDataManager libraby functions">
-      <created>1534626596270</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1534626596270</updated>
     </task>
     <task id="LOCAL-00007" summary="while working on artist set functionality, I hit a segfault bug. I've never had that in python.">
       <created>1534713691179</created>
@@ -1013,7 +986,14 @@
       <option name="project" value="LOCAL" />
       <updated>1545682383030</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Organizing way to test new keys. PNG can store a lot. Even Exif data. I'm going to test all the Exif keys next.">
+      <created>1545762240390</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1545762240390</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1066,7 +1046,7 @@
       <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.13178807" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32866043" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49271524" visible="true" weight="0.33956388" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49271524" weight="0.33956388" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1153,7 +1133,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="testing png metadata capabilities still" />
     <MESSAGE value="Moved unused stash functions" />
     <MESSAGE value="fixing encoding stuff" />
     <MESSAGE value="still fixing encoding stuff" />
@@ -1178,7 +1157,299 @@
     <MESSAGE value="Finishing figuring out how to us problematic date keys" />
     <MESSAGE value="Applying what I learned in previous testing and cleaning up to test keys for png files" />
     <MESSAGE value="testing keys for png now. The date keys still work" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing keys for png now. The date keys still work" />
+    <MESSAGE value="Organizing way to test new keys. PNG can store a lot. Even Exif data. I'm going to test all the Exif keys next." />
+    <option name="LAST_COMMIT_MESSAGE" value="Organizing way to test new keys. PNG can store a lot. Even Exif data. I'm going to test all the Exif keys next." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>1418</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>1379</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>1449</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>436</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>453</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>459</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>460</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>477</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>479</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>482</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>483</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>487</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>464</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>508</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>514</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>515</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>520</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>532</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>546</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>538</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>540</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>541</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>542</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>543</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>566</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>575</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>569</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>589</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>595</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>596</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>600</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>618</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>629</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>621</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>623</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>648</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>653</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>661</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>668</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>685</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>710</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>689</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>690</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>699</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>700</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>705</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>704</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>706</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>728</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>736</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>737</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>738</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>746</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>752</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>773</line>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>776</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
+          <line>782</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/utils.py" />
@@ -1280,8 +1551,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/testFileManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="255" column="17" lean-forward="true" selection-start-line="255" selection-start-column="17" selection-end-line="255" selection-end-column="17" />
+        <state relative-caret-position="113">
+          <caret line="293" selection-start-line="293" selection-end-line="293" />
           <folding>
             <element signature="e#155#262#1" />
             <element signature="e#301#719#0" />
@@ -1315,11 +1586,8 @@
             <element signature="e#4505#4542#0" />
             <element signature="e#4829#4883#0" />
             <element signature="e#4863#5084#0" />
+            <element signature="e#5155#8092#0" />
             <element signature="e#5155#5238#0" />
-            <element signature="e#5739#5804#0" />
-            <element signature="e#6786#6833#0" />
-            <element signature="e#8162#8455#0" />
-            <element signature="e#8249#8455#0" />
             <element signature="e#8711#9731#1" />
             <element signature="e#10338#10656#1" />
             <element signature="e#10699#10854#1" />
@@ -1327,10 +1595,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-2066100795/libexiv2python.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="396" column="8" lean-forward="true" selection-start-line="396" selection-start-column="8" selection-end-line="396" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/pyexiv2/metadata.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="126" column="30" selection-start-line="126" selection-start-column="20" selection-end-line="126" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/KeyTesting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+          <folding>
+            <element signature="e#23#37#0" expanded="true" />
+            <element signature="e#205#670#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/windowstesting/windowsTests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
             <element signature="e#19#33#0" expanded="true" />
             <element signature="e#436#901#0" />
@@ -1346,8 +1639,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="483" column="44" selection-start-line="483" selection-start-column="40" selection-end-line="483" selection-end-column="44" />
+        <state relative-caret-position="186">
+          <caret line="796" column="42" selection-start-line="796" selection-start-column="33" selection-end-line="796" selection-end-column="42" />
           <folding>
             <element signature="e#23#37#0" expanded="true" />
             <element signature="e#136#194#0" />
@@ -1422,52 +1715,32 @@
             <element signature="e#12771#12829#0" />
             <element signature="e#16016#16764#0" />
             <element signature="e#16016#16374#1" />
-            <element signature="e#16641#16704#0" />
             <element signature="e#16797#17091#1" />
-            <element signature="e#17549#17676#0" />
             <element signature="e#17741#18065#1" />
             <element signature="e#18552#19775#0" />
             <element signature="e#18552#19175#1" />
-            <element signature="e#19255#19612#0" />
-            <element signature="e#19631#19758#0" />
-            <element signature="e#19809#20806#0" />
             <element signature="e#19809#20100#1" />
-            <element signature="e#20180#20715#0" />
             <element signature="e#20875#21695#0" />
             <element signature="e#20875#21235#1" />
-            <element signature="e#21315#21598#0" />
             <element signature="e#21460#21528#0" />
             <element signature="e#21730#22661#0" />
             <element signature="e#21730#22040#1" />
-            <element signature="e#22120#22500#0" />
-            <element signature="e#22519#22647#0" />
             <element signature="e#19315#20400#0" />
             <element signature="e#22715#23313#1" />
-            <element signature="e#23393#23698#0" />
             <element signature="e#23848#25274#0" />
             <element signature="e#23848#24234#1" />
-            <element signature="e#24315#25110#0" />
             <element signature="e#24520#24582#0" />
-            <element signature="e#24994#25087#0" />
             <element signature="e#25051#25087#0" />
             <element signature="e#25129#25257#0" />
             <element signature="e#25318#27043#0" />
             <element signature="e#25318#25771#1" />
-            <element signature="e#25851#26885#0" />
             <element signature="e#26093#26407#0" />
-            <element signature="e#26904#27032#0" />
             <element signature="e#27090#28958#0" />
             <element signature="e#27090#27601#1" />
-            <element signature="e#27681#28800#0" />
-            <element signature="e#27848#28021#0" />
             <element signature="e#28181#28237#0" />
             <element signature="e#28376#28556#0" />
-            <element signature="e#28819#28947#0" />
             <element signature="e#29020#29829#0" />
             <element signature="e#29020#29374#1" />
-            <element signature="e#29454#29732#0" />
-            <element signature="e#29601#29666#0" />
-            <element signature="e#29861#30769#0" />
             <element signature="e#29861#30168#1" />
             <element signature="e#30248#30624#0" />
             <element signature="e#30817#31879#0" />
@@ -1546,24 +1819,15 @@
             <element signature="e#53072#53242#0" />
             <element signature="e#53110#53140#0" />
             <element signature="e#53285#53832#1" />
-            <element signature="e#54489#55567#0" />
             <element signature="e#54489#54998#1" />
-            <element signature="e#55078#55384#0" />
-            <element signature="e#55403#55550#0" />
-            <element signature="e#55441#55471#0" />
             <element signature="e#55569#55596#0" />
+            <element signature="e#53814#54055#0" />
+            <element signature="e#53693#54828#0" />
+            <element signature="e#55108#56121#0" />
+            <element signature="e#56230#56721#0" />
+            <element signature="e#55774#56265#0" />
+            <element signature="e#58166#58714#1" />
             <element signature="e#56149#57006#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/KeyTesting.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="59" column="42" lean-forward="true" selection-start-line="59" selection-start-column="42" selection-end-line="59" selection-end-column="42" />
-          <folding>
-            <element signature="e#23#37#0" expanded="true" />
-            <element signature="e#205#670#0" />
           </folding>
         </state>
       </provider>
