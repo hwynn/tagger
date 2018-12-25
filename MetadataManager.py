@@ -32,6 +32,11 @@ class NoSuchItemError(ValueError):
     But it's raised when data is present, but the item we want to remove
     isn't present in the list"""
     pass
+class NoKeysError(ValueError):
+    """This is used in get functions. If no appropriate keys are found,
+    we raise this error. But contains() functions should always be used first,
+    so this exception should never be raised."""
+    pass
 class DuplicateDataError(ValueError):
     """we raise this when we try to add a tag
     or something similar to a list and the list already has that item"""
@@ -65,55 +70,8 @@ def getExtension(p_filepathname):
         return PureWindowsPath(p_filepathname).suffix
     # assume posix otherwise
     return PurePosixPath(p_filepathname).suffix
-def filecheck(p_filename):
-    """!
-    this function checks the type of the file.
-    Used for png and gif
 
-    :param p_filename: the type of the file
-    :type p_filename: string
 
-    :raise UnknownFiletypeError: if the filetype is not recognized
-    :raise UnsupportedFiletypeError: if the filetype is recognized but not supported
-    """
-    if len(p_filename) < 5:
-        f_error = "Filename '{}' is too short to have any accepted filename extension".format(p_filename)
-        raise UnknownFiletypeError(f_error)
-    if getExtension(p_filename) == '':
-        raise UnknownFiletypeError(
-            'Filename \'{}\' has no extension. What even is this hot mess you gave us?'.format(p_filename))
-    if getExtension(p_filename) != '.jpg' and getExtension(p_filename) != '.png' and getExtension(p_filename) != '.gif':
-        raise UnsupportedFiletypeError(
-            'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_filename))
-    return
-def earlySupportCheck(p_filename):
-    """!
-    this function checks the type of the file.
-    Used for png and gif
-
-    :param p_filename: the type of the file
-    :type p_filename: string
-
-    :raise SupportNotImplementedError: if type of given file should be supported
-    but that support has not yet been implemented
-    """
-    if getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
-        raise SupportNotImplementedError('Sorry. This operation not ready to support .png or .gif files yet.')
-    return
-def alpha1SupportCheck(p_filename):
-    """!
-    this function checks the type of the file.
-    it will raise an exception if this type of file should be supported
-    Used for completely unfinished functions
-
-    :param p_filename: the type of the file
-    :type p_filename: string
-
-    :raise SupportNotImplementedError: if this type of file is recognized
-    """
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
-        raise SupportNotImplementedError('Sorry. This operation is not ready for anything.')
-    return
 def rating2percent(x):
     #input: int of rating
     #output: int of rating percent
@@ -404,6 +362,188 @@ def date_to_Iso8601(p_date):
     f_unparsedDate = p_date.isoformat()
     return f_unparsedDate
 
+#--------------------------------------
+#-------Key data and operations--------
+#--------------------------------------
+
+#dictionary (keys= metadata types) (values= list of keys for that metadata type for jpg files)
+# Note: the order of these keys is not arbitrary.
+# Get functions will use the leftmost availible key in the list
+# So we are assuming the correct key is the earliest in the list, in case of mismatched values.
+g_jpgKeys = {
+    "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
+    "Description": ['Exif.Image.XPComment'],
+    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
+    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
+    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate']
+}
+g_tiffKeys = {
+    "Title": ['Exif.Image.XPTitle', 'Exif.Image.ImageDescription', 'Xmp.dc.title', 'Xmp.dc.description'],
+    "Description": ['Exif.Image.XPComment'],
+    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
+    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject'],
+    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired']
+}
+g_pngKeys = {
+    "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
+    "Description": ['Exif.Image.XPComment'],
+    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
+    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
+    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate']
+}
+
+g_keylists = {
+    '.jpg': g_jpgKeys,
+    '.tiff': g_tiffKeys,
+    '.png': g_pngKeys
+}
+
+def appropriateKeys(p_file, p_metatype):
+    """!
+    returns keys associated with that metadata type that work with that file
+    :param p_file: name/path of the file
+    :type p_file: string
+    :param p_metatype: a metadata type (Title, Description, Tags, etc)
+    :type p_metatype: string
+
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, tiff, or .gif
+    :raise KeyError: if the p_metatype is not in f_keydict
+
+    :return: list of keys that the file can store p_metatype data in
+    :rtype: list<string>
+    """
+    # TODO support for gif, tiff, and png
+    f_filetype = getExtension(p_file)
+    if f_filetype not in g_keylists:
+        raise UnsupportedFiletypeError(
+            'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_file))
+    f_keydict = g_keylists[f_filetype]
+    f_keys = f_keydict[p_metatype]
+    return f_keys
+
+def keyHoldingValue(p_file, p_metatype):
+    """!
+    In get() functions, we cannot assume all keyvalue pairs for a metadata type
+    are present and matching. But checking this is too costly.
+    so we pick a key that is most likely to be correct
+    :param p_file: name/path of the file
+    :type p_file: string
+    :param p_metatype: a metadata type (Title, Description, Tags, etc)
+    :type p_metatype: string
+
+    :raise NoKeysError: if no keys were present. Shouldn't happen if contains() is checked beforehand
+
+    :return: a single key that we assume contains the correct value
+    :rtype: string
+    """
+    f_metadata = pyexiv2.ImageMetadata(p_file)
+    f_metadata.read()
+    for i_key in appropriateKeys(p_file, p_metatype):
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return i_key
+    raise NoKeysError("no keys for this metadata type found. You should've checked this before.")
+
+#these change values from file metadata into human readable values
+g_translaters = {'Exif.Image.XPTitle': raw_to_cleanStr,
+                 'Exif.Image.XPSubject': raw_to_cleanStr,
+                 'Exif.Image.XPComment': raw_to_cleanStr,
+                 'Exif.Image.XPKeywords': raw_to_cleanList,
+                 'Exif.Image.XPAuthor': raw_to_cleanList,
+                 'Xmp.dc.title': valTranslateFromDictDef,
+                 'Xmp.dc.description': valTranslateFromDictDef,
+                 'Xmp.dc.subject': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
+                 'Exif.Image.Artist': cleanStr2cleanList,
+                 'Xmp.dc.creator': valTranslateNone,
+                 'Exif.Image.Rating': valTranslateNone,
+                 'Xmp.xmp.Rating': valTranslateNone,
+                 'Exif.Image.RatingPercent': percent2rating,
+                 'Xmp.MicrosoftPhoto.Rating': percentStr2rating,
+                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
+                 'Exif.Photo.DateTimeDigitized': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.DateAcquired': Iso8601_to_date,
+                 'Xmp.xmp.CreateDate':Iso8601_to_date
+                 }
+#these change human readable values into values we can store in files
+g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
+                 'Exif.Image.XPSubject': cleanStr_to_raw,
+                 'Exif.Image.XPComment': cleanStr_to_raw,
+                 'Exif.Image.XPKeywords': cleanList_to_raw,
+                 'Exif.Image.XPAuthor': cleanList_to_raw,
+                 'Xmp.dc.title': valTranslateToDictDef,
+                 'Xmp.dc.description': valTranslateToDictDef,
+                 'Xmp.dc.subject': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
+                 'Exif.Image.Artist': cleanList2cleanStr,
+                 'Xmp.dc.creator': valTranslateNone,
+                 'Exif.Image.Rating': valTranslateNone,
+                 'Xmp.xmp.Rating': valTranslateNone,
+                 'Exif.Image.RatingPercent': rating2percent,
+                 'Xmp.MicrosoftPhoto.Rating': rating2percentStr,
+                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
+                 'Exif.Photo.DateTimeDigitized': valTranslateNone,
+                 'Xmp.MicrosoftPhoto.DateAcquired': date_to_Iso8601,
+                 'Xmp.xmp.CreateDate': date_to_Iso8601
+                 }
+#TODO make unit tests that uses these dictionaries
+#for every key, its translate and untranslate function should be one to one
+
+# ========================================================
+# ---------------Error checking functions-----------------
+# ========================================================
+def filecheck(p_filename):
+    """!
+    this function checks the type of the file.
+    Used for png and gif
+
+    :param p_filename: the type of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype is not recognized
+    :raise UnsupportedFiletypeError: if the filetype is recognized but not supported
+    """
+    if len(p_filename) < 5:
+        f_error = "Filename '{}' is too short to have any accepted filename extension".format(p_filename)
+        raise UnknownFiletypeError(f_error)
+    if getExtension(p_filename) == '':
+        raise UnknownFiletypeError(
+            'Filename \'{}\' has no extension. What even is this hot mess you gave us?'.format(p_filename))
+    if getExtension(p_filename) != '.jpg' and getExtension(p_filename) != '.png' and getExtension(p_filename) != '.gif':
+        raise UnsupportedFiletypeError(
+            'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_filename))
+    return
+def earlySupportCheck(p_filename):
+    """!
+    this function checks the type of the file.
+    Used for png and gif
+
+    :param p_filename: the type of the file
+    :type p_filename: string
+
+    :raise SupportNotImplementedError: if type of given file should be supported
+    but that support has not yet been implemented
+    """
+    if getExtension(p_filename) not in g_keylists:
+        raise SupportNotImplementedError(
+            'Sorry. This operation not ready to support \'{}\' files yet.'.format(getExtension(p_filename)))
+    return
+def alpha1SupportCheck(p_filename):
+    """!
+    this function checks the type of the file.
+    it will raise an exception if this type of file should be supported
+    Used for completely unfinished functions
+
+    :param p_filename: the type of the file
+    :type p_filename: string
+
+    :raise SupportNotImplementedError: if this type of file is recognized
+    """
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.gif':
+        raise SupportNotImplementedError('Sorry. This operation is not ready for anything.')
+    return
 
 
 
@@ -430,13 +570,13 @@ def containsTitle(p_filename):
     :rtype: bool
     """
     filecheck(p_filename)
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "Title")
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
-    # TODO add png support
-    earlySupportCheck(p_filename)
-    if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.XPTitle' in f_metadata.exif_keys)):
-        # print("this file already has title data")
-        return True
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return True
     # print("this file has no title data")
     return False
 def getTitle(p_filename):
@@ -451,12 +591,12 @@ def getTitle(p_filename):
     :rtype: string
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         if not containsTitle(p_filename):
             return ""
+        f_key = keyHoldingValue(p_filename, "Title")
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
         f_keywords = f_metadata['Exif.Image.XPTitle']
         f_cleanTitle = raw_to_cleanStr(f_keywords.value)
         # print("clean Title:", f_cleanTitle)
@@ -476,7 +616,7 @@ def setTitle(p_filename, p_setTitleToThis):
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_key = "Exif.Image.XPTitle"
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
@@ -506,7 +646,7 @@ def searchTitle(p_filename, p_searchForThis):
     :rtype: bool
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -530,7 +670,7 @@ def wipeTitle(p_filename):
     :raise MetadataMissingError: if the file has no title metadata
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_key = 'Exif.Image.XPTitle'
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
@@ -564,16 +704,14 @@ def containsArtists(p_filename):
     :rtype: bool
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        if ('Exif.Image.XPAuthor' in f_metadata.exif_keys):
-            # print("this file already has artist data")
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "Artist")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
             return True
-        # print("this file has no artist data")/
-        return False
-    else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support
+    # print("this file has no artist data")
     return False
 def getArtists(p_filename):
     """!
@@ -587,7 +725,7 @@ def getArtists(p_filename):
     :rtype: list<string>
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -616,7 +754,7 @@ def setArtists(p_filename, p_cleanArtistList):
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         f_key = 'Exif.Image.XPAuthor'
@@ -646,7 +784,7 @@ def searchArtists(p_filename, p_artist):
     """
     filecheck(p_filename)
 
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metaData = pyexiv2.ImageMetadata(p_filename)
         f_metaData.read()
         if not containsArtists(p_filename):
@@ -683,7 +821,7 @@ def addArtist(p_filename, p_artist):
     :raise DuplicateDataError: if the file already has this artist in its artist metadata
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -726,7 +864,7 @@ def removeArtist(p_filename, p_artist):
     :raise NoSuchItemError: if the file does not have p_artist in their artist list
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -771,16 +909,14 @@ def containsTags(p_filename):
     :rtype: bool
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        if ('Exif.Image.XPKeywords' in f_metadata.exif_keys):
-            # print("this file already has tag data")
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "Tags")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
             return True
-        # print("this file has no tag data")
-        return False
-    else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support
+    # print("this file has no tag data")
     return False
 def getTags(p_filename):
     """!
@@ -794,7 +930,7 @@ def getTags(p_filename):
     :rtype: list<string>
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -821,7 +957,7 @@ def setTags(p_filename, p_cleanTagList):
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         f_key = 'Exif.Image.XPKeywords'
@@ -848,7 +984,7 @@ def searchTags(p_filename, p_tag):
     :rtype: bool
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metaData = pyexiv2.ImageMetadata(p_filename)
         f_metaData.read()
         if not containsTags(p_filename):
@@ -877,7 +1013,7 @@ def addTag(p_filename, p_tag):
     :raise DuplicateDataError: if the file already has this tag in its tag metadata
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -915,7 +1051,7 @@ def removeTag(p_filename, p_tag):
     :raise NoSuchItemError: if the file does not have p_artist in their tag list
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -959,13 +1095,13 @@ def containsDescr(p_filename):
     :rtype: bool
     """
     filecheck(p_filename)
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "Description")
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
-    # TODO add png support
-    earlySupportCheck(p_filename)
-    if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.XPComment' in f_metadata.exif_keys)):
-        # print("this file already has description data")
-        return True
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return True
     # print("this file has no description data")
     return False
 def getDescr(p_filename):
@@ -980,7 +1116,7 @@ def getDescr(p_filename):
     :rtype: string
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -1005,7 +1141,7 @@ def setDescr(p_filename, p_setDescrToThis):
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_key = 'Exif.Image.XPComment'
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
@@ -1030,7 +1166,7 @@ def searchDescr(p_filename, p_searchForThis):
     :rtype: bool
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -1055,7 +1191,7 @@ def addDescr(p_filename, p_addThisToDescr):
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_key = 'Exif.Image.XPComment'
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
@@ -1080,7 +1216,7 @@ def wipeDescr(p_filename):
     :raise MetadataMissingError: if the file has no description metadata
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_key = 'Exif.Image.XPComment'
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
@@ -1114,14 +1250,14 @@ def containsRating(p_filename):
     :rtype: bool
     """
     filecheck(p_filename)
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "Rating")
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
-    # TODO add png support
-    if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.Rating' in f_metadata.exif_keys)):
-        # print("this file already has rating data")
-        return True
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return True
     # print("this file has no rating data")
-    earlySupportCheck(p_filename)
     return False
 def getRating(p_filename):
     """!
@@ -1135,7 +1271,7 @@ def getRating(p_filename):
     :rtype: int
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -1166,7 +1302,7 @@ def setRating(p_filename, p_setRatingToThis):
     if not isinstance(p_setRatingToThis, int):
         raise NotIntegerError('non-integers can not be used')
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_key = 'Exif.Image.Rating'
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
@@ -1203,7 +1339,7 @@ def searchRating(p_filename, p_searchForThisRating):
     if not isinstance(p_searchForThisRating, int):
         raise NotIntegerError('non-integers can not be used')
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         if not containsRating(p_filename):
@@ -1353,14 +1489,14 @@ def containsOrgDate(p_filename):
     :rtype: bool
     """
     filecheck(p_filename)
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "Title")
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
-    # TODO add png support
-    earlySupportCheck(p_filename)
-    if ((getExtension(p_filename) == '.jpg') and ('Exif.Photo.DateTimeDigitized' in f_metadata.exif_keys)):
-        # print("this file already has original date data")
-        return True
-    # print("this file has no original date data")
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return True
+    # print("this file has no date created data")
     return False
 def getOrgDate(p_filename):
     """
@@ -1377,7 +1513,7 @@ def getOrgDate(p_filename):
     :rtype: datetime
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -1393,6 +1529,15 @@ def getOrgDate(p_filename):
         else:
             print("no Exif.Photo.DateTimeDigitized")
         """
+
+        """
+        f_value = None
+        if f_key=='Xmp.MicrosoftPhoto.DateAcquired' or f_key=='Xmp.xmp.CreateDate':
+            f_value = g_translaters[key](f_metadata[key].raw_value)
+        else:
+            f_value = g_translaters[key](f_metadata[key].value)
+        """
+
         f_keywords = f_metadata['Exif.Photo.DateTimeDigitized']
         return f_keywords.value
     else:
@@ -1416,10 +1561,22 @@ def setOrgDate(p_filename, p_date):
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_key = 'Exif.Photo.DateTimeOriginal'
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
+
+
+        """
+        f_untranslatedVals = []
+        for i_key in f_keys:
+            if i_key=='Xmp.MicrosoftPhoto.DateAcquired' or i_key=='Xmp.xmp.CreateDate':
+                f_untranslatedVals.append(p_date)
+            else:
+                f_untranslatedVals.append(MetadataManager.g_untranslaters[i_key](p_date))
+        print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        """
+
         f_value = str(p_date)
         f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
         f_metadata.write()
@@ -1447,7 +1604,7 @@ def searchOrgDate(p_filename, p_startDate, p_endDate):
     :rtype: bool
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
@@ -1489,8 +1646,7 @@ etc. This is where we keep the information to do high level calls
 given the type of metadata we will be operating with.
 """
 # -------key selection functions
-#TODO make unit tests that uses thhese dctionaries
-#for every key, its translate and untranslate function should be one to one
+
 g_getFunctions = {'Title': getTitle,
                   'Description': getDescr,
                   'Rating': getRating,
@@ -1498,84 +1654,6 @@ g_getFunctions = {'Title': getTitle,
                   'Artist': getArtists,
                   'Date Created': getOrgDate
                   }
-#these change values from file metadata into human readable values
-g_translaters = {'Exif.Image.XPTitle': raw_to_cleanStr,
-                 'Exif.Image.XPSubject': raw_to_cleanStr,
-                 'Exif.Image.XPComment': raw_to_cleanStr,
-                 'Exif.Image.XPKeywords': raw_to_cleanList,
-                 'Exif.Image.XPAuthor': raw_to_cleanList,
-                 'Xmp.dc.title': valTranslateFromDictDef,
-                 'Xmp.dc.description': valTranslateFromDictDef,
-                 'Xmp.dc.subject': valTranslateNone,
-                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
-                 'Exif.Image.Artist': cleanStr2cleanList,
-                 'Xmp.dc.creator': valTranslateNone,
-                 'Exif.Image.Rating': valTranslateNone,
-                 'Xmp.xmp.Rating': valTranslateNone,
-                 'Exif.Image.RatingPercent': percent2rating,
-                 'Xmp.MicrosoftPhoto.Rating': percentStr2rating,
-                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
-                 'Exif.Photo.DateTimeDigitized': valTranslateNone,
-                 'Xmp.MicrosoftPhoto.DateAcquired': Iso8601_to_date,
-                 'Xmp.xmp.CreateDate':Iso8601_to_date
-                 }
-#these change human readable values into values we can store in files
-g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
-                 'Exif.Image.XPSubject': cleanStr_to_raw,
-                 'Exif.Image.XPComment': cleanStr_to_raw,
-                 'Exif.Image.XPKeywords': cleanList_to_raw,
-                 'Exif.Image.XPAuthor': cleanList_to_raw,
-                 'Xmp.dc.title': valTranslateToDictDef,
-                 'Xmp.dc.description': valTranslateToDictDef,
-                 'Xmp.dc.subject': valTranslateNone,
-                 'Xmp.MicrosoftPhoto.LastKeywordXMP': valTranslateNone,
-                 'Exif.Image.Artist': cleanList2cleanStr,
-                 'Xmp.dc.creator': valTranslateNone,
-                 'Exif.Image.Rating': valTranslateNone,
-                 'Xmp.xmp.Rating': valTranslateNone,
-                 'Exif.Image.RatingPercent': rating2percent,
-                 'Xmp.MicrosoftPhoto.Rating': rating2percentStr,
-                 'Exif.Photo.DateTimeOriginal': valTranslateNone,
-                 'Exif.Photo.DateTimeDigitized': valTranslateNone,
-                 'Xmp.MicrosoftPhoto.DateAcquired': date_to_Iso8601,
-                 'Xmp.xmp.CreateDate': date_to_Iso8601
-                 }
-
-#dictionary (keys= metadata types) (values= list of keys for that metadata type for jpg files)
-
-g_jpgKeys = {
-    "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
-    "Description": ['Exif.Image.XPComment'],
-    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
-    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
-    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
-    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate']
-}
-
-g_tiffKeys = {
-    "Title": ['Exif.Image.ImageDescription', 'Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
-    "Description": ['Exif.Image.XPComment'],
-    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
-    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject'],
-    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
-    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired']
-}
-
-g_pngKeys = {
-    "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
-    "Description": ['Exif.Image.XPComment'],
-    "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
-    "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
-    "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
-    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate']
-}
-
-
-g_keylists = {
-    '.jpg': g_jpgKeys,
-    '.tiff': g_tiffKeys,
-    '.png': g_pngKeys
-}
 
 
 # TODO make a dictionary with lists of operations
@@ -1587,25 +1665,3 @@ g_keylists = {
 
 
 
-def appropriateKeys(p_file, p_metatype):
-    """!
-    returns keys associated with that metadata type that work with that file
-    :param p_file: name/path of the file
-    :type p_file: string
-    :param p_metatype: a metadata type (Title, Description, Tags, etc)
-    :type p_metatype: string
-
-    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, tiff, or .gif
-    :raise KeyError: if the p_metatype is not in f_keydict
-
-    :return: list of keys that the file can store p_metatype data in
-    :rtype: list<string>
-    """
-    # TODO support for gif, tiff, and png
-    f_filetype = getExtension(p_file)
-    if f_filetype not in g_keylists:
-        raise UnsupportedFiletypeError(
-            'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_file))
-    f_keydict = g_keylists[f_filetype]
-    f_keys = f_keydict[p_metatype]
-    return f_keys
