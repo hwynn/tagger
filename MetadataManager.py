@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from typing import Dict, List
+
 import pyexiv2
 import os
 import datetime
@@ -395,7 +397,7 @@ g_pngKeys = {
     "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate']
 }
 
-g_keylists = {
+g_keylists: Dict[str, Dict[str, List[str]]] = {
     '.jpg': g_jpgKeys,
     '.tiff': g_tiffKeys,
     '.png': g_pngKeys
@@ -597,13 +599,12 @@ def getTitle(p_filename):
         f_key = keyHoldingValue(p_filename, "Title")
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        f_keywords = f_metadata['Exif.Image.XPTitle']
-        f_cleanTitle = raw_to_cleanStr(f_keywords.value)
+        f_cleanTitle = g_translaters[f_key](f_metadata[f_key].value)
         # print("clean Title:", f_cleanTitle)
         return f_cleanTitle
     else:
         earlySupportCheck(
-            p_filename)  # TODO add png and gif support  # TODO error check: does this file have Title data?
+            p_filename)  # TODO gif support
     return ""
 def setTitle(p_filename, p_setTitleToThis):
     """
@@ -625,7 +626,7 @@ def setTitle(p_filename, p_setTitleToThis):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 def searchTitle(p_filename, p_searchForThis):
     """
@@ -659,7 +660,7 @@ def searchTitle(p_filename, p_searchForThis):
             return True
     else:
         earlySupportCheck(
-            p_filename)  # TODO add png and gif support  # TODO error check: does this file have Title data?
+            p_filename)  # TODO add gif support
     return False
 def wipeTitle(p_filename):
     """
@@ -684,7 +685,7 @@ def wipeTitle(p_filename):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 
 
@@ -726,18 +727,16 @@ def getArtists(p_filename):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
         if not containsArtists(p_filename):
             return []
-        f_keywords = f_metadata['Exif.Image.XPAuthor']
-        f_cleanXList = raw_to_cleanList(f_keywords.value)
-        # print("getArtists() f_cleanXList\t\t", f_cleanXList)
+        f_key = keyHoldingValue(p_filename, "Artist")
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_cleanXList = g_translaters[f_key](f_metadata[f_key].value)
         return f_cleanXList
     else:
         earlySupportCheck(
-            p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
+            p_filename)  # TODO add gif support
     return []
 def setArtists(p_filename, p_cleanArtistList):
     """
@@ -766,7 +765,7 @@ def setArtists(p_filename, p_cleanArtistList):
         return
     else:
         earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        # TODO add gif support
         return
 def searchArtists(p_filename, p_artist):
     """
@@ -805,7 +804,7 @@ def searchArtists(p_filename, p_artist):
         return f_found
     else:
         earlySupportCheck(
-            p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
+            p_filename)  # TODO add gif support
     return False
 def addArtist(p_filename, p_artist):
     """
@@ -847,7 +846,7 @@ def addArtist(p_filename, p_artist):
         return
     else:
         earlySupportCheck(
-            p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
+            p_filename)  # TODO add gif support
     return
 def removeArtist(p_filename, p_artist):
     """
@@ -889,7 +888,7 @@ def removeArtist(p_filename, p_artist):
         return
     else:
         earlySupportCheck(
-            p_filename)  # TODO add png and gif support  # TODO error check: does this file have artist data?
+            p_filename)  # TODO add gif support
     return
 
 
@@ -931,17 +930,13 @@ def getTags(p_filename):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        f_key = keyHoldingValue(p_filename, "Tags")
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        # print(f_metadata.exif_keys)
-        if not containsTags(p_filename):
-            return []
-        f_keywords = f_metadata['Exif.Image.XPKeywords']
-        f_cleanXList = raw_to_cleanList(f_keywords.value)
-        # print("getTags() f_cleanXList\t\t", f_cleanXList)
+        f_cleanXList = g_translaters[f_key](f_metadata[f_key].value)
         return f_cleanXList
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have tag data?
+        earlySupportCheck(p_filename)  # TODO add gif support
     return []
 def setTags(p_filename, p_cleanTagList):
     """
@@ -968,7 +963,7 @@ def setTags(p_filename, p_cleanTagList):
         return True
     else:
         earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        # TODO add gif support
         return True
 def searchTags(p_filename, p_tag):
     """
@@ -997,7 +992,7 @@ def searchTags(p_filename, p_tag):
             return True
     else:
         earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        # TODO add gif support
         # TODO error check: does this file have tag data?
         return False
     return False
@@ -1036,7 +1031,7 @@ def addTag(p_filename, p_tag):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have tag data?
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 def removeTag(p_filename, p_tag):
     """
@@ -1075,7 +1070,7 @@ def removeTag(p_filename, p_tag):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have tag data?
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 
 
@@ -1117,18 +1112,17 @@ def getDescr(p_filename):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
         if not containsDescr(p_filename):
             return ""
-        f_keywords = f_metadata['Exif.Image.XPComment']
-        f_cleanDescr = raw_to_cleanStr(f_keywords.value)
+        f_key = keyHoldingValue(p_filename, "Description")
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_cleanDescr = g_translaters[f_key](f_metadata[f_key].value)
         # print("clean Descr:", f_cleanDescr)
         return f_cleanDescr
     else:
         earlySupportCheck(
-            p_filename)  # TODO add png and gif support  # TODO error check: does this file have Descr data?
+            p_filename)  # TODO add gif support
     return ""
 def setDescr(p_filename, p_setDescrToThis):
     """
@@ -1150,7 +1144,7 @@ def setDescr(p_filename, p_setDescrToThis):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 def searchDescr(p_filename, p_searchForThis):
     """
@@ -1178,7 +1172,7 @@ def searchDescr(p_filename, p_searchForThis):
             return True
     else:
         earlySupportCheck(
-            p_filename)  # TODO add png and gif support  # TODO error check: does this file have Descr data?
+            p_filename)  # TODO add gif support
     return False
 def addDescr(p_filename, p_addThisToDescr):
     """
@@ -1205,7 +1199,7 @@ def addDescr(p_filename, p_addThisToDescr):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 def wipeDescr(p_filename):
     """
@@ -1230,7 +1224,7 @@ def wipeDescr(p_filename):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 
 
@@ -1272,18 +1266,16 @@ def getRating(p_filename):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
         if not containsRating(p_filename):
             return -1
-        f_keywords = f_metadata['Exif.Image.Rating']
-        # print("getRating() Rating\t\t", f_keywords.value)
-        f_rating = f_keywords.value
+        f_key = keyHoldingValue(p_filename, "Rating")
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_rating = g_translaters[f_key](f_metadata[f_key].value)
         return f_rating
     else:
         earlySupportCheck(
-            p_filename)  # TODO add png and gif support  # TODO error check: does this file have rating data?
+            p_filename)  # TODO add gif support
     return -1
 def setRating(p_filename, p_setRatingToThis):
     """
@@ -1312,7 +1304,7 @@ def setRating(p_filename, p_setRatingToThis):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 def searchRating(p_filename, p_searchForThisRating):
     """
@@ -1350,7 +1342,7 @@ def searchRating(p_filename, p_searchForThisRating):
             return True
     else:
         earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        # TODO add gif support
         # TODO error check: does this file have rating data?
         return False
     return False
@@ -1407,7 +1399,7 @@ def getSrc(p_filename):
         f_SrcString = f_keywords.value
         return f_SrcString
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support  # TODO error check: does this file have Src data?
+        earlySupportCheck(p_filename)  # TODO add gif support
     return ""
 def addSrc(p_filename, x):
     """
@@ -1439,7 +1431,7 @@ def addSrc(p_filename, x):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 def searchSrc(p_filename, p_searchForThis):
     """
@@ -1466,7 +1458,7 @@ def searchSrc(p_filename, p_searchForThis):
             return True
     else:
         earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        # TODO add gif support
         # TODO error check: does this file have Src data?
         return False
     return False
@@ -1514,35 +1506,19 @@ def getOrgDate(p_filename):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
         if not containsOrgDate(p_filename):
             return datetime.datetime(1, 1, 1)
-        """
-        if 'Exif.Image.DateTimeOriginal' in f_metadata.exif_keys:
-            print('Exif.Image.DateTimeOriginal:', f_metadata['Exif.Image.DateTimeOriginal'].value)
-        else:
-            print("no Exif.Image.DateTimeOriginal")
-        if 'Exif.Photo.DateTimeDigitized' in f_metadata.exif_keys:
-            print('Exif.Photo.DateTimeDigitized', f_metadata['Exif.Photo.DateTimeDigitized'].value)
-        else:
-            print("no Exif.Photo.DateTimeDigitized")
-        """
-
-        """
-        f_value = None
+        f_key = keyHoldingValue(p_filename, "Title")
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
         if f_key=='Xmp.MicrosoftPhoto.DateAcquired' or f_key=='Xmp.xmp.CreateDate':
-            f_value = g_translaters[key](f_metadata[key].raw_value)
+            f_value = g_translaters[f_key](f_metadata[f_key].raw_value)
         else:
-            f_value = g_translaters[key](f_metadata[key].value)
-        """
-
-        f_keywords = f_metadata['Exif.Photo.DateTimeDigitized']
-        return f_keywords.value
+            f_value = g_translaters[f_key](f_metadata[f_key].value)
+        return f_value
     else:
         earlySupportCheck(p_filename)
-        # TODO add png and gif support
+        # TODO add gif support
         # TODO error check: does this file have Descr data?
         return datetime.datetime(1, 1, 1)
 def setOrgDate(p_filename, p_date):
@@ -1586,7 +1562,7 @@ def setOrgDate(p_filename, p_date):
         # print(getOrgDate(p_filename))
         return
     else:
-        earlySupportCheck(p_filename)  # TODO add png and gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 def searchOrgDate(p_filename, p_startDate, p_endDate):
     """
@@ -1615,8 +1591,7 @@ def searchOrgDate(p_filename, p_startDate, p_endDate):
             return True
     else:
         earlySupportCheck(p_filename)
-        # TODO add png and gif support
-        # TODO error check: does this file have Src data?
+        # TODO add gif support
         return False
     return False
 
