@@ -510,12 +510,13 @@ def filecheck(p_filename):
     if len(p_filename) < 5:
         f_error = "Filename '{}' is too short to have any accepted filename extension".format(p_filename)
         raise UnknownFiletypeError(f_error)
-    if getExtension(p_filename) == '':
+    f_filetype = getExtension(p_filename)
+    if f_filetype == '':
         raise UnknownFiletypeError(
             'Filename \'{}\' has no extension. What even is this hot mess you gave us?'.format(p_filename))
-    if getExtension(p_filename) != '.jpg' and getExtension(p_filename) != '.png' and getExtension(p_filename) != '.gif':
+    if f_filetype not in g_keylists:
         raise UnsupportedFiletypeError(
-            'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, gif'.format(p_filename))
+            'Filename \'{}\' is not a supported filetype.\n Supported filetypes: jpg, png, tiff'.format(p_filename))
     return
 def earlySupportCheck(p_filename):
     """!
@@ -547,11 +548,6 @@ def alpha1SupportCheck(p_filename):
         raise SupportNotImplementedError('Sorry. This operation is not ready for anything.')
     return
 
-
-
-#--------------------------------------
-#---------Metadata operations----------
-#--------------------------------------
 # ========================================================
 # ---------------MetaData functionality-------------------
 # ========================================================
@@ -603,8 +599,7 @@ def getTitle(p_filename):
         # print("clean Title:", f_cleanTitle)
         return f_cleanTitle
     else:
-        earlySupportCheck(
-            p_filename)  # TODO gif support
+        earlySupportCheck(p_filename)  # TODO gif support
     return ""
 def setTitle(p_filename, p_setTitleToThis):
     """
@@ -647,20 +642,11 @@ def searchTitle(p_filename, p_searchForThis):
     :rtype: bool
     """
     filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
-        if not containsTitle(p_filename):
-            return False
-        f_keywords = f_metadata["Exif.Image.XPTitle"]
-        f_cleanTitle = raw_to_cleanStr(f_keywords.value)
-
-        if p_searchForThis in f_cleanTitle:
-            return True
-    else:
-        earlySupportCheck(
-            p_filename)  # TODO add gif support
+    f_title = getTitle(p_filename)
+    if f_title == "":
+        return False
+    if p_searchForThis in f_title:
+        return True
     return False
 def wipeTitle(p_filename):
     """
@@ -735,15 +721,14 @@ def getArtists(p_filename):
         f_cleanXList = g_translaters[f_key](f_metadata[f_key].value)
         return f_cleanXList
     else:
-        earlySupportCheck(
-            p_filename)  # TODO add gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return []
 def setArtists(p_filename, p_cleanArtistList):
     """
     Instead of appending a new artist to the list of artists already present
     This function replaces all artists with the list of artists provided as p_cleanArtistList.
     Use this function with caution. Because.. you know. It wipes your artists.
-
+;
     :param p_filename: name/path of the file
 	:type p_filename: string
 	:param p_cleanArtistList: a list of artists we will set artist metadata to
@@ -782,29 +767,18 @@ def searchArtists(p_filename, p_artist):
     :rtype: bool
     """
     filecheck(p_filename)
-
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metaData = pyexiv2.ImageMetadata(p_filename)
-        f_metaData.read()
-        if not containsArtists(p_filename):
-            return False
-        f_keywords = f_metaData['Exif.Image.XPAuthor']
-        # Note: the conditions for finding an artist are very relaxed.
-        # We're only searching for a substring.
-        # so if an artist entry is "composer: Sarah Sharp"
-        # searches for: "composer", "Sarah Sharp", "Sarah", "sharp", and "Sar"
-        # will all return true.
-        # Perhaps a strictSearchArtists() function is needed
-        f_found = False
-        f_cleanXList = raw_to_cleanList(f_keywords.value)
-        for i_artist in f_cleanXList:
-            if p_artist.lower() in i_artist.lower():
-                f_found = True
-                break
-        return f_found
-    else:
-        earlySupportCheck(
-            p_filename)  # TODO add gif support
+    f_artists = getDescr(p_filename)
+    if f_artists == []:
+        return False
+    # Note: the conditions for finding an artist are very relaxed.
+    # We're only searching for a substring.
+    # so if an artist entry is "composer: Sarah Sharp"
+    # searches for: "composer", "Sarah Sharp", "Sarah", "sharp", and "Sar"
+    # will all return true.
+    # Perhaps a strictSearchArtists() function is needed
+    for i_artist in f_artists:
+        if p_artist.lower() in i_artist.lower():
+            return True
     return False
 def addArtist(p_filename, p_artist):
     """
@@ -845,8 +819,7 @@ def addArtist(p_filename, p_artist):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(
-            p_filename)  # TODO add gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 def removeArtist(p_filename, p_artist):
     """
@@ -887,8 +860,7 @@ def removeArtist(p_filename, p_artist):
         f_metadata.write()
         return
     else:
-        earlySupportCheck(
-            p_filename)  # TODO add gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return
 
 
@@ -979,22 +951,13 @@ def searchTags(p_filename, p_tag):
     :rtype: bool
     """
     filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metaData = pyexiv2.ImageMetadata(p_filename)
-        f_metaData.read()
-        if not containsTags(p_filename):
-            return False
-        f_keywords = f_metaData['Exif.Image.XPKeywords']
-        # Note: these are strict searches. They are case sensative
-        # non case sensative searches may require longer execution time
-        f_cleanXList = raw_to_cleanList(f_keywords.value)
-        if p_tag in f_cleanXList:
-            return True
-    else:
-        earlySupportCheck(p_filename)
-        # TODO add gif support
-        # TODO error check: does this file have tag data?
+    f_keywords = getTags(p_filename)
+    # Note: these are strict searches. They are case sensative
+    # non case sensative searches may require longer execution time
+    if f_keywords == []:
         return False
+    if p_tag in f_keywords:
+        return True
     return False
 def addTag(p_filename, p_tag):
     """
@@ -1121,8 +1084,7 @@ def getDescr(p_filename):
         # print("clean Descr:", f_cleanDescr)
         return f_cleanDescr
     else:
-        earlySupportCheck(
-            p_filename)  # TODO add gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return ""
 def setDescr(p_filename, p_setDescrToThis):
     """
@@ -1160,19 +1122,11 @@ def searchDescr(p_filename, p_searchForThis):
     :rtype: bool
     """
     filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
-        if not containsDescr(p_filename):
-            return False
-        f_keywords = f_metadata['Exif.Image.XPComment']
-        f_cleanDescr = raw_to_cleanStr(f_keywords.value)
-        if p_searchForThis in f_cleanDescr:
-            return True
-    else:
-        earlySupportCheck(
-            p_filename)  # TODO add gif support
+    f_descr = getDescr(p_filename)
+    if f_descr == "":
+        return False
+    if p_searchForThis in f_descr:
+        return True
     return False
 def addDescr(p_filename, p_addThisToDescr):
     """
@@ -1274,8 +1228,7 @@ def getRating(p_filename):
         f_rating = g_translaters[f_key](f_metadata[f_key].value)
         return f_rating
     else:
-        earlySupportCheck(
-            p_filename)  # TODO add gif support
+        earlySupportCheck(p_filename)  # TODO add gif support
     return -1
 def setRating(p_filename, p_setRatingToThis):
     """
@@ -1325,26 +1278,16 @@ def searchRating(p_filename, p_searchForThisRating):
         # Note: the reason we allow for searches of 0 and -1
         # is that theoretically, getRating() is used to get the value for searching
         # and it returns -1 if the file contains no rating.
-        # we don't actually use getRating() for this search functtion
+        # we don't actually use getRating() for this search function
         # But we might change this function to work that way.
         raise OutOfRangeError('number out of range (must be 1..5)')
     if not isinstance(p_searchForThisRating, int):
         raise NotIntegerError('non-integers can not be used')
-    filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        if not containsRating(p_filename):
-            return False
-        f_keywords = f_metadata['Exif.Image.Rating']
-        f_rating = f_keywords.value
-        if f_rating == p_searchForThisRating:
-            return True
-    else:
-        earlySupportCheck(p_filename)
-        # TODO add gif support
-        # TODO error check: does this file have rating data?
+    f_rating = getRating(p_filename)
+    if f_rating == -1:
         return False
+    if f_rating ==p_searchForThisRating:
+        return True
     return False
 
 # TODO def wipeRating(p_filename):
