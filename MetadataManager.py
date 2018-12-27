@@ -749,7 +749,6 @@ def setArtists(p_filename, p_cleanArtistList):
     Instead of appending a new artist to the list of artists already present
     This function replaces all artists with the list of artists provided as p_cleanArtistList.
     Use this function with caution. Because.. you know. It wipes your artists.
-;
     :param p_filename: name/path of the file
 	:type p_filename: string
 	:param p_cleanArtistList: a list of artists we will set artist metadata to
@@ -834,32 +833,12 @@ def addArtist(p_filename, p_artist):
     :raise DuplicateDataError: if the file already has this artist in its artist metadata
     """
     filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
-        f_key = 'Exif.Image.XPAuthor'
-        f_key2 = 'Exif.Image.Artist'
-        if not containsArtists(p_filename):
-            f_cleanXList = [p_artist]
-            f_value = cleanList_to_raw(f_cleanXList)
-            f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-            f_metadata.write()
-            f_metadata[f_key2] = pyexiv2.ExifTag(f_key2, cleanList2cleanStr(f_cleanXList))
-            f_metadata.write()
-            return
-        f_keywords = f_metadata['Exif.Image.XPAuthor']
-        f_cleanXList = raw_to_cleanList(f_keywords.value)
-        # print("addArtist() f_cleanXList\t\t", f_cleanXList)
-        if p_artist in f_cleanXList:
-            raise DuplicateDataError("file already contains this artist")
-        f_cleanXList.insert(0, p_artist)
-        f_value = cleanList_to_raw(f_cleanXList)
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
-        return
-    else:
-        earlySupportCheck(p_filename)  # TODO add gif support
+    f_cleanXList = getArtists(p_filename)
+    # print("addArtist() f_cleanXList\t\t", f_cleanXList)
+    if p_artist in f_cleanXList:
+        raise DuplicateDataError("file already contains this artist")
+    f_cleanXList.insert(0, p_artist)
+    setArtists(p_filename, f_cleanXList)
     return
 def removeArtist(p_filename, p_artist):
     """
@@ -876,31 +855,15 @@ def removeArtist(p_filename, p_artist):
     :raise NoSuchItemError: if the file does not have p_artist in their artist list
     """
     filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
-        if not containsArtists(p_filename):
-            raise MetadataMissingError(
-                'The file \'{}\' does not contain any artist data \n This operation cannot be performed'.format(
-                    p_filename))
-        f_keywords = f_metadata['Exif.Image.XPAuthor']
-        f_key = 'Exif.Image.XPAuthor'
-        f_cleanXList = raw_to_cleanList(f_keywords.value)
-        # print("removeArtist() f_cleanXList\t\t", f_cleanXList)
-        # Note that p_artist must be an exact match with an entry to have it removed
-        if p_artist not in f_cleanXList:
-            raise NoSuchItemError(
-                'The file \'{}\' does not contain the artist \'{}\' \n This operation cannot be performed'.format(
-                    p_filename, p_artist))
-        f_cleanXList.remove(p_artist)
-        f_value = cleanList_to_raw(f_cleanXList)
-        # print("removeArtist() f_value\t\t", f_value)
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
-        return
-    else:
-        earlySupportCheck(p_filename)  # TODO add gif support
+    f_cleanXList = getArtists(p_filename)
+    # print("removeArtist() f_cleanXList\t\t", f_cleanXList)
+    # Note that p_artist must be an exact match with an entry to have it removed
+    if p_artist not in f_cleanXList:
+        raise NoSuchItemError(
+            'The file \'{}\' does not contain the artist \'{}\' \n This operation cannot be performed'.format(
+                p_filename, p_artist))
+    f_cleanXList.remove(p_artist)
+    setArtists(p_filename, f_cleanXList)
     return
 
 
@@ -1031,30 +994,12 @@ def addTag(p_filename, p_tag):
     :raise DuplicateDataError: if the file already has this tag in its tag metadata
     """
     filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
-        f_key = 'Exif.Image.XPKeywords'
-        if not containsTags(p_filename):
-            f_cleanXList = [p_tag]
-            f_value = cleanList_to_raw(f_cleanXList)
-            f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-            f_metadata.write()
-            return
-        f_keywords = f_metadata['Exif.Image.XPKeywords']
-        f_cleanXList = raw_to_cleanList(f_keywords.value)
-        # print("addTag() f_cleanXList\t\t", f_cleanXList)
-        if p_tag in f_cleanXList:
-            raise DuplicateDataError("file already contains this tag")
-        f_cleanXList.insert(0, p_tag)
-        f_value = cleanList_to_raw(f_cleanXList)
-
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
-        return
-    else:
-        earlySupportCheck(p_filename)  # TODO add gif support
+    f_cleanXList = getTags(p_filename)
+    # print("addTag() f_cleanXList\t\t", f_cleanXList)
+    if p_tag in f_cleanXList:
+        raise DuplicateDataError("file already contains this tag")
+    f_cleanXList.insert(0, p_tag)
+    setTags(p_filename, f_cleanXList)
     return
 def removeTag(p_filename, p_tag):
     """
@@ -1069,31 +1014,15 @@ def removeTag(p_filename, p_tag):
     :raise NoSuchItemError: if the file does not have p_artist in their tag list
     """
     filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
-        if not containsTags(p_filename):
-            raise MetadataMissingError(
-                'The file \'{}\' does not contain any tag data \n This operation cannot be performed'.format(
-                    p_filename))
-        f_keywords = f_metadata['Exif.Image.XPKeywords']
-        f_key = 'Exif.Image.XPKeywords'
-        f_cleanXList = raw_to_cleanList(f_keywords.value)
-        # print("removeTag() f_cleanXList\t\t", f_cleanXList)
-        if p_tag not in f_cleanXList:
-            raise NoSuchItemError(
-                'The file \'{}\' does not contain the tag \'{}\' \n This operation cannot be performed'.format(
-                    p_filename, p_tag))
-        f_cleanXList.remove(p_tag)
-        # print("removeTag() f_cleanXList\t\t", f_cleanXList)
-        f_value = cleanList_to_raw(f_cleanXList)
-        # print("removeTag() f_value\t\t", f_value)
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
-        return
-    else:
-        earlySupportCheck(p_filename)  # TODO add gif support
+    f_cleanXList = getTags(p_filename)
+    # print("addTag() f_cleanXList\t\t", f_cleanXList)
+    if p_tag not in f_cleanXList:
+        raise NoSuchItemError(
+            'The file \'{}\' does not contain the tag \'{}\' \n This operation cannot be performed'.format(
+                p_filename, p_tag))
+    f_cleanXList.remove(p_tag)
+    # print("removeTag() f_cleanXList\t\t", f_cleanXList)
+    setTags(p_filename, f_cleanXList)
     return
 
 
@@ -1220,21 +1149,8 @@ def addDescr(p_filename, p_addThisToDescr):
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     """
     filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_key = 'Exif.Image.XPComment'
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        f_cleanDescr = ""
-        if containsDescr(p_filename):
-            f_keywords = f_metadata['Exif.Image.XPComment']
-            f_cleanDescr = raw_to_cleanStr(f_keywords.value)
-        f_setDescrToThis = f_cleanDescr + p_addThisToDescr
-        f_value = cleanStr_to_raw(f_setDescrToThis)
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
-        return
-    else:
-        earlySupportCheck(p_filename)  # TODO add gif support
+    f_setDescrToThis = getDescr(p_filename) + p_addThisToDescr
+    setDescr(p_filename, f_setDescrToThis)
     return
 def wipeDescr(p_filename):
     """
@@ -1575,7 +1491,7 @@ def setOrgDate(p_filename, p_date):
     :param p_filename: name/path of the file
 	:type p_filename: string
 	:param p_date: original date metadata will be set to this
-	:type p_date: string
+	:type p_date: datetime
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
