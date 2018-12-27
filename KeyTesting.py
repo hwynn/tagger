@@ -103,3 +103,6 @@ print(allKeys(g_newfile))
 # I get this error:   self._image._writeMetadata()
 #                   OSError: Writing to GIF images is not supported
 # Not sure why yet.
+
+
+

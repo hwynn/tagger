@@ -49,6 +49,20 @@ def release(p_files):
     for file in p_files:
         os.remove(file)
 
+def singleClone(p_filename):
+    #creates a single copy of a file and returns the name of the copy
+    #creates several copies of a file if possible.
+    ext = getExtension(p_filename)
+    f_name = p_filename[:-len(ext)]
+    f_newfile = f_name+"Copy"+ext
+    if os.path.isfile(f_newfile)==True:
+        raise ValueError('File \'{}\' already exists'.format(f_newfile))
+    shutil.copy(p_filename, f_newfile)
+    return f_newfile
+def singleRelease(p_filename):
+    #used with singleClone(). Removes the copy that function created
+    os.remove(p_filename)
+
 def missingKeys(p_file_1, p_file_2):
     #print("missing keys")
     #prints keys that are in file1, but not in file2
@@ -126,6 +140,25 @@ def checkAllKeysPresent(p_file, p_metatype):
         if key not in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
             return False
     return True
+
+#TODO make unit tests that use this function.
+#this should be false after a successful wipe operation is performed
+def checkAnyKeysPresent(p_file, p_metatype):
+    #takes a filename and a metadata type (Title, Description, Tags, etc)
+    #and returns true if any keys associated with that metadata type are present in the file
+    #used for testing the metadata editing functions
+    f_metadata = pyexiv2.ImageMetadata(p_file)
+    f_metadata.read()
+    f_keys = MetadataManager.appropriateKeys(p_file, p_metatype)
+    f_present = []
+    for key in f_keys:
+        if key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            f_present.append(key)
+    print("In", p_file, "the following", p_metatype, "keys still exist:", f_present)
+    if len(f_present)==0:
+        return False
+    return True
+
 
 #TODO make unit tests that use this function.
 #this should be true after a successful set operation is performed
@@ -392,6 +425,20 @@ g_rating = 2
 g_description = "a silly propaganda picture"
 g_tags = ['skeleton', 'mood']
 g_artist = ['George Washington', 'model: Skeletore']
-g_modfile = "/media/sf_tagger/windowstesting/skullA.jpg"
 
+g_fulljpg = "/media/sf_tagger/windowstesting/skullA.jpg"
+g_newfile = singleClone(g_fulljpg)
 
+#remove tag.
+#remove artist
+#wipe everything
+#delete individual key
+
+checkAnyKeysPresent(g_newfile, "Title")
+g_metadata = pyexiv2.ImageMetadata(g_newfile)
+g_metadata.read()
+g_metadata.__delitem__('Xmp.dc.title')
+g_metadata.write()
+checkAnyKeysPresent(g_newfile, "Title")
+
+singleRelease(g_newfile)

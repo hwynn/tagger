@@ -5,7 +5,7 @@ import requests
 import MetadataManager
 import pyexiv2
 import copy
-
+import shutil
 
 
 g_outpath = '/home/hwynn/Pictures'
@@ -68,7 +68,24 @@ g_googlePics2 = {'fixingComputer': '1pFEbWruySWWgNCShKP8qn8dJ9w7kXNKk',
                  'rippledotzero': '1euq0D6OrdWVkdC4RZdFIrre7WsQ7N9do',
                  'oppusumBitesApple': '1EWTG-xgYGX_SdB4lPDFEs5veattK5Dxy',
                  'creepyCharger': '1MQgoUI6tIQhkNMg7KIDeRraVsGhPrx0H',
-                 'princessAtDoor': '1TKjnok6DJuIHYhaeZiYFnS6RgPRcdJPK', }
+                 'princessAtDoor': '1TKjnok6DJuIHYhaeZiYFnS6RgPRcdJPK'}
+
+g_metadataTypes = ['Title', 'Description', 'Rating', 'Tags', 'Artist', 'Date Created']
+
+def singleClone(p_filename):
+    #creates a single copy of a file and returns the name of the copy
+    #creates several copies of a file if possible.
+    ext = MetadataManager.getExtension(p_filename)
+    f_name = p_filename[:-len(ext)]
+    f_newfile = f_name+"Copy"+ext
+    if os.path.isfile(f_newfile)==True:
+        raise ValueError('File \'{}\' already exists'.format(f_newfile))
+    shutil.copy(p_filename, f_newfile)
+    return f_newfile
+def singleRelease(p_filename):
+    #used with singleClone(). Removes the copy that function created
+    os.remove(p_filename)
+
 # ===========================================================================
 # ------------------------Windows Metadata Testing---------------------------
 # ===========================================================================

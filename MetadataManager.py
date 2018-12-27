@@ -678,12 +678,15 @@ def wipeTitle(p_filename):
     :raise MetadataMissingError: if the file has no title metadata
     """
     filecheck(p_filename)
+    if not containsTitle(p_filename):
+        raise MetadataMissingError("there is no title to remove")
     setTitle(p_filename, " ")
     f_keys = appropriateKeys(p_filename, "Title")
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     for i_key in f_keys:
         f_metadata.__delitem__(i_key)
+        f_metadata.write()
     return
 
 
@@ -751,6 +754,8 @@ def setArtists(p_filename, p_cleanArtistList):
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_valueToSet = p_cleanArtistList
+        if f_valueToSet == []:
+            raise ValueError('Empty array')
         f_keys = appropriateKeys(p_filename, "Artist")
         f_untranslatedVals = []
         #this creates a list of the values we will set to the appropriate keys
@@ -797,7 +802,7 @@ def searchArtists(p_filename, p_artist):
     :rtype: bool
     """
     filecheck(p_filename)
-    f_artists = getDescr(p_filename)
+    f_artists = getArtists(p_filename)
     if f_artists == []:
         return False
     # Note: the conditions for finding an artist are very relaxed.
@@ -807,6 +812,7 @@ def searchArtists(p_filename, p_artist):
     # will all return true.
     # Perhaps a strictSearchArtists() function is needed
     for i_artist in f_artists:
+        #print("finding artist:", p_artist.lower(), i_artist.lower())
         if p_artist.lower() in i_artist.lower():
             return True
     return False
@@ -846,6 +852,8 @@ def removeArtist(p_filename, p_artist):
     :raise NoSuchItemError: if the file does not have p_artist in their artist list
     """
     filecheck(p_filename)
+    if not containsArtists(p_filename):
+        raise MetadataMissingError("there is no artist data to remove")
     f_cleanXList = getArtists(p_filename)
     # print("removeArtist() f_cleanXList\t\t", f_cleanXList)
     # Note that p_artist must be an exact match with an entry to have it removed
@@ -854,9 +862,30 @@ def removeArtist(p_filename, p_artist):
             'The file \'{}\' does not contain the artist \'{}\' \n This operation cannot be performed'.format(
                 p_filename, p_artist))
     f_cleanXList.remove(p_artist)
+    if f_cleanXList == []:
+        wipeArtists(p_filename)
+        return
     setArtists(p_filename, f_cleanXList)
     return
-
+def wipeArtists(p_filename):
+    """
+        :param p_filename: name/path of the file
+    	:type p_filename: string
+    	:raise UnknownFiletypeError: if the filetype cannot be found
+        :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .tiff
+        :raise MetadataMissingError: if the file has no artist metadata
+        """
+    filecheck(p_filename)
+    if not containsDescr(p_filename):
+        raise MetadataMissingError("there is no Artist data to remove")
+    setArtists(p_filename, [" "])
+    f_keys = appropriateKeys(p_filename, "Artist")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_keys:
+        f_metadata.__delitem__(i_key)
+        f_metadata.write()
+    return
 
 # -----edit tag metadata
 def containsTags(p_filename):
@@ -896,6 +925,8 @@ def getTags(p_filename):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        if not containsTags(p_filename):
+            return []
         f_key = keyHoldingValue(p_filename, "Tags")
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
@@ -920,6 +951,8 @@ def setTags(p_filename, p_cleanTagList):
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         f_valueToSet = p_cleanTagList
+        if f_valueToSet == []:
+            raise ValueError('Empty array')
         f_keys = appropriateKeys(p_filename, "Tags")
         f_untranslatedVals = []
         #this creates a list of the values we will set to the appropriate keys
@@ -1005,6 +1038,8 @@ def removeTag(p_filename, p_tag):
     :raise NoSuchItemError: if the file does not have p_artist in their tag list
     """
     filecheck(p_filename)
+    if not containsTags(p_filename):
+        raise MetadataMissingError("there is no tag data to remove")
     f_cleanXList = getTags(p_filename)
     # print("addTag() f_cleanXList\t\t", f_cleanXList)
     if p_tag not in f_cleanXList:
@@ -1012,10 +1047,31 @@ def removeTag(p_filename, p_tag):
             'The file \'{}\' does not contain the tag \'{}\' \n This operation cannot be performed'.format(
                 p_filename, p_tag))
     f_cleanXList.remove(p_tag)
+    if f_cleanXList == []:
+        wipeTags(p_filename)
+        return
     # print("removeTag() f_cleanXList\t\t", f_cleanXList)
     setTags(p_filename, f_cleanXList)
     return
-
+def wipeTags(p_filename):
+    """
+        :param p_filename: name/path of the file
+    	:type p_filename: string
+    	:raise UnknownFiletypeError: if the filetype cannot be found
+        :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .tiff
+        :raise MetadataMissingError: if the file has no tag metadata
+        """
+    filecheck(p_filename)
+    if not containsTags(p_filename):
+        raise MetadataMissingError("there is no tag data to remove")
+    setTags(p_filename, [" "])
+    f_keys = appropriateKeys(p_filename, "Tags")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_keys:
+        f_metadata.__delitem__(i_key)
+        f_metadata.write()
+    return
 
 # -------edit description metadata
 def containsDescr(p_filename):
@@ -1152,12 +1208,15 @@ def wipeDescr(p_filename):
     :raise MetadataMissingError: if the file has no description metadata
     """
     filecheck(p_filename)
+    if not containsDescr(p_filename):
+        raise MetadataMissingError("there is no description to remove")
     setDescr(p_filename, " ")
     f_keys = appropriateKeys(p_filename, "Description")
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     for i_key in f_keys:
         f_metadata.__delitem__(i_key)
+        f_metadata.write()
     return
 
 
@@ -1332,11 +1391,11 @@ def getSrc(p_filename):
     """
     filecheck(p_filename)
     if (getExtension(p_filename) == '.jpg'):
+        if not containsSrc(p_filename):
+            return ""
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         # print(f_metadata.exif_keys)
-        if not containsSrc(p_filename):
-            return ""
         f_keywords = f_metadata['Exif.Image.ImageHistory']
         f_SrcString = f_keywords.value
         return f_SrcString
@@ -1424,7 +1483,7 @@ def containsOrgDate(p_filename):
     """
     filecheck(p_filename)
     earlySupportCheck(p_filename)
-    f_possibleKeys = appropriateKeys(p_filename, "Title")
+    f_possibleKeys = appropriateKeys(p_filename, "Date Created")
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
     for i_key in f_possibleKeys:
@@ -1450,7 +1509,7 @@ def getOrgDate(p_filename):
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
         if not containsOrgDate(p_filename):
             return datetime.datetime(1, 1, 1)
-        f_key = keyHoldingValue(p_filename, "Title")
+        f_key = keyHoldingValue(p_filename, "Date Created")
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
         if f_key=='Xmp.MicrosoftPhoto.DateAcquired' or f_key=='Xmp.xmp.CreateDate':
