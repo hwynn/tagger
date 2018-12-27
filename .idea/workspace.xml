@@ -7,7 +7,7 @@
     <bookmark url="file://$PROJECT_DIR$/windowstesting/windowsTests.py" description="            if f_metadata1[key1].value==f_metadata..." line="69" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="changed how set() functions work">
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="changed add() and remove() functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MetadataManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/MetadataManager.py" afterDir="false" />
     </list>
@@ -133,8 +133,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="1154" column="26" lean-forward="true" selection-start-line="1154" selection-start-column="26" selection-end-line="1154" selection-end-column="26" />
+            <state relative-caret-position="497">
+              <caret line="1588" lean-forward="true" selection-start-line="1588" selection-end-line="1588" />
               <folding>
                 <element signature="e#136#194#0" />
                 <element signature="e#357#410#0" />
@@ -231,15 +231,13 @@
                 <element signature="e#21110#21973#0" />
                 <element signature="e#16797#17091#1" />
                 <element signature="e#20297#20656#0" />
-                <element signature="e#22022#22847#0" />
                 <element signature="e#22022#22346#1" />
-                <element signature="e#22501#22764#0" />
                 <element signature="e#22636#22717#0" />
                 <element signature="e#23090#23687#0" />
                 <element signature="e#22898#24122#0" />
                 <element signature="e#22898#23521#1" />
+                <element signature="e#24154#25218#0" />
                 <element signature="e#24154#24445#1" />
-                <element signature="e#24600#25135#0" />
                 <element signature="e#25287#26046#0" />
                 <element signature="e#25287#25647#1" />
                 <element signature="e#25881#25985#0" />
@@ -255,6 +253,7 @@
                 <element signature="e#28169#28555#1" />
                 <element signature="e#28673#28735#0" />
                 <element signature="e#28704#28768#0" />
+                <element signature="e#30735#31506#0" />
                 <element signature="e#29637#30090#1" />
                 <element signature="e#31551#32576#0" />
                 <element signature="e#31407#31918#1" />
@@ -273,7 +272,9 @@
                 <element signature="e#36099#37248#0" />
                 <element signature="e#36099#36468#1" />
                 <element signature="e#36535#36593#0" />
+                <element signature="e#37180#38473#0" />
                 <element signature="e#37284#37675#1" />
+                <element signature="e#37910#38834#0" />
                 <element signature="e#38814#39271#1" />
                 <element signature="e#40028#40202#0" />
                 <element signature="e#40658#41437#0" />
@@ -289,9 +290,9 @@
                 <element signature="e#42083#42680#0" />
                 <element signature="e#43690#44711#0" />
                 <element signature="e#43690#44096#1" />
+                <element signature="e#43274#43865#0" />
                 <element signature="e#44760#45103#1" />
-                <element signature="e#45882#46179#1" />
-                <element signature="e#46334#46877#0" />
+                <element signature="e#45882#46960#0" />
                 <element signature="e#47028#47787#0" />
                 <element signature="e#47028#47388#1" />
                 <element signature="e#47622#47726#0" />
@@ -673,13 +674,6 @@
       <option name="presentableId" value="Default" />
       <updated>1529891189873</updated>
     </task>
-    <task id="LOCAL-00012" summary="functionality completed: tags, rating, artist, title, description(I think)">
-      <created>1534736783992</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1534736783992</updated>
-    </task>
     <task id="LOCAL-00013" summary="fixed several bugs during unit testing.&#10;Planning to change lists to unordered sets">
       <created>1534797869855</created>
       <option name="number" value="00013" />
@@ -1016,7 +1010,14 @@
       <option name="project" value="LOCAL" />
       <updated>1545891182020</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="changed add() and remove() functions">
+      <created>1545897329514</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1545897329520</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1156,7 +1157,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="metadata encoding changing more" />
     <MESSAGE value="metadata encoding working and slightly tidy" />
     <MESSAGE value="metadata encoding working tidy" />
     <MESSAGE value="metadata encoding working and tidy" />
@@ -1181,7 +1181,8 @@
     <MESSAGE value="Changed the way get() functions work" />
     <MESSAGE value="cleaned up search() functions." />
     <MESSAGE value="changed how set() functions work" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed how set() functions work" />
+    <MESSAGE value="changed add() and remove() functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed add() and remove() functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1208,12 +1209,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>1158</line>
-          <option name="timeStamp" value="150" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>1381</line>
+          <line>1363</line>
           <option name="timeStamp" value="163" />
         </line-breakpoint>
       </breakpoints>
@@ -1410,8 +1406,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="1154" column="26" lean-forward="true" selection-start-line="1154" selection-start-column="26" selection-end-line="1154" selection-end-column="26" />
+        <state relative-caret-position="497">
+          <caret line="1588" lean-forward="true" selection-start-line="1588" selection-end-line="1588" />
           <folding>
             <element signature="e#136#194#0" />
             <element signature="e#357#410#0" />
@@ -1508,15 +1504,13 @@
             <element signature="e#21110#21973#0" />
             <element signature="e#16797#17091#1" />
             <element signature="e#20297#20656#0" />
-            <element signature="e#22022#22847#0" />
             <element signature="e#22022#22346#1" />
-            <element signature="e#22501#22764#0" />
             <element signature="e#22636#22717#0" />
             <element signature="e#23090#23687#0" />
             <element signature="e#22898#24122#0" />
             <element signature="e#22898#23521#1" />
+            <element signature="e#24154#25218#0" />
             <element signature="e#24154#24445#1" />
-            <element signature="e#24600#25135#0" />
             <element signature="e#25287#26046#0" />
             <element signature="e#25287#25647#1" />
             <element signature="e#25881#25985#0" />
@@ -1532,6 +1526,7 @@
             <element signature="e#28169#28555#1" />
             <element signature="e#28673#28735#0" />
             <element signature="e#28704#28768#0" />
+            <element signature="e#30735#31506#0" />
             <element signature="e#29637#30090#1" />
             <element signature="e#31551#32576#0" />
             <element signature="e#31407#31918#1" />
@@ -1550,7 +1545,9 @@
             <element signature="e#36099#37248#0" />
             <element signature="e#36099#36468#1" />
             <element signature="e#36535#36593#0" />
+            <element signature="e#37180#38473#0" />
             <element signature="e#37284#37675#1" />
+            <element signature="e#37910#38834#0" />
             <element signature="e#38814#39271#1" />
             <element signature="e#40028#40202#0" />
             <element signature="e#40658#41437#0" />
@@ -1566,9 +1563,9 @@
             <element signature="e#42083#42680#0" />
             <element signature="e#43690#44711#0" />
             <element signature="e#43690#44096#1" />
+            <element signature="e#43274#43865#0" />
             <element signature="e#44760#45103#1" />
-            <element signature="e#45882#46179#1" />
-            <element signature="e#46334#46877#0" />
+            <element signature="e#45882#46960#0" />
             <element signature="e#47028#47787#0" />
             <element signature="e#47028#47388#1" />
             <element signature="e#47622#47726#0" />

@@ -678,21 +678,12 @@ def wipeTitle(p_filename):
     :raise MetadataMissingError: if the file has no title metadata
     """
     filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_key = 'Exif.Image.XPTitle'
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        if not containsTitle(p_filename):
-            raise MetadataMissingError("there is no title to remove")
-        f_value = cleanStr_to_raw(" ")
-        # we set the value to (almost) nothing before removing the key just in case the values stick around
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
-        f_metadata.__delitem__(f_key)
-        f_metadata.write()
-        return
-    else:
-        earlySupportCheck(p_filename)  # TODO add gif support
+    setTitle(p_filename, " ")
+    f_keys = appropriateKeys(p_filename, "Title")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_keys:
+        f_metadata.__delitem__(i_key)
     return
 
 
@@ -1161,21 +1152,12 @@ def wipeDescr(p_filename):
     :raise MetadataMissingError: if the file has no description metadata
     """
     filecheck(p_filename)
-    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_key = 'Exif.Image.XPComment'
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        if not containsDescr(p_filename):
-            raise MetadataMissingError("there is no description to remove")
-        # we set the value to (almost) nothing before removing the key just in case the values stick around
-        f_value = cleanStr_to_raw(" ")
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
-        f_metadata.__delitem__(f_key)
-        f_metadata.write()
-        return
-    else:
-        earlySupportCheck(p_filename)  # TODO add gif support
+    setDescr(p_filename, " ")
+    f_keys = appropriateKeys(p_filename, "Description")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_keys:
+        f_metadata.__delitem__(i_key)
     return
 
 
