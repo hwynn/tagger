@@ -613,12 +613,33 @@ def setTitle(p_filename, p_setTitleToThis):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_key = "Exif.Image.XPTitle"
+        f_valueToSet = p_setTitleToThis
+        f_keys = appropriateKeys(p_filename, "Title")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+            f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        f_value = cleanStr_to_raw(p_setTitleToThis)
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
         return
     else:
         earlySupportCheck(p_filename)  # TODO add gif support
@@ -739,14 +760,33 @@ def setArtists(p_filename, p_cleanArtistList):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        f_valueToSet = p_cleanArtistList
+        f_keys = appropriateKeys(p_filename, "Artist")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+            f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        f_key = 'Exif.Image.XPAuthor'
-        # print(f_metadata.exif_keys)
-        f_value = cleanList_to_raw(p_cleanArtistList)
-
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
         return
     else:
         earlySupportCheck(p_filename)
@@ -925,13 +965,33 @@ def setTags(p_filename, p_cleanTagList):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        f_valueToSet = p_cleanTagList
+        f_keys = appropriateKeys(p_filename, "Tags")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+            f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        f_key = 'Exif.Image.XPKeywords'
-        # print(f_metadata.exif_keys)
-        f_value = cleanList_to_raw(p_cleanTagList)
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
         return True
     else:
         earlySupportCheck(p_filename)
@@ -1098,12 +1158,33 @@ def setDescr(p_filename, p_setDescrToThis):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_key = 'Exif.Image.XPComment'
+        f_valueToSet = p_setDescrToThis
+        f_keys = appropriateKeys(p_filename, "Description")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+            f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        f_value = cleanStr_to_raw(p_setDescrToThis)
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
         return
     else:
         earlySupportCheck(p_filename)  # TODO add gif support
@@ -1248,13 +1329,33 @@ def setRating(p_filename, p_setRatingToThis):
         raise NotIntegerError('non-integers can not be used')
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_key = 'Exif.Image.Rating'
+        f_valueToSet = p_setRatingToThis
+        f_keys = appropriateKeys(p_filename, "Rating")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+            f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-
-        f_value = p_setRatingToThis
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
         return
     else:
         earlySupportCheck(p_filename)  # TODO add gif support
@@ -1481,28 +1582,36 @@ def setOrgDate(p_filename, p_date):
     """
     filecheck(p_filename)
     if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
-        f_key = 'Exif.Photo.DateTimeOriginal'
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-
-
-        """
+        f_valueToSet = p_date
+        f_keys = appropriateKeys(p_filename, "Date Created")
         f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
         for i_key in f_keys:
             if i_key=='Xmp.MicrosoftPhoto.DateAcquired' or i_key=='Xmp.xmp.CreateDate':
-                f_untranslatedVals.append(p_date)
+                f_untranslatedVals.append(f_valueToSet)
             else:
-                f_untranslatedVals.append(MetadataManager.g_untranslaters[i_key](p_date))
-        print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
-        """
-
-        f_value = str(p_date)
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
-        f_key = 'Exif.Photo.DateTimeDigitized'
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
-        # print(getOrgDate(p_filename))
+                f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
         return
     else:
         earlySupportCheck(p_filename)  # TODO add gif support
@@ -1578,8 +1687,4 @@ g_getFunctions = {'Title': getTitle,
 # every key is a metadata type
 # and the dictionary contains lists of
 # what operations are supported for that metadata type
-# this will be used for the UI manager to know what buttons to display
-
-
-
-
+# this will be used for the UI manager to know what buttons to displays

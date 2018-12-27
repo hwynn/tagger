@@ -239,15 +239,16 @@ def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
         print(i_pair)
     f_same = True
     f_diff = []
+    #comparing the metadata values of both files
     for i in range(len(f_oldfileVals)):
         i_a = f_oldfileVals[i]
         i_b = f_newfileVals[i]
-        if i_a!=i_b:
+        if i_a!=i_b: #if the untranslated values don't exactly match, check if the translated ones do
             i_c = MetadataManager.g_translaters[i_a[0]](i_a[1])
             i_d = MetadataManager.g_translaters[i_b[0]](i_b[1])
             if i_c!=i_d:
                 f_same=False
-            f_diff.append((i_a,i_b))
+            f_diff.append((i_a,i_b)) #either way, slight differences are recorded and will be returned
     release(f_newfilel)
     return (f_same,f_diff)
 
