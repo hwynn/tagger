@@ -49,6 +49,7 @@ def release(p_files):
     for file in p_files:
         os.remove(file)
 
+
 def singleClone(p_filename):
     #creates a single copy of a file and returns the name of the copy
     #creates several copies of a file if possible.
@@ -56,12 +57,15 @@ def singleClone(p_filename):
     f_name = p_filename[:-len(ext)]
     f_newfile = f_name+"Copy"+ext
     if os.path.isfile(f_newfile)==True:
-        raise ValueError('File \'{}\' already exists'.format(f_newfile))
+        #raise ValueError('File \'{}\' already exists'.format(f_newfile))
+        os.remove(f_newfile)
     shutil.copy(p_filename, f_newfile)
     return f_newfile
+
 def singleRelease(p_filename):
     #used with singleClone(). Removes the copy that function created
     os.remove(p_filename)
+
 
 def missingKeys(p_file_1, p_file_2):
     #print("missing keys")
@@ -205,15 +209,6 @@ g_getFunctions = {'Title': MetadataManager.getTitle,
                   'Artist': MetadataManager.getArtists,
                   'Date Created': MetadataManager.getOrgDate
                   }
-xxxx = ''
-g_setFunctions = {'Title': xxxx,
-                  'Description': xxxx,
-                  'Rating': xxxx,
-                  'Tags': xxxx,
-                  'Artist': newsetArtist,
-                  'Date Created': xxxx
-                  }
-
 
 def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
     #this takes a file with a value, another file of the same type, and a metadata type
@@ -360,65 +355,7 @@ def isThisLikeJpeg(p_filewithvalue, p_filetocopy, p_metatype):
     release(f_newfilel)
     return (f_same,f_diff)
 
-#g_result1 = testMetadataSet("/media/sf_tagger/windowstesting/skullA.jpg", "/media/sf_tagger/windowstesting/skull.jpg", "Artist")
-#g_result1 = testMetadataSet("/media/sf_tagger/windowstesting/skullA.jpg", "/media/sf_tagger/windowstesting/skull.jpg", "Date Created")
-#print(g_result1)
 
-#testing reading all appropriate key/value pairs for a file given metadata type
-"""
-print(MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
-print(checkAllKeysPresent("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
-g_titleVals = selectVals("/media/sf_tagger/windowstesting/skullA.jpg", MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
-print("titlevals")
-for i_pair in g_titleVals:
-    print(i_pair)
-g_titleVals2 = MetadataManager.MetaDataVals("/media/sf_tagger/windowstesting/skullA.jpg", "Artist")
-for i_pair in g_titleVals2:
-    print(i_pair)
-g_translatedVals = []
-for i in range(len(g_titleVals)):
-    g_translatedVals.append(MetadataManager.g_translaters[g_titleVals[i][0]](g_titleVals[i][1]))
-g_untranslatedVals = []
-for i in range(len(g_titleVals)):
-    g_untranslatedVals.append(MetadataManager.g_untranslaters[g_titleVals[i][0]](g_translatedVals[i]))
-print()
-print(g_translatedVals)
-print(allSame(g_translatedVals))
-for i in range(len(g_titleVals)):
-    print((g_titleVals[i][0] ,g_untranslatedVals[i]))
-"""
-#-----test generating appropriate keys and values for a file given a metadata type
-"""
-print()
-g_titleVals = selectVals("/media/sf_tagger/windowstesting/skullA.jpg", MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
-g_untranslatedVals = []
-for i_keys in MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"):
-    g_untranslatedVals.append(MetadataManager.g_untranslaters[i_keys](['George Washington', 'model: Skeletore']))
-print(MetadataManager.appropriateKeys("/media/sf_tagger/windowstesting/skullA.jpg", "Artist"))
-print(g_untranslatedVals)
-"""
-#-----testing file copying and comparing
-"""
-g_mainfile = "/media/sf_tagger/windowstesting/skull.jpg"
-g_files = shadowClones(g_mainfile, 5)
-jutsu(g_mainfile,g_files)
-print(g_files)
-print(allMeta(g_mainfile))
-for file in g_files:
-    print()
-    print(file)
-    #print(missingKeys("/media/sf_tagger/windowstesting/skull.jpg",file))
-    print(allMeta(file))
-"""
-#MetadataManager.setRating(g_files[2], 4)
-"""
-for file in g_files:
-    print()
-    print(file)
-    #print(missingKeys("/media/sf_tagger/windowstesting/skull.jpg",file))
-    print(allMeta(file))
-"""
-#release(g_files)
 
 g_title = "Sample Title"
 g_rating = 2
