@@ -10,9 +10,7 @@
     <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="Fixed bugs with changes. All jpegonlyunit tests pass.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KeyTesting.py" beforeDir="false" afterPath="$PROJECT_DIR$/KeyTesting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testFileManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/testFileManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windowstesting/dan1.png" beforeDir="false" afterPath="$PROJECT_DIR$/windowstesting/dan1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windowstesting/windowsTesting.ods" beforeDir="false" afterPath="$PROJECT_DIR$/windowstesting/windowsTesting.ods" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,8 +47,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/KeyTesting.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
+            <state relative-caret-position="255">
+              <caret line="143" column="18" lean-forward="true" selection-start-line="143" selection-start-column="18" selection-end-line="143" selection-end-column="18" />
               <folding>
                 <element signature="e#23#37#0" expanded="true" />
                 <element signature="e#123#214#1" />
@@ -406,13 +404,6 @@
       <option name="presentableId" value="Default" />
       <updated>1529891189873</updated>
     </task>
-    <task id="LOCAL-00015" summary="All tests (except with src and date) passed&#10;&#10;Signed-off-by: hwynn &lt;Rocketferret54&gt;">
-      <created>1534812625951</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1534812625951</updated>
-    </task>
     <task id="LOCAL-00016" summary="Working on editting and reading file creation dates">
       <created>1535481235302</created>
       <option name="number" value="00016" />
@@ -749,7 +740,14 @@
       <option name="project" value="LOCAL" />
       <updated>1545944652577</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="testing keys for series data">
+      <created>1546063109565</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1546063109573</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -888,7 +886,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="preparing to do windows testing to emulate windows behavior" />
     <MESSAGE value="starting windows testing to emulate windows behavior" />
     <MESSAGE value="continuing windows testing to emulate windows behavior" />
     <MESSAGE value="windows testing to emulate windows behavior stage 3. 2 tests remain" />
@@ -913,7 +910,8 @@
     <MESSAGE value="changed how wipe() functions work. I don't know why we just have 2 of those things." />
     <MESSAGE value="Fixed bugs with changes. All jpegonlyunit tests pass." />
     <MESSAGE value="testing keys for series data" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing keys for series data" />
+    <MESSAGE value="key testing stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="key testing stuff" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -947,6 +945,11 @@
           <url>file://$PROJECT_DIR$/KeyTesting.py</url>
           <line>118</line>
           <option name="timeStamp" value="164" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/KeyTesting.py</url>
+          <line>131</line>
+          <option name="timeStamp" value="165" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1108,8 +1111,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/KeyTesting.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
+        <state relative-caret-position="255">
+          <caret line="143" column="18" lean-forward="true" selection-start-line="143" selection-start-column="18" selection-end-line="143" selection-end-column="18" />
           <folding>
             <element signature="e#23#37#0" expanded="true" />
             <element signature="e#123#214#1" />

@@ -128,12 +128,17 @@ g_key = 'Xmp.iptcExt.Series.Iptc4xmpExt'                #kinda works
 g_key = 'Xmp.iptcExt.Series.Iptc4xmpExt:Name'           #error tag not set
 g_key = 'Xmp.iptcExt.Series:Name'                       #error tag not set
 g_key = 'Xmp.iptcExt.Series.Name'                       #kinda works
+g_key = 'Xmp.iptcExt.Series.Identifier'
+pyexiv2.xmp.register_namespace('mdEditorName/', 'taggerMark')
+#pyexiv2.xmp.register_namespace('mdEditorVersion/', 'taggerMark') #causes error. we don't need to register second time
+g_key = 'Xmp.taggerMark.mdEditorName'
+g_key = 'Xmp.taggerMark.mdEditorVersion'
 #g_key = 'Xmp.iptcExt.Series/Name'                       #error tag not set
 #g_key = 'Xmp.iptcExt.Series.cheese'                     #kinda works
 g_metadata = pyexiv2.ImageMetadata(g_newfile)
 g_metadata.read()
-g_newvalue = "horse vacation"
-#g_newvalue = '7'
+#g_newvalue = "horse vacation"
+g_newvalue = '7'
 g_metadata[g_key] = pyexiv2.XmpTag(g_key, g_newvalue)
 
 g_metadata.write()
