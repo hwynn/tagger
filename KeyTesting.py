@@ -9,7 +9,8 @@ This is a place to test individual keys
 Reading and writing values in certain files
 """
 
-g_metadataTypes = ['Title', 'Description', 'Rating', 'Tags', 'Artist', 'Date Created']
+g_metadataTypes = ['Title', 'Description', 'Rating', 'Tags', 'Artist', 'Date Created', 'Source',
+                   'SeriesName', 'SeriesInstallment']
 
 def allKeys(p_file_1):
     #prints all keys from file
@@ -133,12 +134,14 @@ pyexiv2.xmp.register_namespace('mdEditorName/', 'taggerMark')
 #pyexiv2.xmp.register_namespace('mdEditorVersion/', 'taggerMark') #causes error. we don't need to register second time
 g_key = 'Xmp.taggerMark.mdEditorName'
 g_key = 'Xmp.taggerMark.mdEditorVersion'
+g_key = 'Xmp.xmp.BaseURL'
 #g_key = 'Xmp.iptcExt.Series/Name'                       #error tag not set
 #g_key = 'Xmp.iptcExt.Series.cheese'                     #kinda works
 g_metadata = pyexiv2.ImageMetadata(g_newfile)
 g_metadata.read()
-#g_newvalue = "horse vacation"
-g_newvalue = '7'
+g_newvalue = "horse vacation"
+g_newvalue = "https://www.deviantart.com/dragoncryingplz"
+#g_newvalue = '7'
 g_metadata[g_key] = pyexiv2.XmpTag(g_key, g_newvalue)
 
 g_metadata.write()

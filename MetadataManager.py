@@ -364,6 +364,18 @@ def date_to_Iso8601(p_date):
     f_unparsedDate = p_date.isoformat()
     return f_unparsedDate
 
+def int_to_str(p_int):
+    #this funtion seems redundant, but I don't know if functions in a dictionary will work
+    # unless they're functions declared in the same scope
+    # if we can, I'll remove this function later
+    return str(p_int)
+
+def str_to_int(p_str):
+    #this funtion seems redundant, but I don't know if functions in a dictionary will work
+    # unless they're functions declared in the same scope
+    # if we can, I'll remove this function later
+    return int(p_str)
+
 #--------------------------------------
 #-------Key data and operations--------
 #--------------------------------------
@@ -378,7 +390,11 @@ g_jpgKeys = {
     "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
     "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
     "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
-    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate']
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate'],
+    "Source": ['Xmp.dc.Source', 'Xmp.xmp.BaseURL'],
+    "SeriesName": ['Xmp.iptcExt.Series.Name'],
+    "SeriesInstallment": ['Xmp.iptcExt.Series.Identifier'],
+    "MetadataDate": ['Xmp.xmp.MetadataDate']
 }
 g_tiffKeys = {
     "Title": ['Exif.Image.XPTitle', 'Exif.Image.ImageDescription', 'Xmp.dc.title', 'Xmp.dc.description'],
@@ -386,7 +402,11 @@ g_tiffKeys = {
     "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
     "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject'],
     "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
-    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired']
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired'],
+    "Source": ['Xmp.dc.Source', 'Xmp.xmp.BaseURL'],
+    "SeriesName": ['Xmp.iptcExt.Series.Name'],
+    "SeriesInstallment": ['Xmp.iptcExt.Series.Identifier'],
+    "MetadataDate": ['Xmp.xmp.MetadataDate']
 }
 g_pngKeys = {
     "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
@@ -394,7 +414,11 @@ g_pngKeys = {
     "Rating": ['Exif.Image.Rating', 'Exif.Image.RatingPercent', 'Xmp.xmp.Rating', 'Xmp.MicrosoftPhoto.Rating'],
     "Tags": ['Exif.Image.XPKeywords', 'Xmp.dc.subject', 'Xmp.MicrosoftPhoto.LastKeywordXMP'],
     "Artist": ['Exif.Image.Artist', 'Exif.Image.XPAuthor', 'Xmp.dc.creator'],
-    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate']
+    "Date Created": ['Exif.Photo.DateTimeOriginal', 'Exif.Photo.DateTimeDigitized', 'Xmp.MicrosoftPhoto.DateAcquired', 'Xmp.xmp.CreateDate'],
+    "Source": ['Xmp.dc.Source', 'Xmp.xmp.BaseURL'],
+    "SeriesName": ['Xmp.iptcExt.Series.Name'],
+    "SeriesInstallment": ['Xmp.iptcExt.Series.Identifier'],
+    "MetadataDate": ['Xmp.xmp.MetadataDate']
 }
 
 g_keylists: Dict[str, Dict[str, List[str]]] = {
@@ -467,7 +491,12 @@ g_translaters = {'Exif.Image.XPTitle': raw_to_cleanStr,
                  'Exif.Photo.DateTimeOriginal': valTranslateNone,
                  'Exif.Photo.DateTimeDigitized': valTranslateNone,
                  'Xmp.MicrosoftPhoto.DateAcquired': Iso8601_to_date,
-                 'Xmp.xmp.CreateDate':Iso8601_to_date
+                 'Xmp.xmp.CreateDate':Iso8601_to_date,
+                 'Xmp.dc.Source': valTranslateNone,
+                 'Xmp.xmp.BaseURL': valTranslateNone,
+                 'Xmp.iptcExt.Series.Name': valTranslateNone,
+                 'Xmp.iptcExt.Series.Identifier': str_to_int,
+                 'Xmp.xmp.MetadataDate': valTranslateNone
                  }
 #these change human readable values into values we can store in files
 g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
@@ -488,7 +517,12 @@ g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
                  'Exif.Photo.DateTimeOriginal': valTranslateNone,
                  'Exif.Photo.DateTimeDigitized': valTranslateNone,
                  'Xmp.MicrosoftPhoto.DateAcquired': date_to_Iso8601,
-                 'Xmp.xmp.CreateDate': date_to_Iso8601
+                 'Xmp.xmp.CreateDate': date_to_Iso8601,
+                 'Xmp.dc.Source': valTranslateNone,
+                 'Xmp.xmp.BaseURL': valTranslateNone,
+                 'Xmp.iptcExt.Series.Name': valTranslateNone,
+                 'Xmp.iptcExt.Series.Identifier': int_to_str,
+                 'Xmp.xmp.MetadataDate': valTranslateNone
                  }
 #TODO make unit tests that uses these dictionaries
 #for every key, its translate and untranslate function should be one to one
@@ -1347,14 +1381,35 @@ def searchRating(p_filename, p_searchForThisRating):
     if f_rating ==p_searchForThisRating:
         return True
     return False
+def wipeRating(p_filename):
+    """
+    removes rating metadata from a file completely
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise MetadataMissingError: if the file has no rating metadata
+    """
+    filecheck(p_filename)
+    if not containsDescr(p_filename):
+        raise MetadataMissingError("there is no rating to remove")
+    setDescr(p_filename, 1)
+    f_keys = appropriateKeys(p_filename, "Rating")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_keys:
+        f_metadata.__delitem__(i_key)
+        f_metadata.write()
+    return
 
 # TODO def wipeRating(p_filename):
 
 # ------edit metadata that can store source url
-def containsSrc(p_filename):
+
+def containsSource(p_filename):
     """!
     This will tell us if the file
-    has any source url metadata.
+    has any Source URL metadata.
 
     :param p_filename: name/path of the file
     :type p_filename: string
@@ -1362,24 +1417,21 @@ def containsSrc(p_filename):
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
 
-    :return: True if file has source url metadata
+    :return: True if file has source metadata
     :rtype: bool
     """
     filecheck(p_filename)
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "Source")
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
-    # TODO add png support
-    earlySupportCheck(p_filename)
-    if ((getExtension(p_filename) == '.jpg') and ('Exif.Image.ImageHistory' in f_metadata.exif_keys)):
-        # print("this file already has history/source data")
-        return True
-    # print("this file has no history/source data")
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return True
+    # print("this file has no source data")
     return False
-def getSrc(p_filename):
+def getSource(p_filename):
     """!
-    src info is planned to be used to store picture origin url
-     along with the history of edits this software has performed upon it
-
     :param p_filename: name/path of the file
     :type p_filename: string
 
@@ -1390,79 +1442,100 @@ def getSrc(p_filename):
     :rtype: string
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
-        if not containsSrc(p_filename):
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        if not containsSource(p_filename):
             return ""
+        f_key = keyHoldingValue(p_filename, "Source")
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        # print(f_metadata.exif_keys)
-        f_keywords = f_metadata['Exif.Image.ImageHistory']
-        f_SrcString = f_keywords.value
-        return f_SrcString
+        f_cleanSource = g_translaters[f_key](f_metadata[f_key].value)
+        # print("clean Source:", f_cleanSource)
+        return f_cleanSource
     else:
         earlySupportCheck(p_filename)  # TODO add gif support
     return ""
-def addSrc(p_filename, x):
+def setSource(p_filename, p_setSourceToThis):
     """
-    appends source info to the end of the current src info
-    we don't want src info to be removed.
-     But we do allow more to be added
-
     :param p_filename: name/path of the file
 	:type p_filename: string
-	:param x: source url metadata will be set to this
-	:type x: string
+	:param p_setSourceToThis: source url metadata will be set to this
+	:type p_setSourceToThis: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
-        f_key = 'Exif.Image.ImageHistory'
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        f_valueToSet = p_setSourceToThis
+        f_keys = appropriateKeys(p_filename, "Source")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+            f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
         f_metadata = pyexiv2.ImageMetadata(p_filename)
         f_metadata.read()
-        # this is an append, so we fetch any src data to add
-        f_value = getSrc(p_filename)
-        # Note the line break. This means all future added data begins on a new line'
-        if f_value == "":
-            f_value = x
-        else:
-            f_value = f_value + "\n" + x
-        f_metadata[f_key] = pyexiv2.ExifTag(f_key, f_value)
-        f_metadata.write()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
         return
     else:
         earlySupportCheck(p_filename)  # TODO add gif support
     return
-def searchSrc(p_filename, p_searchForThis):
+def searchSource(p_filename, p_searchForThis):
     """
     :param p_filename: name/path of the file
 	:type p_filename: string
-	:param p_searchForThis: sourrce url that we're checking for
+	:param p_searchForThis: source url that we're checking for
     :type p_searchForThis: string
 
     :raise UnknownFiletypeError: if the filetype cannot be found
     :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
 
-    :return: returns true is p_searchForThis is found anywhere in the src string
+    :return: True if p_searchForThis was in source metadata
     :rtype: bool
     """
     filecheck(p_filename)
-    if (getExtension(p_filename) == '.jpg'):
-        f_metadata = pyexiv2.ImageMetadata(p_filename)
-        f_metadata.read()
-        # print(f_metadata.exif_keys)
-        if not containsSrc(p_filename):
-            return False
-        f_cleanSrc = getSrc(p_filename)
-        if p_searchForThis in f_cleanSrc:
-            return True
-    else:
-        earlySupportCheck(p_filename)
-        # TODO add gif support
-        # TODO error check: does this file have Src data?
+    f_source = getSource(p_filename)
+    if f_source == "":
         return False
+    if p_searchForThis in f_source:
+        return True
     return False
+def wipeSource(p_filename):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise MetadataMissingError: if the file has no source metadata
+    """
+    filecheck(p_filename)
+    if not containsSource(p_filename):
+        raise MetadataMissingError("there is no source to remove")
+    setSource(p_filename, " ")
+    f_keys = appropriateKeys(p_filename, "Source")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_keys:
+        f_metadata.__delitem__(i_key)
+        f_metadata.write()
+    return
 
 
 # -------edit orginal date
@@ -1605,18 +1678,411 @@ def searchOrgDate(p_filename, p_startDate, p_endDate):
     return False
 
 
+#------edit metadata that can store series information (like comic name and strip number)
+
+def containsSeriesName(p_filename):
+    """!
+    This will tell us if the file
+    has any SeriesName metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has series name metadata
+    :rtype: bool
+    """
+    filecheck(p_filename)
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "SeriesName")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return True
+    # print("this file has no series name data")
+    return False
+def getSeriesName(p_filename):
+    """!
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: series name if it exists. Else, ""
+    :rtype: string
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        if not containsSeriesName(p_filename):
+            return ""
+        f_key = keyHoldingValue(p_filename, "SeriesName")
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_cleanSeriesName = g_translaters[f_key](f_metadata[f_key].value)
+        # print("clean SeriesName:", f_cleanSeriesName)
+        return f_cleanSeriesName
+    else:
+        earlySupportCheck(p_filename)  # TODO add gif support
+    return ""
+def setSeriesName(p_filename, p_setSeriesNameToThis):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_setSeriesNameToThis: series name metadata will be set to this
+	:type p_setSeriesNameToThis: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        f_valueToSet = p_setSeriesNameToThis
+        f_keys = appropriateKeys(p_filename, "SeriesName")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+            f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)  # TODO add gif support
+    return
+def searchSeriesName(p_filename, p_searchForThis):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_searchForThis: series name that we're checking for
+    :type p_searchForThis: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if p_searchForThis was in series name metadata
+    :rtype: bool
+    """
+    filecheck(p_filename)
+    f_series_name = getSeriesName(p_filename)
+    if f_series_name == "":
+        return False
+    if p_searchForThis in f_series_name:
+        return True
+    return False
+def wipeSeriesName(p_filename):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise MetadataMissingError: if the file has no series name metadata
+    """
+    filecheck(p_filename)
+    if not containsSeriesName(p_filename):
+        raise MetadataMissingError("there is no series name to remove")
+    setSeriesName(p_filename, " ")
+    f_keys = appropriateKeys(p_filename, "SeriesName")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_keys:
+        f_metadata.__delitem__(i_key)
+        f_metadata.write()
+    return
+
+def containsSeriesInstallment(p_filename):
+    """!
+    This will tell us if the file
+    has any SeriesInstallment metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has series installment metadata
+    :rtype: bool
+    """
+    filecheck(p_filename)
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "SeriesInstallment")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return True
+    # print("this file has no series installment data")
+    return False
+def getSeriesInstallment(p_filename):
+    """!
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: series installment if it exists. Else, -1
+    :rtype: int
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        if not containsSeriesInstallment(p_filename):
+            return -1
+        f_key = keyHoldingValue(p_filename, "SeriesInstallment")
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_cleanSeriesInstallment = g_translaters[f_key](f_metadata[f_key].value)
+        # print("clean SeriesInstallment:", f_cleanSeriesInstallment)
+        return f_cleanSeriesInstallment
+    else:
+        earlySupportCheck(p_filename)  # TODO add gif support
+    return -1
+def setSeriesInstallment(p_filename, p_setSeriesInstallmentToThis):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_setSeriesInstallmentToThis: series installment metadata will be set to this
+	:type p_setSeriesInstallmentToThis: int
+
+    #TODO: raise exception if given a non-integer for p_setSeriesInstallmentToThis
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        f_valueToSet = p_setSeriesInstallmentToThis
+        f_keys = appropriateKeys(p_filename, "SeriesInstallment")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+            f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)  # TODO add gif support
+    return
+def searchSeriesInstallment(p_filename, p_searchForThis):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_searchForThis: series installment that we're checking for
+    :type p_searchForThis: int
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if p_searchForThis was in series installment metadata
+    :rtype: bool
+    """
+    filecheck(p_filename)
+    f_series_installment = getSeriesInstallment(p_filename)
+    if f_series_installment == -1:
+        return False
+    if p_searchForThis in f_series_installment:
+        return True
+    return False
+def wipeSeriesInstallment(p_filename):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise MetadataMissingError: if the file has no series installment metadata
+    """
+    filecheck(p_filename)
+    if not containsSeriesInstallment(p_filename):
+        raise MetadataMissingError("there is no series installment to remove")
+    setSeriesInstallment(p_filename, -1)
+    f_keys = appropriateKeys(p_filename, "SeriesInstallment")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_keys:
+        f_metadata.__delitem__(i_key)
+        f_metadata.write()
+    return
+
 # ---------edit series data
 
 # TODO def getSeries(p_filename):
-
 # TODO def setSeries(p_filename):
-
 # TODO def searchSeries(p_filename):
-
 # TODO def removeSeries(p_filename):
 
+# -------edit metadata date
 
+def containsMetadataDate(p_filename):
+    """!
+    This will tell us if the file
+    has any original date metadata.
 
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has original date metadata
+    :rtype: bool
+    """
+    filecheck(p_filename)
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "MetadataDate")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return True
+    # print("this file has no metadata date data")
+    return False
+def getMetadataDate(p_filename):
+    """
+    if none exists, returns datetime.datetime(1, 1, 1)
+    please don't use this as a magic number. It's just to keep consistent types
+    since set and get should have the same requirements to work.
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: original data if it exists. Else, datetime.datetime(1,1,1)
+    :rtype: datetime
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        if not containsMetadataDate(p_filename):
+            return datetime.datetime(1, 1, 1)
+        f_key = keyHoldingValue(p_filename, "MetadataDate")
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_value = g_translaters[f_key](f_metadata[f_key].value)
+        return f_value
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add gif support
+        return datetime.datetime(1, 1, 1)
+def setMetadataDate(p_filename, p_date):
+    """
+    takes filename and datetime object
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_date: original date metadata will be set to this
+	:type p_date: datetime
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        f_valueToSet = p_date
+        f_keys = appropriateKeys(p_filename, "MetadataDate")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+                f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)  # TODO add gif support
+    return
+def searchMetadataDate(p_filename, p_startDate, p_endDate):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_startDate: start of the date range we are searching for
+	:type p_startDate: datetime
+    :param p_endDate: end of the date range we are searching for
+    :type p_endDate: datetime
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if the datetime is inbetween p_startDate and p_endDate
+    :rtype: bool
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # print(f_metadata.exif_keys)
+        if not containsMetadataDate(p_filename):
+            return False
+        f_cleanMetadataDate = getMetadataDate(p_filename)
+        if p_startDate <= f_cleanMetadataDate <= p_endDate:
+            return True
+    else:
+        earlySupportCheck(p_filename)
+        # TODO add gif support
+        return False
+    return False
+
+#----edit hidden software marks
+
+#TaggerMark
+
+#TaggerVersion
 
 
 
