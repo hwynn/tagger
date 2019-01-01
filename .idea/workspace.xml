@@ -7,12 +7,10 @@
     <bookmark url="file://$PROJECT_DIR$/windowstesting/windowsTests.py" description="            if f_metadata1[key1].value==f_metadata..." line="69" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="Fixed bugs with changes. All jpegonlyunit tests pass.">
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="Learned new keys. Added metadata date functions and series functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KeyTesting.py" beforeDir="false" afterPath="$PROJECT_DIR$/KeyTesting.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MetadataManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/MetadataManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windowstesting/dan1.png" beforeDir="false" afterPath="$PROJECT_DIR$/windowstesting/dan1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windowstesting/windowsTesting.ods" beforeDir="false" afterPath="$PROJECT_DIR$/windowstesting/windowsTesting.ods" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/KeyTesting.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="49">
-              <caret line="125" lean-forward="true" selection-start-line="125" selection-end-line="125" />
+            <state relative-caret-position="135">
+              <caret line="12" column="84" selection-start-line="12" selection-start-column="84" selection-end-line="12" selection-end-column="95" />
               <folding>
                 <element signature="e#23#37#0" expanded="true" />
                 <element signature="e#123#214#1" />
@@ -67,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TestingManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="68" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="240">
+              <caret line="82" column="38" lean-forward="true" selection-start-line="82" selection-start-column="38" selection-end-line="82" selection-end-column="38" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
@@ -76,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MetadataManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="2084" column="14" selection-start-line="2084" selection-start-column="14" selection-end-line="2084" selection-end-column="14" />
+            <state relative-caret-position="195">
+              <caret line="516" column="65" lean-forward="true" selection-start-line="516" selection-start-column="65" selection-end-line="516" selection-end-column="65" />
               <folding>
                 <element signature="e#190#248#0" />
                 <element signature="e#411#464#0" />
@@ -150,10 +148,10 @@
                 <element signature="e#11049#11135#0" />
                 <element signature="e#11293#11508#0" />
                 <element signature="e#11293#11379#0" />
+                <element signature="e#11539#11682#0" />
+                <element signature="e#11544#11582#0" />
                 <element signature="e#11022#11061#0" />
-                <element signature="e#11948#12596#0" />
                 <element signature="e#12022#12542#0" />
-                <element signature="e#12555#13103#0" />
                 <element signature="e#13151#13224#0" />
                 <element signature="e#13271#14128#0" />
                 <element signature="e#13271#13767#1" />
@@ -161,8 +159,6 @@
                 <element signature="e#14175#15077#0" />
                 <element signature="e#14175#14742#1" />
                 <element signature="e#14874#14979#0" />
-                <element signature="e#15162#16303#0" />
-                <element signature="e#16392#17530#0" />
                 <element signature="e#17531#17581#0" />
                 <element signature="e#17867#18772#0" />
                 <element signature="e#17867#18178#1" />
@@ -333,7 +329,6 @@
                 <element signature="e#69426#69530#0" />
                 <element signature="e#69646#70595#0" />
                 <element signature="e#69646#69950#1" />
-                <element signature="e#70105#70509#0" />
                 <element signature="e#70668#72661#0" />
                 <element signature="e#70668#71023#1" />
                 <element signature="e#71178#72578#0" />
@@ -350,7 +345,6 @@
                 <element signature="e#76507#76611#0" />
                 <element signature="e#76716#77831#0" />
                 <element signature="e#76716#77241#1" />
-                <element signature="e#77396#77710#0" />
                 <element signature="e#77729#77831#0" />
                 <element signature="e#77877#79842#0" />
                 <element signature="e#77877#78227#1" />
@@ -361,6 +355,38 @@
                 <element signature="e#79907#80416#1" />
                 <element signature="e#80571#80897#0" />
                 <element signature="e#80916#80997#0" />
+                <element signature="e#81085#81193#0" />
+                <element signature="e#81247#82022#0" />
+                <element signature="e#81247#81615#1" />
+                <element signature="e#81853#81957#0" />
+                <element signature="e#82058#82956#0" />
+                <element signature="e#82058#82357#1" />
+                <element signature="e#83015#85017#0" />
+                <element signature="e#83015#83359#1" />
+                <element signature="e#83514#84934#0" />
+                <element signature="e#83862#83943#0" />
+                <element signature="e#84316#84913#0" />
+                <element signature="e#85067#85905#0" />
+                <element signature="e#85067#85715#1" />
+                <element signature="e#85942#86642#0" />
+                <element signature="e#85942#86238#1" />
+                <element signature="e#86575#86631#0" />
+                <element signature="e#86938#87713#0" />
+                <element signature="e#86938#87306#1" />
+                <element signature="e#87544#87648#0" />
+                <element signature="e#87749#88648#0" />
+                <element signature="e#87749#88045#1" />
+                <element signature="e#88707#90740#0" />
+                <element signature="e#88707#89116#1" />
+                <element signature="e#89271#90657#0" />
+                <element signature="e#89591#89672#0" />
+                <element signature="e#90045#90642#0" />
+                <element signature="e#90796#91393#0" />
+                <element signature="e#90796#91197#1" />
+                <element signature="e#91430#92129#0" />
+                <element signature="e#91430#91726#1" />
+                <element signature="e#92062#92118#0" />
+                <element signature="e#86645#86659#0" />
                 <element signature="e#61599#61851#1" />
                 <element signature="e#61903#62144#0" />
                 <element signature="e#62147#62196#0" />
@@ -409,8 +435,8 @@
       <find>Xmp.xmpDM.</find>
       <find>Identifier</find>
       <find>clone</find>
-      <find>allKeys</find>
       <find>translater</find>
+      <find>allKeys</find>
     </findStrings>
     <replaceStrings>
       <replace>'Exif.Image.XPTitle'</replace>
@@ -685,13 +711,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529891189873</updated>
-    </task>
-    <task id="LOCAL-00017" summary="maybe finished edit date and src">
-      <created>1535582131299</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1535582131299</updated>
     </task>
     <task id="LOCAL-00018" summary="all functions implemented for jpg metadata. Passed all tests">
       <created>1535603341637</created>
@@ -1029,7 +1048,14 @@
       <option name="project" value="LOCAL" />
       <updated>1546140361213</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Learned new keys. Added metadata date functions and series functions">
+      <created>1546219540910</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1546219540911</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1169,7 +1195,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="starting windows testing to emulate windows behavior" />
     <MESSAGE value="continuing windows testing to emulate windows behavior" />
     <MESSAGE value="windows testing to emulate windows behavior stage 3. 2 tests remain" />
     <MESSAGE value="Windows testing finished" />
@@ -1194,7 +1219,8 @@
     <MESSAGE value="Fixed bugs with changes. All jpegonlyunit tests pass." />
     <MESSAGE value="testing keys for series data" />
     <MESSAGE value="key testing stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="key testing stuff" />
+    <MESSAGE value="Learned new keys. Added metadata date functions and series functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Learned new keys. Added metadata date functions and series functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1205,33 +1231,28 @@
           <option name="timeStamp" value="164" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/KeyTesting.py</url>
-          <line>132</line>
-          <option name="timeStamp" value="165" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>475</line>
+          <line>492</line>
           <option name="timeStamp" value="166" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>501</line>
+          <line>520</line>
           <option name="timeStamp" value="167" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>386</line>
+          <line>397</line>
           <option name="timeStamp" value="168" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>398</line>
+          <line>411</line>
           <option name="timeStamp" value="169" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MetadataManager.py</url>
-          <line>410</line>
+          <line>425</line>
           <option name="timeStamp" value="170" />
         </line-breakpoint>
       </breakpoints>
@@ -1351,16 +1372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TestingManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
-          <folding>
-            <element signature="e#23#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tagUnitTests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -1381,10 +1392,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/TestingManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="82" column="38" lean-forward="true" selection-start-line="82" selection-start-column="38" selection-end-line="82" selection-end-column="38" />
+          <folding>
+            <element signature="e#23#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/KeyTesting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="12" column="84" selection-start-line="12" selection-start-column="84" selection-end-line="12" selection-end-column="95" />
+          <folding>
+            <element signature="e#23#37#0" expanded="true" />
+            <element signature="e#123#214#1" />
+            <element signature="e#331#789#0" />
+            <element signature="e#1052#1329#1" />
+            <element signature="e#1330#2473#1" />
+            <element signature="e#2476#3194#1" />
+            <element signature="e#2950#3960#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="2084" column="14" selection-start-line="2084" selection-start-column="14" selection-end-line="2084" selection-end-column="14" />
+        <state relative-caret-position="195">
+          <caret line="516" column="65" lean-forward="true" selection-start-line="516" selection-start-column="65" selection-end-line="516" selection-end-column="65" />
           <folding>
             <element signature="e#190#248#0" />
             <element signature="e#411#464#0" />
@@ -1454,10 +1491,10 @@
             <element signature="e#11049#11135#0" />
             <element signature="e#11293#11508#0" />
             <element signature="e#11293#11379#0" />
+            <element signature="e#11539#11682#0" />
+            <element signature="e#11544#11582#0" />
             <element signature="e#11022#11061#0" />
-            <element signature="e#11948#12596#0" />
             <element signature="e#12022#12542#0" />
-            <element signature="e#12555#13103#0" />
             <element signature="e#13151#13224#0" />
             <element signature="e#13271#14128#0" />
             <element signature="e#13271#13767#1" />
@@ -1465,8 +1502,6 @@
             <element signature="e#14175#15077#0" />
             <element signature="e#14175#14742#1" />
             <element signature="e#14874#14979#0" />
-            <element signature="e#15162#16303#0" />
-            <element signature="e#16392#17530#0" />
             <element signature="e#17531#17581#0" />
             <element signature="e#17867#18772#0" />
             <element signature="e#17867#18178#1" />
@@ -1637,7 +1672,6 @@
             <element signature="e#69426#69530#0" />
             <element signature="e#69646#70595#0" />
             <element signature="e#69646#69950#1" />
-            <element signature="e#70105#70509#0" />
             <element signature="e#70668#72661#0" />
             <element signature="e#70668#71023#1" />
             <element signature="e#71178#72578#0" />
@@ -1654,7 +1688,6 @@
             <element signature="e#76507#76611#0" />
             <element signature="e#76716#77831#0" />
             <element signature="e#76716#77241#1" />
-            <element signature="e#77396#77710#0" />
             <element signature="e#77729#77831#0" />
             <element signature="e#77877#79842#0" />
             <element signature="e#77877#78227#1" />
@@ -1665,25 +1698,41 @@
             <element signature="e#79907#80416#1" />
             <element signature="e#80571#80897#0" />
             <element signature="e#80916#80997#0" />
+            <element signature="e#81085#81193#0" />
+            <element signature="e#81247#82022#0" />
+            <element signature="e#81247#81615#1" />
+            <element signature="e#81853#81957#0" />
+            <element signature="e#82058#82956#0" />
+            <element signature="e#82058#82357#1" />
+            <element signature="e#83015#85017#0" />
+            <element signature="e#83015#83359#1" />
+            <element signature="e#83514#84934#0" />
+            <element signature="e#83862#83943#0" />
+            <element signature="e#84316#84913#0" />
+            <element signature="e#85067#85905#0" />
+            <element signature="e#85067#85715#1" />
+            <element signature="e#85942#86642#0" />
+            <element signature="e#85942#86238#1" />
+            <element signature="e#86575#86631#0" />
+            <element signature="e#86938#87713#0" />
+            <element signature="e#86938#87306#1" />
+            <element signature="e#87544#87648#0" />
+            <element signature="e#87749#88648#0" />
+            <element signature="e#87749#88045#1" />
+            <element signature="e#88707#90740#0" />
+            <element signature="e#88707#89116#1" />
+            <element signature="e#89271#90657#0" />
+            <element signature="e#89591#89672#0" />
+            <element signature="e#90045#90642#0" />
+            <element signature="e#90796#91393#0" />
+            <element signature="e#90796#91197#1" />
+            <element signature="e#91430#92129#0" />
+            <element signature="e#91430#91726#1" />
+            <element signature="e#92062#92118#0" />
+            <element signature="e#86645#86659#0" />
             <element signature="e#61599#61851#1" />
             <element signature="e#61903#62144#0" />
             <element signature="e#62147#62196#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/KeyTesting.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
-          <caret line="125" lean-forward="true" selection-start-line="125" selection-end-line="125" />
-          <folding>
-            <element signature="e#23#37#0" expanded="true" />
-            <element signature="e#123#214#1" />
-            <element signature="e#331#789#0" />
-            <element signature="e#1052#1329#1" />
-            <element signature="e#1330#2473#1" />
-            <element signature="e#2476#3194#1" />
-            <element signature="e#2950#3960#1" />
           </folding>
         </state>
       </provider>

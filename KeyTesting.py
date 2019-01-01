@@ -10,7 +10,7 @@ Reading and writing values in certain files
 """
 
 g_metadataTypes = ['Title', 'Description', 'Rating', 'Tags', 'Artist', 'Date Created', 'Source',
-                   'SeriesName', 'SeriesInstallment']
+                   'SeriesName', 'SeriesInstallment', 'MetadataDate','TaggerMark' ,'VersionNum']
 
 def allKeys(p_file_1):
     #prints all keys from file
@@ -130,8 +130,21 @@ g_key = 'Xmp.iptcExt.Series.Iptc4xmpExt:Name'           #error tag not set
 g_key = 'Xmp.iptcExt.Series:Name'                       #error tag not set
 g_key = 'Xmp.iptcExt.Series.Name'                       #kinda works
 g_key = 'Xmp.iptcExt.Series.Identifier'
-pyexiv2.xmp.register_namespace('mdEditorName/', 'taggerMark')
-#pyexiv2.xmp.register_namespace('mdEditorVersion/', 'taggerMark') #causes error. we don't need to register second time
+
+
+def registerHiddenNamespace():
+    try:
+        pyexiv2.xmp.register_namespace('mdEditorName/', 'taggerMark')
+    except KeyError:
+        pass
+
+
+
+
+pyexiv2.xmp.register_namespace('mdEditorVersion/', 'taggerMark') #causes error. we don't need to register second time
+registerHiddenNamespace()
+
+
 g_key = 'Xmp.taggerMark.mdEditorName'
 g_key = 'Xmp.taggerMark.mdEditorVersion'
 g_key = 'Xmp.xmp.BaseURL'

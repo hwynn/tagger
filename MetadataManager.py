@@ -376,6 +376,17 @@ def str_to_int(p_str):
     # if we can, I'll remove this function later
     return int(p_str)
 
+def num_to_version(p_num):
+  if len(str(p_num))>2:
+    dollar = str(p_num)[:-2]
+  else:
+    dollar = '0'
+  cents = str(p_num % 100).zfill(2)
+  return (dollar + '.' + cents)
+
+def version_to_num(p_version):
+  return int(p_version.replace('.', ''))
+
 #--------------------------------------
 #-------Key data and operations--------
 #--------------------------------------
@@ -394,7 +405,9 @@ g_jpgKeys = {
     "Source": ['Xmp.dc.Source', 'Xmp.xmp.BaseURL'],
     "SeriesName": ['Xmp.iptcExt.Series.Name'],
     "SeriesInstallment": ['Xmp.iptcExt.Series.Identifier'],
-    "MetadataDate": ['Xmp.xmp.MetadataDate']
+    "MetadataDate": ['Xmp.xmp.MetadataDate'],
+    "TaggerMark": ['Xmp.taggerMark.mdEditorName'],
+    "VersionNum": ['Xmp.taggerMark.mdEditorVersion']
 }
 g_tiffKeys = {
     "Title": ['Exif.Image.XPTitle', 'Exif.Image.ImageDescription', 'Xmp.dc.title', 'Xmp.dc.description'],
@@ -406,7 +419,9 @@ g_tiffKeys = {
     "Source": ['Xmp.dc.Source', 'Xmp.xmp.BaseURL'],
     "SeriesName": ['Xmp.iptcExt.Series.Name'],
     "SeriesInstallment": ['Xmp.iptcExt.Series.Identifier'],
-    "MetadataDate": ['Xmp.xmp.MetadataDate']
+    "MetadataDate": ['Xmp.xmp.MetadataDate'],
+    "TaggerMark": ['Xmp.taggerMark.mdEditorName'],
+    "VersionNum": ['Xmp.taggerMark.mdEditorVersion']
 }
 g_pngKeys = {
     "Title": ['Exif.Image.XPTitle', 'Xmp.dc.title', 'Xmp.dc.description'],
@@ -418,7 +433,9 @@ g_pngKeys = {
     "Source": ['Xmp.dc.Source', 'Xmp.xmp.BaseURL'],
     "SeriesName": ['Xmp.iptcExt.Series.Name'],
     "SeriesInstallment": ['Xmp.iptcExt.Series.Identifier'],
-    "MetadataDate": ['Xmp.xmp.MetadataDate']
+    "MetadataDate": ['Xmp.xmp.MetadataDate'],
+    "TaggerMark": ['Xmp.taggerMark.mdEditorName'],
+    "VersionNum": ['Xmp.taggerMark.mdEditorVersion']
 }
 
 g_keylists: Dict[str, Dict[str, List[str]]] = {
@@ -496,7 +513,9 @@ g_translaters = {'Exif.Image.XPTitle': raw_to_cleanStr,
                  'Xmp.xmp.BaseURL': valTranslateNone,
                  'Xmp.iptcExt.Series.Name': valTranslateNone,
                  'Xmp.iptcExt.Series.Identifier': str_to_int,
-                 'Xmp.xmp.MetadataDate': valTranslateNone
+                 'Xmp.xmp.MetadataDate': valTranslateNone,
+                 'Xmp.taggerMark.mdEditorName': valTranslateNone,
+                 'Xmp.taggerMark.mdEditorVersion': num_to_version
                  }
 #these change human readable values into values we can store in files
 g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
@@ -522,7 +541,9 @@ g_untranslaters = {'Exif.Image.XPTitle': cleanStr_to_raw,
                  'Xmp.xmp.BaseURL': valTranslateNone,
                  'Xmp.iptcExt.Series.Name': valTranslateNone,
                  'Xmp.iptcExt.Series.Identifier': int_to_str,
-                 'Xmp.xmp.MetadataDate': valTranslateNone
+                 'Xmp.xmp.MetadataDate': valTranslateNone,
+                 'Xmp.taggerMark.mdEditorName': valTranslateNone,
+                 'Xmp.taggerMark.mdEditorVersion': version_to_num
                  }
 #TODO make unit tests that uses these dictionaries
 #for every key, its translate and untranslate function should be one to one
@@ -2080,7 +2101,283 @@ def searchMetadataDate(p_filename, p_startDate, p_endDate):
 
 #----edit hidden software marks
 
+def registerHiddenNamespace():
+    try:
+        pyexiv2.xmp.register_namespace('mdEditorName/', 'taggerMark')
+    except KeyError:
+        pass
+
 #TaggerMark
+def containsTaggerMark(p_filename):
+    """!
+    This will tell us if the file
+    has any TaggerMark metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has TaggerMark metadata
+    :rtype: bool
+    """
+    filecheck(p_filename)
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "TaggerMark")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return True
+    # print("this file has no TaggerMark data")
+    return False
+def getTaggerMark(p_filename):
+    """!
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: TaggerMark if it exists. Else, ""
+    :rtype: string
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        if not containsTaggerMark(p_filename):
+            return ""
+        f_key = keyHoldingValue(p_filename, "TaggerMark")
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_cleanTaggerMark = g_translaters[f_key](f_metadata[f_key].value)
+        # print("clean TaggerMark:", f_cleanTaggerMark)
+        return f_cleanTaggerMark
+    else:
+        earlySupportCheck(p_filename)  # TODO gif support
+    return ""
+def setTaggerMark(p_filename, p_setTaggerMarkToThis):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_setTaggerMarkToThis: TaggerMark we will store as TaggerMark metadata
+	:type p_setTaggerMarkToThis: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        f_valueToSet = p_setTaggerMarkToThis
+        registerHiddenNamespace()
+        f_keys = appropriateKeys(p_filename, "TaggerMark")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+            f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)  # TODO add gif support
+    return
+def searchTaggerMark(p_filename, p_searchForThis):
+    """
+    takes: filename as string (including path)
+    returns: truth value of p_searchForThis being in the TaggerMark
+    always returns false when no TaggerMark exists
+
+    # Note: TaggerMark does not need to be entire search term to return true
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_searchForThis: TaggerMark that we're checking for
+    :type p_searchForThis: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if p_searchForThis was in TaggerMark metadata
+    :rtype: bool
+    """
+    filecheck(p_filename)
+    if containsTaggerMark(p_filename) == False:
+        return False
+    if p_searchForThis in containsTaggerMark(p_filename):
+        return True
+    return False
+def wipeTaggerMark(p_filename):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise MetadataMissingError: if the file has no TaggerMark metadata
+    """
+    filecheck(p_filename)
+    if not containsTaggerMark(p_filename):
+        raise MetadataMissingError("there is no TaggerMark to remove")
+    setTaggerMark(p_filename, " ")
+    f_keys = appropriateKeys(p_filename, "TaggerMark")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_keys:
+        f_metadata.__delitem__(i_key)
+        f_metadata.write()
+    return
+
+
+def containsVersionNum(p_filename):
+    """!
+    This will tell us if the file
+    has any VersionNum metadata.
+
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if file has VersionNum metadata
+    :rtype: bool
+    """
+    filecheck(p_filename)
+    earlySupportCheck(p_filename)
+    f_possibleKeys = appropriateKeys(p_filename, "VersionNum")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_possibleKeys:
+        if i_key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return True
+    # print("this file has no VersionNum data")
+    return False
+def getVersionNum(p_filename):
+    """!
+    :param p_filename: name/path of the file
+    :type p_filename: string
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: VersionNum if it exists. Else, -1
+    :rtype: int
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        if not containsVersionNum(p_filename):
+            return -1
+        f_key = keyHoldingValue(p_filename, "VersionNum")
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        f_cleanVersionNum = g_translaters[f_key](f_metadata[f_key].value)
+        # print("clean VersionNum:", f_cleanVersionNum)
+        return f_cleanVersionNum
+    else:
+        earlySupportCheck(p_filename)  # TODO add gif support
+    return -1
+def setVersionNum(p_filename, p_setVersionNumToThis):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_setVersionNumToThis: VersionNum metadata will be set to this
+	:type p_setVersionNumToThis: int
+
+    #TODO: raise exception if given a non-integer for p_setVersionNumToThis
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    """
+    filecheck(p_filename)
+    if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':
+        f_valueToSet = p_setVersionNumToThis
+        f_keys = appropriateKeys(p_filename, "VersionNum")
+        f_untranslatedVals = []
+        #this creates a list of the values we will set to the appropriate keys
+        for i_key in f_keys:
+            f_untranslatedVals.append(g_untranslaters[i_key](f_valueToSet))
+        # print("In the file ", p_filename, " the following keys will be set:\n", f_keys)
+        # print("the value to be set is ", f_valueToSet)
+        # print("it will be formatted in the following ways:\n", f_untranslatedVals)
+        f_metadata = pyexiv2.ImageMetadata(p_filename)
+        f_metadata.read()
+        # this actually sets the appropriately formatted values to the appropriate keys in the file
+        for i in range(len(f_keys)):
+            i_key = f_keys[i]
+            i_value = f_untranslatedVals[i]
+            # print(i_key)
+            i_prefix = i_key[:i_key.find('.')]
+            # print(i_prefix)
+            if i_prefix=='Exif':
+                f_metadata[i_key] = pyexiv2.ExifTag(i_key, i_value)
+            elif i_prefix=='Xmp':
+                f_metadata[i_key] = pyexiv2.XmpTag(i_key, i_value)
+            elif i_prefix=='Iptc':
+                f_metadata[i_key] = pyexiv2.IptcTag(i_key, i_value)
+            else:
+                raise ValueError('the key:  \'{}\' is invalid'.format(i_key))
+            f_metadata.write()
+        return
+    else:
+        earlySupportCheck(p_filename)  # TODO add gif support
+    return
+def searchVersionNum(p_filename, p_searchForThis):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:param p_searchForThis: VersionNum that we're checking for
+    :type p_searchForThis: int
+
+    :raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+
+    :return: True if p_searchForThis was in VersionNum metadata
+    :rtype: bool
+    """
+    filecheck(p_filename)
+    f_VersionNum = getVersionNum(p_filename)
+    if f_VersionNum == -1:
+        return False
+    if p_searchForThis in f_VersionNum:
+        return True
+    return False
+def wipeVersionNum(p_filename):
+    """
+    :param p_filename: name/path of the file
+	:type p_filename: string
+	:raise UnknownFiletypeError: if the filetype cannot be found
+    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
+    :raise MetadataMissingError: if the file has no VersionNum metadata
+    """
+    filecheck(p_filename)
+    if not containsVersionNum(p_filename):
+        raise MetadataMissingError("there is no VersionNum to remove")
+    setVersionNum(p_filename, -1)
+    f_keys = appropriateKeys(p_filename, "VersionNum")
+    f_metadata = pyexiv2.ImageMetadata(p_filename)
+    f_metadata.read()
+    for i_key in f_keys:
+        f_metadata.__delitem__(i_key)
+        f_metadata.write()
+    return
+
+
 
 #TaggerVersion
 
