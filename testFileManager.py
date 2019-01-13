@@ -43,7 +43,7 @@ def jutsu(p_filename, p_files):
             raise ValueError(
                 'File \'{}\' already exists'.format(file))
     for file in p_files:
-        shutil.copy(p_filename, file)
+        shutil.copy2(p_filename, file)
 
 def release(p_files):
     for file in p_files:
@@ -59,13 +59,12 @@ def singleClone(p_filename):
     if os.path.isfile(f_newfile)==True:
         #raise ValueError('File \'{}\' already exists'.format(f_newfile))
         os.remove(f_newfile)
-    shutil.copy(p_filename, f_newfile)
+    shutil.copy2(p_filename, f_newfile)
     return f_newfile
 
 def singleRelease(p_filename):
     #used with singleClone(). Removes the copy that function created
     os.remove(p_filename)
-
 
 def missingKeys(p_file_1, p_file_2):
     #print("missing keys")
@@ -130,7 +129,6 @@ def MetaDataVals(p_file, p_metatype):
             pairs.append((key,f_metadata[key].value))
     return pairs
 
-
 #TODO make unit tests that use this function.
 #this should be true after a successful set operation is performed
 def checkAllKeysPresent(p_file, p_metatype):
@@ -162,7 +160,6 @@ def checkAnyKeysPresent(p_file, p_metatype):
     if len(f_present)==0:
         return False
     return True
-
 
 #TODO make unit tests that use this function.
 #this should be true after a successful set operation is performed
@@ -280,7 +277,6 @@ def testMetadataSet(p_filewithvalue, p_filetocopy, p_metatype):
     release(f_newfilel)
     return (f_same,f_diff)
 
-
 def isThisLikeJpeg(p_filewithvalue, p_filetocopy, p_metatype):
     #a messed up version of testMetadataSet.
     #we throw caution to the wind and treat another file format as if it were
@@ -355,14 +351,12 @@ def isThisLikeJpeg(p_filewithvalue, p_filetocopy, p_metatype):
     release(f_newfilel)
     return (f_same,f_diff)
 
-
-
 g_title = "Sample Title"
 g_rating = 2
 g_description = "a silly propaganda picture"
 g_tags = ['skeleton', 'mood']
 g_artist = ['George Washington', 'model: Skeletore']
-
+"""
 g_fulljpg = "/media/sf_tagger/windowstesting/skullA.jpg"
 g_newfile = singleClone(g_fulljpg)
 
@@ -379,3 +373,4 @@ g_metadata.write()
 checkAnyKeysPresent(g_newfile, "Title")
 
 singleRelease(g_newfile)
+"""

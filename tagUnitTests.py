@@ -1,4 +1,6 @@
 import unittest
+
+import TData
 import TestingManager
 import MetadataManager
 
@@ -21,11 +23,11 @@ class fileChecks(unittest.TestCase):
     to test file related exceptions.
     No operations in this class will alter files.
     So we'll download all our files upfront."""
-    c_outpath = TestingManager.g_outpath    #this is where all our pictures will be saved.
+    c_outpath = TData.g_outpath  #this is where all our pictures will be saved.
 
     c_missingFileName = c_outpath + '/' + 'Missing.jpg' #This is the name of a file that doesn't exist
     c_fileList = [c_missingFileName]
-    for i_key, i_value in TestingManager.g_googlePics2:
+    for i_key, i_value in TData.g_googlePics2:
         i_filename = TestingManager.getGoogleDrivePicture(i_value, c_outpath)
         c_fileList.insert(0, i_filename)
     #at this point, all files should be downloaded.

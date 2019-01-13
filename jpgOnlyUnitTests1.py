@@ -1,68 +1,53 @@
 import unittest
 import MetadataManager
-import TestingManager
-import testFileManager
 import datetime
 import os
 
-g_outpath = TestingManager.g_outpath
-g_fileList = ["fixingComputer.jpg",
-              "catScreamPizza.jpg",
-              "rippledotzero.jpg",
-              "Missing.jpg",
-              "Toaster.pdf",
-              "Makefile"]
-g_files = {
-    'fixingComputer.jpg': '1pFEbWruySWWgNCShKP8qn8dJ9w7kXNKk',
-    'catScreamPizza.jpg': '1eED3AINVizIQV44DXxj91-s2Qa9EWsAX',
-    'rippledotzero.jpg': '1euq0D6OrdWVkdC4RZdFIrre7WsQ7N9do',
-    'Toaster.pdf': '1ofFpQYKFTJ9NLGUMiCLtz3X5awyBAx99',
-    'creepyCharger.gif': '1MQgoUI6tIQhkNMg7KIDeRraVsGhPrx0H',
-    'Makefile': '1vgX2S5-g-3jr1oJj5kJZnEFPtRdFsBG3'
-           }
+from TestingManager import downloadGooglePicture, removeAllFiles, loadFiles, cloneThese, releaseAllClones, singleClone
+from TData import g_files
 
-def downloadGooglePicture(p_file):
-    f_downloadedFileName = TestingManager.getGoogleDrivePicture(g_files[p_file], g_outpath)
-    return f_downloadedFileName
-def removeAllFiles():
-    f_file = ''
-    for item in g_fileList:
-        f_file = g_outpath + '/' + item
-        if os.path.exists(f_file):
-            os.remove(f_file)
-    return
+g_allfiles = [
+    g_files["fixingComputer.jpg"],
+    g_files["catScreamPizza.jpg"],
+    g_files["rippledotzero.jpg"],
+    g_files["creepyCharger.gif"],
+    g_files["Toaster.pdf"],
+    g_files["Makefile"]]
+g_loadednames = loadFiles(g_allfiles)
+g_clonenames = cloneThese(g_loadednames)
+
 class ErrorCheck_FileAlteringTests(unittest.TestCase):
     def test_fileNotFound(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         self.assertRaises(MetadataManager.DuplicateDataError, MetadataManager.addArtist, f_filename, "stockphotographer")
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         self.assertRaises(MetadataManager.DuplicateDataError, MetadataManager.addArtist, f_filename,
                          "photographer: idunno")
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         self.assertRaises(MetadataManager.NoSuchItemError, MetadataManager.removeArtist, f_filename, "twitter")
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         self.assertRaises(MetadataManager.NoSuchItemError, MetadataManager.removeArtist, f_filename, "cat")
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         self.assertRaises(MetadataManager.DuplicateDataError, MetadataManager.addTag, f_filename, "funny")
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         self.assertRaises(MetadataManager.DuplicateDataError, MetadataManager.addTag, f_filename, "cat")
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         self.assertRaises(MetadataManager.NoSuchItemError, MetadataManager.removeTag, f_filename, "bird")
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         self.assertRaises(MetadataManager.NoSuchItemError, MetadataManager.removeTag, f_filename, "bird")
         os.remove(f_filename)
 
     def test_ratingInputCheck(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.setRating, f_filename, 6)
         self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.setRating, f_filename, 0)
         self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.setRating, f_filename, -1)
@@ -72,7 +57,7 @@ class ErrorCheck_FileAlteringTests(unittest.TestCase):
         self.assertRaises(MetadataManager.NotIntegerError, MetadataManager.setRating, f_filename, 1.3)
         self.assertRaises(MetadataManager.NotIntegerError, MetadataManager.setRating, f_filename, 4.9)
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.searchRating, f_filename, 6)
         self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.searchRating, f_filename, -1.3)
         self.assertRaises(MetadataManager.OutOfRangeError, MetadataManager.searchRating, f_filename, -3)
@@ -84,7 +69,7 @@ class ErrorCheck_FileAlteringTests(unittest.TestCase):
 
 class ErrorCheck_DelicateTests(unittest.TestCase):
     def test_fileNotFound(self):
-        removeAllFiles()
+        releaseAllClones(g_clonenames)
         self.assertRaises(FileNotFoundError, MetadataManager.containsTitle, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.getTitle, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setTitle, "Missing.jpg", "sampleTitle")
@@ -111,19 +96,19 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(FileNotFoundError, MetadataManager.getRating, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setRating, "Missing.jpg", 3)
         self.assertRaises(FileNotFoundError, MetadataManager.searchRating, "Missing.jpg", 2)
-        self.assertRaises(FileNotFoundError, MetadataManager.containsSrc, "Missing.jpg")
-        self.assertRaises(FileNotFoundError, MetadataManager.getSrc, "Missing.jpg")
-        self.assertRaises(FileNotFoundError, MetadataManager.addSrc, "Missing.jpg", "sampleurl")
-        self.assertRaises(FileNotFoundError, MetadataManager.searchSrc, "Missing.jpg", "sampleurl")
+        self.assertRaises(FileNotFoundError, MetadataManager.containsSource, "Missing.jpg")
+        self.assertRaises(FileNotFoundError, MetadataManager.getSource, "Missing.jpg")
+        self.assertRaises(FileNotFoundError, MetadataManager.setSource, "Missing.jpg", "sampleurl")
+        self.assertRaises(FileNotFoundError, MetadataManager.searchSource, "Missing.jpg", "sampleurl")
         self.assertRaises(FileNotFoundError, MetadataManager.containsOrgDate, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.getOrgDate, "Missing.jpg")
         self.assertRaises(FileNotFoundError, MetadataManager.setOrgDate, "Missing.jpg", "2017-Jun-20 11:13 PM")
 
 
     def test_metadataMissing(self):
-        removeAllFiles()
+        releaseAllClones(g_clonenames)
         """Hopefully none of these tests actually alter the files"""
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
         self.assertRaises(MetadataManager.MetadataMissingError, MetadataManager.wipeTitle, f_filename)
         self.assertRaises(MetadataManager.MetadataMissingError, MetadataManager.removeArtist, f_filename, "tumblr")
         self.assertRaises(MetadataManager.MetadataMissingError, MetadataManager.removeTag, f_filename, "penguin")
@@ -132,9 +117,9 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
 
 
     def test_noSupport(self):
-        removeAllFiles()
+        releaseAllClones(g_clonenames)
         """We don't support .gif files yet. So we have this error"""
-        f_filename = downloadGooglePicture("creepyCharger.gif")
+        f_filename = singleClone(g_files["creepyCharger.gif"].fullname)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsTitle, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getTitle, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setTitle, f_filename, "sampleTitle")
@@ -161,19 +146,19 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getRating, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setRating, f_filename, 3)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchRating, f_filename, 2)
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsSrc, f_filename)
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getSrc, f_filename)
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.addSrc, f_filename, "sampleurl")
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchSrc, f_filename, "sampleurl")
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsSource, f_filename)
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getSource, f_filename)
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setSource, f_filename, "sampleurl")
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchSource, f_filename, "sampleurl")
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsOrgDate, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getOrgDate, f_filename)
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setOrgDate, f_filename, "2017-Jun-20 11:13 PM")
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setOrgDate, f_filename, datetime.datetime.today())
         os.remove(f_filename)
 
 
     def test_weCantTakeThat(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("Toaster.pdf")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["Toaster.pdf"].fullname)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsTitle, "Toaster.pdf")
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getTitle, "Toaster.pdf")
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setTitle, "Toaster.pdf", "sampleTitle")
@@ -200,19 +185,19 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getRating, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setRating, f_filename, 3)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchRating, f_filename, 2)
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsSrc, f_filename)
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getSrc, f_filename)
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.addSrc, f_filename, "sampleurl")
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchSrc, f_filename, "sampleurl")
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsSource, f_filename)
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getSource, f_filename)
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setSource, f_filename, "sampleurl")
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.searchSource, f_filename, "sampleurl")
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.containsOrgDate, f_filename)
         self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.getOrgDate, f_filename)
-        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setOrgDate, f_filename, "2017-Jun-20 11:13 PM")
+        self.assertRaises(MetadataManager.UnsupportedFiletypeError, MetadataManager.setOrgDate, f_filename, datetime.datetime.today())
         os.remove(f_filename)
 
 
     def test_whatEvenIsThat(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("Makefile")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["Makefile"].fullname)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.containsTitle, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.getTitle, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setTitle, f_filename, "sampleTitle")
@@ -239,20 +224,20 @@ class ErrorCheck_DelicateTests(unittest.TestCase):
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.getRating, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setRating, f_filename, 3)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.searchRating, f_filename, 2)
-        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.containsSrc, f_filename)
-        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.getSrc, f_filename)
-        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.addSrc, f_filename, "sampleurl")
-        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.searchSrc, f_filename, "sampleurl")
+        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.containsSource, f_filename)
+        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.getSource, f_filename)
+        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setSource, f_filename, "sampleurl")
+        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.searchSource, f_filename, "sampleurl")
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.containsOrgDate, f_filename)
         self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.getOrgDate, f_filename)
-        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setOrgDate, f_filename, "2017-Jun-20 11:13 PM")
+        self.assertRaises(MetadataManager.UnknownFiletypeError, MetadataManager.setOrgDate, f_filename, datetime.datetime.today())
         os.remove(f_filename)
 class ResultsCheck_DelicateTests(unittest.TestCase):
     def test_metadataResults(self):
-        removeAllFiles()
-        f_filename1 = downloadGooglePicture("fixingComputer.jpg")
-        f_filename2 = downloadGooglePicture("catScreamPizza.jpg")
-        f_filename3 = downloadGooglePicture("rippledotzero.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename1 = singleClone(g_files["fixingComputer.jpg"].fullname)
+        f_filename2 = singleClone(g_files["catScreamPizza.jpg"].fullname)
+        f_filename3 = singleClone(g_files["rippledotzero.jpg"].fullname)
         self.assertEqual(True, MetadataManager.containsTitle(f_filename1))
         self.assertEqual(True, MetadataManager.containsTitle(f_filename2))
         self.assertEqual(False, MetadataManager.containsTitle(f_filename3))
@@ -299,17 +284,17 @@ class ResultsCheck_DelicateTests(unittest.TestCase):
         self.assertEqual(False, MetadataManager.searchRating(f_filename2, 3))
         self.assertEqual(False, MetadataManager.searchRating(f_filename3, 3))
 
-        self.assertEqual(False, MetadataManager.containsSrc(f_filename1))
-        self.assertEqual(False, MetadataManager.containsSrc(f_filename2))
-        self.assertEqual(False, MetadataManager.containsSrc(f_filename3))
+        self.assertEqual(False, MetadataManager.containsSource(f_filename1))
+        self.assertEqual(False, MetadataManager.containsSource(f_filename2))
+        self.assertEqual(False, MetadataManager.containsSource(f_filename3))
 
-        self.assertEqual("", MetadataManager.getSrc(f_filename1))
-        self.assertEqual("", MetadataManager.getSrc(f_filename2))
-        self.assertEqual("", MetadataManager.getSrc(f_filename3))
+        self.assertEqual("", MetadataManager.getSource(f_filename1))
+        self.assertEqual("", MetadataManager.getSource(f_filename2))
+        self.assertEqual("", MetadataManager.getSource(f_filename3))
 
-        self.assertEqual(False, MetadataManager.searchSrc(f_filename1, "sampleSrc"))
-        self.assertEqual(False, MetadataManager.searchSrc(f_filename2, "sampleSrc"))
-        self.assertEqual(False, MetadataManager.searchSrc(f_filename3, "sampleSrc"))
+        self.assertEqual(False, MetadataManager.searchSource(f_filename1, "sampleSrc"))
+        self.assertEqual(False, MetadataManager.searchSource(f_filename2, "sampleSrc"))
+        self.assertEqual(False, MetadataManager.searchSource(f_filename3, "sampleSrc"))
 
         self.assertEqual(True, MetadataManager.containsOrgDate(f_filename1))
         self.assertEqual(False, MetadataManager.containsOrgDate(f_filename2))
@@ -329,28 +314,28 @@ class ResultsCheck_DelicateTests(unittest.TestCase):
 
 class ResultsCheck_FileAlteringTests(unittest.TestCase):
     def test_setTitleResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         MetadataManager.setTitle(f_filename, "I found the problem")
         self.assertEqual("I found the problem", MetadataManager.getTitle(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.setTitle(f_filename, "He ate the pizza man")
         self.assertEqual("He ate the pizza man", MetadataManager.getTitle(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
         MetadataManager.setTitle(f_filename, "video game cover")
         self.assertEqual("video game cover", MetadataManager.getTitle(f_filename))
         os.remove(f_filename)
 
 
     def test_removeTitleResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         MetadataManager.wipeTitle(f_filename)
         self.assertEqual(False, MetadataManager.containsTitle(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.wipeTitle(f_filename)
         self.assertEqual(False, MetadataManager.containsTitle(f_filename))
         self.assertEqual(False, MetadataManager.containsTitle(f_filename))
@@ -358,90 +343,89 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
 
 
     def test_setArtistsResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         MetadataManager.setArtists(f_filename, ["twitter"])
         self.assertEqual(["twitter"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.setArtists(f_filename, ["Phil"])
         self.assertEqual(["Phil"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
         MetadataManager.setArtists(f_filename, ["penguindude", "Artist: Simon Stalenhag"])
         self.assertEqual(["penguindude", "Artist: Simon Stalenhag"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
 
     def test_addArtistResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         #print(MetadataManager.getArtists(f_filename))
         MetadataManager.addArtist(f_filename, "model: crazyguy")
         #print(MetadataManager.getArtists(f_filename))
         self.assertEqual(["model: crazyguy", "stockphotographer", "publisher: twitter"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.addArtist(f_filename, "model: pizzadog")
         self.assertEqual(["model: pizzadog", "photographer: idunno"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
         MetadataManager.addArtist(f_filename, "Artist: Simon Stalenhag")
         self.assertEqual(["Artist: Simon Stalenhag"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
 
-
     def test_removeArtistResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         MetadataManager.removeArtist(f_filename, "publisher: twitter")
         self.assertEqual(["stockphotographer"], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.removeArtist(f_filename, "photographer: idunno")
         print()
         self.assertEqual([], MetadataManager.getArtists(f_filename))
         os.remove(f_filename)
 
+
     def test_setTagsResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         MetadataManager.setTags(f_filename, ["stock photo", "funny", "bad stock photos of my job", "technology"])
         self.assertEqual(["stock photo", "funny", "bad stock photos of my job", "technology"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.setTags(f_filename, ["funny", "cat", "dog", "dog wearing pizza box", "screaming"])
         self.assertEqual(["funny", "cat", "dog", "dog wearing pizza box", "screaming"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
         MetadataManager.setTags(f_filename, ["video games", "penguin", "browser games", "rippledotzero", "cover art"])
         self.assertEqual(["video games", "penguin", "browser games", "rippledotzero", "cover art"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
 
     def test_addTagResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         MetadataManager.addTag(f_filename, "computer")
         self.assertEqual(["computer", "stock photo", "funny", "bad stock photos of my job", "technology"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.addTag(f_filename, "dramatic")
         self.assertEqual(["dramatic", "cat"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
         MetadataManager.addTag(f_filename, "video games")
         self.assertEqual(["video games"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
 
-
     def test_removeTagResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
 
 
         MetadataManager.removeTag(f_filename, "funny")
         self.assertEqual(["stock photo", "bad stock photos of my job", "technology"], MetadataManager.getTags(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         #print(MetadataManager.getTags(f_filename))
         MetadataManager.removeTag(f_filename, "cat")
         #print(MetadataManager.getTags(f_filename))
@@ -450,92 +434,93 @@ class ResultsCheck_FileAlteringTests(unittest.TestCase):
 
 
     def test_setDescrResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         MetadataManager.setDescr(f_filename, "This is basically me building my gaming pc")
         self.assertEqual("This is basically me building my gaming pc", MetadataManager.getDescr(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.setDescr(f_filename, "Picture of a cat\n and a dog")
         self.assertEqual("Picture of a cat\n and a dog", MetadataManager.getDescr(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
         MetadataManager.setDescr(f_filename, "art of a flash game about a penguin")
         self.assertEqual("art of a flash game about a penguin", MetadataManager.getDescr(f_filename))
         os.remove(f_filename)
 
-
     def test_addDescrResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         MetadataManager.addDescr(f_filename, "\nThis is basically me building my gaming pc")
         self.assertEqual("Bad stock photo of my job found on twitter.\nThis is basically me building my gaming pc", MetadataManager.getDescr(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.addDescr(f_filename, "\nCrazy cat picture")
         self.assertEqual("a cat screaming at the camera in front of a dog wearing a pizza box\nCrazy cat picture", MetadataManager.getDescr(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
         MetadataManager.addDescr(f_filename, "The game is about a penguin")
         self.assertEqual("The game is about a penguin", MetadataManager.getDescr(f_filename))
         os.remove(f_filename)
 
-
     def test_removeDescrResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         MetadataManager.wipeDescr(f_filename)
         self.assertEqual(False, MetadataManager.containsDescr(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.wipeDescr(f_filename)
         self.assertEqual(False, MetadataManager.containsDescr(f_filename))
         os.remove(f_filename)
 
 
     def test_setRatingResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         MetadataManager.setRating(f_filename, 1)
         self.assertEqual(1, MetadataManager.getRating(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.setRating(f_filename, 2)
         self.assertEqual(2, MetadataManager.getRating(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
         MetadataManager.setRating(f_filename, 2)
         self.assertEqual(2, MetadataManager.getRating(f_filename))
         os.remove(f_filename)
 
-    def test_addSrcResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
-        MetadataManager.addSrc(f_filename, "SampleURL")
-        self.assertEqual("SampleURL", MetadataManager.getSrc(f_filename))
+
+    def test_setSourceResults(self):
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
+        MetadataManager.setSource(f_filename, "SampleURL")
+        self.assertEqual("SampleURL", MetadataManager.getSource(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
-        MetadataManager.addSrc(f_filename, "SampleURL")
-        self.assertEqual("SampleURL", MetadataManager.getSrc(f_filename))
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
+        MetadataManager.setSource(f_filename, "SampleURL")
+        self.assertEqual("SampleURL", MetadataManager.getSource(f_filename))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
-        MetadataManager.addSrc(f_filename, "SampleURL")
-        self.assertEqual("SampleURL", MetadataManager.getSrc(f_filename))
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
+        MetadataManager.setSource(f_filename, "SampleURL")
+        self.assertEqual("SampleURL", MetadataManager.getSource(f_filename))
         os.remove(f_filename)
+
+
 
     def test_setOrgDateResults(self):
-        removeAllFiles()
-        f_filename = downloadGooglePicture("fixingComputer.jpg")
+        releaseAllClones(g_clonenames)
+        f_filename = singleClone(g_files["fixingComputer.jpg"].fullname)
         f_date = datetime.datetime.today()
         MetadataManager.setOrgDate(f_filename, f_date)
-        print("str(MetadataManager.getOrgDate(f_filename))", str(MetadataManager.getOrgDate(f_filename)))
+        #print("str(MetadataManager.getOrgDate(f_filename))", str(MetadataManager.getOrgDate(f_filename)))
         self.assertEqual(str(f_date.strftime("%Y-%m-%d %H:%M:%S")), str(MetadataManager.getOrgDate(f_filename)))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("catScreamPizza.jpg")
+        f_filename = singleClone(g_files["catScreamPizza.jpg"].fullname)
         MetadataManager.setOrgDate(f_filename, f_date)
         self.assertEqual(str(f_date.strftime("%Y-%m-%d %H:%M:%S")), str(MetadataManager.getOrgDate(f_filename)))
         os.remove(f_filename)
-        f_filename = downloadGooglePicture("rippledotzero.jpg")
+        f_filename = singleClone(g_files["rippledotzero.jpg"].fullname)
         MetadataManager.setOrgDate(f_filename, f_date)
         self.assertEqual(str(f_date.strftime("%Y-%m-%d %H:%M:%S")), str(MetadataManager.getOrgDate(f_filename)))
         os.remove(f_filename)

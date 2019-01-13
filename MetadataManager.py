@@ -75,8 +75,13 @@ def getExtension(p_filepathname):
 
 
 def rating2percent(x):
-    #input: int of rating
-    #output: int of rating percent
+    """!
+    :param x: rating
+    :type x: int
+
+    :return: rating percent
+    :rtype: int
+    """
     if x==1:
         return 1
     if x==2:
@@ -89,8 +94,13 @@ def rating2percent(x):
         return 99
     raise OutOfRangeError('number out of range (must be 1..5)')
 def rating2percentStr(x):
-    #input: int of rating
-    #output: string of rating percent
+    """!
+    :param x: rating
+    :type x: int
+
+    :return: rating percent
+    :rtype: string
+    """
     if x==1:
         return '1'
     if x==2:
@@ -103,8 +113,13 @@ def rating2percentStr(x):
         return '99'
     raise OutOfRangeError('number out of range (must be 1..5)')
 def percent2rating(x):
-    #input: int of rating percent
-    #output int, the star rating
+    """!
+    :param x: rating percent
+    :type x: int
+
+    :return: star rating
+    :rtype: int
+    """
     if x==1:
         return 1
     if x==25:
@@ -117,10 +132,14 @@ def percent2rating(x):
         return 5
     raise OutOfRangeError('not valid rating percents ' + str(x))
 def percentStr2rating(x):
-    #input: string of rating percent
-    # (for some reason pyexiv returns the value of 'Xmp.MicrosoftPhoto.Rating' as a string)
-    #input: int
-    #output int, the star rating
+    """!
+    (for some reason pyexiv returns the value of 'Xmp.MicrosoftPhoto.Rating' as a string)
+    :param x: rating percent
+    :type x: string
+
+    :return: star rating
+    :rtype: int
+    """
     if int(x)==1:
         return 1
     if int(x)==25:
@@ -334,6 +353,9 @@ def valTranslateToDictDef(p_val):
 
 def valTranslateNone(p_val):
     """!
+    Redundant?
+    this funtion seems redundant, but I don't know if functions in a dictionary will work
+    unless they're functions declared in the same scope
     returns what you give it and does nothing
     :param p_val: what you give it
     :type p_file: unknown
@@ -365,27 +387,61 @@ def date_to_Iso8601(p_date):
     return f_unparsedDate
 
 def int_to_str(p_int):
-    #this funtion seems redundant, but I don't know if functions in a dictionary will work
-    # unless they're functions declared in the same scope
-    # if we can, I'll remove this function later
+    """!
+    Redundant?
+    this funtion seems redundant, but I don't know if functions in a dictionary will work
+    unless they're functions declared in the same scope
+    if we can, I'll remove this function later
+    :param p_int: a number
+    :type p_int: int
+
+    :return: a number
+    :rtype: string
+    """
     return str(p_int)
 
 def str_to_int(p_str):
-    #this funtion seems redundant, but I don't know if functions in a dictionary will work
-    # unless they're functions declared in the same scope
-    # if we can, I'll remove this function later
+    """!
+    Redundant?
+    this funtion seems redundant, but I don't know if functions in a dictionary will work
+    unless they're functions declared in the same scope
+    if we can, I'll remove this function later
+    :param p_str: a number
+    :type p_str: string
+
+    :return: a number
+    :rtype: int
+    """
     return int(p_str)
 
 def num_to_version(p_num):
-  if len(str(p_num))>2:
-    dollar = str(p_num)[:-2]
-  else:
-    dollar = '0'
-  cents = str(p_num % 100).zfill(2)
-  return (dollar + '.' + cents)
+    """!
+    we store version number as an int rather than a 2 point float
+    so version 1.02 is stored as the number 102
+    :param p_num: number  (example: 102)
+    :type p_num: int
+
+    :return: version    (example: "1.02")
+    :rtype: string
+    """
+    if len(str(p_num))>2:
+        dollar = str(p_num)[:-2]
+    else:
+        dollar = '0'
+    cents = str(p_num % 100).zfill(2)
+    return (dollar + '.' + cents)
 
 def version_to_num(p_version):
-  return int(p_version.replace('.', ''))
+    """!
+    we store version number as an int rather than a 2 point float
+    so version 1.02 is stored as the number 102
+    :param p_version: version    (example: "1.02")
+    :type p_version: string
+
+    :return: number         (example: 102)
+    :rtype: int
+    """
+    return int(p_version.replace('.', ''))
 
 #--------------------------------------
 #-------Key data and operations--------
@@ -2224,26 +2280,6 @@ def searchTaggerMark(p_filename, p_searchForThis):
     if p_searchForThis in containsTaggerMark(p_filename):
         return True
     return False
-def wipeTaggerMark(p_filename):
-    """
-    :param p_filename: name/path of the file
-	:type p_filename: string
-	:raise UnknownFiletypeError: if the filetype cannot be found
-    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
-    :raise MetadataMissingError: if the file has no TaggerMark metadata
-    """
-    filecheck(p_filename)
-    if not containsTaggerMark(p_filename):
-        raise MetadataMissingError("there is no TaggerMark to remove")
-    setTaggerMark(p_filename, " ")
-    f_keys = appropriateKeys(p_filename, "TaggerMark")
-    f_metadata = pyexiv2.ImageMetadata(p_filename)
-    f_metadata.read()
-    for i_key in f_keys:
-        f_metadata.__delitem__(i_key)
-        f_metadata.write()
-    return
-
 
 def containsVersionNum(p_filename):
     """!
@@ -2357,27 +2393,6 @@ def searchVersionNum(p_filename, p_searchForThis):
     if p_searchForThis in f_VersionNum:
         return True
     return False
-def wipeVersionNum(p_filename):
-    """
-    :param p_filename: name/path of the file
-	:type p_filename: string
-	:raise UnknownFiletypeError: if the filetype cannot be found
-    :raise UnsupportedFiletypeError: if the filetype is not .jpg, .png, or .gif
-    :raise MetadataMissingError: if the file has no VersionNum metadata
-    """
-    filecheck(p_filename)
-    if not containsVersionNum(p_filename):
-        raise MetadataMissingError("there is no VersionNum to remove")
-    setVersionNum(p_filename, -1)
-    f_keys = appropriateKeys(p_filename, "VersionNum")
-    f_metadata = pyexiv2.ImageMetadata(p_filename)
-    f_metadata.read()
-    for i_key in f_keys:
-        f_metadata.__delitem__(i_key)
-        f_metadata.write()
-    return
-
-
 
 #TaggerVersion
 

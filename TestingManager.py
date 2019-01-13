@@ -6,9 +6,16 @@ import MetadataManager
 import pyexiv2
 import copy
 import shutil
+from TestStructures import TestFile, TestData
+from TData import g_getArtists_testData, g_containsArtists_testData, g_setArtists_testData, g_searchArtist_testData, \
+    g_searchArtist_testResults, g_addArtist_testData, g_googlePics1, g_googlePics2, g_containsTags_testData, \
+    g_getTags_testData, g_searchTags_testData, g_searchTags_testResults, g_addTag_testData, g_removeTag_testData, \
+    g_outpath, g_fileList, g_files
 
 
-g_outpath = '/home/hwynn/Pictures'
+
+
+
 # several functions below found from: https://stackoverflow.com/a/39225272
 def download_file_from_google_drive(id, destination):
     """downloads files from google drive.
@@ -48,43 +55,149 @@ def getGoogleDrivePicture(p_picID, p_outpath):
     f_downloadURL = 'https://drive.google.com/uc?authuser=0&id=' + p_picID + '&export=download'
     f_filename = wget.download(f_downloadURL, p_outpath)
     download_file_from_google_drive(p_picID, f_filename)
+    #print("getGoogleDrivePicture() filename: ", f_filename)
     return f_filename
 # I made everything from this point on
 """
 Author: Harrison Wynn
 Created: 2018
 """
+def downloadGooglePicture(p_file, p_path=g_outpath):
+    """
+    Downloads a picture from google drive for testing purposes
+    :param p_file: information about the test file, including filename and googleID
+	:type p_file: TestFile class instance
+	:param p_path: path the files will be saved to (default: g_outpath imported from TData)
+	:type p_path: string
+    """
+    f_downloadedFileName = getGoogleDrivePicture(p_file.googleID, p_path)
+    #print("downloadGooglePicture() filename:", f_downloadedFileName)
+    return f_downloadedFileName
+downloadGooglePicture
 
-g_googlePics1 = {'squirrel': '1ZHDchSv9RMxJmdVeepJvvOtTx4T4am3U',
-                 'cat': "1A1Nxr-1mWfFlk9hTVZtzSPfEt6ZC6uzg",
-                 'boxcat': "1oxAPZSBKKTYjdXYYuwpvbKR5grK0aCZY",
-                 'frogyellow': '1xMHPQrNyODWTIXQ-PxgWSPbwj7_tGerv',
-                 'frogjump': '1nqFSb-hoc1c0-BlTETs0jQn3bzWeGg3T',
-                 'titanmeme': "1kRybASv2UVde5wMitn_j1i4x3LklIh6s"}
-g_googlePics2 = {'fixingComputer': '1pFEbWruySWWgNCShKP8qn8dJ9w7kXNKk',
-                 'catScreamPizza': '1eED3AINVizIQV44DXxj91-s2Qa9EWsAX',
-                 'gregTwitterJoke': '1PzDc70qhskQzUPtCgoRG3W10AisiP09W',
-                 'wikihowRat': '18mFIgX2Na5DCdTO49fwamAMfdqJcjodP',
-                 'rippledotzero': '1euq0D6OrdWVkdC4RZdFIrre7WsQ7N9do',
-                 'oppusumBitesApple': '1EWTG-xgYGX_SdB4lPDFEs5veattK5Dxy',
-                 'creepyCharger': '1MQgoUI6tIQhkNMg7KIDeRraVsGhPrx0H',
-                 'princessAtDoor': '1TKjnok6DJuIHYhaeZiYFnS6RgPRcdJPK'}
+def loadFiles(p_allFiles):
+    """
+    Downloads a list of files from google drive if we haven't downloaded them already.
+    Used for testing purposes.
+    :param p_allFiles: information about each test file, including filename and googleID
+    :type p_file: list<TestFile class instance>
 
-g_metadataTypes = ['Title', 'Description', 'Rating', 'Tags', 'Artist', 'Date Created']
+    :return: full names of the files loaded including their paths. This includes the prexisting files.
+    :rtype: list<string>
+    """
+    f_filenames = []
+    #check if we have each file  <-   allFiles
+    for i_file in p_allFiles:
+        if os.path.isfile(i_file.fullname)==False:
+        #for each missing file
+            # download file from google drive
+            f_filenames.append(downloadGooglePicture(i_file))
+        else:
+            f_filenames.append(i_file.fullname)
+    return f_filenames
 
-def singleClone(p_filename):
-    #creates a single copy of a file and returns the name of the copy
-    #creates several copies of a file if possible.
+def singleClone(p_filename, p_stop=False):
+    """
+    creates a copy of a file and gives the copy a "clone name".
+    Used to create fresh files for metadata editting tests
+    example:
+        given a file home/user/pictures/birds.jpg exists,
+        singleClone('home/user/pictures/birds.jpg')
+        will return "home/user/pictures/birdsCopy.jpg"
+        and 'home/user/pictures/birdsCopy.jpg' will be created
+    Note: according to the shutil documentation, this might not copy all metadata
+    :param p_filename: full filename including the path
+    :type p_filename: string
+    :param p_stop: True if we want to prevent existing clones from being overwritten (default: False)
+    :type p_stop: Boolean
+
+    :raise OSError: if no file with p_filename is found
+    :raise ValueError: if p_stop is True and a file with a clone's name already exists
+
+    :return: name of the cloned file including the path
+    :rtype: string
+    """
     ext = MetadataManager.getExtension(p_filename)
     f_name = p_filename[:-len(ext)]
     f_newfile = f_name+"Copy"+ext
     if os.path.isfile(f_newfile)==True:
-        raise ValueError('File \'{}\' already exists'.format(f_newfile))
-    shutil.copy(p_filename, f_newfile)
+        if p_stop:
+            raise ValueError('File \'{}\' already exists'.format(f_newfile))
+        else:
+            singleRelease(f_newfile)
+            shutil.copy2(p_filename, f_newfile)
+    shutil.copy2(p_filename, f_newfile)
     return f_newfile
+
+def cloneThese(p_filenames):
+    """
+    creates a copies of several files at once.
+    Used to create fresh files for metadata editting tests.
+    For a given test, we give this function a list of the files needed.
+    :param p_filenames: full filenames including the paths
+    :type p_filename: list<string>
+
+    :raise OSError: if no file with p_filename is found
+    :raise ValueError: if p_stop is True and a file with a clone's name already exists
+
+    :return: names of the cloned files including the paths
+    :rtype: list<string>
+    """
+    f_clonefiles = []
+    for i_filename in p_filenames:
+        f_clonefiles.append(singleClone(i_filename))
+    return f_clonefiles
+
+
+
+def removeAllFiles(p_fileList=g_fileList ,p_path=g_outpath):
+    """
+    removes several files at once.
+    Used for testing to remove original or copied files once they aren't needed
+    :param p_fileList: information about each test file including filenames (default: g_fileList from TData)
+    :type p_fileList: list<TestFile class instance>
+    :param p_path: path the files will be saved to (default: g_outpath imported from TData)
+	:type p_path: string
+    """
+    f_file = ''
+    for item in p_fileList:
+        f_file = p_path + '/' + item.filename
+        if os.path.exists(f_file):
+            #print("removeAllFiles() removing ", f_file)
+            os.remove(f_file)
+    return
+
+
+
 def singleRelease(p_filename):
-    #used with singleClone(). Removes the copy that function created
+    """
+    removes a file. Redundant
+    Used with singleClone(). Removes the copy that function created.
+    :param p_filename: full filename including the path
+    :type p_filename: string
+
+    :raise OSError: if no file with p_filename is found
+
+    :return: name of the cloned file including the path
+    :rtype: string
+    """
+    #print("singleRelease removing ", p_filename)
     os.remove(p_filename)
+
+
+def releaseAllClones(p_clonelist):
+    """
+    Removes several files at once.
+    p_clonelist should be obtained from cloneThis()
+    Used for testing to clean up files left by previous tests
+    Used with singleClone(). Removes the copy that function created.
+    :param p_clonelist: full filenames including their paths
+    :type p_clonelist: list<string>
+    """
+    for i_file in p_clonelist:
+        if os.path.exists(i_file):
+            #print("releaseAllClones() removing ", i_file)
+            os.remove(i_file)
 
 # ===========================================================================
 # ------------------------Windows Metadata Testing---------------------------
@@ -237,57 +350,10 @@ We will do the following things to test it:
 				 
 				 
 				 
-				 
-				 
-				 
-				 
-				 
-				 
 
-				 
 # ===========================================================================
 # ----------------------Title Metadata Test functions------------------------
 # ===========================================================================
-g_getTitle_testData = {'fixingComputer': "crazy man fixing computer",
-                       'catScreamPizza': "",
-                       'gregTwitterJoke': "greg throws knives",
-                       'wikihowRat': "wikihow rat",
-                       'rippledotzero': "rippledotzero cover",
-                       'oppusumBitesApple': "too small for apple",
-                       'creepyCharger': "",
-                       'princessAtDoor': "", }
-g_containsTitle_testData = {'fixingComputer': True,
-                            'catScreamPizza': False,
-                            'gregTwitterJoke': True,
-                            'wikihowRat': True,
-                            'rippledotzero': True,
-                            'oppusumBitesApple': True,
-                            'creepyCharger': False,
-                            'princessAtDoor': False, }
-g_setTitle_testData = {'fixingComputer': "stock image of me",
-                       'catScreamPizza': "the pizza is here",
-                       'gregTwitterJoke': "NITW joke",
-                       'wikihowRat': "cool rat",
-                       'rippledotzero': "flash game thing",
-                       'oppusumBitesApple': "cute opposum",
-                       'creepyCharger': "creepy charger",
-                       'princessAtDoor': "cute dog gif", }
-g_searchTitle_testData = {'fixingComputer': "computer",
-                          'catScreamPizza': "dog",
-                          'gregTwitterJoke': "greg",
-                          'wikihowRat': "rat",
-                          'rippledotzero': "game",
-                          'oppusumBitesApple': "oppusum",
-                          'creepyCharger': "charger",
-                          'princessAtDoor': "dog", }
-g_searchTitle_testResults = {'fixingComputer': True,
-                             'catScreamPizza': False,
-                             'gregTwitterJoke': True,
-                             'wikihowRat': True,
-                             'rippledotzero': False,
-                             'oppusumBitesApple': False,
-                             'creepyCharger': False,
-                             'princessAtDoor': False, }
 def EverythingUseageCheck(p_fileEntry, f_outpath=g_outpath):
     #the file you load better have all this metadata in it.
     f_picID = g_googlePics2[p_fileEntry]
@@ -371,54 +437,6 @@ def EverythingUseageCheck(p_fileEntry, f_outpath=g_outpath):
 # ===========================================================================
 # ----------------------Artist Metadata Test functions-----------------------
 # ===========================================================================
-g_getArtists_testData = {'fixingComputer': ["stockphotographer", "publisher: twitter"],
-                         'catScreamPizza': ["photographer: idunno", "publisher: tumblrguy"],
-                         'gregTwitterJoke': [],
-                         'wikihowRat': ["volunteer tracer"],
-                         'rippledotzero': ["penguindude"],
-                         'oppusumBitesApple': ["VoteForPuff"],
-                         'creepyCharger': [],
-                         'princessAtDoor': []}
-g_containsArtists_testData = {'fixingComputer': True,
-                              'catScreamPizza': True,
-                              'gregTwitterJoke': False,
-                              'wikihowRat': True,
-                              'rippledotzero': True,
-                              'oppusumBitesApple': True,
-                              'creepyCharger': False,
-                              'princessAtDoor': False}
-g_setArtists_testData = {'fixingComputer': ["stock photo", "funny", "bad stock photos of my job", "technology"],
-                         'catScreamPizza': ["Phil"],
-                         'gregTwitterJoke': ["Joe"],
-                         'wikihowRat': ["volunteer"],
-                         'rippledotzero': ["Simon"],
-                         'oppusumBitesApple': ["Vote"],
-                         'creepyCharger': [],
-                         'princessAtDoor': []}
-g_searchArtist_testData = {'fixingComputer': "twitter",
-                           'catScreamPizza': "Phil",
-                           'gregTwitterJoke': "Joe",
-                           'wikihowRat': "volunteer",
-                           'rippledotzero': "Simon",
-                           'oppusumBitesApple': "Vote",
-                           'creepyCharger': "",
-                           'princessAtDoor': ""}
-g_searchArtist_testResults = {'fixingComputer': True,
-                              'catScreamPizza': False,
-                              'gregTwitterJoke': False,
-                              'wikihowRat': True,
-                              'rippledotzero': True,
-                              'oppusumBitesApple': True,
-                              'creepyCharger': False,
-                              'princessAtDoor': False}
-g_addArtist_testData = {'fixingComputer': "model: crazyguy",
-                        'catScreamPizza': "model: pizzadog",
-                        'gregTwitterJoke': "Solomon Georgio",
-                        'wikihowRat': "publisher: wikihow",
-                        'rippledotzero': "Artist: Simon Stalenhag",
-                        'oppusumBitesApple': "Model: opposum baby",
-                        'creepyCharger': "",
-                        'princessAtDoor': ""}
 def containsArtistsTest(p_fileEntry, f_outpath=g_outpath):
     # This tests if the function
     # containsArtists() is working properly.
@@ -521,48 +539,9 @@ def addArtistTest(p_fileEntry, f_outpath=g_outpath):
 # ===========================================================================
 # ----------------------Tag Metadata Test functions--------------------------
 # ===========================================================================
-"""Note: The following variables have a mixed naming convention.
-please forgive my deviation from proper naming style.
-These names are used since they are used in a testing function which
-tests a utility function. These names contain the utility function's name
-for the sake of consistency and easy maintenance"""
-g_containsTags_testData = {'squirrel': True,
-                           'cat': False,
-                           'boxcat': True,
-                           "frogyellow": True,
-                           "frogjump": True,
-                           "titanmeme": True}
-g_getTags_testData = {'squirrel': ['squirrel'],
-                      'cat': [],
-                      'boxcat': ['cat', 'animals', 'cat in a box'],
-                      "frogyellow": ['frog'],
-                      "frogjump": ['frog'],
-                      "titanmeme": ['show screenshots']}
-g_setTags_testData = {}
-g_searchTags_testData = {'squirrel': 'pie',
-                         'cat': "cat",
-                         'boxcat': "ca",
-                         "frogyellow": 'frog',
-                         "frogjump": "jumping",
-                         "titanmeme": 'show screenshots'}
-g_searchTags_testResults = {'squirrel': False,
-                            'cat': False,
-                            'boxcat': False,
-                            "frogyellow": True,
-                            "frogjump": False,
-                            "titanmeme": True}
-g_addTag_testData = {'squirrel': 'animals',
-                     'cat': "cat",
-                     'boxcat': "cute",
-                     "frogyellow": 'amphibian',
-                     "frogjump": "jumping",
-                     "titanmeme": 'anime'}
-g_removeTag_testData = {'squirrel': 'squirrel',
-                        'cat': "",
-                        'boxcat': "animals",
-                        "frogyellow": 'frog',
-                        "frogjump": "frog",
-                        "titanmeme": 'show screenshots'}
+
+
+
 def containsTagsTest(p_fileEntry, f_outpath=g_outpath):
     # This tests if the function
     # containsTags() is working properly.
@@ -714,18 +693,16 @@ def tagUseageCheck(p_filename):
 
 
 #testing library function that can give extension
-def testExtensionParse2():
+def testExtensionParse2(p_path=g_outpath):
     f_filename = ""
     for i_key, i_value in g_googlePics2.items():
         print("i_key:", i_key, "i_value:", i_value)
-        f_filename = getGoogleDrivePicture(i_value, g_outpath)
+        f_filename = getGoogleDrivePicture(i_value, p_path)
         print("filename:", f_filename)
         print("extension:", MetadataManager.getExtension(f_filename))
         os.remove(f_filename)
 
 #testExtensionParse2()
-
-
 
 #some test that can check if all possible keys were used in set functions
 
