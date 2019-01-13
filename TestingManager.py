@@ -12,10 +12,6 @@ from TData import g_getArtists_testData, g_containsArtists_testData, g_setArtist
     g_getTags_testData, g_searchTags_testData, g_searchTags_testResults, g_addTag_testData, g_removeTag_testData, \
     g_outpath, g_fileList, g_files
 
-
-
-
-
 # several functions below found from: https://stackoverflow.com/a/39225272
 def download_file_from_google_drive(id, destination):
     """downloads files from google drive.
@@ -73,8 +69,6 @@ def downloadGooglePicture(p_file, p_path=g_outpath):
     f_downloadedFileName = getGoogleDrivePicture(p_file.googleID, p_path)
     #print("downloadGooglePicture() filename:", f_downloadedFileName)
     return f_downloadedFileName
-downloadGooglePicture
-
 def loadFiles(p_allFiles):
     """
     Downloads a list of files from google drive if we haven't downloaded them already.
@@ -95,7 +89,6 @@ def loadFiles(p_allFiles):
         else:
             f_filenames.append(i_file.fullname)
     return f_filenames
-
 def singleClone(p_filename, p_stop=False):
     """
     creates a copy of a file and gives the copy a "clone name".
@@ -128,7 +121,6 @@ def singleClone(p_filename, p_stop=False):
             shutil.copy2(p_filename, f_newfile)
     shutil.copy2(p_filename, f_newfile)
     return f_newfile
-
 def cloneThese(p_filenames):
     """
     creates a copies of several files at once.
@@ -148,8 +140,6 @@ def cloneThese(p_filenames):
         f_clonefiles.append(singleClone(i_filename))
     return f_clonefiles
 
-
-
 def removeAllFiles(p_fileList=g_fileList ,p_path=g_outpath):
     """
     removes several files at once.
@@ -166,9 +156,6 @@ def removeAllFiles(p_fileList=g_fileList ,p_path=g_outpath):
             #print("removeAllFiles() removing ", f_file)
             os.remove(f_file)
     return
-
-
-
 def singleRelease(p_filename):
     """
     removes a file. Redundant
@@ -183,8 +170,6 @@ def singleRelease(p_filename):
     """
     #print("singleRelease removing ", p_filename)
     os.remove(p_filename)
-
-
 def releaseAllClones(p_clonelist):
     """
     Removes several files at once.
@@ -691,18 +676,6 @@ def tagUseageCheck(p_filename):
 #addTagTest("boxcat")
 #removeTagTest("boxcat")
 
-
-#testing library function that can give extension
-def testExtensionParse2(p_path=g_outpath):
-    f_filename = ""
-    for i_key, i_value in g_googlePics2.items():
-        print("i_key:", i_key, "i_value:", i_value)
-        f_filename = getGoogleDrivePicture(i_value, p_path)
-        print("filename:", f_filename)
-        print("extension:", MetadataManager.getExtension(f_filename))
-        os.remove(f_filename)
-
-#testExtensionParse2()
 
 #some test that can check if all possible keys were used in set functions
 
