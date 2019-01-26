@@ -61,6 +61,9 @@ class TestData:
         else:
             raise ValueError("This isn't a real type of metadata.")
 
+"""There's a bunch of reasons we don't want to use these for regular testing.
+I wrote them down but they got deleted."""
+
 class TestFile:
     """
     This class should contain everything we need for a single file

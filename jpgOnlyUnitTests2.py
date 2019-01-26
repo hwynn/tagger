@@ -1,8 +1,6 @@
 import unittest
 import MetadataManager
 
-import testFileManager
-import datetime
 import os
 from TestStructures import TestFile, TestData
 from TestingManager import downloadGooglePicture, removeAllFiles, loadFiles, cloneThese, releaseAllClones, singleClone
