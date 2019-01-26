@@ -2,15 +2,12 @@
 import os
 import wget
 import requests
-import MetadataManager
+import MetadataManagerL0
 import pyexiv2
 import copy
 import shutil
 from TestStructures import TestFile, TestData
-from TData import g_getArtists_testData, g_containsArtists_testData, g_setArtists_testData, g_searchArtist_testData, \
-    g_searchArtist_testResults, g_addArtist_testData, g_googlePics1, g_googlePics2, g_containsTags_testData, \
-    g_getTags_testData, g_searchTags_testData, g_searchTags_testResults, g_addTag_testData, g_removeTag_testData, \
-    g_outpath, g_fileList, g_files
+from TData import g_outpath, g_fileList, g_files
 
 # several functions below found from: https://stackoverflow.com/a/39225272
 def download_file_from_google_drive(id, destination):
@@ -57,6 +54,13 @@ def getGoogleDrivePicture(p_picID, p_outpath):
 """
 Author: Harrison Wynn
 Created: 2018
+"""
+# ===========================================================================
+# ---------------------------Test File Functions-----------------------------
+# ===========================================================================
+"""
+These are functions that will allow us to easily
+create and manage files for metadata testing
 """
 def downloadGooglePicture(p_file, p_path=g_outpath):
     """
@@ -110,7 +114,7 @@ def singleClone(p_filename, p_stop=False):
     :return: name of the cloned file including the path
     :rtype: string
     """
-    ext = MetadataManager.getExtension(p_filename)
+    ext = MetadataManagerL0.getExtension(p_filename)
     f_name = p_filename[:-len(ext)]
     f_newfile = f_name+"Copy"+ext
     if os.path.isfile(f_newfile)==True:
@@ -332,16 +336,15 @@ We will do the following things to test it:
 	#TODO
 	#testing procedure not yet defined. 
 """
-				 
-				 
-				 
+
 
 # ===========================================================================
-# ----------------------Title Metadata Test functions------------------------
+# ------------------------Banging Rocks Together 201-------------------------
 # ===========================================================================
-def EverythingUseageCheck(p_fileEntry, f_outpath=g_outpath):
+
+def EverythingUseageCheck(p_fileEntry, p_testfilelist, f_outpath=g_outpath):
     #the file you load better have all this metadata in it.
-    f_picID = g_googlePics2[p_fileEntry]
+    f_picID = p_testfilelist[p_fileEntry]
     f_filename = getGoogleDrivePicture(f_picID, f_outpath)
     f_metadata = pyexiv2.ImageMetadata(f_filename)
     f_metadata.read()
@@ -351,28 +354,28 @@ def EverythingUseageCheck(p_fileEntry, f_outpath=g_outpath):
     f_keywords1 = f_metadata[key1]
     f_dirtyString1 = pyexiv2.utils.undefined_to_string(f_keywords1.value)
     print("titleUseageCheck() f_dirtyString1: \t\t", f_dirtyString1)
-    f_cleanThing1 = MetadataManager.dirtyStr2cleanStr(f_dirtyString1)
+    f_cleanThing1 = MetadataManagerL0.dirtyStr2cleanStr(f_dirtyString1)
     print("titleUseageCheck() Title\t\t", f_cleanThing1)
     # -------------Tags--------------------------------------
     key2 = 'Exif.Image.XPTitle'
     f_keywords2 = f_metadata[key2]
     f_dirtyString2 = pyexiv2.utils.undefined_to_string(f_keywords2.value)
     print("titleUseageCheck() f_dirtyString2: \t\t", f_dirtyString2)
-    f_cleanThing2 = MetadataManager.dirtyStr2cleanList(f_dirtyString2)
+    f_cleanThing2 = MetadataManagerL0.dirtyStr2cleanList(f_dirtyString2)
     print("titleUseageCheck() Tags\t\t", f_cleanThing2)
     # -------------Artist--------------------------------------
     key3 = 'Exif.Image.XPAuthor'
     f_keywords3 = f_metadata[key3]
     f_dirtyString3 = pyexiv2.utils.undefined_to_string(f_keywords3.value)
     print("titleUseageCheck() f_dirtyString3: \t\t", f_dirtyString3)
-    f_cleanThing3 = MetadataManager.dirtyStr2cleanList(f_dirtyString3)
+    f_cleanThing3 = MetadataManagerL0.dirtyStr2cleanList(f_dirtyString3)
     print("titleUseageCheck() Artist\t\t", f_cleanThing3)
     # -------------Description--------------------------------------
     key4 = 'Exif.Image.XPComment'
     f_keywords4 = f_metadata[key4]
     f_dirtyString4 = pyexiv2.utils.undefined_to_string(f_keywords4.value)
     print("titleUseageCheck() f_dirtyString4: \t\t", f_dirtyString4)
-    f_cleanThing4 = MetadataManager.dirtyStr2cleanStr(f_dirtyString4)
+    f_cleanThing4 = MetadataManagerL0.dirtyStr2cleanStr(f_dirtyString4)
     print("titleUseageCheck() Description\t\t", f_cleanThing4)
     # -------------Rating--------------------------------------
     key5 = 'Exif.Image.Rating'
@@ -417,241 +420,6 @@ def EverythingUseageCheck(p_fileEntry, f_outpath=g_outpath):
     os.remove(f_filename)
     return
 
-#EverythingUseageCheck('fixingComputer')
-
-# ===========================================================================
-# ----------------------Artist Metadata Test functions-----------------------
-# ===========================================================================
-def containsArtistsTest(p_fileEntry, f_outpath=g_outpath):
-    # This tests if the function
-    # containsArtists() is working properly.
-    # Returns true if test passes, otherwise false
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    f_hasArtistTruth1 = g_containsArtists_testData[p_fileEntry]
-    f_hasArtistTruth2 = MetadataManager.containsArtists(f_filename)
-    if (f_hasArtistTruth1 != f_hasArtistTruth2):
-        print("Test FAILED: containsArtists() didn't return the expected truth value")
-        os.remove(f_filename)
-        return False
-    print("Test PASSED: containsArtists() returned the expected truth value")
-    os.remove(f_filename)
-    return True
-def getArtistsTest(p_fileEntry, f_outpath=g_outpath):
-    """Warning!!! Please don't try this with a picture with no tags."""
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    f_cleanArtistList = copy.deepcopy(g_getArtists_testData[p_fileEntry])
-    # print("getArtistsTest() f_cleanArtistList:\t\t", f_cleanArtistList)
-    f_newArtists = MetadataManager.getArtists(f_filename)
-    if (f_newArtists != f_cleanArtistList):
-        print("Test FAILED: getArtistsTest() didn't find the tags it should have.")
-        print("Artists expected:", end="")
-        for tag1 in f_cleanArtistList:
-            print("\"", tag1, "\"", sep="", end=" ")
-        print()
-        print("Artists found:", end="")
-        for tag2 in f_newArtists:
-            print("\"", tag2, "\"", sep="", end=" ")
-        print()
-        os.remove(f_filename)
-        return False
-    print("Test PASSED: getArtistsTest() found the proper tags")
-    print("Artists expected:", end="")
-    for tag1 in f_cleanArtistList:
-        print("\"", tag1, "\"", sep="", end=" ")
-    print()
-    print("Artists found:", end="")
-    for tag2 in f_newArtists:
-        print("\"", tag2, "\"", sep="", end=" ")
-    print()
-    os.remove(f_filename)
-    return True
-def setArtistsTest(p_fileEntry, f_outpath=g_outpath):
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    f_tags = g_setArtists_testData[p_fileEntry]
-    MetadataManager.setArtists(f_filename, f_tags)
-    f_newArtists = MetadataManager.getArtists(f_filename)
-    if (f_newArtists != f_tags):
-        print("Test FAILED: setArtistsTest() didn't find the tags it should have")
-        print("Artists expected:", end="")
-        for tag1 in f_tags:
-            print("\"", tag1, "\"", sep="", end=" ")
-        print("Artists found:", end="")
-        for tag2 in f_newArtists:
-            print("\"", tag2, "\"", sep="", end=" ")
-        print()
-        os.remove(f_filename)
-        return False
-    print("Test PASSED: setArtistsTest() found the proper tags")
-    os.remove(f_filename)
-    return True
-def searchArtistTest(p_fileEntry, f_outpath=g_outpath):
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    f_hasArtistTruth1 = g_searchArtist_testResults[p_fileEntry]
-    f_tag = g_searchArtist_testData[p_fileEntry]
-    f_hasArtistTruth2 = MetadataManager.hasArtists(f_filename, f_tag)
-    if (f_hasArtistTruth1 != f_hasArtistTruth2):
-        print("Test FAILED: searchArtistTest() didn't return the expected truth value")
-        os.remove(f_filename)
-        return False
-    print("Test PASSED: searchArtistTest() returned the expected truth value")
-    os.remove(f_filename)
-    return True
-def addArtistTest(p_fileEntry, f_outpath=g_outpath):
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    f_newArtist = g_addArtist_testData[p_fileEntry]
-    f_tags = copy.deepcopy(g_getArtists_testData[p_fileEntry])
-    MetadataManager.addArtist(f_filename, f_newArtist)
-    f_tags.insert(0, f_newArtist)
-    f_tagList1 = f_tags
-    f_tagList2 = MetadataManager.getArtists(f_filename)
-    if (f_tagList1 != f_tagList2):
-        print("Test FAILED: addArtistTest() didn't find the tags it should have")
-        print(f_newArtist, "should have been added to", g_getArtists_testData[p_fileEntry])
-        print("Artists expected:", end="")
-        print(f_tagList1)
-        print("Artists found:", end="")
-        print(f_tagList2)
-        os.remove(f_filename)
-        return False
-    print("Test PASSED: addArtistTest() found the proper tags")
-    os.remove(f_filename)
-    return True
-# ===========================================================================
-# ----------------------Tag Metadata Test functions--------------------------
-# ===========================================================================
-
-
-
-def containsTagsTest(p_fileEntry, f_outpath=g_outpath):
-    # This tests if the function
-    # containsTags() is working properly.
-    # Returns true if test passes, otherwise false
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    f_hasTagTruth1 = g_containsTags_testData[p_fileEntry]
-    f_hasTagTruth2 = MetadataManager.containsTags(f_filename)
-    if (f_hasTagTruth1 != f_hasTagTruth2):
-        print("Test FAILED: containsTags() didn't return the expected truth value")
-        os.remove(f_filename)
-        return False
-    print("Test PASSED: containsTags() returned the expected truth value")
-    os.remove(f_filename)
-    return True
-def getTagsTest(p_fileEntry, f_outpath=g_outpath):
-    """Warning!!! Please don't try this with a picture with no tags."""
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    f_cleanTagList = copy.deepcopy(g_getTags_testData[p_fileEntry])
-    # print("getTagsTest() f_cleanTagList:\t\t", f_cleanTagList)
-    f_newTags = MetadataManager.getTags(f_filename)
-    if (f_newTags != f_cleanTagList):
-        print("Test FAILED: getTagsTest() didn't find the tags it should have.")
-        print("Tags expected:", end="")
-        for tag1 in f_cleanTagList:
-            print("\"", tag1, "\"", sep="", end=" ")
-        print()
-        print("Tags found:", end="")
-        for tag2 in f_newTags:
-            print("\"", tag2, "\"", sep="", end=" ")
-        print()
-        os.remove(f_filename)
-        return False
-    print("Test PASSED: getTagsTest() found the proper tags")
-    print("Tags expected:", end="")
-    for tag1 in f_cleanTagList:
-        print("\"", tag1, "\"", sep="", end=" ")
-    print()
-    print("Tags found:", end="")
-    for tag2 in f_newTags:
-        print("\"", tag2, "\"", sep="", end=" ")
-    print()
-    os.remove(f_filename)
-    return True
-def setTagsTest(p_fileEntry, p_tags, f_outpath=g_outpath):
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    MetadataManager.setTags(f_filename, p_tags)
-    f_newTags = MetadataManager.getTags(f_filename)
-    if (f_newTags != p_tags):
-        print("Test FAILED: setTagsTest() didn't find the tags it should have")
-        print("Tags expected:", end="")
-        for tag1 in p_tags:
-            print("\"", tag1, "\"", sep="", end=" ")
-        print("Tags found:", end="")
-        for tag2 in f_newTags:
-            print("\"", tag2, "\"", sep="", end=" ")
-        print()
-        os.remove(f_filename)
-        return False
-    print("Test PASSED: setTagsTest() found the proper tags")
-    os.remove(f_filename)
-    return True
-def searchTagsTest(p_fileEntry, f_outpath=g_outpath):
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    f_hasTagTruth1 = g_searchTags_testResults[p_fileEntry]
-    f_tag = g_searchTags_testData[p_fileEntry]
-    f_hasTagTruth2 = MetadataManager.searchTags(f_filename, f_tag)
-    if (f_hasTagTruth1 != f_hasTagTruth2):
-        print("Test FAILED: searchTagsTest() didn't return the expected truth value")
-        os.remove(f_filename)
-        return False
-    print("Test PASSED: searchTagsTest() returned the expected truth value")
-    os.remove(f_filename)
-    return True
-def addTagTest(p_fileEntry, f_outpath=g_outpath):
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    f_newTag = g_addTag_testData[p_fileEntry]
-    f_tags = copy.deepcopy(g_getTags_testData[p_fileEntry])
-    MetadataManager.addTag(f_filename, f_newTag)
-    f_tags.insert(0, f_newTag)
-    f_tagList1 = f_tags
-    f_tagList2 = MetadataManager.getTags(f_filename)
-    if (f_tagList1 != f_tagList2):
-        print("Test FAILED: addTagTest() didn't find the tags it should have")
-        print(f_newTag, "should have been added to", g_getTags_testData[p_fileEntry])
-        print("Tags expected:", end="")
-        print(f_tagList1)
-        print("Tags found:", end="")
-        print(f_tagList2)
-        os.remove(f_filename)
-        return False
-    print("Test PASSED: addTagTest() found the proper tags")
-    os.remove(f_filename)
-    return True
-def removeTagTest(p_fileEntry, f_outpath=g_outpath):
-    f_picID = g_googlePics1[p_fileEntry]
-    f_filename = getGoogleDrivePicture(f_picID, f_outpath)
-    f_removeThisTag = g_removeTag_testData[p_fileEntry]
-    f_tags = copy.deepcopy(g_getTags_testData[p_fileEntry])
-    MetadataManager.removeTag(f_filename, f_removeThisTag)
-    f_tags.remove(f_removeThisTag)
-    f_tagList1 = f_tags
-    f_tagList2 = MetadataManager.getTags(f_filename)
-    if (f_tagList1 != f_tagList2):
-        print("Test FAILED: removeTagTest() didn't find the tags it should have")
-        print(g_removeTag_testData[p_fileEntry], "should have been removed from", g_getTags_testData[p_fileEntry])
-        print("Tags expected:", end="")
-        print(f_tagList1)
-        print("Tags found:", end="")
-        print(f_tagList2)
-        os.remove(f_filename)
-        return False
-    print("Test PASSED removeTagTest(): The file", f_filename, " has the tags it should.")
-    print(g_removeTag_testData[p_fileEntry], "was successfully removed from", g_getTags_testData[p_fileEntry])
-    print("Tags expected:", end="")
-    print(f_tagList1)
-    print("Tags found:", end="")
-    print(f_tagList2)
-    os.remove(f_filename)
-    return True
-
 def tagUseageCheck(p_filename):
     f_metadata = pyexiv2.ImageMetadata(p_filename)
     f_metadata.read()
@@ -659,24 +427,63 @@ def tagUseageCheck(p_filename):
     f_keywords = f_metadata['Exif.Image.XPKeywords']
     f_dirtyTagString = pyexiv2.utils.undefined_to_string(f_keywords.value)
     print("tagUseageCheck() f_dirtyTagString\t\t", f_dirtyTagString)
-    f_cleanTagList = MetadataManager.dirtyStr2cleanList(f_dirtyTagString)
+    f_cleanTagList = MetadataManagerL0.dirtyStr2cleanList(f_dirtyTagString)
     print("tagUseageCheck() f_cleanTagList\t\t", f_cleanTagList)
-    f_dirtyTagString2 = MetadataManager.cleanList2dirtyStr(f_cleanTagList)
+    f_dirtyTagString2 = MetadataManagerL0.cleanList2dirtyStr(f_cleanTagList)
     print("tagUseageCheck() f_dirtyTagString2\t\t", f_dirtyTagString2)
     return
-
-# ===========================================================================
-# -----Tag Metadata Tests. Successful for CatInBox.jpg-----------------------
-# ===========================================================================
-
-#containsTagsTest("boxcat")
-#getTagsTest("boxcat")  # test passed
-#setTagsTest("boxcat", ["mammal", "feline"])
-#searchTagsTest("boxcat")
-#addTagTest("boxcat")
-#removeTagTest("boxcat")
 
 
 #some test that can check if all possible keys were used in set functions
 
 #some test to check if all keys from a set function have equal values
+
+# ===========================================================================
+# ---------------------Unit Testing Utility Functions------------------------
+# ===========================================================================
+
+#this should be true after a successful set operation is performed
+def checkAllKeysPresent(p_file, p_metatype):
+    #takes a filename and a metadata type (Title, Description, Tags, etc)
+    #and returns true if all keys associated with that metadata type are present in the file
+    #used for testing the metadata editing functions
+    f_metadata = pyexiv2.ImageMetadata(p_file)
+    f_metadata.read()
+    f_keys = MetadataManagerL0.appropriateKeys(p_file, p_metatype)
+    for key in f_keys:
+        if key not in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            return False
+    return True
+
+#this should be false after a successful wipe operation is performed
+def checkAnyKeysPresent(p_file, p_metatype, p_verbose=False):
+    #takes a filename and a metadata type (Title, Description, Tags, etc)
+    #and returns true if any keys associated with that metadata type are present in the file
+    #used for testing the metadata editing functions
+    f_metadata = pyexiv2.ImageMetadata(p_file)
+    f_metadata.read()
+    f_keys = MetadataManagerL0.appropriateKeys(p_file, p_metatype)
+    f_present = []
+    for key in f_keys:
+        if key in (f_metadata.exif_keys + f_metadata.xmp_keys + f_metadata.iptc_keys):
+            f_present.append(key)
+    if p_verbose:
+        print("In", p_file, "the following", p_metatype, "keys still exist:", f_present)
+    if len(f_present)==0:
+        return False
+    return True
+
+#TODO make unit tests that use this function.
+#this should be true after a successful set operation is performed
+def allSame(p_list, ifempty=True):
+    #this takes a list and returns true if all items are the same
+    #returns false if any item is different
+    #if empty, returns bool specified by caller. default is true
+    #intended use: checking if all values for a metadata type are the same
+    if len(p_list)==0:
+        return ifempty
+    f_item = p_list[0]
+    for i_item in p_list[1:]:
+        if f_item!=i_item:
+            return False
+    return True

@@ -1,154 +1,12 @@
 import datetime
-import MetadataManager
+import MetadataManagerL0
+import MetadataManagerL1
 from TestStructures import TestFile, TestData
 """
 TData.py
 Testing Data
 This file is for storing information about files for unit tests
 """
-
-# ===========================================================================
-# ----------------------Artist Metadata Test Data----------------------------
-# ===========================================================================
-
-g_getArtists_testData = {'fixingComputer': ["stockphotographer", "publisher: twitter"],
-                         'catScreamPizza': ["photographer: idunno", "publisher: tumblrguy"],
-                         'gregTwitterJoke': [],
-                         'wikihowRat': ["volunteer tracer"],
-                         'rippledotzero': ["penguindude"],
-                         'oppusumBitesApple': ["VoteForPuff"],
-                         'creepyCharger': [],
-                         'princessAtDoor': []}
-g_containsArtists_testData = {'fixingComputer': True,
-                              'catScreamPizza': True,
-                              'gregTwitterJoke': False,
-                              'wikihowRat': True,
-                              'rippledotzero': True,
-                              'oppusumBitesApple': True,
-                              'creepyCharger': False,
-                              'princessAtDoor': False}
-g_setArtists_testData = {'fixingComputer': ["stock photo", "funny", "bad stock photos of my job", "technology"],
-                         'catScreamPizza': ["Phil"],
-                         'gregTwitterJoke': ["Joe"],
-                         'wikihowRat': ["volunteer"],
-                         'rippledotzero': ["Simon"],
-                         'oppusumBitesApple': ["Vote"],
-                         'creepyCharger': [],
-                         'princessAtDoor': []}
-g_searchArtist_testData = {'fixingComputer': "twitter",
-                           'catScreamPizza': "Phil",
-                           'gregTwitterJoke': "Joe",
-                           'wikihowRat': "volunteer",
-                           'rippledotzero': "Simon",
-                           'oppusumBitesApple': "Vote",
-                           'creepyCharger': "",
-                           'princessAtDoor': ""}
-g_searchArtist_testResults = {'fixingComputer': True,
-                              'catScreamPizza': False,
-                              'gregTwitterJoke': False,
-                              'wikihowRat': True,
-                              'rippledotzero': True,
-                              'oppusumBitesApple': True,
-                              'creepyCharger': False,
-                              'princessAtDoor': False}
-g_addArtist_testData = {'fixingComputer': "model: crazyguy",
-                        'catScreamPizza': "model: pizzadog",
-                        'gregTwitterJoke': "Solomon Georgio",
-                        'wikihowRat': "publisher: wikihow",
-                        'rippledotzero': "Artist: Simon Stalenhag",
-                        'oppusumBitesApple': "Model: opposum baby",
-                        'creepyCharger': "",
-                        'princessAtDoor': ""}
-
-# ===========================================================================
-# -----------------------Title Metadata Test Data----------------------------
-# ===========================================================================
-g_getTitle_testData = {'fixingComputer': "crazy man fixing computer",
-                       'catScreamPizza': "",
-                       'gregTwitterJoke': "greg throws knives",
-                       'wikihowRat': "wikihow rat",
-                       'rippledotzero': "rippledotzero cover",
-                       'oppusumBitesApple': "too small for apple",
-                       'creepyCharger': "",
-                       'princessAtDoor': "", }
-g_containsTitle_testData = {'fixingComputer': True,
-                            'catScreamPizza': False,
-                            'gregTwitterJoke': True,
-                            'wikihowRat': True,
-                            'rippledotzero': True,
-                            'oppusumBitesApple': True,
-                            'creepyCharger': False,
-                            'princessAtDoor': False, }
-g_setTitle_testData = {'fixingComputer': "stock image of me",
-                       'catScreamPizza': "the pizza is here",
-                       'gregTwitterJoke': "NITW joke",
-                       'wikihowRat': "cool rat",
-                       'rippledotzero': "flash game thing",
-                       'oppusumBitesApple': "cute opposum",
-                       'creepyCharger': "creepy charger",
-                       'princessAtDoor': "cute dog gif", }
-g_searchTitle_testData = {'fixingComputer': "computer",
-                          'catScreamPizza': "dog",
-                          'gregTwitterJoke': "greg",
-                          'wikihowRat': "rat",
-                          'rippledotzero': "game",
-                          'oppusumBitesApple': "oppusum",
-                          'creepyCharger': "charger",
-                          'princessAtDoor': "dog", }
-g_searchTitle_testResults = {'fixingComputer': True,
-                             'catScreamPizza': False,
-                             'gregTwitterJoke': True,
-                             'wikihowRat': True,
-                             'rippledotzero': False,
-                             'oppusumBitesApple': False,
-                             'creepyCharger': False,
-                             'princessAtDoor': False, }
-
-# ===========================================================================
-# ------------------------Tag Metadata Test Data-----------------------------
-# ===========================================================================
-"""Note: The following variables have a mixed naming convention.
-please forgive my deviation from proper naming style.
-These names are used since they are used in a testing function which
-tests a utility function. These names contain the utility function's name
-for the sake of consistency and easy maintenance"""
-g_containsTags_testData = {'squirrel': True,
-                           'cat': False,
-                           'boxcat': True,
-                           "frogyellow": True,
-                           "frogjump": True,
-                           "titanmeme": True}
-g_getTags_testData = {'squirrel': ['squirrel'],
-                      'cat': [],
-                      'boxcat': ['cat', 'animals', 'cat in a box'],
-                      "frogyellow": ['frog'],
-                      "frogjump": ['frog'],
-                      "titanmeme": ['show screenshots']}
-g_setTags_testData = {}
-g_searchTags_testData = {'squirrel': 'pie',
-                         'cat': "cat",
-                         'boxcat': "ca",
-                         "frogyellow": 'frog',
-                         "frogjump": "jumping",
-                         "titanmeme": 'show screenshots'}
-g_searchTags_testResults = {'squirrel': False,
-                            'cat': False,
-                            'boxcat': False,
-                            "frogyellow": True,
-                            "frogjump": False,
-                            "titanmeme": True}
-g_addTag_testData = {'squirrel': 'animals',
-                     'cat': "cat",
-                     'boxcat': "cute",
-                     "frogyellow": 'amphibian',
-                     "frogjump": "jumping",
-                     "titanmeme": 'anime'}
-g_removeTag_testData = {'squirrel': 'squirrel',
-                        'cat': "",
-                        'boxcat': "animals",
-                        "frogyellow": 'frog',
-                        "frogjump": "frog",
-                        "titanmeme": 'show screenshots'}
 
 # ===========================================================================
 # -----------------------------Google Files----------------------------------
@@ -198,45 +56,45 @@ g_supportedFunctions2 = {
 }
 
 g_Func = {
-'Title': {'contains': MetadataManager.containsTitle,
-          'get': MetadataManager.getTitle,
-          'set': MetadataManager.setTitle,
-          'search': MetadataManager.searchTitle,
-          'wipe':  MetadataManager.wipeTitle
+'Title': {'contains': MetadataManagerL0.containsTitle,
+          'get': MetadataManagerL0.getTitle,
+          'set': MetadataManagerL0.setTitle,
+          'search': MetadataManagerL1.searchTitle,
+          'wipe':  MetadataManagerL0.wipeTitle
           },
-'Artist': {'contains': MetadataManager.containsArtists,
-           'get': MetadataManager.getArtists,
-           'set': MetadataManager.setArtists,
-           'search': MetadataManager.searchArtists,
-           'add': MetadataManager.addArtist,
-           'remove': MetadataManager.removeArtist,
-           'wipe':  MetadataManager.wipeArtists
+'Artist': {'contains': MetadataManagerL0.containsArtists,
+           'get': MetadataManagerL0.getArtists,
+           'set': MetadataManagerL0.setArtists,
+           'search': MetadataManagerL1.searchArtists,
+           'add': MetadataManagerL1.addArtist,
+           'remove': MetadataManagerL1.removeArtist,
+           'wipe':  MetadataManagerL0.wipeArtists
            },
-'Tags': {'contains': MetadataManager.containsTags,
-         'get': MetadataManager.getTags,
-         'set': MetadataManager.setTags,
-         'search': MetadataManager.searchTags,
-         'add': MetadataManager.addTag,
-         'remove': MetadataManager.removeTag,
-         'wipe':  MetadataManager.wipeTags
+'Tags': {'contains': MetadataManagerL0.containsTags,
+         'get': MetadataManagerL0.getTags,
+         'set': MetadataManagerL0.setTags,
+         'search': MetadataManagerL1.searchTags,
+         'add': MetadataManagerL1.addTag,
+         'remove': MetadataManagerL1.removeTag,
+         'wipe':  MetadataManagerL0.wipeTags
          },
-'Description': {'contains': MetadataManager.containsDescr,
-                'get': MetadataManager.getDescr,
-                'set': MetadataManager.setDescr,
-                'search': MetadataManager.searchDescr,
-                'add': MetadataManager.addDescr,
-                'wipe':  MetadataManager.wipeDescr
+'Description': {'contains': MetadataManagerL0.containsDescr,
+                'get': MetadataManagerL0.getDescr,
+                'set': MetadataManagerL0.setDescr,
+                'search': MetadataManagerL1.searchDescr,
+                'add': MetadataManagerL1.addDescr,
+                'wipe':  MetadataManagerL0.wipeDescr
                 },
-'Rating': {'contains': MetadataManager.containsRating,
-           'get': MetadataManager.getRating,
-           'set': MetadataManager.setRating,
-           'search': MetadataManager.searchRating,
-           'wipe':  MetadataManager.wipeRating
+'Rating': {'contains': MetadataManagerL0.containsRating,
+           'get': MetadataManagerL0.getRating,
+           'set': MetadataManagerL0.setRating,
+           'search': MetadataManagerL1.searchRating,
+           'wipe':  MetadataManagerL0.wipeRating
            },
-'Date Created': {'contains': MetadataManager.containsOrgDate,
-                 'get': MetadataManager.getOrgDate,
-                 'set': MetadataManager.setOrgDate,
-                 'search':  MetadataManager.searchOrgDate
+'Date Created': {'contains': MetadataManagerL0.containsOrgDate,
+                 'get': MetadataManagerL0.getOrgDate,
+                 'set': MetadataManagerL0.setOrgDate,
+                 'search': MetadataManagerL1.searchOrgDate
                  }
 }
 
@@ -301,10 +159,6 @@ g_sampleSearchValues = TestData(p_title = "sampleTitle",
                                 p_tags = ["thing1", "thing2"],
                                 p_artists = "sampleArtist",
                                 p_date = (datetime.datetime(2017, 1, 1), datetime.datetime(2018, 1, 1)))
-
-
-
-
 
 fixingComputer = TestFile('fixingComputer.jpg', '/home/hwynn/Pictures/fixingComputer.jpg',
                           '1pFEbWruySWWgNCShKP8qn8dJ9w7kXNKk', p_metadata = None)
@@ -371,3 +225,236 @@ g_files = {
     'creepyCharger.gif': creepyCharger,
     'Makefile': Makefile
            }
+
+g_testfile0 = "/home/hwynn/Pictures/psyduck.jpg"
+g_testfile1 = "/home/hwynn/Pictures/salamence.tif"
+g_testfile2 = "/home/hwynn/Pictures/paras.png"
+g_testfile3 = "/home/hwynn/Pictures/onix.png"
+g_testfile4 = "/home/hwynn/Pictures/snorlax.tif"
+g_testfile5 = "/home/hwynn/Pictures/pichu.tif"
+g_testfile6 = "/home/hwynn/Pictures/charmander.tif"
+g_testfile7 = "/home/hwynn/Pictures/lapras.png"
+g_testfile8 = "/home/hwynn/Pictures/vulpix.png"
+g_testfile9 = "/home/hwynn/Pictures/lugia.png"
+
+
+psyduck = TestFile('psyduck.jpg', '/home/hwynn/Pictures/psyduck.jpg',
+p_googleID = '1KymIHB7ASeRPwPFpLolv8CmeAseL6Qrn', p_metadata = None)
+
+salamence = TestFile('salamence.tif', '/home/hwynn/Pictures/salamence.tif',
+p_googleID = '1BVrEONGdTXtFTmyhShccM2I8uQjP1dd0', p_metadata = None)
+
+paras = TestFile('paras.png', '/home/hwynn/Pictures/paras.png',
+p_googleID = '1cnVPBqKo6nwIQvbtvBpJ-V2oDvzrOEvw', p_metadata = None)
+
+onix = TestFile('onix.png', '/home/hwynn/Pictures/onix.png',
+p_googleID = '1FP5wrzq8yk6jchHcqcE6ypDLkx-IvTdy', p_metadata = None)
+
+snorlax = TestFile('snorlax.tif', '/home/hwynn/Pictures/snorlax.tif',
+p_googleID = '1SXSdqZn5NEQkU9jWKgfpKRRfw_TPmFfJ', p_metadata = None)
+
+pichu = TestFile('pichu.tif', '/home/hwynn/Pictures/pichu.tif',
+p_googleID = '1uyQReOoZ0bYpKTgVd_UTQPmtFrEyuB0d', p_metadata = None)
+
+charmander = TestFile('charmander.tif', '/home/hwynn/Pictures/charmander.tif',
+p_googleID = '13Xgu-fsH9TsflkiH8ZCCo1nz3Kvn0Psp', p_metadata = None)
+
+lapras = TestFile('lapras.png', '/home/hwynn/Pictures/lapras.png',
+p_googleID = '1dMHjUMNZVVX1ESnEc_cojdgcuLC0yK3G', p_metadata = None)
+
+vulpix = TestFile('vulpix.png', '/home/hwynn/Pictures/vulpix.png',
+p_googleID = None, p_metadata = None)
+'1TIbeLIobSS-arr6Xyxdtbz5ofwS_co8b'
+lugia = TestFile('lugia.png', '/home/hwynn/Pictures/lugia.png',
+p_googleID = None, p_metadata = None)
+'1Re2GJB48UsOBkUYOujsGtBoIlA6Jr1SV'
+
+g_files2 = {
+    'pokefile0': psyduck,
+    'pokefile1': salamence,
+    'pokefile2': paras,
+    'pokefile3': onix,
+    'pokefile4': snorlax,
+    'pokefile5': pichu,
+	'pokefile6': charmander,
+	'pokefile7': lapras,
+	'pokefile8': vulpix,
+	'pokefile9': lugia
+           }
+
+
+g_title0 = "Best Gift"
+g_title1 = "Everyone party"
+g_title3 = 'Fancy video game fanart'
+g_title6 = 'bullet wave'
+g_title8 = 'weird cat drawing'
+g_desc3 = 'It\'s super vampire gungirl holding a giant knife. Very stylish'
+g_desc4 = 'screenshot from a great letsplay'
+g_desc7 = 'This is a picture of famous man.\n\mIt was really cool meeting him.\nYolo'
+g_desc8 = 'Some fast drawing of a weird cat. It\'s staring at a pizza like it wants to sit on it. I found this online a long time ago.'
+g_rating0 = 3
+g_rating1 = 2
+g_rating2 = 2
+g_rating4 = 1
+g_rating5 = 4
+g_rating7 = 5
+g_rating8 = 1
+g_tags0 = ['socks', 'famous']
+g_tags2 = ['mspaint', 'internet jokes']
+g_tags4 = ['screenshot']
+g_tags5 = ['internet jokes']
+g_tags8 = ['drawing', 'cat', 'mspaint']
+g_artist0 = ['Actor: Danny Devito']
+g_artist2 = ['anonymous']
+g_artist4 = ['xX_KillerZ5_Xx', 'Player: Matt Mcmuscles']
+g_artist6 = ['lineart: angelWood', 'character: DarkDork45']
+g_artist7 = ['Dr.Mc.DrD..E']
+g_artist8 = ['9566215387126']
+g_date0 = datetime.datetime(2017, 7, 20, 11, 32)
+g_date2 = datetime.datetime(2011, 3, 5)
+g_date4 = datetime.datetime(2019, 1, 9, 5, 20)
+g_date5 = datetime.datetime(2009, 8, 1)
+g_date8 = datetime.datetime(2019, 1, 18, 18, 32)
+g_source4 = 'https//youtube.com/333243/'
+g_source7 = 'https//photobucket.com/221443'
+g_source8 = 'tinyu.rl/1jv345'
+g_seriesname0 = 'surprise party 2017'
+g_seriesname2 = 'funnydumbo'
+g_seriesname4 = 'deadfart super friend spark scene'
+g_seriesname5 = 'dog fart collection'
+g_seriesname8 = 'cat pizza meme'
+g_seriesins0 = 11
+g_seriesins3 = 3
+g_seriesins4 = 4
+g_seriesins5 = 8
+g_seriesins8 = 2
+g_mdate0 = datetime.datetime(2019, 1, 9, 5, 20)
+g_mdate1 = datetime.datetime(2019, 1, 9, 5, 24)
+g_mdate5 = datetime.datetime(2019, 1, 9, 6, 15)
+g_mdate6 = datetime.datetime(2019, 1, 10, 2, 9)
+g_mdate7 = datetime.datetime(2019, 1, 10, 2, 20)
+g_mdate8 = datetime.datetime(2019, 1, 10, 3, 41)
+g_mdate9 = datetime.datetime(2019, 1, 9, 5, 20)
+g_mark0 = 'taggerMark'
+g_mark1 = 'taggerMark'
+g_mark3 = 'taggerMark'
+g_mark4 = 'taggerMark'
+g_mark6 = 'taggerMark'
+g_mark7 = 'taggerMark'
+g_mark8 = 'taggerMark'
+g_mark9 = 'taggerMark'
+g_vers0 = "0.03"
+g_vers1 = "0.10"
+g_vers2 = "1.03"
+g_vers4 = "1.03"
+g_vers5 = "1.03"
+g_vers7 = "1.05"
+g_vers8 = "1.03"
+g_vers9 = "0.50"
+
+
+
+
+g_title0 = "Best Gift"
+g_rating0 = 3
+g_tags0 = ['socks', 'famous']
+g_artist0 = ['Actor: Danny Devito']
+g_date0 = datetime.datetime(2017, 7, 20, 11, 32)
+g_seriesname0 = 'surprise party 2017'
+g_seriesins0 = 11
+g_mdate0 = datetime.datetime(2019, 1, 9, 5, 20)
+g_mark0 = 'taggerMark'
+g_vers0 = "0.03"
+
+g_title1 = "Everyone party"
+g_rating1 = 2
+g_mdate1 = datetime.datetime(2019, 1, 9, 5, 24)
+g_mark1 = 'taggerMark'
+g_vers1 = "0.10"
+
+g_rating2 = 2
+g_tags2 = ['mspaint', 'internet jokes']
+g_artist2 = ['anonymous']
+g_date2 = datetime.datetime(2011, 3, 5)
+g_seriesname2 = 'funnydumbo'
+g_vers2 = "1.03"
+
+g_title3 = 'Fancy video game fanart'
+g_desc3 = 'It\'s super vampire gungirl holding a giant knife. Very stylish'
+g_seriesins3 = 3
+g_mark3 = 'taggerMark'
+
+g_desc4 = 'screenshot from a great letsplay'
+g_rating4 = 1
+g_tags4 = ['screenshot']
+g_artist4 = ['xX_KillerZ5_Xx', 'Player: Matt Mcmuscles']
+g_date4 = datetime.datetime(2019, 1, 9, 5, 20)
+g_source4 = 'https//youtube.com/333243/'
+g_seriesname4 = 'deadfart super friend spark scene'
+g_seriesins4 = 4
+g_mark4 = 'taggerMark'
+g_vers4 = "1.03"
+
+g_rating5 = 4
+g_tags5 = ['internet jokes']
+g_date5 = datetime.datetime(2009, 8, 1)
+g_seriesname5 = 'dog fart collection'
+g_seriesins5 = 8
+g_mdate5 = datetime.datetime(2019, 1, 9, 6, 15)
+g_vers5 = "1.03"
+
+g_title6 = 'bullet wave'
+g_artist6 = ['lineart: angelWood', 'character: DarkDork45']
+g_mdate6 = datetime.datetime(2019, 1, 10, 2, 9)
+g_mark6 = 'taggerMark'
+
+g_desc7 = 'This is a picture of famous man.\n\mIt was really cool meeting him.\nYolo'
+g_rating7 = 5
+g_artist7 = ['Dr.Mc.DrD..E']
+g_source7 = 'https//photobucket.com/221443'
+g_mdate7 = datetime.datetime(2019, 1, 10, 2, 20)
+g_mark7 = 'taggerMark'
+g_vers7 = "1.05"
+
+g_title8 = 'weird cat drawing'
+g_desc8 = 'Some fast drawing of a weird cat. It\'s staring at a pizza like it wants to sit on it. I found this online a long time ago.'
+g_rating8 = 1
+g_tags8 = ['drawing', 'cat', 'mspaint']
+g_artist8 = ['9566215387126']
+g_date8 = datetime.datetime(2019, 1, 18, 18, 32)
+g_source8 = 'tinyu.rl/1jv345'
+g_seriesname8 = 'cat pizza meme'
+g_seriesins8 = 2
+g_mark8 = 'taggerMark'
+g_vers8 = "1.03"
+
+g_mdate9 = datetime.datetime(2019, 1, 9, 5, 20)
+g_mark9 = 'taggerMark'
+g_vers9 = "0.50"
+g_mdate8 = datetime.datetime(2019, 1, 10, 3, 41)
+
+"""
+MetadataManagerL0.allMeta(g_testfile0)
+MetadataManagerL0.allMeta(g_testfile1)
+MetadataManagerL0.allMeta(g_testfile2)
+MetadataManagerL0.allMeta(g_testfile3)
+MetadataManagerL0.allMeta(g_testfile4)
+MetadataManagerL0.allMeta(g_testfile5)
+MetadataManagerL0.allMeta(g_testfile6)
+MetadataManagerL0.allMeta(g_testfile7)
+MetadataManagerL0.allMeta(g_testfile8)
+MetadataManagerL0.allMeta(g_testfile9)
+"""
+
+sampleData = TestData(p_title="Sample Title", p_desc="Sample description of our\nfile",
+                      p_rating= 2,
+                      p_tags=["test tag", "funny"],
+                      p_artists=["Artist: Dave Dude", "Writer: Sally Smith"],
+                      p_date= datetime.datetime(2012, 1, 5, 7, 30),
+                      p_src="https://www.sampleURl.com",
+                      p_series="Sample Series",
+                      p_installment=12,
+                      p_metadate= datetime.datetime(2012, 4, 13),
+                      p_taggermark="SampleMark",
+                      p_version='1.66'
+)
