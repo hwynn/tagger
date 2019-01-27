@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import datetime
 import MetadataManagerL0
 import MetadataManagerL1
