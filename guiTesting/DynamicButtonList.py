@@ -32,15 +32,15 @@ Builder.load_string('''
             pos: (0, 0)
             color: 0, 0, 0, 1
             text: root.ourText
-            background_normal: '..\imgs\BlankUpTiny.png'
-            background_down: '..\imgs\BlankDownTiny.png'
+            background_normal: '../pics/BlankUpTiny.png'
+            background_down: '../pics/BlankDownTiny.png'
             group: 'test'
         Button:
             size_hint: (None, 1)
             width: 29
             pos: (root.texture_size[0] + 40, 0)
-            background_normal: '..\imgs\closeUpTiny.png'
-            background_down: '..\imgs\closeDownTiny.png'
+            background_normal: '../pics/closeUpTiny.png'
+            background_down: '../pics/closeDownTiny.png'
             group: 'test'
 
 <DynamicTagList>:

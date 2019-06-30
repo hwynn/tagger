@@ -3,6 +3,7 @@ import os
 import wget
 import requests
 import MetadataManagerL0
+import MetadataManagerL1
 import pyexiv2
 import copy
 import shutil
@@ -66,9 +67,9 @@ def downloadGooglePicture(p_file, p_path=g_outpath):
     """
     Downloads a picture from google drive for testing purposes
     :param p_file: information about the test file, including filename and googleID
-	:type p_file: TestFile class instance
-	:param p_path: path the files will be saved to (default: g_outpath imported from TData)
-	:type p_path: string
+    :type p_file: TestFile class instance
+    :param p_path: path the files will be saved to (default: g_outpath imported from TData)
+    :type p_path: string
     """
     f_downloadedFileName = getGoogleDrivePicture(p_file.googleID, p_path)
     #print("downloadGooglePicture() filename:", f_downloadedFileName)
@@ -151,7 +152,7 @@ def removeAllFiles(p_fileList=g_fileList ,p_path=g_outpath):
     :param p_fileList: information about each test file including filenames (default: g_fileList from TData)
     :type p_fileList: list<TestFile class instance>
     :param p_path: path the files will be saved to (default: g_outpath imported from TData)
-	:type p_path: string
+    :type p_path: string
     """
     f_file = ''
     for item in p_fileList:
@@ -203,40 +204,40 @@ This will all be put into a chart. (wChart1)
 Testing 2:
 For every data type in wChart1, we will perform tests at various stages and document the results.
 -control test:		This test will only be done once per filetype.
-					We will download a fresh file with no metadata into windows
-					and document what metadata tags and values it has.
+                    We will download a fresh file with no metadata into windows
+                    and document what metadata tags and values it has.
 -init keys test:	When we add a new kind of metadata to a file (that hasn't have it before),
-					We will check to see what exif tags were added.
+                    We will check to see what exif tags were added.
 -init format test:	Done alongside init keys test. This will be used to check the formatting
-					of the metadata added by windows. Our program must be able to read this.
-					Here we must figure out how to translate the metadata into a human readable format.
+                    of the metadata added by windows. Our program must be able to read this.
+                    Here we must figure out how to translate the metadata into a human readable format.
 -modify test:		We will modify metadata values (like change the title, add and artist, change a tag)
-					then we will see if we can still use our format translation from init format test
+                    then we will see if we can still use our format translation from init format test
 -remove/wipe test:  We will erase a value, leaving a blank value. We need to see if windows 
-					allows blank or empty metadata values, or if it immediately wipes them.
-					This will be checking if the keys from the init keys test still exist.
-					and if the blank values can be read
+                    allows blank or empty metadata values, or if it immediately wipes them.
+                    This will be checking if the keys from the init keys test still exist.
+                    and if the blank values can be read
 -wipe key test:		We will completely remove a value (value must be previously non-empty) 
-					and check if all the keys from init keys test were removed.
+                    and check if all the keys from init keys test were removed.
 -wipe value test:	Done alongside wipe key test. This will check if we can still fetch a value
-					after removing it from a file using windows. 
+                    after removing it from a file using windows. 
 
 Testing 3:
 This testing will be performed alongside or after General Metadata Testing (below)
 For every key found in the init keys test:
 -General Metadata Testing		all tests from this test group will be performed and documented.
-					All tests performed afterwards will assume a key passed all general metadata tests.
+                    All tests performed afterwards will assume a key passed all general metadata tests.
 -read add:			Given a file with no metadata, we will add a key/value to the metadata.
-					The value will have the formatting from the init format test.
-					We will check to see if windows recognizes our added metadata and displays it.
+                    The value will have the formatting from the init format test.
+                    We will check to see if windows recognizes our added metadata and displays it.
 -read modify		Given a file which has been given metadata by windows, we will edit the value
-					of that metadata and see if windows recognizes and displays those changes. 
+                    of that metadata and see if windows recognizes and displays those changes. 
 -read remove:		Given a file which has been given metadata by windows, we will make the value blank
-					and see if windows still shows that kind of metadata as holding a blank value
+                    and see if windows still shows that kind of metadata as holding a blank value
 -read wipe:			Given a file which has been given metadata by windows, we remove the key/value
-					then check to see if windows recognizes this and displays those changes.
+                    then check to see if windows recognizes this and displays those changes.
 """
-				 
+
 # ===========================================================================
 # ------------------------General Metadata Testing---------------------------
 # ===========================================================================
@@ -249,92 +250,92 @@ Every kind of metadata (datatype) is mandatory. Every filetype is mandatory.
 For every combination of datatype and filetype, there must be at least one tag that can be used.
 
 GENERAL FILE BEHAVIOR  (for any single filetype)
-	A file has an index with every key of metadata successfully stored in it.
-	No two datatypes can have the same key associated with them. 
-	A datatype may have more than one key associated with it.
-	If (the only) key for a datatype is in the index, it must have a value binded to it
-		However, this value can be empty (like the string " ")
-	A key may have "sister keys". These sister keys contain values tied to 
-	    the first key's value (like rating and ratingpercent)
-	If a key has sister keys, it and all the sister keys are associated keys of the same datatype.
-		All previous rules about keys, datatypes, and values apply to sister keys. 
-	It is allowed for a sister key to be impossible to set directly, but it must be possible to change the value
-		by setting an associated key
-	Each datatype's associated value will have a required type.
-	
-	
+    A file has an index with every key of metadata successfully stored in it.
+    No two datatypes can have the same key associated with them. 
+    A datatype may have more than one key associated with it.
+    If (the only) key for a datatype is in the index, it must have a value binded to it
+        However, this value can be empty (like the string " ")
+    A key may have "sister keys". These sister keys contain values tied to 
+        the first key's value (like rating and ratingpercent)
+    If a key has sister keys, it and all the sister keys are associated keys of the same datatype.
+        All previous rules about keys, datatypes, and values apply to sister keys. 
+    It is allowed for a sister key to be impossible to set directly, but it must be possible to change the value
+        by setting an associated key
+    Each datatype's associated value will have a required type.
+    
+    
 KEY REQUIREMENTS (as in requirements of a key)
 given a datatype and filetype, a key must be able to perform 3 operations
-	GET
-		if a file does not have a value of this datatype, get must return an empty value of some kind.		
-		                        [check for " " from get, assuming no value exists]
-		given a file has a value of this datatype stored, get must return it.								
-		                        [difficult to prove]
-		if a value of a datatype has been set, the value from get might be formatted differently						
-		                        [function comparing value differences to LEARN format]
-		A value of the datatype must be (or must be able to be transformed into) the required type				
-		                        [Check to LEARN if this is possible]
-	SET
-		for a given key, the value given to set might have to be in a specific format											
-		                        [set test to LEARN format requirement]
-		The required type for the datatype must be representable in the previously mentioned format								
-		                        [test to LEARN if this is possible]
-		if a file does not have a value of this datatype, no associated keys must be in the index before set					
-		                        [function checking for EXPECTED index]
-		It must be possible to set the value of a key to an empty value of some kind. 											
-		                        [set key to empty value to LEARN]
-		given a file has a value of this type stored, set must replace this with a new value. 									
-			The old value must not be availible anywhere associated with that datatype											
-			                    [set all associated keys to empty value then check all their EXPECTED values]
-		If a file does not have a value of this datatype, and set is used, 
-		    the key for that datatype must be in the index.		
-		                        [function checking for EXPECTED index changes]
-		Setting a value for a single key may automatically cause the inclusion and value setting for other						
-		                        [function comparing index differences to LEARN changes]
-			associated keys (this is the case for sister keys)
-		If a datatype has more than one associated key, all those keys must be in the index 									
-		                        [function checking index for EXPECTED keys]
-			given the file has that metadata of that type stored inside it
-		If the value for a datatype is changed, the values of all the associated keys must be changed.							
-		                        [check for EXPECTED differences in values from each associated key]
-	WIPE
-		It must be possible to remove the key from the index with a wipe														
-		                        [function checking for EXPECTED index changes]
-		Given a datatype has multiple associated keys, wiping that datatype must remove all associated keys 
-		    from the index,	along with the values binded to them. 		
-		                        [function checking for EXPECTED index changes]
-																						
-		If a file has metadata of a given type, but that metadata is then wiped, 												
-			the keys must not be in the index. Those metadata values must not be retrievable.
-			                   [wipe, then set all associated keys to empty value then check all their EXPECTED values]
-	
-	CONTAINS (this simply tells us if a value of a datatype is present based on the keys in the index)
-		if a file does not have a value of this datatype, no associated keys must be in the index								
-		                                [tested with wipe]
-		If a datatype has more than one associated key, all those keys must be in the index 									
-			if the file has that metadata of that type stored inside it
-			                            [tested with set]
+    GET
+        if a file does not have a value of this datatype, get must return an empty value of some kind.		
+                                [check for " " from get, assuming no value exists]
+        given a file has a value of this datatype stored, get must return it.								
+                                [difficult to prove]
+        if a value of a datatype has been set, the value from get might be formatted differently						
+                                [function comparing value differences to LEARN format]
+        A value of the datatype must be (or must be able to be transformed into) the required type				
+                                [Check to LEARN if this is possible]
+    SET
+        for a given key, the value given to set might have to be in a specific format											
+                                [set test to LEARN format requirement]
+        The required type for the datatype must be representable in the previously mentioned format								
+                                [test to LEARN if this is possible]
+        if a file does not have a value of this datatype, no associated keys must be in the index before set					
+                                [function checking for EXPECTED index]
+        It must be possible to set the value of a key to an empty value of some kind. 											
+                                [set key to empty value to LEARN]
+        given a file has a value of this type stored, set must replace this with a new value. 									
+            The old value must not be availible anywhere associated with that datatype											
+                                [set all associated keys to empty value then check all their EXPECTED values]
+        If a file does not have a value of this datatype, and set is used, 
+            the key for that datatype must be in the index.		
+                                [function checking for EXPECTED index changes]
+        Setting a value for a single key may automatically cause the inclusion and value setting for other						
+                                [function comparing index differences to LEARN changes]
+            associated keys (this is the case for sister keys)
+        If a datatype has more than one associated key, all those keys must be in the index 									
+                                [function checking index for EXPECTED keys]
+            given the file has that metadata of that type stored inside it
+        If the value for a datatype is changed, the values of all the associated keys must be changed.							
+                                [check for EXPECTED differences in values from each associated key]
+    WIPE
+        It must be possible to remove the key from the index with a wipe														
+                                [function checking for EXPECTED index changes]
+        Given a datatype has multiple associated keys, wiping that datatype must remove all associated keys 
+            from the index,	along with the values binded to them. 		
+                                [function checking for EXPECTED index changes]
+                                                                                        
+        If a file has metadata of a given type, but that metadata is then wiped, 												
+            the keys must not be in the index. Those metadata values must not be retrievable.
+                               [wipe, then set all associated keys to empty value then check all their EXPECTED values]
+    
+    CONTAINS (this simply tells us if a value of a datatype is present based on the keys in the index)
+        if a file does not have a value of this datatype, no associated keys must be in the index								
+                                        [tested with wipe]
+        If a datatype has more than one associated key, all those keys must be in the index 									
+            if the file has that metadata of that type stored inside it
+                                        [tested with set]
 """
 """
 Things we need to begin:
-	A list of the datatypes			(title, tags, creator, etc)
-	A list of the associated required types for their values	(string, int, list<string>, etc)
-	A list of potential keys associated with each datatype
-	A list of filetypes
-		jpeg
-		png
-		gif
-		tiff
-	An empty file for each datatype (available for fresh download via google drive)
-	A spreadsheet of accepted keys for each filetype/datatype combination
-	A list of values that we will use for the keys
+    A list of the datatypes			(title, tags, creator, etc)
+    A list of the associated required types for their values	(string, int, list<string>, etc)
+    A list of potential keys associated with each datatype
+    A list of filetypes
+        jpeg
+        png
+        gif
+        tiff
+    An empty file for each datatype (available for fresh download via google drive)
+    A spreadsheet of accepted keys for each filetype/datatype combination
+    A list of values that we will use for the keys
 """
 """
 Given a datatype/filetype combination and a key
 We will do the following things to test it:
-	#TODO
-	#TODO
-	#testing procedure not yet defined. 
+    #TODO
+    #TODO
+    #testing procedure not yet defined. 
 """
 
 
@@ -431,6 +432,21 @@ def tagUseageCheck(p_filename):
     print("tagUseageCheck() f_cleanTagList\t\t", f_cleanTagList)
     f_dirtyTagString2 = MetadataManagerL0.cleanList2dirtyStr(f_cleanTagList)
     print("tagUseageCheck() f_dirtyTagString2\t\t", f_dirtyTagString2)
+    return
+
+
+def tryAddData(p_filename):
+    #this will try to add every kind of metadata possible to an image.
+    #-------------Title--------------------------------------
+    MetadataManagerL0.setTitle(p_filename, "testFile")
+    # -------------Tags--------------------------------------
+    MetadataManagerL1.addArtist(p_filename, "creator: weirdo")
+    # -------------Artist------------------------------------
+    MetadataManagerL1.addTag(p_filename, "test")
+    # -------------Description-------------------------------
+    MetadataManagerL0.setDescr(p_filename, "this is a sample description")
+    # -------------Rating------------------------------------
+    MetadataManagerL0.setRating(p_filename, 3)
     return
 
 

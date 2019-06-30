@@ -7,10 +7,12 @@
     <bookmark url="file://$PROJECT_DIR$/windowstesting/windowsTests.py" description="            if f_metadata1[key1].value==f_metadata..." line="69" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="Added tests for level 1.&#10;Preparing to add compatibility checks for future versions">
-      <change afterPath="$PROJECT_DIR$/guiTesting/guistart.py" afterDir="false" />
+    <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="beginning work on user interface">
+      <change afterPath="$PROJECT_DIR$/LoadTags.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompatibilityManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/CompatibilityManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestingManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guiTesting/DynamicButtonList.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/DynamicButtonList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guiTesting/PictureView.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/PictureView.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,24 +23,362 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/guiTesting/guistart.py">
+        <entry file="file://$PROJECT_DIR$/guiTesting/TextTagsDynamic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="165">
+              <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
               <folding>
-                <element signature="e#23#47#0" expanded="true" />
+                <element signature="e#0#24#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/guiTesting/TextTagsDynamic.py">
+        <entry file="file://$PROJECT_DIR$/LoadTags.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+            <state relative-caret-position="60">
+              <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TestingManager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret lean-forward="true" />
+              <folding>
+                <element signature="e#23#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MetaEditL0Tests.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret lean-forward="true" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MetaEditL1Tests.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="256">
+              <caret line="214" lean-forward="true" selection-start-line="214" selection-end-line="214" />
+              <folding>
+                <element signature="e#23#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/guiTesting/DynamicButtonList.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/guiTesting/PictureView.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret lean-forward="true" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MetadataManagerL0.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+              <folding>
+                <element signature="e#23#52#0" expanded="true" />
+                <element signature="e#190#248#0" />
+                <element signature="e#411#464#0" />
+                <element signature="e#513#548#0" />
+                <element signature="e#608#764#0" />
+                <element signature="e#608#755#1" />
+                <element signature="e#809#915#0" />
+                <element signature="e#951#1155#0" />
+                <element signature="e#951#1146#1" />
+                <element signature="e#1195#1228#0" />
+                <element signature="e#1268#1301#0" />
+                <element signature="e#1353#1387#0" />
+                <element signature="e#1437#1507#0" />
+                <element signature="e#1509#1567#0" />
+                <element signature="e#1724#2142#0" />
+                <element signature="e#1724#1947#1" />
+                <element signature="e#1980#2065#0" />
+                <element signature="e#2171#2484#0" />
+                <element signature="e#2171#2266#1" />
+                <element signature="e#2515#2841#0" />
+                <element signature="e#2515#2613#1" />
+                <element signature="e#2869#3188#0" />
+                <element signature="e#2869#2969#1" />
+                <element signature="e#3219#3651#0" />
+                <element signature="e#3219#3412#1" />
+                <element signature="e#3655#3750#0" />
+                <element signature="e#4116#4391#1" />
+                <element signature="e#4415#4721#0" />
+                <element signature="e#4415#4575#1" />
+                <element signature="e#4657#4708#0" />
+                <element signature="e#4751#5049#0" />
+                <element signature="e#4751#4914#1" />
+                <element signature="e#5079#5605#0" />
+                <element signature="e#5079#5257#1" />
+                <element signature="e#5416#5470#0" />
+                <element signature="e#5634#5910#0" />
+                <element signature="e#5634#5797#1" />
+                <element signature="e#5940#6471#0" />
+                <element signature="e#5940#6118#1" />
+                <element signature="e#6514#6863#0" />
+                <element signature="e#6514#6746#1" />
+                <element signature="e#6901#7184#0" />
+                <element signature="e#6901#7113#1" />
+                <element signature="e#7229#7927#0" />
+                <element signature="e#7229#7570#1" />
+                <element signature="e#7728#7792#0" />
+                <element signature="e#7972#8467#0" />
+                <element signature="e#7972#8161#1" />
+                <element signature="e#8513#8733#0" />
+                <element signature="e#8513#8696#1" />
+                <element signature="e#8778#9006#0" />
+                <element signature="e#8778#8970#1" />
+                <element signature="e#9053#9258#1" />
+                <element signature="e#9300#9631#0" />
+                <element signature="e#9300#9600#1" />
+                <element signature="e#9671#10001#0" />
+                <element signature="e#9671#9949#1" />
+                <element signature="e#10036#10426#0" />
+                <element signature="e#10036#10409#1" />
+                <element signature="e#10550#10771#0" />
+                <element signature="e#10550#10695#1" />
+                <element signature="e#10805#11010#0" />
+                <element signature="e#10805#10944#1" />
+                <element signature="e#11039#11371#0" />
+                <element signature="e#11039#11349#1" />
+                <element signature="e#11400#11732#0" />
+                <element signature="e#11400#11710#1" />
+                <element signature="e#11765#12185#0" />
+                <element signature="e#11765#12023#1" />
+                <element signature="e#12222#12541#0" />
+                <element signature="e#12222#12498#1" />
+                <element signature="e#12543#12582#0" />
+                <element signature="e#12981#13839#0" />
+                <element signature="e#13853#14683#0" />
+                <element signature="e#14696#15554#0" />
+                <element signature="e#15602#15674#0" />
+                <element signature="e#15721#16578#0" />
+                <element signature="e#15721#16217#1" />
+                <element signature="e#16343#16486#0" />
+                <element signature="e#16625#17527#0" />
+                <element signature="e#16625#17192#1" />
+                <element signature="e#17324#17429#0" />
+                <element signature="e#17612#19243#0" />
+                <element signature="e#19332#20960#0" />
+                <element signature="e#20961#21011#0" />
+                <element signature="e#21297#22202#0" />
+                <element signature="e#21297#21608#1" />
+                <element signature="e#21645#21786#0" />
+                <element signature="e#21862#21997#0" />
+                <element signature="e#22043#22191#0" />
+                <element signature="e#22242#22745#0" />
+                <element signature="e#22242#22532#1" />
+                <element signature="e#22592#22734#0" />
+                <element signature="e#22786#23334#0" />
+                <element signature="e#22786#23111#1" />
+                <element signature="e#23366#24495#0" />
+                <element signature="e#23366#23870#1" />
+                <element signature="e#23908#24388#0" />
+                <element signature="e#24045#24267#0" />
+                <element signature="e#24101#24159#0" />
+                <element signature="e#24294#24388#0" />
+                <element signature="e#24526#25098#0" />
+                <element signature="e#24700#24786#0" />
+                <element signature="e#24851#24937#0" />
+                <element signature="e#25000#25086#0" />
+                <element signature="e#25102#25160#0" />
+                <element signature="e#25343#25701#1" />
+                <element signature="e#25934#26038#0" />
+                <element signature="e#26129#26991#0" />
+                <element signature="e#26129#26423#1" />
+                <element signature="e#26577#26909#0" />
+                <element signature="e#27040#28977#0" />
+                <element signature="e#27040#27364#1" />
+                <element signature="e#27518#28894#0" />
+                <element signature="e#27828#27909#0" />
+                <element signature="e#28282#28879#0" />
+                <element signature="e#29009#29684#0" />
+                <element signature="e#29009#29300#1" />
+                <element signature="e#29617#29673#0" />
+                <element signature="e#29753#30512#0" />
+                <element signature="e#29753#30113#1" />
+                <element signature="e#30347#30451#0" />
+                <element signature="e#30545#31384#0" />
+                <element signature="e#30545#30855#1" />
+                <element signature="e#31009#31298#0" />
+                <element signature="e#31436#33734#0" />
+                <element signature="e#31436#32033#1" />
+                <element signature="e#32187#33640#0" />
+                <element signature="e#32574#32655#0" />
+                <element signature="e#33028#33625#0" />
+                <element signature="e#33659#33734#0" />
+                <element signature="e#33768#34482#0" />
+                <element signature="e#33768#34085#1" />
+                <element signature="e#34415#34471#0" />
+                <element signature="e#34543#35291#0" />
+                <element signature="e#34543#34897#1" />
+                <element signature="e#35129#35233#0" />
+                <element signature="e#36198#38471#0" />
+                <element signature="e#36198#36765#1" />
+                <element signature="e#36919#38372#0" />
+                <element signature="e#37301#37382#0" />
+                <element signature="e#37755#38352#0" />
+                <element signature="e#38391#38471#0" />
+                <element signature="e#38502#39202#0" />
+                <element signature="e#38502#38816#1" />
+                <element signature="e#39135#39191#0" />
+                <element signature="e#39274#40053#0" />
+                <element signature="e#39274#39644#1" />
+                <element signature="e#39883#39987#0" />
+                <element signature="e#40084#40962#0" />
+                <element signature="e#40084#40384#1" />
+                <element signature="e#40538#40876#0" />
+                <element signature="e#41011#42957#0" />
+                <element signature="e#41011#41338#1" />
+                <element signature="e#41492#42874#0" />
+                <element signature="e#41808#41889#0" />
+                <element signature="e#42262#42859#0" />
+                <element signature="e#42989#43682#0" />
+                <element signature="e#42989#43286#1" />
+                <element signature="e#43615#43671#0" />
+                <element signature="e#43749#44508#0" />
+                <element signature="e#43749#44109#1" />
+                <element signature="e#44343#44447#0" />
+                <element signature="e#44540#45352#0" />
+                <element signature="e#44540#44832#1" />
+                <element signature="e#44986#45266#0" />
+                <element signature="e#45403#47700#0" />
+                <element signature="e#45403#45866#1" />
+                <element signature="e#46239#47617#0" />
+                <element signature="e#46551#46632#0" />
+                <element signature="e#47005#47602#0" />
+                <element signature="e#47733#48462#0" />
+                <element signature="e#47733#48076#1" />
+                <element signature="e#48395#48451#0" />
+                <element signature="e#48548#49311#0" />
+                <element signature="e#48548#48912#1" />
+                <element signature="e#49146#49250#0" />
+                <element signature="e#49343#50220#0" />
+                <element signature="e#49343#49642#1" />
+                <element signature="e#49796#50134#0" />
+                <element signature="e#50271#52214#0" />
+                <element signature="e#50271#50599#1" />
+                <element signature="e#50753#52131#0" />
+                <element signature="e#51065#51146#0" />
+                <element signature="e#51519#52116#0" />
+                <element signature="e#52247#52927#0" />
+                <element signature="e#52247#52539#1" />
+                <element signature="e#52860#52916#0" />
+                <element signature="e#52993#53778#0" />
+                <element signature="e#52993#53367#1" />
+                <element signature="e#53607#53711#0" />
+                <element signature="e#53811#55154#0" />
+                <element signature="e#53811#54336#1" />
+                <element signature="e#54490#54973#0" />
+                <element signature="e#54992#55154#0" />
+                <element signature="e#55030#55052#0" />
+                <element signature="e#55195#57520#0" />
+                <element signature="e#55195#55744#1" />
+                <element signature="e#55898#57437#0" />
+                <element signature="e#56133#56362#0" />
+                <element signature="e#56371#56452#0" />
+                <element signature="e#56825#57422#0" />
+                <element signature="e#57652#58429#0" />
+                <element signature="e#57652#58021#1" />
+                <element signature="e#58259#58363#0" />
+                <element signature="e#58465#59367#0" />
+                <element signature="e#58465#58765#1" />
+                <element signature="e#58919#59281#0" />
+                <element signature="e#59426#61386#0" />
+                <element signature="e#59426#59763#1" />
+                <element signature="e#59917#61303#0" />
+                <element signature="e#60237#60318#0" />
+                <element signature="e#60691#61288#0" />
+                <element signature="e#61423#62125#0" />
+                <element signature="e#61423#61720#1" />
+                <element signature="e#62058#62114#0" />
+                <element signature="e#62174#62979#0" />
+                <element signature="e#62174#62557#1" />
+                <element signature="e#62802#62906#0" />
+                <element signature="e#63022#63970#0" />
+                <element signature="e#63022#63326#1" />
+                <element signature="e#63480#63884#0" />
+                <element signature="e#64043#66118#0" />
+                <element signature="e#64043#64481#1" />
+                <element signature="e#64635#66035#0" />
+                <element signature="e#64969#65050#0" />
+                <element signature="e#65423#66020#0" />
+                <element signature="e#66162#66466#1" />
+                <element signature="e#66831#66887#0" />
+                <element signature="e#66972#67758#0" />
+                <element signature="e#66972#67346#1" />
+                <element signature="e#67586#67690#0" />
+                <element signature="e#67796#68910#0" />
+                <element signature="e#68475#68789#0" />
+                <element signature="e#68808#68910#0" />
+                <element signature="e#68956#70920#0" />
+                <element signature="e#68956#69306#1" />
+                <element signature="e#69460#70837#0" />
+                <element signature="e#69771#69852#0" />
+                <element signature="e#70225#70822#0" />
+                <element signature="e#70989#71097#0" />
+                <element signature="e#71151#71926#0" />
+                <element signature="e#71151#71519#1" />
+                <element signature="e#71757#71861#0" />
+                <element signature="e#71962#72859#0" />
+                <element signature="e#71962#72261#1" />
+                <element signature="e#72415#72777#0" />
+                <element signature="e#72918#74919#0" />
+                <element signature="e#72918#73262#1" />
+                <element signature="e#73416#74836#0" />
+                <element signature="e#73770#73851#0" />
+                <element signature="e#74224#74821#0" />
+                <element signature="e#74976#75751#0" />
+                <element signature="e#74976#75344#1" />
+                <element signature="e#75582#75686#0" />
+                <element signature="e#75787#76754#0" />
+                <element signature="e#75787#76142#1" />
+                <element signature="e#76296#76663#0" />
+                <element signature="e#76813#79027#0" />
+                <element signature="e#76813#77335#1" />
+                <element signature="e#77489#78944#0" />
+                <element signature="e#77878#77959#0" />
+                <element signature="e#78332#78929#0" />
+                <element signature="e#79033#79074#0" />
+                <element signature="e#79159#79411#1" />
+                <element signature="e#79463#79704#0" />
+                <element signature="e#79707#79756#0" />
               </folding>
             </state>
           </provider>
@@ -56,8 +396,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Allmeta</find>
-      <find>'Xmp.taggerMark.mdEditorVersion'</find>
       <find>VersionNum</find>
       <find>registerHiddenNamespace</find>
       <find>g_outpath</find>
@@ -86,10 +424,10 @@
       <find>MetadataManager</find>
       <find>tagger</find>
       <find>datetime.date</find>
+      <find>\imgs</find>
+      <find>\pics\</find>
     </findStrings>
     <replaceStrings>
-      <replace>.jpg&quot;,</replace>
-      <replace>list(compAllVals(&quot;</replace>
       <replace>valTranslateFrom</replace>
       <replace>MetadataManager.appropriateKeys</replace>
       <replace>raw_to_cleanList</replace>
@@ -118,6 +456,8 @@
       <replace>releaseAllClones(g_clonenames)</replace>
       <replace>'.tif'</replace>
       <replace>MetadataManagerL1</replace>
+      <replace>\pics</replace>
+      <replace>/pics/</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -158,7 +498,6 @@
         <option value="$PROJECT_DIR$/jpgOnlyUnitTests2.py" />
         <option value="$PROJECT_DIR$/TestStructures.py" />
         <option value="$PROJECT_DIR$/MetadataManagerL0.py" />
-        <option value="$PROJECT_DIR$/TestingManager.py" />
         <option value="$PROJECT_DIR$/TData.py" />
         <option value="$PROJECT_DIR$/configManagement.py" />
         <option value="$PROJECT_DIR$/MetadataManagerL1.py" />
@@ -167,6 +506,12 @@
         <option value="$PROJECT_DIR$/MetaEditL1Tests.py" />
         <option value="$PROJECT_DIR$/CompatibilityManager.py" />
         <option value="$PROJECT_DIR$/guiTesting/guistart.py" />
+        <option value="$PROJECT_DIR$/guiTesting/DynamicButtonList.py" />
+        <option value="$PROJECT_DIR$/guiTesting/PictureView.py" />
+        <option value="$PROJECT_DIR$/guiTesting/LoadTags.py" />
+        <option value="$PROJECT_DIR$/LoadTags0.py" />
+        <option value="$PROJECT_DIR$/TestingManager.py" />
+        <option value="$PROJECT_DIR$/LoadTags.py" />
       </list>
     </option>
   </component>
@@ -195,11 +540,10 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -220,11 +564,23 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="sf_tagger" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="$PROJECT_DIR$" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/LoadTags.py" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -245,8 +601,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.TextTagsDynamic">
-    <configuration name="MetadataManagerL0" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.LoadTags">
+    <configuration name="LoadTags" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -258,7 +614,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MetadataManagerL0.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LoadTags.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -267,7 +623,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="TData" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="TestingManager" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -279,7 +635,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TData.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TestingManager.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -301,27 +657,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/guiTesting/TextTagsDynamic.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="guistart" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="tagger" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/guiTesting" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/guiTesting/guistart.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -365,21 +700,35 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Unittests in MetaEditL1Tests.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="tagger" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/MetaEditL1Tests.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.scratch_1" />
-      <item itemvalue="Python.TData" />
-      <item itemvalue="Python.MetadataManagerL0" />
-      <item itemvalue="Python tests.Unittests in MetaEditL0Tests.py" />
-      <item itemvalue="Python.guistart" />
       <item itemvalue="Python.TextTagsDynamic" />
+      <item itemvalue="Python.LoadTags" />
+      <item itemvalue="Python tests.Unittests in MetaEditL0Tests.py" />
+      <item itemvalue="Python tests.Unittests in MetaEditL1Tests.py" />
+      <item itemvalue="Python.TestingManager" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.TextTagsDynamic" />
-        <item itemvalue="Python.guistart" />
+        <item itemvalue="Python.LoadTags" />
+        <item itemvalue="Python.TestingManager" />
+        <item itemvalue="Python tests.Unittests in MetaEditL1Tests.py" />
         <item itemvalue="Python tests.Unittests in MetaEditL0Tests.py" />
-        <item itemvalue="Python.TData" />
-        <item itemvalue="Python.MetadataManagerL0" />
+        <item itemvalue="Python.TextTagsDynamic" />
       </list>
     </recent_temporary>
   </component>
@@ -393,20 +742,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529891189873</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Moved unused stash functions">
-      <created>1538887536102</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1538887536102</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Moved unused stash functions">
-      <created>1538888565888</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1538888565888</updated>
     </task>
     <task id="LOCAL-00030" summary="fixing encoding stuff">
       <created>1539540775222</created>
@@ -737,16 +1072,24 @@
       <option name="project" value="LOCAL" />
       <updated>1548626000699</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="somehow important files were missed in the last commit&#10;seperating MetadataManager into layers">
+      <created>1561066888151</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1561066888151</updated>
+    </task>
+    <task id="LOCAL-00078" summary="beginning work on user interface">
+      <created>1561067003623</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1561067003623</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_MetaEditL0Tests_py - 2019.01.26 at 12h 56m 24s.xml">
-      <configuration name="Unittests in MetaEditL0Tests.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_MetaEditL0Tests_py - 2019.01.26 at 12h 57m 01s.xml">
-      <configuration name="Unittests in MetaEditL0Tests.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="Unittests_in_MetaEditL0Tests_py - 2019.01.26 at 12h 57m 31s.xml">
       <configuration name="Unittests in MetaEditL0Tests.py" configurationId="tests" />
     </history-entry>
@@ -771,6 +1114,12 @@
     <history-entry file="Unittests_in_MetaEditL0Tests_py - 2019.04.19 at 11h 30m 36s.xml">
       <configuration name="Unittests in MetaEditL0Tests.py" configurationId="tests" />
     </history-entry>
+    <history-entry file="Unittests_in_MetaEditL0Tests_py - 2019.06.29 at 18h 39m 56s.xml">
+      <configuration name="Unittests in MetaEditL0Tests.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_MetaEditL1Tests_py - 2019.06.29 at 18h 40m 08s.xml">
+      <configuration name="Unittests in MetaEditL1Tests.py" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -787,10 +1136,10 @@
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.30132452" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.30132452" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32398754" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49205297" visible="true" weight="0.35825545" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49205297" visible="true" weight="0.35825545" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39719626" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -877,8 +1226,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Finishing figuring out how to us problematic date keys" />
-    <MESSAGE value="Applying what I learned in previous testing and cleaning up to test keys for png files" />
     <MESSAGE value="testing keys for png now. The date keys still work" />
     <MESSAGE value="Organizing way to test new keys. PNG can store a lot. Even Exif data. I'm going to test all the Exif keys next." />
     <MESSAGE value="Gif files are completely unsupported. Preparing to drastically change the MetadataManager operations to support png and tiff" />
@@ -902,7 +1249,9 @@
     <MESSAGE value="Added final tests for level 0" />
     <MESSAGE value="Added final tests for level 0&#10;&#10;Signed-off-by: hwynn &lt;Rocketferret54&gt;" />
     <MESSAGE value="Added tests for level 1.&#10;Preparing to add compatibility checks for future versions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added tests for level 1.&#10;Preparing to add compatibility checks for future versions" />
+    <MESSAGE value="somehow important files were missed in the last commit&#10;seperating MetadataManager into layers" />
+    <MESSAGE value="beginning work on user interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="beginning work on user interface" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -921,9 +1270,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/utils.py" />
-    <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-2066100795/builtins.py" />
-    <entry file="file://$PROJECT_DIR$/wgetPaste.txt" />
     <entry file="file://$PROJECT_DIR$/tagger.py" />
     <entry file="file://$PROJECT_DIR$/ImgTagger.py" />
     <entry file="file://$PROJECT_DIR$/checkMeta.py" />
@@ -934,34 +1280,10 @@
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/PNGmetadataTests.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.py" />
     <entry file="file://$PROJECT_DIR$/tagger2.py" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="104" column="48" lean-forward="true" selection-start-line="104" selection-start-column="48" selection-end-line="104" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="33" column="4" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="174" lean-forward="true" selection-start-line="174" selection-end-line="174" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
     <entry file="file://$PROJECT_DIR$/KeyValManager.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-2066100795/libexiv2python.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1055,9 +1377,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testFileManager.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/testFileManager.py" />
     <entry file="file://$PROJECT_DIR$/PNGmetadataTests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1082,35 +1402,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TestingManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="11" lean-forward="true" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
-          <folding>
-            <element signature="e#7494#10459#1" />
-            <element signature="e#10700#15863#1" />
-            <element signature="e#15864#16345#1" />
-            <element signature="e#16346#16497#1" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jpgOnlyUnitTests1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="533" lean-forward="true" selection-start-line="533" selection-end-line="533" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MetaEditL1Tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="214" lean-forward="true" selection-start-line="214" selection-end-line="214" />
-          <folding>
-            <element signature="e#23#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1136,11 +1433,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/TData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="421" column="5" selection-start-line="421" selection-start-column="5" selection-end-line="421" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/PrevNext.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MetadataManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MetadataManagerL1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="e#233#247#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/guistart.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="6" lean-forward="true" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+          <folding>
+            <element signature="e#23#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/LoadTags.py" />
+    <entry file="file://$PROJECT_DIR$/LoadTags0.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManagerL0.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="828" selection-start-line="828" selection-end-line="828" />
+        <state relative-caret-position="135">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
           <folding>
+            <element signature="e#23#52#0" expanded="true" />
             <element signature="e#190#248#0" />
             <element signature="e#411#464#0" />
             <element signature="e#513#548#0" />
@@ -1246,7 +1598,6 @@
             <element signature="e#24851#24937#0" />
             <element signature="e#25000#25086#0" />
             <element signature="e#25102#25160#0" />
-            <element signature="e#25343#26098#0" />
             <element signature="e#25343#25701#1" />
             <element signature="e#25934#26038#0" />
             <element signature="e#26129#26991#0" />
@@ -1278,9 +1629,6 @@
             <element signature="e#34543#35291#0" />
             <element signature="e#34543#34897#1" />
             <element signature="e#35129#35233#0" />
-            <element signature="e#35321#36152#0" />
-            <element signature="e#35321#35628#1" />
-            <element signature="e#35782#36066#0" />
             <element signature="e#36198#38471#0" />
             <element signature="e#36198#36765#1" />
             <element signature="e#36919#38372#0" />
@@ -1415,54 +1763,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MetadataManagerL1.py">
+    <entry file="file://$PROJECT_DIR$/guiTesting/DynamicButtonList.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="454" column="62" selection-start-line="454" selection-start-column="62" selection-end-line="454" selection-end-column="62" />
+        <state relative-caret-position="240">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
           <folding>
-            <element signature="e#233#247#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MetaEditL0Tests.py">
+    <entry file="file://$PROJECT_DIR$/guiTesting/PictureView.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="704" column="63" selection-start-line="704" selection-start-column="63" selection-end-line="704" selection-end-column="63" />
+        <state>
+          <caret lean-forward="true" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MetadataManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="1715" column="8" selection-start-line="1715" selection-start-column="8" selection-end-line="1715" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="421" column="5" selection-start-line="421" selection-start-column="5" selection-end-line="421" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/guiTesting/guistart.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#23#47#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/guiTesting/TextTagsDynamic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+        <state relative-caret-position="165">
+          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MetaEditL0Tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MetaEditL1Tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="214" lean-forward="true" selection-start-line="214" selection-end-line="214" />
+          <folding>
+            <element signature="e#23#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestingManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="e#23#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LoadTags.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>

@@ -5,12 +5,14 @@ from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from PrevNext import NextPrevBar
+import os
+
 
 Builder.load_string('''
 <ContainerBox>:
 	orientation: 'vertical'
 	Image:
-        source: '..\pics\psyduck.jpg'
+        source: '../pics/psyduck.jpg'
         allow_stretch: True
 	NextPrevBar:
 ''')
