@@ -3,6 +3,7 @@ from kivy.lang import Builder
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.graphics import Color
+from kivy.factory import Factory
 from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty
@@ -23,38 +24,6 @@ Builder.load_string('''
         Rectangle:
             pos: self.pos
             size: self.size
-
-<MyLabelFrame>:
-    id: xLabel
-
-<ContainerBox>:
-    orientation: 'horizontal'
-    Button:
-        text: 'h1'
-        group: 'test'
-
-    BoxLayout:
-        orientation: 'vertical'
-        size: root.size
-        pos: root.pos
-
-        Label:
-            id: DescriptionBanner
-            text: 'Description'
-            size_hint_y: None
-            height: 30
-            bold: True
-            canvas.before:
-                Color:
-                    rgba: .3, .7, .5, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-
-        MyLabelFrame:
-            id: DescriptionContent
-
-        Label:
 ''')
 
 g_filename = "exampleImg.jpg"
@@ -88,7 +57,12 @@ class StretchingLabel(Label):
 
     def on_text_validate(self, instance):
         #print("StretchingLabel.on_text_validate() new text:", instance.text)
+        #print("StretchingLabel.on_text_validate() new text:", instance.text)
+        #this makes user input go through an external function before becoming label text
+        #In our case, it tries to write to a file, then the label will be what we read from the file
         self.tempStr = instance.text
+        #if you use this instead, the label text will be directly set from the user input
+        #self.text = instance.text
         self.edit = False
 
     def on_text_focus(self, instance, focus):
@@ -107,42 +81,38 @@ class StretchingLabel(Label):
         self.bcolor = (0.7, 0, 0, 1)
 
 
-class MyLabelFrame(Widget):
-    c_description = StringProperty(
+class MyDescriptionFrame(Widget):
+    c_value = StringProperty(
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. \n\nProin vitae turpis ornare urna elementum pharetra non et tortor. Curabitur semper mattis viverra. \nPellentesque et lobortis purus, eu ultricies est. Nulla varius ac dolor quis mattis. Pellentesque vel accumsan tellus. Donec a nunc urna. Nulla convallis dignissim leo, tempor sagittis orci sollicitudin aliquet. Duis efficitur ex vel auctor ultricies. Etiam feugiat hendrerit mauris suscipit gravida. Quisque lobortis vitae ligula eget tristique. Nullam a nulla id enim finibus elementum eu sit amet elit.')
 
     def __init__(self, **kwargs):
-        super(MyLabelFrame, self).__init__(**kwargs)
+        super(MyDescriptionFrame, self).__init__(**kwargs)
         Clock.schedule_once(lambda dt: self.makeLabel(), timeout=0.1)
 
     def makeLabel(self):
+        #Before this, the stretch label doesn't exist.
+        #this creates the stretching label
         c_label = StretchingLabel()
-        self.bind(pos=c_label.setter('pos'), width=c_label.setter('width'), c_description=c_label.setter('text'))
-        c_label.bind(tempStr=self.setDescription)
+        #this makes the text of the label be equal to the c_value of this MyDescriptionFrame
+        self.bind(pos=c_label.setter('pos'), width=c_label.setter('width'), c_value=c_label.setter('text'))
+        #the label has a 'tempStr' property. vvv this makes an update to tempStr trigger self.setValue
+        c_label.bind(tempStr=self.setValue)
         self.add_widget(c_label)
         Clock.schedule_once(lambda dt: self.chg_text(), 0.5)
 
     def chg_text(self):
         # this forces a property event so the label's text will be changed
-        self.property('c_description').dispatch(self)
+        self.property('c_value').dispatch(self)
 
-    def setDescription(self, instance, p_val):
-        #print("MyLabelFrame.setDescription() instance:", instance)
+    def setValue(self, instance, p_val):
+        #this is an indirect way to set MyDescriptionFrame's c_value
+        #This is how StretchingLabel is able to communicate with
+        #print("MyDescriptionFrame.setValue() instance:", instance)
         f_success = SimulateOutside.setDesc("samplefilename.jpg", p_val)
         if f_success:
-            self.c_description = SimulateOutside.getDesc("samplefilename.jpg")
+            self.c_value = SimulateOutside.getDesc("samplefilename.jpg")
         else:
-            print("MyLabelFrame.setDescription() operation not successful")
+            print("MyDescriptionFrame.setValue() operation not successful")
 
-class ContainerBox(BoxLayout):
-    def __init__(self, **kwargs):
-        super(ContainerBox, self).__init__(**kwargs)
-
-
-class Nested2App(App):
-    def build(self):
-        return ContainerBox()
-
-
-if __name__ == '__main__':
-    Nested2App().run()
+Factory.register('StretchingLabel', cls=StretchingLabel)
+Factory.register('MyDescriptionFrame', cls=MyDescriptionFrame)
