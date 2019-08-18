@@ -10,6 +10,7 @@ from kivy.properties import StringProperty
 from kivy.uix.textinput import TextInput
 from kivy.properties import BooleanProperty, ObjectProperty, ListProperty
 from ChangeableLabel import StretchingLabel
+from RatingButton import RatingButtons, StatusButton
 from PrevNext import NextPrevBar
 import SimulateOutside
 from lib.modules.adaptive_grid_layout import Adaptive_GridLayout
@@ -29,7 +30,7 @@ Builder.load_string('''
     BoxLayout:
         orientation: 'vertical'
         Image:
-            source: '..\pics\shinyLobster.jpg'
+            source: '..\imgs\shinyLobster.jpg'
             allow_stretch: True
         Button:
             on_press: print(self.parent.children[-1].source)
@@ -56,6 +57,18 @@ Builder.load_string('''
             Label:
                 id: TitleBanner
                 text: 'Description'
+                size_hint_y: None
+                height: 30
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: .3, .7, .5, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+            Label:
+                id: TitleBanner
+                text: 'Rating'
                 size_hint_y: None
                 height: 30
                 bold: True
@@ -151,6 +164,8 @@ class Side2Details(Adaptive_GridLayout):
         print("Side2Details._init_()")
         Clock.schedule_once(lambda dt: self.makeTitle(), timeout=0.1)
         Clock.schedule_once(lambda dt: self.makeDescription(), timeout=0.1)
+        Clock.schedule_once(lambda dt: self.add_widget(RatingButtons(), len(self.children) - 5), timeout=0.1)
+
 
     # ------------Title------------------
     def makeTitle(self):
@@ -169,9 +184,9 @@ class Side2Details(Adaptive_GridLayout):
 
     def setTitleValue(self, instance, p_val):
         # print("Side2Details.setTitleValue() instance:", instance)
-        f_success = SimulateOutside.setTitle("samplefilename.jpg", p_val)
+        f_success = SimulateOutside.setTitle(SimulateOutside.g_file, p_val)
         if f_success:
-            self.c_title_value = SimulateOutside.getTitle("samplefilename.jpg")
+            self.c_title_value = SimulateOutside.getRating(SimulateOutside.g_file)
         else:
             print("MyTitleFrame.setValue() operation not successful")
 
@@ -192,13 +207,14 @@ class Side2Details(Adaptive_GridLayout):
 
     def setDescriptionValue(self, instance, p_val):
         # print("Side2Details.setDescriptionValue() instance:", instance)
-        f_success = SimulateOutside.setDesc("samplefilename.jpg", p_val)
+        f_success = SimulateOutside.setDesc(SimulateOutside.g_file, p_val)
         if f_success:
-            self.c_description_value = SimulateOutside.getDesc("samplefilename.jpg")
+            self.c_description_value = SimulateOutside.getDesc(SimulateOutside.g_file)
         else:
             print("MyDescriptionFrame.setValue() operation not successful")
 
     # ------------Rating------------------
+    #   outside file used
     # ------------Source------------------
     # ------------Original Date------------------
     # ------------Series------------------
