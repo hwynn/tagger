@@ -30,7 +30,7 @@ Builder.load_string('''
     BoxLayout:
         orientation: 'vertical'
         Image:
-            source: '..\imgs\shinyLobster.jpg'
+            source: '..\pics\shinyLobster.jpg'
             allow_stretch: True
         Button:
             on_press: print(self.parent.children[-1].source)

@@ -25,17 +25,17 @@ class StatusButton(Button):
     def __init__(self, p_val, **kwargs):
         super(StatusButton, self).__init__(**kwargs)
         self.c_val = p_val #each button has an int value that will be used in callbacks
-        self.background_normal = '..\imgs\starOff.png'
-        self.background_down = '..\imgs\starOffDown.png'
+        self.background_normal = '..\pics\starOff.png'
+        self.background_down = '..\pics\starOffDown.png'
 
     def on_status(self, widget, value):
         #print("StatusButton.on_status()", widget, value)
         if value == 'on':
-            self.background_normal = '..\imgs\starOn.png'
-            self.background_down = '..\imgs\starOnDown.png'
+            self.background_normal = '..\pics\starOn.png'
+            self.background_down = '..\pics\starOnDown.png'
         else:
-            self.background_normal = '..\imgs\starOff.png'
-            self.background_down = '..\imgs\starOffDown.png'
+            self.background_normal = '..\pics\starOff.png'
+            self.background_down = '..\pics\starOffDown.png'
 
 class RatingButtons(BoxLayout):
     rating = NumericProperty(0)
