@@ -3,6 +3,7 @@ import datetime
 """
 This just holds functions that simulate the behaviour of other functions
 """
+g_file = "samplefilename.jpg"
 
 def getTitle(p_filename):
     return "Generic Title"
@@ -14,6 +15,12 @@ def getArtists(p_filename):
     return ["Artist: Jane Doe", "sample artist"]
 
 def setArtists(p_filename, p_val):
+    return True
+
+def addArtist(p_filename, p_val):
+    return True
+
+def removeArtist(p_filename, p_val):
     return True
 
 def getDesc(p_filename):
@@ -30,6 +37,13 @@ def getTags(p_filename):
     return ["sample", "example", "test", "this is a long tag"]
 
 def setTags(p_filename, p_val):
+    return True
+
+def addTag(p_filename, p_val):
+    return True
+
+def removeTag(p_filename, p_val):
+    #print("SimulateOutside.removeTag(",p_filename, ", ", p_val, ")")
     return True
 
 def getRating(p_filename):
