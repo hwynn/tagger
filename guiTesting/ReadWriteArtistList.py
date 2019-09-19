@@ -38,15 +38,15 @@ Builder.load_string('''
                     pos: self.pos
                     size: self.size
             text: root.ourText
-            background_normal: '..\imgs\BlankUpTiny.png'
-            background_down: '..\imgs\BlankDownTiny.png'
+            background_normal: '..\pics\BlankUpTiny.png'
+            background_down: '..\pics\BlankDownTiny.png'
             group: 'test'
         Button:
             size_hint: (None, 1)
             width: 29
             pos: (root.texture_size[0] + 40, 0)
-            background_normal: '..\imgs\closeUpTiny.png'
-            background_down: '..\imgs\closeDownTiny.png'
+            background_normal: '..\pics\closeUpTiny.png'
+            background_down: '..\pics\closeDownTiny.png'
             group: 'test'
 
 <ReadWriteArtistList>:
@@ -69,7 +69,13 @@ class ReadWriteArtistList(StackLayout):
         #this adds all the tags to our tag list
         f_taglist = SimulateOutside.getArtists(SimulateOutside.g_file)
         for i_tag in f_taglist:
-            self.addNewArtist(i_tag)
+            #similar to addNewArtist() but doesn't just includes pre-existing artists in the gui
+            i_id = "Tag:" + i_tag
+            i_newArtist = DynamicTag(id=i_id,
+                                     ourText=i_tag)
+            self.add_widget(i_newArtist)
+            self.dynamic_ids[i_id] = i_newArtist
+            i_newArtist.children[0].children[0].bind(on_release=self.delayedClose)
 
     def addNewArtist(self, p_arg):
         f_id = "Tag:"+p_arg
@@ -80,7 +86,7 @@ class ReadWriteArtistList(StackLayout):
         #this should theoretically stop the function if we tried adding a duplicate tag
         try:
             if SimulateOutside.addArtist(SimulateOutside.g_file, p_arg)==False:
-                print("ReadWriteArtistList.addNewArtist(): could not add tag")
+                print("ReadWriteArtistList.addNewArtist(): could not add tag \"", p_arg, "\"", sep='')
                 return False
             #TODO: remove this part once the outside function can reliably test if we're adding a duplicate tag
             if f_id in self.dynamic_ids:

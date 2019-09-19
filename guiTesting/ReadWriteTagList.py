@@ -38,15 +38,15 @@ Builder.load_string('''
                     pos: self.pos
                     size: self.size
             text: root.ourText
-            background_normal: '..\imgs\BlankUpTiny.png'
-            background_down: '..\imgs\BlankDownTiny.png'
+            background_normal: '..\pics\BlankUpTiny.png'
+            background_down: '..\pics\BlankDownTiny.png'
             group: 'test'
         Button:
             size_hint: (None, 1)
             width: 29
             pos: (root.texture_size[0] + 40, 0)
-            background_normal: '..\imgs\closeUpTiny.png'
-            background_down: '..\imgs\closeDownTiny.png'
+            background_normal: '..\pics\closeUpTiny.png'
+            background_down: '..\pics\closeDownTiny.png'
             group: 'test'
 
 <ReadWriteTagList>:
@@ -69,7 +69,13 @@ class ReadWriteTagList(StackLayout):
         #this adds all the tags to our tag list
         f_taglist = SimulateOutside.getTags(SimulateOutside.g_file)
         for i_tag in f_taglist:
-            self.addNewTag(i_tag)
+            #similar to addNewTag() but doesn't just includes pre-existing tags in the gui
+            i_id = "Tag:" + i_tag
+            i_newTag = DynamicTag(id=i_id,
+                                     ourText=i_tag)
+            self.add_widget(i_newTag)
+            self.dynamic_ids[i_id] = i_newTag
+            i_newTag.children[0].children[0].bind(on_release=self.delayedClose)
 
     def addNewTag(self, p_arg):
         f_id = "Tag:"+p_arg
@@ -80,7 +86,7 @@ class ReadWriteTagList(StackLayout):
         #this should theoretically stop the function if we tried adding a duplicate tag
         try:
             if SimulateOutside.addTag(SimulateOutside.g_file, p_arg)==False:
-                print("ReadWriteTagList.addNewTag(): could not add tag")
+                print("ReadWriteTagList.addNewTag(): could not add tag \"", p_arg, "\"", sep='')
                 return False
             #TODO: remove this part once the outside function can reliably test if we're adding a duplicate tag
             if f_id in self.dynamic_ids:

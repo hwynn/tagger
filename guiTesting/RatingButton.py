@@ -2,6 +2,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from functools import partial
 from kivy.factory import Factory
+from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.properties import OptionProperty, ListProperty, NumericProperty
@@ -38,18 +39,28 @@ class StatusButton(Button):
             self.background_down = '..\pics\starOffDown.png'
 
 class RatingButtons(BoxLayout):
-    rating = NumericProperty(0)
+    #a five star rating bar.
+    rating = NumericProperty(SimulateOutside.getRating(SimulateOutside.g_file))
     buttonList = ListProperty()
 
     def __init__(self, **kwargs):
         super(RatingButtons, self).__init__(**kwargs)
         self.orientation = 'horizontal'
+        #we're adding 5 buttons
         for i in range(5):
             i_button = StatusButton(p_val=i+1)
             self.add_widget(i_button)
             self.buttonList.append(i_button)
             i_callback = partial(self.set_rating)
             i_button.bind(on_press=i_callback)
+        Clock.schedule_once(lambda dt: self.chg_rating(), 0.5)
+
+    def chg_rating(self):
+        # this forces a property event so the stars will show the initial rating
+        # we need this to 'wake up' the rating button at first since no change happens initially
+        #print("RatingButtons.chg_rating()")
+        # TODO: get rating value with getRating()
+        self.property('rating').dispatch(self)
 
     def set_rating(self, p_button):
         #print("RatingButtons.set_rating()", p_button, p_button.c_val)

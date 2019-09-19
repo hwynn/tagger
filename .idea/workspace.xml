@@ -8,11 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="testing user interface stuff">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/tagger.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tagger.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guiTesting/DynamicButtonList.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/DynamicButtonList.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guiTesting/PictureView.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/PictureView.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guiTesting/PrevNext.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/PrevNext.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guiTesting/TextTagsDynamic.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/TextTagsDynamic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guiTesting/PictureDetails.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/PictureDetails.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guiTesting/ReadWriteArtistList.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/ReadWriteArtistList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guiTesting/ReadWriteTagList.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/ReadWriteTagList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guiTesting/guistart.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,10 +25,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TestingManager.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestingManager.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TestingManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="7208">
               <caret line="433" column="39" selection-start-line="433" selection-start-column="39" selection-end-line="433" selection-end-column="39" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
@@ -35,334 +37,64 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MetadataManagerL1.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MetadataManagerL1.py">
+      <file leaf-file-name="PictureDetails.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/guiTesting/PictureDetails.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="114" column="7" selection-start-line="114" selection-start-column="7" selection-end-line="114" selection-end-column="7" />
+            <state relative-caret-position="68">
+              <caret line="4" column="32" lean-forward="true" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
               <folding>
-                <element signature="e#23#232#1" />
-                <element signature="e#233#247#0" expanded="true" />
-                <element signature="e#936#994#0" />
-                <element signature="e#1152#1338#0" />
-                <element signature="e#1152#1329#1" />
-                <element signature="e#1381#1504#0" />
-                <element signature="e#1506#1564#0" />
-                <element signature="e#1762#2561#0" />
-                <element signature="e#1762#2385#1" />
-                <element signature="e#2637#3650#0" />
-                <element signature="e#2637#3023#1" />
-                <element signature="e#3138#3200#0" />
-                <element signature="e#5204#5260#0" />
-                <element signature="e#5785#6459#0" />
-                <element signature="e#5785#6154#1" />
-                <element signature="e#6222#6280#0" />
-                <element signature="e#7951#8117#0" />
-                <element signature="e#8184#8219#0" />
-                <element signature="e#8413#8995#0" />
-                <element signature="e#8413#8819#1" />
-                <element signature="e#9618#10895#0" />
-                <element signature="e#9618#10172#1" />
-                <element signature="e#10228#10623#0" />
-                <element signature="e#10228#10280#0" />
-                <element signature="e#10997#11577#0" />
-                <element signature="e#10997#11397#1" />
-                <element signature="e#11666#12753#0" />
-                <element signature="e#11666#12175#1" />
-                <element signature="e#12330#12636#0" />
-                <element signature="e#12655#12736#0" />
-                <element signature="e#12900#13505#0" />
-                <element signature="e#12900#13306#1" />
-                <element signature="e#13568#14212#0" />
-                <element signature="e#13568#13985#1" />
-                <element signature="e#14622#15729#0" />
-                <element signature="e#14622#15131#1" />
-                <element signature="e#15286#15612#0" />
-                <element signature="e#15631#15712#0" />
-                <element signature="e#15819#16467#1" />
-                <element signature="e#16713#17310#0" />
-                <element signature="e#16713#17114#1" />
-                <element signature="e#17341#17534#0" />
-                <element signature="e#17341#17463#1" />
+                <element signature="e#5586#5677#0" />
+                <element signature="e#5718#6010#0" />
+                <element signature="e#6045#7378#0" />
+                <element signature="e#7420#7806#0" />
+                <element signature="e#7887#8154#0" />
+                <element signature="e#8357#15574#0" />
+                <element signature="e#9536#10049#0" />
+                <element signature="e#10089#10275#0" />
+                <element signature="e#10331#10690#0" />
+                <element signature="e#10779#11246#0" />
+                <element signature="e#11292#11490#0" />
+                <element signature="e#11552#11929#0" />
+                <element signature="e#12077#12524#0" />
+                <element signature="e#12565#12753#0" />
+                <element signature="e#12810#13174#0" />
+                <element signature="e#13265#13932#0" />
+                <element signature="e#13986#14170#0" />
+                <element signature="e#14248#15212#0" />
+                <element signature="e#15273#15574#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MetadataManagerL0.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MetadataManagerL0.py">
+      <file leaf-file-name="SimulateOutside.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/guiTesting/SimulateOutside.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2142">
-              <caret line="1154" column="13" selection-start-line="1154" selection-start-column="4" selection-end-line="1154" selection-end-column="13" />
+            <state relative-caret-position="459">
+              <caret line="27" column="33" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReadWriteArtistList.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/guiTesting/ReadWriteArtistList.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="952">
+              <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
               <folding>
-                <element signature="e#190#248#0" />
-                <element signature="e#411#464#0" />
-                <element signature="e#513#548#0" />
-                <element signature="e#608#764#0" />
-                <element signature="e#608#755#1" />
-                <element signature="e#809#915#0" />
-                <element signature="e#951#1155#0" />
-                <element signature="e#951#1146#1" />
-                <element signature="e#1195#1228#0" />
-                <element signature="e#1268#1301#0" />
-                <element signature="e#1353#1387#0" />
-                <element signature="e#1437#1507#0" />
-                <element signature="e#1509#1567#0" />
-                <element signature="e#1724#2142#0" />
-                <element signature="e#1724#1947#1" />
-                <element signature="e#1980#2065#0" />
-                <element signature="e#2171#2484#0" />
-                <element signature="e#2171#2266#1" />
-                <element signature="e#2515#2841#0" />
-                <element signature="e#2515#2613#1" />
-                <element signature="e#2869#3188#0" />
-                <element signature="e#2869#2969#1" />
-                <element signature="e#3219#3651#0" />
-                <element signature="e#3219#3412#1" />
-                <element signature="e#3655#3750#0" />
-                <element signature="e#4116#4391#1" />
-                <element signature="e#4415#4721#0" />
-                <element signature="e#4415#4575#1" />
-                <element signature="e#4657#4708#0" />
-                <element signature="e#4751#5049#0" />
-                <element signature="e#4751#4914#1" />
-                <element signature="e#5079#5605#0" />
-                <element signature="e#5079#5257#1" />
-                <element signature="e#5416#5470#0" />
-                <element signature="e#5634#5910#0" />
-                <element signature="e#5634#5797#1" />
-                <element signature="e#5940#6471#0" />
-                <element signature="e#5940#6118#1" />
-                <element signature="e#6514#6863#0" />
-                <element signature="e#6514#6746#1" />
-                <element signature="e#6901#7184#0" />
-                <element signature="e#6901#7113#1" />
-                <element signature="e#7229#7927#0" />
-                <element signature="e#7229#7570#1" />
-                <element signature="e#7728#7792#0" />
-                <element signature="e#7972#8467#0" />
-                <element signature="e#7972#8161#1" />
-                <element signature="e#8513#8733#0" />
-                <element signature="e#8513#8696#1" />
-                <element signature="e#8778#9006#0" />
-                <element signature="e#8778#8970#1" />
-                <element signature="e#9053#9258#1" />
-                <element signature="e#9300#9631#0" />
-                <element signature="e#9300#9600#1" />
-                <element signature="e#9671#10001#0" />
-                <element signature="e#9671#9949#1" />
-                <element signature="e#10036#10426#0" />
-                <element signature="e#10036#10409#1" />
-                <element signature="e#10550#10771#0" />
-                <element signature="e#10550#10695#1" />
-                <element signature="e#10805#11010#0" />
-                <element signature="e#10805#10944#1" />
-                <element signature="e#11039#11371#0" />
-                <element signature="e#11039#11349#1" />
-                <element signature="e#11400#11732#0" />
-                <element signature="e#11400#11710#1" />
-                <element signature="e#11765#12185#0" />
-                <element signature="e#11765#12023#1" />
-                <element signature="e#12222#12541#0" />
-                <element signature="e#12222#12498#1" />
-                <element signature="e#12543#12582#0" />
-                <element signature="e#12981#13839#0" />
-                <element signature="e#13853#14683#0" />
-                <element signature="e#14696#15554#0" />
-                <element signature="e#15602#15674#0" />
-                <element signature="e#15721#16578#0" />
-                <element signature="e#15721#16217#1" />
-                <element signature="e#16343#16486#0" />
-                <element signature="e#16625#17527#0" />
-                <element signature="e#16625#17192#1" />
-                <element signature="e#17324#17429#0" />
-                <element signature="e#17612#19243#0" />
-                <element signature="e#19332#20960#0" />
-                <element signature="e#20961#21011#0" />
-                <element signature="e#21297#22202#0" />
-                <element signature="e#21297#21608#1" />
-                <element signature="e#21645#21786#0" />
-                <element signature="e#21862#21997#0" />
-                <element signature="e#22043#22191#0" />
-                <element signature="e#22242#22745#0" />
-                <element signature="e#22242#22532#1" />
-                <element signature="e#22592#22734#0" />
-                <element signature="e#22786#23334#0" />
-                <element signature="e#22786#23111#1" />
-                <element signature="e#23366#24495#0" />
-                <element signature="e#23366#23870#1" />
-                <element signature="e#23908#24388#0" />
-                <element signature="e#24045#24267#0" />
-                <element signature="e#24101#24159#0" />
-                <element signature="e#24294#24388#0" />
-                <element signature="e#24526#25098#0" />
-                <element signature="e#24700#24786#0" />
-                <element signature="e#24851#24937#0" />
-                <element signature="e#25000#25086#0" />
-                <element signature="e#25102#25160#0" />
-                <element signature="e#25343#26098#0" />
-                <element signature="e#25343#25701#1" />
-                <element signature="e#25934#26038#0" />
-                <element signature="e#26129#26991#0" />
-                <element signature="e#26129#26423#1" />
-                <element signature="e#26577#26909#0" />
-                <element signature="e#27040#28977#0" />
-                <element signature="e#27040#27364#1" />
-                <element signature="e#27518#28894#0" />
-                <element signature="e#27828#27909#0" />
-                <element signature="e#28282#28879#0" />
-                <element signature="e#29009#29684#0" />
-                <element signature="e#29009#29300#1" />
-                <element signature="e#29617#29673#0" />
-                <element signature="e#29753#30512#0" />
-                <element signature="e#29753#30113#1" />
-                <element signature="e#30347#30451#0" />
-                <element signature="e#30545#31384#0" />
-                <element signature="e#30545#30855#1" />
-                <element signature="e#31009#31298#0" />
-                <element signature="e#31436#33734#0" />
-                <element signature="e#31436#32033#1" />
-                <element signature="e#32187#33640#0" />
-                <element signature="e#32574#32655#0" />
-                <element signature="e#33028#33625#0" />
-                <element signature="e#33659#33734#0" />
-                <element signature="e#33768#34482#0" />
-                <element signature="e#33768#34085#1" />
-                <element signature="e#34415#34471#0" />
-                <element signature="e#34543#35291#0" />
-                <element signature="e#34543#34897#1" />
-                <element signature="e#35129#35233#0" />
-                <element signature="e#35321#36152#0" />
-                <element signature="e#35321#35628#1" />
-                <element signature="e#35782#36066#0" />
-                <element signature="e#36198#38471#0" />
-                <element signature="e#36198#36765#1" />
-                <element signature="e#36919#38372#0" />
-                <element signature="e#37301#37382#0" />
-                <element signature="e#37755#38352#0" />
-                <element signature="e#38391#38471#0" />
-                <element signature="e#38502#39202#0" />
-                <element signature="e#38502#38816#1" />
-                <element signature="e#39135#39191#0" />
-                <element signature="e#39274#40053#0" />
-                <element signature="e#39274#39644#1" />
-                <element signature="e#39883#39987#0" />
-                <element signature="e#40084#40962#0" />
-                <element signature="e#40084#40384#1" />
-                <element signature="e#40538#40876#0" />
-                <element signature="e#41492#42874#0" />
-                <element signature="e#41808#41889#0" />
-                <element signature="e#42262#42859#0" />
-                <element signature="e#42989#43682#0" />
-                <element signature="e#42989#43286#1" />
-                <element signature="e#43615#43671#0" />
-                <element signature="e#43749#44508#0" />
-                <element signature="e#43749#44109#1" />
-                <element signature="e#44343#44447#0" />
-                <element signature="e#44540#45352#0" />
-                <element signature="e#44540#44832#1" />
-                <element signature="e#44986#45266#0" />
-                <element signature="e#45403#47700#0" />
-                <element signature="e#45403#45866#1" />
-                <element signature="e#46239#47617#0" />
-                <element signature="e#46551#46632#0" />
-                <element signature="e#47005#47602#0" />
-                <element signature="e#47733#48462#0" />
-                <element signature="e#47733#48076#1" />
-                <element signature="e#48395#48451#0" />
-                <element signature="e#48548#49311#0" />
-                <element signature="e#48548#48912#1" />
-                <element signature="e#49146#49250#0" />
-                <element signature="e#49343#50220#0" />
-                <element signature="e#49343#49642#1" />
-                <element signature="e#49796#50134#0" />
-                <element signature="e#50753#52131#0" />
-                <element signature="e#51065#51146#0" />
-                <element signature="e#51519#52116#0" />
-                <element signature="e#52247#52927#0" />
-                <element signature="e#52247#52539#1" />
-                <element signature="e#52860#52916#0" />
-                <element signature="e#52993#53778#0" />
-                <element signature="e#52993#53367#1" />
-                <element signature="e#53607#53711#0" />
-                <element signature="e#53811#55154#0" />
-                <element signature="e#53811#54336#1" />
-                <element signature="e#54490#54973#0" />
-                <element signature="e#54992#55154#0" />
-                <element signature="e#55030#55052#0" />
-                <element signature="e#55195#57520#0" />
-                <element signature="e#55195#55744#1" />
-                <element signature="e#55898#57437#0" />
-                <element signature="e#56133#56362#0" />
-                <element signature="e#56371#56452#0" />
-                <element signature="e#56825#57422#0" />
-                <element signature="e#57652#58429#0" />
-                <element signature="e#57652#58021#1" />
-                <element signature="e#58259#58363#0" />
-                <element signature="e#58465#59367#0" />
-                <element signature="e#58465#58765#1" />
-                <element signature="e#58919#59281#0" />
-                <element signature="e#59426#61386#0" />
-                <element signature="e#59426#59763#1" />
-                <element signature="e#59917#61303#0" />
-                <element signature="e#60237#60318#0" />
-                <element signature="e#60691#61288#0" />
-                <element signature="e#61423#62125#0" />
-                <element signature="e#61423#61720#1" />
-                <element signature="e#62058#62114#0" />
-                <element signature="e#62174#62979#0" />
-                <element signature="e#62174#62557#1" />
-                <element signature="e#62802#62906#0" />
-                <element signature="e#63022#63970#0" />
-                <element signature="e#63022#63326#1" />
-                <element signature="e#63480#63884#0" />
-                <element signature="e#64043#66118#0" />
-                <element signature="e#64043#64481#1" />
-                <element signature="e#64635#66035#0" />
-                <element signature="e#64969#65050#0" />
-                <element signature="e#65423#66020#0" />
-                <element signature="e#66162#66898#0" />
-                <element signature="e#66162#66466#1" />
-                <element signature="e#66831#66887#0" />
-                <element signature="e#66972#67758#0" />
-                <element signature="e#66972#67346#1" />
-                <element signature="e#67586#67690#0" />
-                <element signature="e#67796#68910#0" />
-                <element signature="e#67796#68321#1" />
-                <element signature="e#68475#68789#0" />
-                <element signature="e#68808#68910#0" />
-                <element signature="e#68956#70920#0" />
-                <element signature="e#68956#69306#1" />
-                <element signature="e#69460#70837#0" />
-                <element signature="e#69771#69852#0" />
-                <element signature="e#70225#70822#0" />
-                <element signature="e#70989#71097#0" />
-                <element signature="e#71151#71926#0" />
-                <element signature="e#71151#71519#1" />
-                <element signature="e#71757#71861#0" />
-                <element signature="e#71962#72859#0" />
-                <element signature="e#71962#72261#1" />
-                <element signature="e#72415#72777#0" />
-                <element signature="e#72918#74919#0" />
-                <element signature="e#72918#73262#1" />
-                <element signature="e#73416#74836#0" />
-                <element signature="e#73770#73851#0" />
-                <element signature="e#74224#74821#0" />
-                <element signature="e#74976#75751#0" />
-                <element signature="e#74976#75344#1" />
-                <element signature="e#75582#75686#0" />
-                <element signature="e#75787#76754#0" />
-                <element signature="e#75787#76142#1" />
-                <element signature="e#76296#76663#0" />
-                <element signature="e#76813#79027#0" />
-                <element signature="e#76813#77335#1" />
-                <element signature="e#77489#78944#0" />
-                <element signature="e#77878#77959#0" />
-                <element signature="e#78332#78929#0" />
-                <element signature="e#79033#79074#0" />
-                <element signature="e#79159#79411#1" />
-                <element signature="e#79463#79704#0" />
-                <element signature="e#79707#79756#0" />
+                <element signature="e#0#24#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReadWriteTagList.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/guiTesting/ReadWriteTagList.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1020">
+              <caret line="71" column="79" selection-start-line="71" selection-start-column="79" selection-end-line="71" selection-end-column="79" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -380,8 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find />
-      <find>str(MetadataManagerL0.getOrgDate</find>
       <find>'0001-01-01 00:00:00'</find>
       <find>'0001-01-01 00:00:00', Me</find>
       <find>#self.assertEqual</find>
@@ -410,9 +140,10 @@
       <find>:raise UnknownFiletypeError: if the filetype cannot be found</find>
       <find>wipeTags</find>
       <find>getExtension</find>
+      <find>\imgs\</find>
+      <find>c_taglist</find>
     </findStrings>
     <replaceStrings>
-      <replace>valTranslateFrom</replace>
       <replace>MetadataManager.appropriateKeys</replace>
       <replace>raw_to_cleanList</replace>
       <replace>KeyValManager.selectVals</replace>
@@ -442,6 +173,7 @@
       <replace>MetadataManagerL1</replace>
       <replace>\pics</replace>
       <replace>/pics/</replace>
+      <replace>\pics\</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -497,6 +229,9 @@
         <option value="$PROJECT_DIR$/LoadTags.py" />
         <option value="$PROJECT_DIR$/MetadataManagerL0.py" />
         <option value="$PROJECT_DIR$/MetadataManagerL2.py" />
+        <option value="$PROJECT_DIR$/guiTesting/PictureDetails.py" />
+        <option value="$PROJECT_DIR$/guiTesting/ReadWriteArtistList.py" />
+        <option value="$PROJECT_DIR$/guiTesting/ReadWriteTagList.py" />
       </list>
     </option>
   </component>
@@ -529,32 +264,28 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="tagger" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tagger" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tagger" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tagger" type="462c0819:PsiDirectoryNode" />
+              <item name="guiTesting" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
             <path>
               <item name="sf_tagger" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="$PROJECT_DIR$" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="sf_tagger" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sf_tagger" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sf_tagger" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sf_tagger" type="462c0819:PsiDirectoryNode" />
-              <item name="guiTesting" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sf_tagger" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -586,25 +317,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.DescriptionBox">
-    <configuration name="DescriptionBox" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="tagger" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DescriptionBox.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
+  <component name="RunManager" selected="Python.TaggerGuiTesting">
     <configuration name="LoadTags" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -641,6 +354,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="TaggerGuiTesting" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tagger" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/guiTesting/PictureDetails.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="TestingManager" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -654,6 +385,24 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TestingManager.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="guistart" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tagger" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/guiTesting" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/guiTesting/guistart.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -677,34 +426,21 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="Unittests in MetaEditL1Tests.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="tagger" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/MetaEditL1Tests.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
     <list>
       <item itemvalue="Python.scratch_1" />
       <item itemvalue="Python.LoadTags" />
-      <item itemvalue="Python tests.Unittests in MetaEditL1Tests.py" />
       <item itemvalue="Python.TestingManager" />
       <item itemvalue="Python.MetadataManagerL2" />
-      <item itemvalue="Python.DescriptionBox" />
+      <item itemvalue="Python.TaggerGuiTesting" />
+      <item itemvalue="Python.guistart" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.DescriptionBox" />
+        <item itemvalue="Python.TaggerGuiTesting" />
+        <item itemvalue="Python.guistart" />
         <item itemvalue="Python.MetadataManagerL2" />
         <item itemvalue="Python.LoadTags" />
         <item itemvalue="Python.TestingManager" />
-        <item itemvalue="Python tests.Unittests in MetaEditL1Tests.py" />
       </list>
     </recent_temporary>
   </component>
@@ -1109,44 +845,44 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.30101395" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.296875" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49933776" weight="0.32917318" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.507947" side_tool="true" weight="0.33956388" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32917318" />
       <window_info anchor="bottom" id="Python Console" order="8" weight="0.32866043" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49205297" weight="0.35825545" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49205297" weight="0.3580729" />
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39719626" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Inspection Results" order="7" sideWeight="0.49933776" weight="0.32917318" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32398754" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.28145695" />
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49933776" weight="0.32917318" />
-      <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32917318" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49205297" visible="true" weight="0.33956388" />
       <window_info anchor="bottom" id="Inspection Results" order="7" sideWeight="0.49933776" weight="0.32917318" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Python Console" order="8" weight="0.32866043" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.507947" side_tool="true" weight="0.33956388" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32398754" />
-      <window_info anchor="bottom" id="Python Console" order="8" weight="0.32866043" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32917318" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="1" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -1280,14 +1016,15 @@
           <line>175</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/guiTesting/SimulateOutside.py</url>
+          <line>29</line>
+        </line-breakpoint>
       </breakpoints>
+      <option name="time" value="5" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/checkMeta.py" />
-    <entry file="file://$PROJECT_DIR$/ByteString.py" />
-    <entry file="file://$PROJECT_DIR$/ByteString2.py" />
-    <entry file="file://$PROJECT_DIR$/TestingWget.py" />
     <entry file="file://$PROJECT_DIR$/gregTwitterJoke.png" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/PNGmetadataTests.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.py" />
@@ -1401,13 +1138,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/guiTesting/guistart.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="6" lean-forward="true" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/guiTesting/LoadTags.py" />
     <entry file="file://$PROJECT_DIR$/LoadTags0.py" />
     <entry file="file://$PROJECT_DIR$/guiTesting/TextTagsDynamic.py">
@@ -1456,58 +1186,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LoadTags.py" />
-    <entry file="file://$PROJECT_DIR$/MetadataManagerL1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="114" column="7" selection-start-line="114" selection-start-column="7" selection-end-line="114" selection-end-column="7" />
-          <folding>
-            <element signature="e#23#232#1" />
-            <element signature="e#233#247#0" expanded="true" />
-            <element signature="e#936#994#0" />
-            <element signature="e#1152#1338#0" />
-            <element signature="e#1152#1329#1" />
-            <element signature="e#1381#1504#0" />
-            <element signature="e#1506#1564#0" />
-            <element signature="e#1762#2561#0" />
-            <element signature="e#1762#2385#1" />
-            <element signature="e#2637#3650#0" />
-            <element signature="e#2637#3023#1" />
-            <element signature="e#3138#3200#0" />
-            <element signature="e#5204#5260#0" />
-            <element signature="e#5785#6459#0" />
-            <element signature="e#5785#6154#1" />
-            <element signature="e#6222#6280#0" />
-            <element signature="e#7951#8117#0" />
-            <element signature="e#8184#8219#0" />
-            <element signature="e#8413#8995#0" />
-            <element signature="e#8413#8819#1" />
-            <element signature="e#9618#10895#0" />
-            <element signature="e#9618#10172#1" />
-            <element signature="e#10228#10623#0" />
-            <element signature="e#10228#10280#0" />
-            <element signature="e#10997#11577#0" />
-            <element signature="e#10997#11397#1" />
-            <element signature="e#11666#12753#0" />
-            <element signature="e#11666#12175#1" />
-            <element signature="e#12330#12636#0" />
-            <element signature="e#12655#12736#0" />
-            <element signature="e#12900#13505#0" />
-            <element signature="e#12900#13306#1" />
-            <element signature="e#13568#14212#0" />
-            <element signature="e#13568#13985#1" />
-            <element signature="e#14622#15729#0" />
-            <element signature="e#14622#15131#1" />
-            <element signature="e#15286#15612#0" />
-            <element signature="e#15631#15712#0" />
-            <element signature="e#15819#16467#1" />
-            <element signature="e#16713#17310#0" />
-            <element signature="e#16713#17114#1" />
-            <element signature="e#17341#17534#0" />
-            <element signature="e#17341#17463#1" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManagerL0.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2142">
@@ -1786,22 +1464,76 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManagerL2.py" />
-    <entry file="file://$PROJECT_DIR$/DescriptionBox.py">
+    <entry file="file://$PROJECT_DIR$/DescriptionBox.py" />
+    <entry file="file://$PROJECT_DIR$/MetadataManagerL1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="660">
+          <caret line="114" column="7" selection-start-line="114" selection-start-column="7" selection-end-line="114" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestingManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7208">
+          <caret line="433" column="39" selection-start-line="433" selection-start-column="39" selection-end-line="433" selection-end-column="39" />
+          <folding>
+            <element signature="e#23#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/guistart.py" />
+    <entry file="file://$PROJECT_DIR$/guiTesting/SimulateOutside.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="33" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/ReadWriteTagList.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="71" column="79" selection-start-line="71" selection-start-column="79" selection-end-line="71" selection-end-column="79" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TestingManager.py">
+    <entry file="file://$PROJECT_DIR$/guiTesting/ReadWriteArtistList.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="433" column="39" selection-start-line="433" selection-start-column="39" selection-end-line="433" selection-end-column="39" />
+        <state relative-caret-position="952">
+          <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
           <folding>
-            <element signature="e#23#32#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/PictureDetails.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="32" lean-forward="true" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+          <folding>
+            <element signature="e#5586#5677#0" />
+            <element signature="e#5718#6010#0" />
+            <element signature="e#6045#7378#0" />
+            <element signature="e#7420#7806#0" />
+            <element signature="e#7887#8154#0" />
+            <element signature="e#8357#15574#0" />
+            <element signature="e#9536#10049#0" />
+            <element signature="e#10089#10275#0" />
+            <element signature="e#10331#10690#0" />
+            <element signature="e#10779#11246#0" />
+            <element signature="e#11292#11490#0" />
+            <element signature="e#11552#11929#0" />
+            <element signature="e#12077#12524#0" />
+            <element signature="e#12565#12753#0" />
+            <element signature="e#12810#13174#0" />
+            <element signature="e#13265#13932#0" />
+            <element signature="e#13986#14170#0" />
+            <element signature="e#14248#15212#0" />
+            <element signature="e#15273#15574#0" />
           </folding>
         </state>
       </provider>

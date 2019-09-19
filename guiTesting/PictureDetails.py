@@ -1,3 +1,4 @@
+from datetime import datetime
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.widget import Widget
@@ -13,26 +14,34 @@ from ChangeableLabel import StretchingLabel
 from RatingButton import RatingButtons, StatusButton
 from ReadWriteTagList import ReadWriteTagList
 from ReadWriteArtistList import ReadWriteArtistList
-from TitleBox import TitleBox
 from PrevNext import NextPrevBar
 import SimulateOutside
+from DatePopupButton import DateEditButton, DatePopup
+from SeriesPopupButton import SeriesButton, SeriesPopup
 from lib.modules.adaptive_grid_layout import Adaptive_GridLayout
 
-# We figured out how to make a scrollview work with a child that changes size in PosScrollTest3
-# Now we want to slowly build the user interface from DescriptionBox into this
+# Our user interface
 
 Builder.load_string('''
+<ColorLabel>:
+    canvas.before:
+        Color:
+            rgba: self.bcolor
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
 <TagListBox>:
-	BoxLayout:
+	GridLayout:
 		size: root.size
 		pos: root.pos
 		id: boxlayout_h
 		orientation: 'vertical'
+		cols: 1
 		ReadWriteTagList:
 		    size_hint_y: None
 		    height: 70
         thisText:
-            pos: (900, 20)
             hint_text: 'add new tag'
             on_text_validate: print(self.parent.children[1].addNewTag(self.giveText()))
 <ArtistListBox>:
@@ -43,11 +52,10 @@ Builder.load_string('''
 		orientation: 'vertical'
 		ReadWriteArtistList:
 		    size_hint_y: None
-		    height: 70
+		    height: 35
         thisText:
-            pos: (900, 20)
             hint_text: 'add new artist'
-            on_text_validate: print(self.parent.children[1].addNewTag(self.giveText()))
+            on_text_validate: print(self.parent.children[1].addNewArtist(self.giveText()))
             
 <Controller>:
     layout_content: layout_content
@@ -60,35 +68,41 @@ Builder.load_string('''
     BoxLayout:
         orientation: 'vertical'
         Image:
-            source: '..\imgs\shinyLobster.jpg'
+            source: '..\pics\shinyLobster.jpg'
             allow_stretch: True
-        Label:
-            id: TagBanner
-            text: 'Tags'
-            size_hint_y: None
-            height: 30
-            bold: True
-            canvas.before:
-                Color:
-                    rgba: .3, .7, .5, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-        TagListBox:
-        Label:
-            id: TagBanner
-            text: 'Artist'
-            size_hint_y: None
-            height: 30
-            bold: True
-            canvas.before:
-                Color:
-                    rgba: .3, .7, .5, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-        ArtistListBox:
-        NextPrevBar:
+            size_hint_y: .5
+        Side1Details:
+            cols: 1
+            grow_rows: True
+            size_hint_y: .5
+            Label:
+                id: TagBanner
+                text: 'Tags'
+                size_hint_y: None
+                height: 30
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: .3, .7, .5, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+            TagListBox:
+            Label:
+                id: TagBanner
+                text: 'Artist'
+                size_hint_y: None
+                height: 30
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: .3, .7, .5, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+            ArtistListBox:
+            NextPrevBar:
+                height: 40
 
     ScrollView:
         size: self.size
@@ -109,7 +123,7 @@ Builder.load_string('''
                         pos: self.pos
                         size: self.size
             Label:
-                id: TitleBanner
+                id: DescriptionBanner
                 text: 'Description'
                 size_hint_y: None
                 height: 30
@@ -121,7 +135,7 @@ Builder.load_string('''
                         pos: self.pos
                         size: self.size
             Label:
-                id: TitleBanner
+                id: RatingBanner
                 text: 'Rating'
                 size_hint_y: None
                 height: 30
@@ -133,19 +147,41 @@ Builder.load_string('''
                         pos: self.pos
                         size: self.size
             Label:
-                height: 20
-                text: "Lorem ipsum dolor sit amet"
-            StretchingLabel:
-                text: "Lorem ipsum dolor sit amet"
+                id: SourceBanner
+                text: 'Source URL'
+                size_hint_y: None
+                height: 30
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: .3, .7, .5, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
             Label:
-                height: 20
-                text: "Lorem ipsum dkdsjahf lkasjkat"
+                id: DateBanner
+                text: 'Date Created'
+                size_hint_y: None
+                height: 30
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: .3, .7, .5, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
             Label:
-                height: 20
-                text: "Lorem ipsdodo dod dodo do dodt"
-            Label:
-                height: 20
-                text: "Lorem ipsdkjwww  ww woij ksdsdf sit amet"
+                id: SeriesBanner
+                text: 'Series'
+                size_hint_y: None
+                height: 30
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: .3, .7, .5, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
 ''')
 
 #--------------Debugging functions---------------------
@@ -208,6 +244,21 @@ def boundryScan(p_widget, p_level):
         boundryScan(i_child, p_level + 1)
 
 #--------------kivy classes----------------------
+class ColorLabel(Label):
+    bcolor = ListProperty([.7, .7, .7, 1])
+    def __init__(self, **kwargs):
+        super(ColorLabel, self).__init__(**kwargs)
+        pass
+        # this is a label with color. I don't know if this custom class is needed
+        # there's probably a way to not use this
+
+
+class Side1Details(Adaptive_GridLayout):
+    def __init__(self, **kwargs):
+        super(Side1Details, self).__init__(**kwargs)
+        self.c_debug = 0
+
+
 class Side2Details(Adaptive_GridLayout):
     c_title_value = StringProperty('A Title goes here')
     c_description_value = StringProperty('A Description goes here')
@@ -215,15 +266,15 @@ class Side2Details(Adaptive_GridLayout):
 
     def __init__(self, **kwargs):
         super(Side2Details, self).__init__(**kwargs)
-        self.c_debug = 3
+        self.c_debug = 0
         if self.c_debug>0: print("Side2Details._init_()")
         Clock.schedule_once(lambda dt: self.makeTitle(), timeout=0.1)
-        #self.title_widget = TitleBox()
-        #Clock.schedule_once(lambda dt: self.add_widget(self.title_widget, len(self.children) - 1) , timeout=0.1)
-
         Clock.schedule_once(lambda dt: self.makeDescription(), timeout=0.1)
         self.rating_widget = RatingButtons()
         Clock.schedule_once(lambda dt: self.add_widget(self.rating_widget, len(self.children) - 5), timeout=0.1)
+        Clock.schedule_once(lambda dt: self.makeSource(), timeout=0.1)
+        Clock.schedule_once(lambda dt: self.makeOriginalDate(), timeout=0.1)
+        Clock.schedule_once(lambda dt: self.makeSeries(), timeout=0.1)
         if self.c_debug > 1: print("Side2Details._init_() finished")
 
     def on_rows_minimum(self, instance, value):
@@ -232,11 +283,11 @@ class Side2Details(Adaptive_GridLayout):
 
     # ------------Title------------------
     def makeTitle(self):
-        self.debug = 2
+        self.debug = 0
         if self.c_debug>0: print("Side2Details.makeTitle()")
         c_label = StretchingLabel()
         self.bind(pos=c_label.setter('pos'), width=c_label.setter('width'), c_title_value=c_label.setter('text'))
-        c_label.bind(tempStr=self.setTitleValue)
+        c_label.bind(tempStr=self.setTitleValue) #when the tempStr in StretchingLabel changes, setTitleValue is called
         self.add_widget(c_label, len(self.children) - 1)
         Clock.schedule_once(lambda dt: self.chg_title_text(), 0.5)
         # self.trigger_refresh_y_dimension()
@@ -256,7 +307,7 @@ class Side2Details(Adaptive_GridLayout):
 
     # ------------Description------------------
     def makeDescription(self):
-        self.debug = 2
+        self.debug = 0
         if self.c_debug>0: print("Side2Details.makeDescription()")
         c_label = StretchingLabel()
         self.bind(pos=c_label.setter('pos'), width=c_label.setter('width'), c_description_value=c_label.setter('text'))
@@ -281,9 +332,68 @@ class Side2Details(Adaptive_GridLayout):
     # ------------Rating------------------
     #   outside file used
     # ------------Source------------------
+    def makeSource(self):
+        self.debug = 2
+        if self.c_debug>0: print("Side2Details.makeSource()")
+        c_label = StretchingLabel()
+        self.bind(pos=c_label.setter('pos'), width=c_label.setter('width'), c_source_value=c_label.setter('text'))
+        c_label.bind(tempStr=self.setSourceValue)
+        self.add_widget(c_label, len(self.children) - 7)
+        Clock.schedule_once(lambda dt: self.chg_source_text(), 0.5)
+        # self.trigger_refresh_y_dimension()
 
+    def chg_source_text(self):
+        # this forces a property event so the label's text will be changed
+        if self.c_debug>0: print("Side2Details.chg_source_text()")
+        self.property('c_source_value').dispatch(self)
+
+    def setSourceValue(self, instance, p_val):
+        if self.c_debug>0: print("Side2Details.setSourceValue() instance:", instance)
+        f_success = SimulateOutside.setSource(SimulateOutside.g_file, p_val)
+        if f_success:
+            self.c_source_value = SimulateOutside.getSource(SimulateOutside.g_file)
+        else:
+            if self.c_debug>0: print("MySourceFrame.setValue() operation not successful")
     # ------------Original Date------------------
+    def makeOriginalDate(self):
+        popup_trigger = DateEditButton(height=25)
+        self.date_label0 = ColorLabel(size_hint_y=None, height=30,
+                                     bcolor=[.7, .7, .7, 1])
+        if popup_trigger.hasDate:
+            self.date_label0.text = str(datetime.strptime(popup_trigger.ISODateString, "%Y-%m-%dT%H:%M:%S"))
+        else:
+            self.date_label0.text = "No date given"
+        # this detects changes in the series values and calls changes to the user interface be made
+        popup_trigger.bind(ISODateString=self.update_date)
+        self.add_widget(self.date_label0, len(self.children) - 9)
+        self.add_widget(popup_trigger, len(self.children) - 10)
+
+    def update_date(self, instance, value):
+        # this function updates the installment number shown on the user interface whenever the value changes
+        self.date_label0.text = str(datetime.strptime(value, "%Y-%m-%dT%H:%M:%S"))
     # ------------Series------------------
+    def makeSeries(self):
+        # this is for series data, in case someone has pictures that are viewed in a sequence like comics
+        popup_trigger = SeriesButton(height=25)
+        self.series_label1 = ColorLabel(size_hint_y=None, height=30, text=popup_trigger.seriesName, bcolor=[.7, .7, .7, 1])
+        self.series_label2 = ColorLabel(size_hint_y=None, height=30, bcolor=[.7, .7, .7, 1])
+        if popup_trigger.seriesIns==-1:
+            self.series_label2.text = ""
+        else:
+            self.series_label2.text='# '+str(popup_trigger.seriesIns)
+        # this detects changes in the series values and calls changes to the user interface be made
+        popup_trigger.bind(seriesName=self.series_label1.setter('text'))
+        popup_trigger.bind(seriesIns=self.update_installment)
+        self.add_widget(self.series_label1, len(self.children) - 12)
+        self.add_widget(self.series_label2, len(self.children) - 13)
+        self.add_widget(popup_trigger, len(self.children) - 14)
+
+    def update_installment(self, instance, value):
+        # this function updates the installment number shown on the user interface whenever the value changes
+        if value == -1: #this implies no series exists, thus no number should be displayed
+            self.series_label2.text = ""
+        else:
+            self.series_label2.text = '# '+str(value)
 
 
 class TagListBox(Widget):
@@ -310,40 +420,6 @@ class thisText(TextInput):
         self.text = ""
         return f_text
 
-#
-
-
-
-"""
-class ResizingFrame(Adaptive_GridLayout):
-    c_value = StringProperty('SomeThing goes here')
-
-    def __init__(self, **kwargs):
-        super(ResizingFrame, self).__init__(**kwargs)
-        self.debug = 2
-        Clock.schedule_once(lambda dt: self.makeLabel(), timeout=0.1)
-
-    def makeLabel(self):
-        c_label = StretchingLabel()
-        self.bind(pos=c_label.setter('pos'), width=c_label.setter('width'), c_value=c_label.setter('text'))
-        self.add_widget(c_label)
-        # this forces a property event so the label's text will be changed
-        Clock.schedule_once(lambda dt: self.property('c_value').dispatch(self), 0.5)
-        # this forces a property event so the label's pos will be changed
-        Clock.schedule_once(lambda dt: self.chg_text(c_label), 1)
-        Clock.schedule_once(lambda dt: self.trigger_refresh_y_dimension(), 1.5)
-
-    def chg_text(self, p_widget):
-        # this forces a property event so the label's text will be changed
-        self.property('c_value').dispatch(self)
-        # Note: This just seems to push the label down from the top of the screen without changing the layout's height
-        self.trigger_refresh_y_dimension()
-        # the same behaviour can be seen if you double click the stretching label and enter a change
-
-    def on_height(self, instance, value):
-        if self.c_debug>0: print("ResizingFrame.on_height()", self.height)
-"""
-
 class Controller(BoxLayout):
     layout_content = ObjectProperty(None)
 
@@ -353,11 +429,9 @@ class Controller(BoxLayout):
         self.layout_content.bind(minimum_height=self.layout_content.setter('height'))
         #Clock.schedule_once(lambda dt: boundryScan(self, 0), timeout=4)
 
-
 class Nested2App(App):
     def build(self):
         return Controller()
-
 
 if __name__ == '__main__':
     Nested2App().run()
