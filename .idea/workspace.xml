@@ -8,9 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="testing user interface stuff">
-      <change afterPath="$PROJECT_DIR$/guiTesting/PathManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guiTesting/fileNavigationManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/fileNavigationManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guiTesting/PictureView.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/PictureView.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guiTesting/SimulateOutside.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/SimulateOutside.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,8 +24,8 @@
       <file leaf-file-name="PictureDetails.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/guiTesting/PictureDetails.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="404" lean-forward="true" selection-start-line="404" selection-end-line="404" />
+            <state relative-caret-position="170">
+              <caret line="276" column="70" lean-forward="true" selection-start-line="276" selection-start-column="70" selection-end-line="276" selection-end-column="70" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
                 <element signature="e#5586#5677#0" />
@@ -33,7 +33,6 @@
                 <element signature="e#6045#7378#0" />
                 <element signature="e#7420#7806#0" />
                 <element signature="e#7887#8154#0" />
-                <element signature="e#8357#15574#0" />
                 <element signature="e#9536#10049#0" />
                 <element signature="e#10089#10275#0" />
                 <element signature="e#10331#10690#0" />
@@ -43,29 +42,33 @@
                 <element signature="e#12077#12524#0" />
                 <element signature="e#12565#12753#0" />
                 <element signature="e#12810#13174#0" />
-                <element signature="e#13265#13932#0" />
                 <element signature="e#13986#14170#0" />
-                <element signature="e#14248#15212#0" />
                 <element signature="e#15273#15574#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PathManager.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/guiTesting/PathManager.py">
+      <file leaf-file-name="PrevNext.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/guiTesting/PrevNext.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" selection-start-line="6" selection-end-line="27" selection-end-column="8" />
+            <state relative-caret-position="136">
+              <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fileNavigationManager.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/guiTesting/fileNavigationManager.py">
+      <file leaf-file-name="PictureView.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/guiTesting/PictureView.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            <state relative-caret-position="129">
+              <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -73,8 +76,20 @@
       <file leaf-file-name="SimulateOutside.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/guiTesting/SimulateOutside.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="33" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
+            <state>
+              <caret lean-forward="true" />
+              <folding>
+                <element signature="e#23#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scratch.py" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="295">
+              <caret line="71" selection-start-line="71" selection-end-line="75" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -91,11 +106,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>'0001-01-01 00:00:00'</find>
-      <find>'0001-01-01 00:00:00', Me</find>
-      <find>#self.assertEqual</find>
-      <find>OutOfRangeError</find>
-      <find>getMetadataDate</find>
       <find>MetadataMissingError</find>
       <find>wipe</find>
       <find>pokefile</find>
@@ -106,7 +116,7 @@
       <find>getEx</find>
       <find>print</find>
       <find>isVersionNum</find>
-      <find>keys sti</find>
+      <find />
       <find>isVe</find>
       <find>datetime</find>
       <find>datetime.datetime.</find>
@@ -116,11 +126,16 @@
       <find>\imgs</find>
       <find>\pics\</find>
       <find>PureWindowsPath</find>
-      <find>:raise UnknownFiletypeError: if the filetype cannot be found</find>
+      <find />
       <find>wipeTags</find>
       <find>getExtension</find>
       <find>\imgs\</find>
       <find>c_taglist</find>
+      <find>g_pictureLocation</find>
+      <find>on_t</find>
+      <find>on_</find>
+      <find>delayedClose</find>
+      <find>button</find>
     </findStrings>
     <replaceStrings>
       <replace>MetadataManager.appropriateKeys</replace>
@@ -129,8 +144,8 @@
       <replace>KeyValManager.MetaDataVals</replace>
       <replace>KeyValManager.g_getFunctions</replace>
       <replace>g_</replace>
-      <replace>if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':</replace>
-      <replace># TODO add gif support</replace>
+      <replace />
+      <replace />
       <replace>earlySupportCheck(p_filename)</replace>
       <replace>UnsupportedFiletypeError</replace>
       <replace>val</replace>
@@ -146,7 +161,7 @@
       <replace>g_files[</replace>
       <replace>setSource</replace>
       <replace>g_googlePics1[p_fileEntry]</replace>
-      <replace>f_filename = singleClone(g_files[&quot;Makefile&quot;].fullname)</replace>
+      <replace />
       <replace>releaseAllClones(g_clonenames)</replace>
       <replace>'.tif'</replace>
       <replace>MetadataManagerL1</replace>
@@ -177,7 +192,6 @@
         <option value="$PROJECT_DIR$/tagUnitTests.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_3.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/PNGmetadataTests.py" />
-        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py" />
         <option value="$PROJECT_DIR$/PNGmetadataTests.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
@@ -201,7 +215,6 @@
         <option value="$PROJECT_DIR$/CompatibilityManager.py" />
         <option value="$PROJECT_DIR$/guiTesting/guistart.py" />
         <option value="$PROJECT_DIR$/guiTesting/DynamicButtonList.py" />
-        <option value="$PROJECT_DIR$/guiTesting/PictureView.py" />
         <option value="$PROJECT_DIR$/guiTesting/LoadTags.py" />
         <option value="$PROJECT_DIR$/LoadTags0.py" />
         <option value="$PROJECT_DIR$/TestingManager.py" />
@@ -213,6 +226,10 @@
         <option value="$PROJECT_DIR$/guiTesting/ReadWriteTagList.py" />
         <option value="$PROJECT_DIR$/guiTesting/PathManager.py" />
         <option value="$PROJECT_DIR$/guiTesting/fileNavigationManager.py" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
+        <option value="$PROJECT_DIR$/guiTesting/SimulateOutside.py" />
+        <option value="$PROJECT_DIR$/guiTesting/PrevNext.py" />
+        <option value="$PROJECT_DIR$/guiTesting/PictureView.py" />
       </list>
     </option>
   </component>
@@ -257,6 +274,15 @@
               <item name="tagger" type="462c0819:PsiDirectoryNode" />
               <item name="guiTesting" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="tagger" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
+            <path>
+              <item name="tagger" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Scratches" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -298,8 +324,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.fileNavigationManager">
-    <configuration name="LoadTags" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.PictureView">
+    <configuration name="PictureView" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -307,17 +333,17 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/guiTesting" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LoadTags.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/guiTesting/PictureView.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="MetadataManagerL2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="SimulateOutside" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -325,11 +351,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/guiTesting" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MetadataManagerL2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/guiTesting/SimulateOutside.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -371,7 +397,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="guistart" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="scratch" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -379,11 +405,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/guiTesting" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/guiTesting/guistart.py" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -409,19 +435,19 @@
     </configuration>
     <list>
       <item itemvalue="Python.scratch_1" />
-      <item itemvalue="Python.LoadTags" />
-      <item itemvalue="Python.MetadataManagerL2" />
       <item itemvalue="Python.TaggerGuiTesting" />
-      <item itemvalue="Python.guistart" />
       <item itemvalue="Python.fileNavigationManager" />
+      <item itemvalue="Python.PictureView" />
+      <item itemvalue="Python.scratch" />
+      <item itemvalue="Python.SimulateOutside" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.PictureView" />
+        <item itemvalue="Python.scratch" />
+        <item itemvalue="Python.SimulateOutside" />
         <item itemvalue="Python.fileNavigationManager" />
         <item itemvalue="Python.TaggerGuiTesting" />
-        <item itemvalue="Python.guistart" />
-        <item itemvalue="Python.MetadataManagerL2" />
-        <item itemvalue="Python.LoadTags" />
       </list>
     </recent_temporary>
   </component>
@@ -830,13 +856,13 @@
       <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.296875" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49933776" weight="0.32917318" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.507947" side_tool="true" weight="0.33956388" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49205297" visible="true" weight="0.3580729" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32917318" />
       <window_info anchor="bottom" id="Python Console" order="8" weight="0.32866043" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49205297" visible="true" weight="0.3580729" />
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info id="Favorites" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39719626" />
+      <window_info id="Favorites" order="1" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1003,10 +1029,8 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.py" />
     <entry file="file://$PROJECT_DIR$/tagger2.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
     <entry file="file://$PROJECT_DIR$/KeyValManager.py" />
@@ -1104,9 +1128,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/guiTesting/PrevNext.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/MetadataManager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1120,13 +1141,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/guiTesting/PictureView.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="40" lean-forward="true" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -1453,6 +1467,61 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
           <caret line="71" column="79" selection-start-line="71" selection-start-column="79" selection-end-line="71" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestingManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="433" column="39" selection-start-line="433" selection-start-column="39" selection-end-line="433" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/fileNavigationManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/PathManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/SimulateOutside.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="e#23#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="71" selection-start-line="71" selection-end-line="75" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/PrevNext.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/RatingButton.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
@@ -1461,35 +1530,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/guiTesting/ReadWriteArtistList.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="683">
-          <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
+        <state relative-caret-position="137">
+          <caret line="121" column="20" selection-start-line="121" selection-start-column="8" selection-end-line="121" selection-end-column="20" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TestingManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="433" column="39" selection-start-line="433" selection-start-column="39" selection-end-line="433" selection-end-column="39" />
-          <folding>
-            <element signature="e#23#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/guiTesting/SimulateOutside.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="33" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/guiTesting/PictureDetails.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="404" lean-forward="true" selection-start-line="404" selection-end-line="404" />
+        <state relative-caret-position="170">
+          <caret line="276" column="70" lean-forward="true" selection-start-line="276" selection-start-column="70" selection-end-line="276" selection-end-column="70" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
             <element signature="e#5586#5677#0" />
@@ -1497,7 +1549,6 @@
             <element signature="e#6045#7378#0" />
             <element signature="e#7420#7806#0" />
             <element signature="e#7887#8154#0" />
-            <element signature="e#8357#15574#0" />
             <element signature="e#9536#10049#0" />
             <element signature="e#10089#10275#0" />
             <element signature="e#10331#10690#0" />
@@ -1507,25 +1558,19 @@
             <element signature="e#12077#12524#0" />
             <element signature="e#12565#12753#0" />
             <element signature="e#12810#13174#0" />
-            <element signature="e#13265#13932#0" />
             <element signature="e#13986#14170#0" />
-            <element signature="e#14248#15212#0" />
             <element signature="e#15273#15574#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/guiTesting/PathManager.py">
+    <entry file="file://$PROJECT_DIR$/guiTesting/PictureView.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="27" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/guiTesting/fileNavigationManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        <state relative-caret-position="129">
+          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
