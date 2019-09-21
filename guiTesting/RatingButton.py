@@ -40,7 +40,7 @@ class StatusButton(Button):
 
 class RatingButtons(BoxLayout):
     #a five star rating bar.
-    rating = NumericProperty(SimulateOutside.getRating(SimulateOutside.g_file))
+    rating = NumericProperty(SimulateOutside.getRating(SimulateOutside.getActiveFilePath()))
     buttonList = ListProperty()
 
     def __init__(self, **kwargs):
@@ -70,9 +70,9 @@ class RatingButtons(BoxLayout):
         #External functions used here
         # this is an indirect way to set the rating value
         # This is how RatingButton is able to communicate with the outside
-        f_success = SimulateOutside.setRating(SimulateOutside.g_file, p_button.c_val)
+        f_success = SimulateOutside.setRating(SimulateOutside.getActiveFilePath(), p_button.c_val)
         if f_success:
-            self.rating = SimulateOutside.getRating(SimulateOutside.g_file)
+            self.rating = SimulateOutside.getRating(SimulateOutside.getActiveFilePath())
         else:
             print("RatingButtons.set_rating() operation not successful")
 

@@ -67,7 +67,7 @@ class ReadWriteTagList(StackLayout):
 
     def populateList(self):
         #this adds all the tags to our tag list
-        f_taglist = SimulateOutside.getTags(SimulateOutside.g_file)
+        f_taglist = SimulateOutside.getTags(SimulateOutside.getActiveFilePath())
         for i_tag in f_taglist:
             #similar to addNewTag() but doesn't just includes pre-existing tags in the gui
             i_id = "Tag:" + i_tag
@@ -85,7 +85,7 @@ class ReadWriteTagList(StackLayout):
         #this adds the tag to the file before we add it to our gui
         #this should theoretically stop the function if we tried adding a duplicate tag
         try:
-            if SimulateOutside.addTag(SimulateOutside.g_file, p_arg)==False:
+            if SimulateOutside.addTag(SimulateOutside.getActiveFilePath(), p_arg)==False:
                 print("ReadWriteTagList.addNewTag(): could not add tag \"", p_arg, "\"", sep='')
                 return False
             #TODO: remove this part once the outside function can reliably test if we're adding a duplicate tag
@@ -106,7 +106,7 @@ class ReadWriteTagList(StackLayout):
         #removes a tag from the file and our user interface
         try:
             # this first tries to remove the tag from the file using out metadata library
-            if SimulateOutside.removeTag(SimulateOutside.g_file, p_targetID[4:]):
+            if SimulateOutside.removeTag(SimulateOutside.getActiveFilePath(), p_targetID[4:]):
                 # if that succeeds, we try removing it from the list of dynamic tags displayed
                 f_target = self.dynamic_ids[p_targetID]
                 #print("ReadWriteTagList.closeTarget(): closing", p_targetID)

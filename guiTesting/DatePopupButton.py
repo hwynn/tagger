@@ -31,8 +31,8 @@ class DatePopup(Popup):
 # this button is reuasable
 class DateEditButton(Button):
     # this is the button that triggers the popup being created
-    hasDate = SimulateOutside.containsOrgDate(SimulateOutside.g_file)
-    sampledate = SimulateOutside.getOriginalDate(SimulateOutside.g_file)
+    hasDate = SimulateOutside.containsOrgDate(SimulateOutside.getActiveFilePath())
+    sampledate = SimulateOutside.getOriginalDate(SimulateOutside.getActiveFilePath())
     ISODateString = StringProperty(sampledate.isoformat())
     timeChunk1 = NumericProperty(sampledate.timetuple()[0])
     timeChunk2 = NumericProperty(sampledate.timetuple()[1])
@@ -72,9 +72,9 @@ class DateEditButton(Button):
         # It should not be possible to call this function with bad input
         # pop_submit() should check the input for this
         if self.c_debug > 0: print("DateEditButton.setDateValue:", p_ins)
-        f_success = SimulateOutside.setOriginalDate(SimulateOutside.g_file, p_ins)
+        f_success = SimulateOutside.setOriginalDate(SimulateOutside.getActiveFilePath(), p_ins)
         if f_success:
-            self.sampledate = SimulateOutside.getOriginalDate(SimulateOutside.g_file)
+            self.sampledate = SimulateOutside.getOriginalDate(SimulateOutside.getActiveFilePath())
             self.hasDate = True
             self.ISODateString = self.sampledate.isoformat()
             self.timeChunk1 = self.sampledate.timetuple()[0]

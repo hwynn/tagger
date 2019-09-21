@@ -33,8 +33,8 @@ class SeriesButton(Button):
     # this is the button that triggers the popup being created
 
     # these are the two values that make up the series information
-    seriesIns = NumericProperty(SimulateOutside.getSeries(SimulateOutside.g_file)[1])
-    seriesName = StringProperty(SimulateOutside.getSeries(SimulateOutside.g_file)[0])
+    seriesIns = NumericProperty(SimulateOutside.getSeries(SimulateOutside.getActiveFilePath())[1])
+    seriesName = StringProperty(SimulateOutside.getSeries(SimulateOutside.getActiveFilePath())[0])
     pops = SeriesPopup()
 
     def __init__(self, **kwargs):
@@ -46,9 +46,9 @@ class SeriesButton(Button):
         # this calls an outside script to set the series value in a picture file
         # then the new value is passed back to us for the user interface to display
         if self.c_debug > 0: print("SeriesButton.setSeriesValue:", p_name, p_ins)
-        f_success = SimulateOutside.setSeries(SimulateOutside.g_file, p_name, p_ins)
+        f_success = SimulateOutside.setSeries(SimulateOutside.getActiveFilePath(), p_name, p_ins)
         if f_success:
-            self.seriesName, self.seriesIns = SimulateOutside.getSeries(SimulateOutside.g_file)
+            self.seriesName, self.seriesIns = SimulateOutside.getSeries(SimulateOutside.getActiveFilePath())
         else:
             if self.c_debug > 0: print("setSeriesValue.setValue() operation not successful")
 
@@ -79,7 +79,7 @@ class SeriesButton(Button):
             if self.seriesIns==-1 and self.seriesName=="":
                 self.pops.dismiss()
             else:
-                if SimulateOutside.wipeSeries(SimulateOutside.g_file):
+                if SimulateOutside.wipeSeries(SimulateOutside.getActiveFilePath()):
                     self.seriesName, self.seriesIns = ("", -1)
             self.pops.dismiss()
         # TODO: add feedback for bad inputs
@@ -108,7 +108,7 @@ class SeriesButton(Button):
         nameInput = TextInput(multiline=False, size_hint_y=None, height=30, text=self.seriesName,
                               hint_text="series name")
         insInput = TextInput(multiline=False, size_hint_y=None, height=30, input_filter='int', hint_text="#")
-        if SimulateOutside.containsSeries(SimulateOutside.g_file):
+        if SimulateOutside.containsSeries(SimulateOutside.getActiveFilePath()):
             insInput.text = str(self.seriesIns)
         else:
             insInput.text = ""

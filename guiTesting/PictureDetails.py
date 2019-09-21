@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.widget import Widget
@@ -68,7 +69,6 @@ Builder.load_string('''
     BoxLayout:
         orientation: 'vertical'
         Image:
-            source: '..\pics\shinyLobster.jpg'
             allow_stretch: True
             size_hint_y: .5
         Side1Details:
@@ -299,9 +299,9 @@ class Side2Details(Adaptive_GridLayout):
 
     def setTitleValue(self, instance, p_val):
         if self.c_debug>0: print("Side2Details.setTitleValue() instance:", instance)
-        f_success = SimulateOutside.setTitle(SimulateOutside.g_file, p_val)
+        f_success = SimulateOutside.setTitle(SimulateOutside.getActiveFilePath(), p_val)
         if f_success:
-            self.c_title_value = SimulateOutside.getTitle(SimulateOutside.g_file)
+            self.c_title_value = SimulateOutside.getTitle(SimulateOutside.getActiveFilePath())
         else:
             if self.c_debug>0: print("MyTitleFrame.setValue() operation not successful")
 
@@ -323,9 +323,9 @@ class Side2Details(Adaptive_GridLayout):
 
     def setDescriptionValue(self, instance, p_val):
         # if self.c_debug>0: print("Side2Details.setDescriptionValue() instance:", instance)
-        f_success = SimulateOutside.setDesc(SimulateOutside.g_file, p_val)
+        f_success = SimulateOutside.setDesc(SimulateOutside.getActiveFilePath(), p_val)
         if f_success:
-            self.c_description_value = SimulateOutside.getDesc(SimulateOutside.g_file)
+            self.c_description_value = SimulateOutside.getDesc(SimulateOutside.getActiveFilePath())
         else:
             if self.c_debug>0: print("MyDescriptionFrame.setValue() operation not successful")
 
@@ -349,9 +349,9 @@ class Side2Details(Adaptive_GridLayout):
 
     def setSourceValue(self, instance, p_val):
         if self.c_debug>0: print("Side2Details.setSourceValue() instance:", instance)
-        f_success = SimulateOutside.setSource(SimulateOutside.g_file, p_val)
+        f_success = SimulateOutside.setSource(SimulateOutside.getActiveFilePath(), p_val)
         if f_success:
-            self.c_source_value = SimulateOutside.getSource(SimulateOutside.g_file)
+            self.c_source_value = SimulateOutside.getSource(SimulateOutside.getActiveFilePath())
         else:
             if self.c_debug>0: print("MySourceFrame.setValue() operation not successful")
     # ------------Original Date------------------
@@ -427,7 +427,36 @@ class Controller(BoxLayout):
         super(Controller, self).__init__(**kwargs)
         #this helps with the positioning as the layout scales
         self.layout_content.bind(minimum_height=self.layout_content.setter('height'))
+        self.picture = self.children[1].children[1]
+        self.prevButton = self.children[1].children[0].children[0].children[1]
+        self.nextButton = self.children[1].children[0].children[0].children[0]
+        SimulateOutside.makeActiveFile(SimulateOutside.g_picFile)
+        print("filename:", SimulateOutside.g_picFile)
+        print("path:", SimulateOutside.g_path)
+        print("prev:", SimulateOutside.g_prevFile)
+        print("next:", SimulateOutside.g_nextFile)
+        print("exists:", os.path.isfile(SimulateOutside.g_path + SimulateOutside.g_picFile))
+        self.picture.source = SimulateOutside.g_path + SimulateOutside.g_picFile
+        #print(self.picture.source)
+        #print(self.prevButton.text)
+        #print(self.nextButton.text)
+        self.prevButton.bind(on_release=self.goToPrevImage)
+        self.nextButton.bind(on_release=self.goToNextImage)
+
         #Clock.schedule_once(lambda dt: boundryScan(self, 0), timeout=4)
+
+    def goToPrevImage(self, arg):
+        if SimulateOutside.getNext() != '':
+            SimulateOutside.makeActiveFile(SimulateOutside.getPrev())
+            self.picture.source = SimulateOutside.g_path + SimulateOutside.g_picFile
+
+    def goToNextImage(self, arg):
+        if SimulateOutside.getNext() != '':
+            SimulateOutside.makeActiveFile(SimulateOutside.getNext())
+            self.picture.source = SimulateOutside.g_path + SimulateOutside.g_picFile
+
+
+
 
 class Nested2App(App):
     def build(self):
