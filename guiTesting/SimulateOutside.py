@@ -162,6 +162,7 @@ g_nextFile = ""
 g_prevFile = ""
 
 def makeActiveFile(p_filename, p_path=''):
+    print("makeActiveFile():", p_filename)
     #this is to change file we're using, and possibly the path we're using as well
     global g_path
     global g_picFile

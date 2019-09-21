@@ -8,6 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="593fa157-79e6-43a3-be20-61613341f1c1" name="Default" comment="testing user interface stuff">
+      <change afterPath="$PROJECT_DIR$/guiTesting/viewTifHelp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guiTesting/PictureView.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/PictureView.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guiTesting/SimulateOutside.py" beforeDir="false" afterPath="$PROJECT_DIR$/guiTesting/SimulateOutside.py" afterDir="false" />
@@ -24,8 +25,8 @@
       <file leaf-file-name="PictureDetails.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/guiTesting/PictureDetails.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="276" column="70" lean-forward="true" selection-start-line="276" selection-start-column="70" selection-end-line="276" selection-end-column="70" />
+            <state relative-caret-position="51">
+              <caret line="70" column="22" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="29" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
                 <element signature="e#5586#5677#0" />
@@ -49,26 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PrevNext.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/guiTesting/PrevNext.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PictureView.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/guiTesting/PictureView.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="24" lean-forward="true" selection-start-column="24" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -76,8 +62,8 @@
       <file leaf-file-name="SimulateOutside.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/guiTesting/SimulateOutside.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret lean-forward="true" />
+            <state relative-caret-position="340">
+              <caret line="160" column="15" lean-forward="true" selection-start-line="160" selection-start-column="15" selection-end-line="160" selection-end-column="15" />
               <folding>
                 <element signature="e#23#38#0" expanded="true" />
               </folding>
@@ -116,7 +102,7 @@
       <find>getEx</find>
       <find>print</find>
       <find>isVersionNum</find>
-      <find />
+      <find>keys sti</find>
       <find>isVe</find>
       <find>datetime</find>
       <find>datetime.datetime.</find>
@@ -126,7 +112,7 @@
       <find>\imgs</find>
       <find>\pics\</find>
       <find>PureWindowsPath</find>
-      <find />
+      <find>:raise UnknownFiletypeError: if the filetype cannot be found</find>
       <find>wipeTags</find>
       <find>getExtension</find>
       <find>\imgs\</find>
@@ -144,8 +130,8 @@
       <replace>KeyValManager.MetaDataVals</replace>
       <replace>KeyValManager.g_getFunctions</replace>
       <replace>g_</replace>
-      <replace />
-      <replace />
+      <replace>if getExtension(p_filename) == '.jpg' or getExtension(p_filename) == '.png' or getExtension(p_filename) == '.tiff':</replace>
+      <replace># TODO add gif support</replace>
       <replace>earlySupportCheck(p_filename)</replace>
       <replace>UnsupportedFiletypeError</replace>
       <replace>val</replace>
@@ -161,7 +147,7 @@
       <replace>g_files[</replace>
       <replace>setSource</replace>
       <replace>g_googlePics1[p_fileEntry]</replace>
-      <replace />
+      <replace>f_filename = singleClone(g_files[&quot;Makefile&quot;].fullname)</replace>
       <replace>releaseAllClones(g_clonenames)</replace>
       <replace>'.tif'</replace>
       <replace>MetadataManagerL1</replace>
@@ -227,9 +213,10 @@
         <option value="$PROJECT_DIR$/guiTesting/PathManager.py" />
         <option value="$PROJECT_DIR$/guiTesting/fileNavigationManager.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
-        <option value="$PROJECT_DIR$/guiTesting/SimulateOutside.py" />
         <option value="$PROJECT_DIR$/guiTesting/PrevNext.py" />
         <option value="$PROJECT_DIR$/guiTesting/PictureView.py" />
+        <option value="$PROJECT_DIR$/guiTesting/SimulateOutside.py" />
+        <option value="$PROJECT_DIR$/guiTesting/viewTifHelp.py" />
       </list>
     </option>
   </component>
@@ -324,7 +311,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.PictureView">
+  <component name="RunManager" selected="Python.viewTifHelp">
     <configuration name="PictureView" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tagger" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -356,24 +343,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/guiTesting/SimulateOutside.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="TaggerGuiTesting" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="tagger" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/guiTesting/PictureDetails.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -433,21 +402,39 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="viewTifHelp" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tagger" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/guiTesting" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/guiTesting/viewTifHelp.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list>
       <item itemvalue="Python.scratch_1" />
-      <item itemvalue="Python.TaggerGuiTesting" />
       <item itemvalue="Python.fileNavigationManager" />
       <item itemvalue="Python.PictureView" />
       <item itemvalue="Python.scratch" />
       <item itemvalue="Python.SimulateOutside" />
+      <item itemvalue="Python.viewTifHelp" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.viewTifHelp" />
         <item itemvalue="Python.PictureView" />
         <item itemvalue="Python.scratch" />
         <item itemvalue="Python.SimulateOutside" />
         <item itemvalue="Python.fileNavigationManager" />
-        <item itemvalue="Python.TaggerGuiTesting" />
       </list>
     </recent_temporary>
   </component>
@@ -850,7 +837,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.296875" />
@@ -1029,7 +1016,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tagger2.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
@@ -1491,33 +1477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/guiTesting/SimulateOutside.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-          <folding>
-            <element signature="e#23#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="71" selection-start-line="71" selection-end-line="75" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/guiTesting/PrevNext.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/guiTesting/RatingButton.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1538,10 +1497,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="71" selection-start-line="71" selection-end-line="75" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/PrevNext.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/SimulateOutside.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="160" column="15" lean-forward="true" selection-start-line="160" selection-start-column="15" selection-end-line="160" selection-end-column="15" />
+          <folding>
+            <element signature="e#23#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/guiTesting/PictureDetails.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="276" column="70" lean-forward="true" selection-start-line="276" selection-start-column="70" selection-end-line="276" selection-end-column="70" />
+        <state relative-caret-position="51">
+          <caret line="70" column="22" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="29" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
             <element signature="e#5586#5677#0" />
@@ -1564,13 +1550,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/guiTesting/PictureView.py">
+    <entry file="file://$PROJECT_DIR$/guiTesting/viewTifHelp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+        <state relative-caret-position="187">
+          <caret line="11" column="82" lean-forward="true" selection-start-line="11" selection-start-column="82" selection-end-line="11" selection-end-column="82" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guiTesting/PictureView.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="24" lean-forward="true" selection-start-column="24" selection-end-column="24" />
         </state>
       </provider>
     </entry>
