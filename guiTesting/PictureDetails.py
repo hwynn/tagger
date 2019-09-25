@@ -258,22 +258,32 @@ class Side1Details(Adaptive_GridLayout):
         super(Side1Details, self).__init__(**kwargs)
         self.c_debug = 0
 
-
 class Side2Details(Adaptive_GridLayout):
-    c_title_value = StringProperty('A Title goes here')
-    c_description_value = StringProperty('A Description goes here')
-    c_source_value = StringProperty('https://www.image.com/01234/samplefilename.jpg')
+    #calling these outside functions in the declarations seems to slow us down a bit.
+    #perhaps I should declae them as blank values then call an update function after the gui is built
+    c_title_value = StringProperty(SimulateOutside.getTitle(SimulateOutside.getActiveFilePath()))
+    c_description_value = StringProperty(SimulateOutside.getDesc(SimulateOutside.getActiveFilePath()))
+    c_source_value = StringProperty(SimulateOutside.getSource(SimulateOutside.getActiveFilePath()))
 
     def __init__(self, **kwargs):
         super(Side2Details, self).__init__(**kwargs)
         self.c_debug = 0
         if self.c_debug>0: print("Side2Details._init_()")
+        self.title_label = StretchingLabel()
         Clock.schedule_once(lambda dt: self.makeTitle(), timeout=0.1)
+        self.desc_label = StretchingLabel()
         Clock.schedule_once(lambda dt: self.makeDescription(), timeout=0.1)
         self.rating_widget = RatingButtons()
         Clock.schedule_once(lambda dt: self.add_widget(self.rating_widget, len(self.children) - 5), timeout=0.1)
+        self.source_label = StretchingLabel()
         Clock.schedule_once(lambda dt: self.makeSource(), timeout=0.1)
+        self.date_popup_trigger = DateEditButton(height=25)
+        self.date_label0 = ColorLabel(size_hint_y=None, height=30,
+                                     bcolor=[.7, .7, .7, 1])
         Clock.schedule_once(lambda dt: self.makeOriginalDate(), timeout=0.1)
+        self.series_popup_trigger = SeriesButton(height=25)
+        self.series_label1 = ColorLabel(size_hint_y=None, height=30, text=self.series_popup_trigger.seriesName, bcolor=[.7, .7, .7, 1])
+        self.series_label2 = ColorLabel(size_hint_y=None, height=30, bcolor=[.7, .7, .7, 1])
         Clock.schedule_once(lambda dt: self.makeSeries(), timeout=0.1)
         if self.c_debug > 1: print("Side2Details._init_() finished")
 
@@ -285,10 +295,9 @@ class Side2Details(Adaptive_GridLayout):
     def makeTitle(self):
         self.debug = 0
         if self.c_debug>0: print("Side2Details.makeTitle()")
-        c_label = StretchingLabel()
-        self.bind(pos=c_label.setter('pos'), width=c_label.setter('width'), c_title_value=c_label.setter('text'))
-        c_label.bind(tempStr=self.setTitleValue) #when the tempStr in StretchingLabel changes, setTitleValue is called
-        self.add_widget(c_label, len(self.children) - 1)
+        self.bind(pos=self.title_label.setter('pos'), width=self.title_label.setter('width'), c_title_value=self.title_label.setter('text'))
+        self.title_label.bind(tempStr=self.setTitleValue) #when the tempStr in StretchingLabel changes, setTitleValue is called
+        self.add_widget(self.title_label, len(self.children) - 1)
         Clock.schedule_once(lambda dt: self.chg_title_text(), 0.5)
         # self.trigger_refresh_y_dimension()
 
@@ -298,21 +307,33 @@ class Side2Details(Adaptive_GridLayout):
         self.property('c_title_value').dispatch(self)
 
     def setTitleValue(self, instance, p_val):
+        #this triggers a change in the value of the title via an outside script,
+        # then updates the GUI to show that value
         if self.c_debug>0: print("Side2Details.setTitleValue() instance:", instance)
-        f_success = SimulateOutside.setTitle(SimulateOutside.getActiveFilePath(), p_val)
+        f_success = SimulateOutside.setTitle(SimulateOutside.getActiveFilePath(), p_val.strip())
         if f_success:
-            self.c_title_value = SimulateOutside.getTitle(SimulateOutside.getActiveFilePath())
+            f_val = SimulateOutside.getTitle(SimulateOutside.getActiveFilePath())
+            if f_val == "":
+                f_val = " "
+            self.c_title_value = f_val
         else:
             if self.c_debug>0: print("MyTitleFrame.setValue() operation not successful")
+
+    def refreshTitleValue(self):
+        print("Side2Details.refreshTitleValue()")
+        f_val = SimulateOutside.getTitle(SimulateOutside.getActiveFilePath())
+        if f_val == "":
+            f_val = " "
+        self.c_title_value = f_val
+        self.c_title_value = SimulateOutside.getTitle(SimulateOutside.getActiveFilePath())
 
     # ------------Description------------------
     def makeDescription(self):
         self.debug = 0
         if self.c_debug>0: print("Side2Details.makeDescription()")
-        c_label = StretchingLabel()
-        self.bind(pos=c_label.setter('pos'), width=c_label.setter('width'), c_description_value=c_label.setter('text'))
-        c_label.bind(tempStr=self.setDescriptionValue)
-        self.add_widget(c_label, len(self.children) - 3)
+        self.bind(pos=self.desc_label.setter('pos'), width=self.desc_label.setter('width'), c_description_value=self.desc_label.setter('text'))
+        self.desc_label.bind(tempStr=self.setDescriptionValue)
+        self.add_widget(self.desc_label, len(self.children) - 3)
         Clock.schedule_once(lambda dt: self.chg_description_text(), 0.5)
         # self.trigger_refresh_y_dimension()
 
@@ -322,12 +343,25 @@ class Side2Details(Adaptive_GridLayout):
         self.property('c_description_value').dispatch(self)
 
     def setDescriptionValue(self, instance, p_val):
-        # if self.c_debug>0: print("Side2Details.setDescriptionValue() instance:", instance)
-        f_success = SimulateOutside.setDesc(SimulateOutside.getActiveFilePath(), p_val)
+        #this triggers a change in the value of the description via an outside script,
+        # then updates the GUI to show that value
+        if self.c_debug>0: print("Side2Details.setDescriptionValue() instance:", instance)
+        f_success = SimulateOutside.setDesc(SimulateOutside.getActiveFilePath(), p_val.strip())
         if f_success:
-            self.c_description_value = SimulateOutside.getDesc(SimulateOutside.getActiveFilePath())
+            f_val = SimulateOutside.getDesc(SimulateOutside.getActiveFilePath())
+            if f_val == "":
+                f_val = " "
+            self.c_description_value = f_val
         else:
             if self.c_debug>0: print("MyDescriptionFrame.setValue() operation not successful")
+
+    def refreshDescriptionValue(self):
+        print("Side2Details.refreshDescriptionValue()")
+        f_val = SimulateOutside.getDesc(SimulateOutside.getActiveFilePath())
+        if f_val == "":
+            f_val = " "
+        self.c_description_value = f_val
+        self.c_description_value = SimulateOutside.getDesc(SimulateOutside.getActiveFilePath())
 
     # ------------Rating------------------
     #   outside file used
@@ -335,10 +369,9 @@ class Side2Details(Adaptive_GridLayout):
     def makeSource(self):
         self.debug = 2
         if self.c_debug>0: print("Side2Details.makeSource()")
-        c_label = StretchingLabel()
-        self.bind(pos=c_label.setter('pos'), width=c_label.setter('width'), c_source_value=c_label.setter('text'))
-        c_label.bind(tempStr=self.setSourceValue)
-        self.add_widget(c_label, len(self.children) - 7)
+        self.bind(pos=self.source_label.setter('pos'), width=self.source_label.setter('width'), c_source_value=self.source_label.setter('text'))
+        self.source_label.bind(tempStr=self.setSourceValue)
+        self.add_widget(self.source_label, len(self.children) - 7)
         Clock.schedule_once(lambda dt: self.chg_source_text(), 0.5)
         # self.trigger_refresh_y_dimension()
 
@@ -348,25 +381,37 @@ class Side2Details(Adaptive_GridLayout):
         self.property('c_source_value').dispatch(self)
 
     def setSourceValue(self, instance, p_val):
+        #this triggers a change in the value of the source via an outside script,
+        # then updates the GUI to show that value
         if self.c_debug>0: print("Side2Details.setSourceValue() instance:", instance)
-        f_success = SimulateOutside.setSource(SimulateOutside.getActiveFilePath(), p_val)
+        f_success = SimulateOutside.setSource(SimulateOutside.getActiveFilePath(), p_val.strip())
         if f_success:
-            self.c_source_value = SimulateOutside.getSource(SimulateOutside.getActiveFilePath())
+            f_val = SimulateOutside.getSource(SimulateOutside.getActiveFilePath())
+            if f_val == "":
+                f_val = " "
+            self.c_source_value = f_val
         else:
             if self.c_debug>0: print("MySourceFrame.setValue() operation not successful")
+
+    def refreshSourceValue(self):
+        print("Side2Details.refreshSourceValue()")
+        f_val = SimulateOutside.getSource(SimulateOutside.getActiveFilePath())
+        if f_val == "":
+            f_val = " "
+        self.c_source_value = f_val
+        self.c_source_value = SimulateOutside.getSource(SimulateOutside.getActiveFilePath())
+
     # ------------Original Date------------------
     def makeOriginalDate(self):
-        popup_trigger = DateEditButton(height=25)
-        self.date_label0 = ColorLabel(size_hint_y=None, height=30,
-                                     bcolor=[.7, .7, .7, 1])
-        if popup_trigger.hasDate:
-            self.date_label0.text = str(datetime.strptime(popup_trigger.ISODateString, "%Y-%m-%dT%H:%M:%S"))
+
+        if self.date_popup_trigger.hasDate:
+            self.date_label0.text = str(datetime.strptime(self.date_popup_trigger.ISODateString, "%Y-%m-%dT%H:%M:%S"))
         else:
             self.date_label0.text = "No date given"
         # this detects changes in the series values and calls changes to the user interface be made
-        popup_trigger.bind(ISODateString=self.update_date)
+        self.date_popup_trigger.bind(ISODateString=self.update_date)
         self.add_widget(self.date_label0, len(self.children) - 9)
-        self.add_widget(popup_trigger, len(self.children) - 10)
+        self.add_widget(self.date_popup_trigger, len(self.children) - 10)
 
     def update_date(self, instance, value):
         # this function updates the installment number shown on the user interface whenever the value changes
@@ -374,19 +419,17 @@ class Side2Details(Adaptive_GridLayout):
     # ------------Series------------------
     def makeSeries(self):
         # this is for series data, in case someone has pictures that are viewed in a sequence like comics
-        popup_trigger = SeriesButton(height=25)
-        self.series_label1 = ColorLabel(size_hint_y=None, height=30, text=popup_trigger.seriesName, bcolor=[.7, .7, .7, 1])
-        self.series_label2 = ColorLabel(size_hint_y=None, height=30, bcolor=[.7, .7, .7, 1])
-        if popup_trigger.seriesIns==-1:
+
+        if self.series_popup_trigger.seriesIns==-1:
             self.series_label2.text = ""
         else:
-            self.series_label2.text='# '+str(popup_trigger.seriesIns)
+            self.series_label2.text='# '+str(self.series_popup_trigger.seriesIns)
         # this detects changes in the series values and calls changes to the user interface be made
-        popup_trigger.bind(seriesName=self.series_label1.setter('text'))
-        popup_trigger.bind(seriesIns=self.update_installment)
+        self.series_popup_trigger.bind(seriesName=self.series_label1.setter('text'))
+        self.series_popup_trigger.bind(seriesIns=self.update_installment)
         self.add_widget(self.series_label1, len(self.children) - 12)
         self.add_widget(self.series_label2, len(self.children) - 13)
-        self.add_widget(popup_trigger, len(self.children) - 14)
+        self.add_widget(self.series_popup_trigger, len(self.children) - 14)
 
     def update_installment(self, instance, value):
         # this function updates the installment number shown on the user interface whenever the value changes
@@ -427,21 +470,45 @@ class Controller(BoxLayout):
         super(Controller, self).__init__(**kwargs)
         #this helps with the positioning as the layout scales
         self.layout_content.bind(minimum_height=self.layout_content.setter('height'))
+        
         self.picture = self.children[1].children[1]
         self.prevButton = self.children[1].children[0].children[0].children[1]
         self.nextButton = self.children[1].children[0].children[0].children[0]
+        self.sidepanel2 = self.children[0].children[0]
+        print(self.sidepanel2)
+        print(self.sidepanel2.rating_widget)
+
+        print(self.sidepanel2.title_label)
+        print(self.sidepanel2.desc_label)
+        print(self.sidepanel2.rating_widget)
+        print(self.sidepanel2.source_label)
+        print(self.sidepanel2.date_popup_trigger)
+        print(self.sidepanel2.date_label0)
+        print(self.sidepanel2.series_popup_trigger)
+        print(self.sidepanel2.series_label1)
+        print(self.sidepanel2.series_label2)
+
+        self.artistlist = self.children[1].children[0].children[1]
+        self.taglist = self.children[1].children[0].children[3]
+
         SimulateOutside.makeActiveFile(SimulateOutside.g_picFile)
-        print("filename:", SimulateOutside.g_picFile)
-        print("path:", SimulateOutside.g_path)
-        print("prev:", SimulateOutside.g_prevFile)
-        print("next:", SimulateOutside.g_nextFile)
-        print("exists:", os.path.isfile(SimulateOutside.g_path + SimulateOutside.g_picFile))
+        #print("filename:", SimulateOutside.g_picFile)
+        #print("path:", SimulateOutside.g_path)
+        #print("prev:", SimulateOutside.g_prevFile)
+        #print("next:", SimulateOutside.g_nextFile)
+        #print("exists:", os.path.isfile(SimulateOutside.g_path + SimulateOutside.g_picFile))
+
+
         self.picture.source = SimulateOutside.g_path + SimulateOutside.g_picFile
         #print(self.picture.source)
         #print(self.prevButton.text)
         #print(self.nextButton.text)
         self.prevButton.bind(on_release=self.goToPrevImage)
         self.nextButton.bind(on_release=self.goToNextImage)
+        Clock.schedule_once(lambda dt: self.sidepanel2.refreshTitleValue(), timeout=4)
+        Clock.schedule_once(lambda dt: self.sidepanel2.refreshDescriptionValue(), timeout=4)
+
+
 
         #Clock.schedule_once(lambda dt: boundryScan(self, 0), timeout=4)
 
@@ -454,9 +521,6 @@ class Controller(BoxLayout):
         if SimulateOutside.getNext() != '':
             SimulateOutside.makeActiveFile(SimulateOutside.getNext())
             self.picture.source = SimulateOutside.g_path + SimulateOutside.g_picFile
-
-
-
 
 class Nested2App(App):
     def build(self):

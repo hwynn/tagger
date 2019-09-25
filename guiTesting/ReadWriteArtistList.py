@@ -77,6 +77,11 @@ class ReadWriteArtistList(StackLayout):
             self.dynamic_ids[i_id] = i_newArtist
             i_newArtist.children[0].children[0].bind(on_release=self.delayedClose)
 
+    def wipeArtistList(self):
+        #this just cleans the gui of artists. It doesn't actually edit any data
+        for item in self.dynamic_ids:
+            print("wipeArtistList():", item)
+
     def addNewArtist(self, p_arg):
         f_id = "Tag:"+p_arg
         f_newArtist = DynamicTag(id=f_id,
